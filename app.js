@@ -472,7 +472,7 @@ function kwLine(k){ return Object.entries(k).map(([x,v])=>KW[x].n+(KWP[x]?' '+v*
 function kwLong(k){ return Object.entries(k).map(([x,v])=>`<b>${KW[x].n}${KWP[x]?' '+v*KWP[x]+' %':''}:</b> ${KW[x].d(v)}`); }
 function skinOn(id){ const v=S.skinOn[id]|0; return ownSkins(id).includes(v)?v:0; }
 function cardHTML(c,cls){
-  const d=CARD[c.id], lvl=c.lvl||1, star=c.star||1, st=stats(c.id,lvl,star), a=c.a??st.a, h=c.h??st.h, mh=c.mh??st.h, k=c.k||d.k, kw=kwLine(k), sk=c.skin??skinOn(c.id), src=skinSrc(c.id,sk);
+  const d=CARD[c.id], lvl=c.lvl||1, star=c.star||1, st=stats(c.id,lvl,star), a=c.a??st.a, h=c.h??st.h, mh=c.mh??st.h, k=c.k||kwOf(c.id,star), kw=kwLine(k), sk=c.skin??skinOn(c.id), src=skinSrc(c.id,sk);
   return `<span class="card r${d.r}${sk?' sp':''} ${cls||''}" style="--art:url(${src});--ec:${CCOL[d.cat][1]}"><span class="frm"></span><img class="elc" src="bilder/items/${d.cat}-1.png" alt="" title="${CATS[d.cat]}">${sk?'<span class="glint"></span>':''}<span class="setb" style="--fc:${SCOL(d.set)}" title="Set ${SETS[d.set].n}">${SETS[d.set].l}</span><span class="lvl">${lvl}</span><span class="plate"><span class="stc">${'★'.repeat(star)}</span><b class="nm">${d.n}</b>${kw?`<span class="kw">${kw}</span>`:''}</span><span class="atk${a>st.a?' up':''}">${a}</span><span class="rarl">${RAR[d.r]}</span><span class="hp${h<mh?' hurt':''}">${Math.max(0,h)}</span></span>`;
 }
 function itemIcon(cat,q,size){ const z=Math.round((size||22)*1.25); return `<img class="itm" src="bilder/items/${cat}-${q}.png" width="${z}" height="${z}" alt="">`; }
@@ -572,9 +572,11 @@ function filterHTML(){
   return `<p class="flabel">Kategorie</p><div class="chips"><button class="chip" data-act="fcat" data-id="alle" aria-pressed="${fCat==='alle'}">Alle</button>${Object.keys(CATS).map(c=>`<button class="chip" data-act="fcat" data-id="${c}" aria-pressed="${fCat===c}" style="--fc:${CCOL[c][1]}"><i></i>${CATS[c]}</button>`).join('')}</div>
   <p class="flabel">Set</p><div class="setrow"><button class="chip" data-act="fset" data-id="alle" aria-pressed="${fSet==='alle'}">Alle</button>${knownSets().map(x=>setChip(x,fSet===x,'fset')).join('')}</div>`;
 }
-function power(id){ const o=S.cards[id], st=stats(id,o.lvl,o.star); return st.a+st.h; }
+/* Stärke zum Sortieren: Angriff + Leben + Wert der freigeschalteten Fähigkeiten. Tanks stehen so genauso weit vorne wie Angreifer. */
+const KW_VAL={flug:110,durchbruch:50,einschlag:45,schild:70,heilung:45,segen:60,wut:50,rache:35,anfuehrer:60};
+function power(id){ const o=S.cards[id], st=stats(id,o.lvl,o.star), k=kwOf(id,o.star); return st.a+st.h+Object.entries(k).reduce((x,[kk,v])=>x+KW_VAL[kk]*(KW[kk].v?v:1),0)*mult(o.star,o.lvl,CARD[id].r); }
 function viewDeck(){
-  const dk=deck();
+  const dk=deck().slice().sort((a,b)=>power(b)-power(a));
   let h=`<section><div class="chips">${[0,1,2].map(i=>`<button class="chip" data-act="deckSlot" data-id="${i}" aria-pressed="${S.di===i}">Deck ${i+1}</button>`).join('')}</div>
   <div class="sec-h"><h2>Deck ${S.di+1}</h2><span class="count">${dk.length}/${DECK_MAX} Karten</span></div>
   <p class="muted">${DECK_MIN} bis ${DECK_MAX} Karten, jede nur einmal. Drei starten auf dem Feld, der Rest liegt gemischt im Ziehstapel. Tippe eine Karte an, um sie zu leveln oder zu verbessern.</p><div class="grid g4">`;
@@ -679,7 +681,7 @@ function sheetRival(seed){
   <div class="row-btns"><button class="btn" data-act="close">Zurück</button><button class="btn primary" data-act="duel" data-id="${r.s}">Duell starten</button></div>`);
 }
 function sheetCard(id){
-  const d=CARD[id], o=S.cards[id]; if(!o) return; const kws=kwLong(d.k), inD=deck().includes(id), full=deck().length>=DECK_MAX, cap=o.star*5, now=stats(id,o.lvl,o.star), have=S.items[d.cat][d.r], iname=itemName(d.cat,d.r);
+  const d=CARD[id], o=S.cards[id]; if(!o) return; const kws=kwLong(kwOf(id,o.star)), inD=deck().includes(id), full=deck().length>=DECK_MAX, cap=o.star*5, now=stats(id,o.lvl,o.star), have=S.items[d.cat][d.r], iname=itemName(d.cat,d.r);
   let act='';
   if(o.lvl<cap){ const c=lvlCost(o.lvl), nx=stats(id,o.lvl+1,o.star), mi=Math.max(0,c.n-have), mg=Math.max(0,c.g-S.gold);
     act=`<button class="btn primary block" data-act="levelUp" data-id="${id}" ${canLevel(id)?'':'disabled'}>${canLevel(id)?`Auf Level ${o.lvl+1} · ${c.n} ${iname} · ${fmt(c.g)} Gold`:`Level ${o.lvl+1}: es fehlen ${[mi?mi+' '+iname:'',mg?fmt(mg)+' Gold':''].filter(Boolean).join(' und ')}`}</button><p class="muted center">Danach ${nx.a} Angriff · ${nx.h} Leben</p>`; }
@@ -708,7 +710,7 @@ function drawReveal(){
   if(!LQ.flipped){ openSheet(`${head}<h2 class="center">Karte ${LQ.ki+1} von ${res.cards.length}</h2><button class="big-back${rar>=1?' glow g'+rar:''}" data-act="lootFlip" aria-label="Karte umdrehen"><span class="back"></span></button><p class="muted center">Tippe auf die Karte, um sie umzudrehen.</p>`,true); return; }
   if(x.t!=='kreatur'){ openSheet(`${head}<div class="reveal"><div class="big"><div class="flip"><div class="fi"><div class="ff">${lootCardHTML(x)}</div><div class="fb"><span class="back"></span></div></div></div></div>
     <p class="lt neu">${lootLabel(x)}</p><h2>${lootTitle(x)}</h2><p class="muted">${lootText(x)}</p></div><button class="btn primary block" data-act="lootNext">Weiter</button>`,true); return; }
-  const d=CARD[x.id], o=S.cards[x.id], kws=kwLong(d.k);
+  const d=CARD[x.id], o=S.cards[x.id], kws=kwLong(kwOf(x.id,o.star));
   openSheet(`${head}<div class="reveal r${d.r}"><div class="big"><div class="flip"><div class="fi"><div class="ff">${cardHTML({id:x.id,lvl:o.lvl,star:o.star,skin:x.skin||undefined})}</div><div class="fb"><span class="back"></span></div></div></div></div>
   <p class="lt ${x.skin?'sp':x.kind}">${kindLabel(x)}${x.skin?' · mit Sondermotiv!':''}</p><h2>${d.n}</h2><p class="meta">${CATS[d.cat]} · Set ${SETS[d.set].n} · ${RAR[d.r]}${!isUnlocked(x.id)?' · noch nicht freigeschaltet':''}</p>
   <p class="lore">„${LORE[d.id]}“</p>${kws.length?`<ul class="gloss">${kws.map(k=>`<li>${k}</li>`).join('')}</ul>`:''}<p class="meta">${elLine(d.cat)}</p></div>
@@ -840,7 +842,7 @@ async function runBattle(id){
 function startBattle(c){
   if(deck().length<DECK_MIN){ toast(`Dein Deck braucht mindestens ${DECK_MIN} Karten.`); tab='deck'; render(); return; }
   closeSheet(); ctx=c; result=null; infoCard=null; narr=''; skip=false; forfeit=false;
-  B= c.mode==='arena' ? newBattle(deckObjs(),rivalDeck(c.rival),P_HP) : newBattle(deckObjs(),stageDeck(c.stage,c.hero),stageHp(c.stage,c.hero));
+  B= c.mode==='arena' ? newBattle(deckObjs(),rivalDeck(c.rival)) : newBattle(deckObjs(),stageDeck(c.stage,c.hero),stageHp(c.stage,c.hero));
   $('#battle').hidden=false; battleShell(); renderBattle();
   music(c.mode==='kampagne'&&c.stage.boss?'endgegner':'kampf',true);
   runBattle(++battleId);

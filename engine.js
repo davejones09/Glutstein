@@ -2,6 +2,9 @@
 /* ====== Spielregeln und Daten. Dieser Block kennt kein DOM und lässt sich einzeln testen. ====== */
 const P_HP=2000, MAXLVL=25, MAXSTAR=5, DECK_MIN=3, DECK_MAX=8, LANES=3, FATIGUE_FROM=15, FATIGUE_DMG=150;
 const STAR_PCT=.25, LVL_PCT=.04;
+/* Grundbudget je Seltenheit, Wachstum pro Level je Seltenheit, Sterne ab denen Fähigkeiten wirken. */
+const RAR_BASE=[600,680,760,840], LVL_PCT_R=[.03,.04,.05,.06], KW_STAR=[5,3,1,1];
+function hashS(s){ let h=2166136261; for(let i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619); } return h>>>0; }
 /* Kategorien (Elemente): Wasser schlägt Feuer, Feuer schlägt Erde, Erde schlägt Wasser, Licht und Schatten schlagen sich gegenseitig. */
 const CATS={feuer:'Feuer',wasser:'Wasser',erde:'Erde',schatten:'Schatten',licht:'Licht'};
 const STRONG={wasser:'feuer',feuer:'erde',erde:'wasser',licht:'schatten',schatten:'licht'};
@@ -45,11 +48,11 @@ const SET_BONUS={
 };
 /* Setboni als Daten. Stufe 1 ab 3 Karten, Stufe 2 ab 6 (zusätzlich). Kartenwerte gelten für Karten des Sets, Seitenwerte für die ganze Seite. */
 const SET_FX={
-  glut:[{atk:.1},{kw:{einschlag:1}}], flut:[{heroHp:.2},{kw:{schild:1}}], hain:[{hp:.1},{kw:{heilung:1}}],
-  nacht:[{kw:{rache:1}},{atk:.1}], sonne:[{kw:{heilung:1}},{heroRegen:.05}],
-  abyss:[{hp:.1,atk:.1},{kw:{heilung:5/8}}], schmiede:[{kw:{schild:2/3}},{atk1:.25}], mangrove:[{atk:.1,hp:.1},{grow:.05}],
+  glut:[{atk:.05},{kw:{einschlag:1}}], flut:[{heroHp:.2},{kw:{schild:1}}], hain:[{hp:.1,atk:.1},{kw:{heilung:1}}],
+  nacht:[{kw:{rache:1},atk:.1,hp:.1},{atk:.1,hp:.1}], sonne:[{kw:{heilung:1},hp:.1,atk:.1},{heroRegen:.05,atk:.1}],
+  abyss:[{hp:.1,atk:.1},{kw:{heilung:5/8}}], schmiede:[{kw:{schild:1/3}},{atk1:.25}], mangrove:[{atk:.1,hp:.1},{grow:.05}],
   daemmerung:[{atk:.1,hp:.1},{elem:1.75}], totenwald:[{curse:.04},{revive:.4}], kristall:[{dr1:.2,hp:.1,atk:.1},{mend:.15}],
-  erwachen:[{fear:.15},{scare:.2}], luft:[{flyHero:.25},{dr1:.2}], raeder:[{hp:.1,atk:.1},{kw:{heilung:.5}}]
+  erwachen:[{fear:.15},{scare:.2}], luft:[{flyHero:.5,hp:.1,atk:.1},{dr1:.2,atk:.1}], raeder:[{hp:.1,atk:.1},{kw:{heilung:.5}}]
 };
 const SIDE_FX=['heroHp','heroRegen','curse','revive','mend','fear'];
 const RAR=['Bronze','Silber','Gold','Diamant'], RAR_DESC=['gewöhnlich','ungewöhnlich','selten','sehr selten'];
@@ -155,11 +158,13 @@ const BASE=[
  ['dampfritter','Dampfritter','raeder',2,5,7,{schild:1},'feuer'],
  ['messingkoloss','Der Messingkoloss','raeder',3,5,10,{schild:2},'erde']
 ].map(([id,n,set,r,a0,h0,k,cat])=>{
-  const KWC={flug:110,durchbruch:50,einschlag:45,schild:70,heilung:45,segen:60,wut:50,rache:35,anfuehrer:60};
-  const T=[600,800,1050,1350][r]-Object.entries(k).reduce((x,[kk,v])=>x+KWC[kk]*(KW[kk].v?v:1),0)*.6;
-  const a=Math.round(T*a0/(a0+h0)/10)*10, h=Math.round((T-a)/10)*10;
+  /* Grundwerte je Seltenheit liegen eng beieinander. Jede Karte hat ihr eigenes Verhältnis von Angriff zu Leben (30–70 %). */
+  const x=hashS(id), u=(x%1000)/1000, T=Math.round(RAR_BASE[r]*(1+((x>>10)%7-3)/100)/10)*10;
+  const share=Math.min(.7,Math.max(.3,.45*a0/(a0+h0)+.55*(.3+.4*u))), a=Math.round(T*share/10)*10, h=T-a;
   return {id,n,set,cat:cat||SETS[set].cat,r,a,h,k};
 });
+/* Fähigkeiten wachsen mit: Bronze erst mit 5 Sternen, Silber ab 3 Sternen, Gold und Diamant von Anfang an. Vorher stehen sie nicht auf der Karte. */
+function kwOf(id,star){ const c=CARD[id]; return (star||1)>=KW_STAR[c.r]?c.k:{}; }
 const CARD={}; BASE.forEach(c=>CARD[c.id]=c);
 const STARTER=['funkenwicht','tuempelgeist','moosling','irrlicht','nachtfalter'];
 
@@ -182,9 +187,9 @@ const UNLOCK_SLOTS=[1,4,7]; /* Gefecht 2, 5 und 8 eines Gebiets schalten je eine
 /* Höchste Seltenheit der Gegnerkarten je Gebiet und Gefecht. Gebiet I bleibt leicht, damit man Gold für Truhen sammelt. */
 const RMAX=[[0,0,0,0,0,0,0,0],[0,0,0,1,1,1,2,1],[0,0,1,1,1,2,2,1],[0,0,0,1,1,1,1,1],[0,0,1,1,1,2,2,1]];
 /* Level der Gegnerkarten: Gebiet I bei 1, danach steigt es deutlich. Der Wurzelwald ist bewusst stärker, weil Feuerdecks dort Vorteil haben. */
-const AREA_LVL=[[1,1,2,2,2,3,3,5],[3,4,4,5,5,5,4,6],[9,10,10,10,10,11,10,10],[10,11,11,11,10,10,9,9],[13,14,15,15,16,16,15,14]];
+const AREA_LVL=[[1,1,2,3,3,4,4,5],[4,4,5,5,5,6,5,8],[8,9,9,9,8,8,8,9],[11,10,12,12,14,14,15,16],[14,14,15,15,15,15,14,17]];
 /* Kartenzahl der Gegner. Der Wurzelwald kommt mit vollen Decks, damit Feuer dort kein Selbstläufer ist. */
-const AREA_SIZE=[[3,3,3,4,4,4,5,4],[3,4,4,5,5,5,5,6],[5,6,6,7,7,8,8,8],[4,4,5,5,5,6,6,6],[4,5,5,6,6,7,7,8]];
+const AREA_SIZE=[[3,3,3,4,4,4,5,6],[3,4,4,5,5,5,5,6],[5,6,6,7,7,8,8,8],[6,6,7,7,8,8,8,6],[4,5,5,6,6,7,7,6]];
 const STAGES=STAGE_NAMES.map((n,k)=>{
   const a=Math.floor(k/8), i=k%8, boss=i===7, A=AREAS[a], u=UNLOCK_SLOTS.indexOf(i), lvl=AREA_LVL[a][i];
   return {id:k+1,area:a,i,n,boss,set:A.set,cat:SETS[A.set].cat,unlock:u>=0?A.unl[u]:'',weak:k<4,
@@ -207,8 +212,8 @@ function stageHp(st,hero){ return hero?Math.round(st.hp*2/10)*10:st.hp; }
 const LEAGUES=[{n:'Aschenliga',lo:0},{n:'Kupferliga',lo:150},{n:'Silberliga',lo:400},{n:'Goldliga',lo:750},{n:'Glutliga',lo:1200}];
 function leagueOf(t){ let i=0; LEAGUES.forEach((L,k)=>{ if(t>=L.lo) i=k; }); return i; }
 /* Stärke: +25 % pro Stern über dem ersten, +4 % pro Level über dem ersten. */
-function mult(star,lvl){ return 1+STAR_PCT*((star||1)-1)+LVL_PCT*((lvl||1)-1); }
-function stats(id,lvl,star){ const c=CARD[id], m=mult(star,lvl); return {a:Math.round(c.a*m),h:Math.round(c.h*m)}; }
+function mult(star,lvl,r){ return 1+STAR_PCT*((star||1)-1)+(r==null?LVL_PCT:LVL_PCT_R[r])*((lvl||1)-1); }
+function stats(id,lvl,star){ const c=CARD[id], m=mult(star,lvl,c.r); return {a:Math.round(c.a*m),h:Math.round(c.h*m)}; }
 function strongVs(att,def){ return !!att&&!!def&&STRONG[att.cat]===def.cat; }
 function strongMult(att){ return (att&&att.fx&&att.fx.elem)||STRONG_MULT; }
 function boosted(att,def,d){ return strongVs(att,def)?Math.ceil(d*strongMult(att)):d; }
@@ -218,7 +223,7 @@ function setCounts(ids){ const seen={}; ids.forEach(id=>{ const s=CARD[id].set; 
 let UID=1;
 function fxOf(set,lv){ const out={}; (SET_FX[set]||[]).slice(0,lv).forEach(f=>{ for(const x in f){ if(x==='kw'){ out.kw=out.kw||{}; for(const y in f.kw) out.kw[y]=(out.kw[y]||0)+f.kw[y]; } else out[x]=(out[x]||0)+f[x]; } }); return out; }
 function inst(d,bon){
-  const c=CARD[d.id], s=stats(d.id,d.lvl||1,d.star||1), k=Object.assign({},c.k), f=fxOf(c.set,bon[c.set]||0), fx={};
+  const c=CARD[d.id], s=stats(d.id,d.lvl||1,d.star||1), k=Object.assign({},kwOf(d.id,d.star)), f=fxOf(c.set,bon[c.set]||0), fx={};
   let a=s.a, h=s.h;
   if(d.weak){ a=Math.round(a*.7); h=Math.round(h*.7); }
   if(f.atk) a=Math.round(a*(1+f.atk)); if(f.hp) h=Math.round(h*(1+f.hp));
@@ -235,9 +240,11 @@ function mkSide(hp,deck,rnd){
 }
 /* Schaden einer angreifenden Karte in Runde 1: eigener Schmiede-Bonus, gegnerisches Grauen. */
 function outMult(B,s,c){ if(B.round!==1) return 1; return (1+((c.fx&&c.fx.atk1)||0))*(1-(B[other(s)].fear||0)); }
+function heroHp(deck){ const n=deck.length||1, st=deck.reduce((x,d)=>x+(d.star||1),0)/n, lv=deck.reduce((x,d)=>x+(d.lvl||1),0)/n; return Math.round(P_HP*mult(st,lv)/10)*10; }
 function newBattle(pDeck,oppDeck,oppHp,rnd){
   rnd=rnd||Math.random;
-  const B={round:0,over:null,rnd,p:mkSide(P_HP,pDeck,rnd),e:mkSide(oppHp,oppDeck,rnd)};
+  /* Das Heldenleben wächst mit dem Deck (Durchschnitt aus Sternen und Level), sonst würden Flug und Rache auf hohem Level alles entscheiden. Ohne Angabe gilt das auch für den Gegner. */
+  const B={round:0,over:null,rnd,p:mkSide(heroHp(pDeck),pDeck,rnd),e:mkSide(oppHp||heroHp(oppDeck),oppDeck,rnd)};
   for(let l=0;l<LANES;l++){ refill(B,'p',l,[]); refill(B,'e',l,[]); }
   return B;
 }
