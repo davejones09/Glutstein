@@ -893,5 +893,11 @@ function start(data){
   S=data&&data.save?sane(data.save):load(); tab=(data&&data.tab)||'map'; wantLoop=tabMusic();
   applyTheme(); render(); persist();
 }
+/* Web-App: Offline-Speicher anmelden (nur auf der eigenen Seite, nicht eingebettet). Neue Version: Hinweis zum Neuladen, damit kein Kampf abbricht. */
+if('serviceWorker' in navigator&&window.top===window&&/^https?:$/.test(location.protocol)&&!/claude/.test(location.hostname)){
+  const had=!!navigator.serviceWorker.controller;
+  navigator.serviceWorker.register('sw.js').catch(()=>{});
+  navigator.serviceWorker.addEventListener('controllerchange',()=>{ if(!had||document.querySelector('.newver')) return; const b=document.createElement('button'); b.className='newver'; b.textContent='Neue Version da · Tippen zum Laden'; b.onclick=()=>location.reload(); document.body.appendChild(b); });
+}
 window.claude?.hot?.snapshot?.(()=>({save:S,tab}));
 if(window.claude?.hot?.ready) window.claude.hot.ready(start); else start(window.claude?.hot?.data??{});
