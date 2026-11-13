@@ -187,12 +187,12 @@ const UNLOCK_SLOTS=[1,4,7]; /* Gefecht 2, 5 und 8 eines Gebiets schalten je eine
 /* Höchste Seltenheit der Gegnerkarten je Gebiet und Gefecht. Gebiet I bleibt leicht, damit man Gold für Truhen sammelt. */
 const RMAX=[[0,0,0,0,0,0,0,0],[0,0,0,1,1,1,2,1],[0,0,1,1,1,2,2,1],[0,0,0,1,1,1,1,1],[0,0,1,1,1,2,2,1]];
 /* Level der Gegnerkarten: Gebiet I bei 1, danach steigt es deutlich. Der Wurzelwald ist bewusst stärker, weil Feuerdecks dort Vorteil haben. */
-const AREA_LVL=[[1,1,2,3,3,4,4,5],[4,4,5,5,5,6,5,8],[8,9,9,9,8,8,8,9],[11,10,12,12,14,14,15,16],[14,14,15,15,15,15,14,17]];
+const AREA_LVL=[[1,2,2,3,4,5,5,5],[5,5,5,5,5,6,5,8],[9,9,10,10,9,9,9,9],[12,10,12,13,14,14,15,16],[15,15,16,15,16,15,15,17]];
 /* Kartenzahl der Gegner. Der Wurzelwald kommt mit vollen Decks, damit Feuer dort kein Selbstläufer ist. */
-const AREA_SIZE=[[3,3,3,4,4,4,5,6],[3,4,4,5,5,5,5,6],[5,6,6,7,7,8,8,8],[6,6,7,7,8,8,8,6],[4,5,5,6,6,7,7,6]];
+const AREA_SIZE=[[3,3,4,4,4,5,5,6],[3,4,4,5,5,5,5,6],[5,6,6,7,7,8,8,8],[6,6,7,7,8,8,8,6],[4,5,5,6,6,7,7,6]];
 const STAGES=STAGE_NAMES.map((n,k)=>{
   const a=Math.floor(k/8), i=k%8, boss=i===7, A=AREAS[a], u=UNLOCK_SLOTS.indexOf(i), lvl=AREA_LVL[a][i];
-  return {id:k+1,area:a,i,n,boss,set:A.set,cat:SETS[A.set].cat,unlock:u>=0?A.unl[u]:'',weak:k<4,
+  return {id:k+1,area:a,i,n,boss,set:A.set,cat:SETS[A.set].cat,unlock:u>=0?A.unl[u]:'',weak:k<2,
     size:AREA_SIZE[a][i], rmax:RMAX[a][i], top:boss?(a===0||a===3?2:3):-1,
     lvl, star:Math.min(MAXSTAR,Math.ceil(lvl/5)), hp:Math.round((800+i*60+(boss?400:0))*mult(Math.min(MAXSTAR,Math.ceil(lvl/5)),lvl)/10)*10,
     gold:boss?150+a*75:40+a*20+i*5};

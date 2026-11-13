@@ -32,8 +32,8 @@ const ITEM_PRE={feuer:'Glut',wasser:'Gischt',erde:'Wurzel',schatten:'Nacht',lich
 function itemName(cat,q){ return ITEM_PRE[cat]+ITEM_Q[q]; }
 const SKIP_CHANCE={holz:.05,silber:.1,gold:.2};
 /* Spielerlevel: Erfahrung aus Kämpfen und Tagesaufgaben. Höheres Level, bessere Kreaturen in Truhen. */
-const PMAX=40, XP={win:20,star:10,arena:15,lose:5,daily:50};
-function xpNeed(L){ return 50+15*(L-1); }
+const PMAX=40, XP={win:15,star:5,arena:10,lose:2,daily:30};
+function xpNeed(L){ return 80+40*(L-1); }
 /* Kartenrücken: rein optisch, für Glutsteine. */
 const BACKS={standard:{n:'Glutstein',p:0},abyss:{n:'Tiefsee',p:40},schmiede:{n:'Zwergenschmiede',p:40},mangrove:{n:'Mangroven',p:40},daemmerung:{n:'Dämmerung',p:40},totenwald:{n:'Totenwald',p:40},erwachen:{n:'Das Erwachen',p:40},kristall:{n:'Kristallsee',p:40},raeder:{n:'Räderwerk',p:40}};
 function backSrc(k){ return k==='standard'?'bilder/rueckseite.jpg':`bilder/ruecken-${k}.jpg`; }
