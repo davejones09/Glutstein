@@ -502,12 +502,50 @@ body{background:#0c0a08}
 #b-root{padding-top:max(8px,env(safe-area-inset-top));padding-right:max(14px,env(safe-area-inset-right));padding-bottom:max(10px,env(safe-area-inset-bottom));padding-left:max(14px,env(safe-area-inset-left))}
 input,textarea{-webkit-user-select:text;user-select:text}
 .newver{position:fixed;left:50%;bottom:max(14px,env(safe-area-inset-bottom));transform:translateX(-50%);z-index:70;padding:10px 16px;border-radius:99px;background:var(--glutstein);color:var(--tinte);font:800 15px/1 var(--body);box-shadow:0 6px 20px rgba(0,0,0,.6)}
+
+/* Spielerlevel, Truhenkarten, Enthüllung, Kartenrücken, Bildansicht */
+.back{background-image:var(--ruecken,url(bilder/rueckseite.jpg))!important}
+.plvl{display:flex;align-items:center;gap:6px;padding:3px 8px 3px 4px;border:1px solid var(--linie);border-radius:99px;background:rgba(0,0,0,.35)}
+.plvl b{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--glutstein);color:var(--tinte);font:800 13px/1 var(--body)}
+.pbar{width:54px;height:6px;border-radius:3px;background:rgba(0,0,0,.5);overflow:hidden}.pbar i{display:block;height:100%;background:var(--gold)}
+.xpi{font:800 11px/1 var(--body);padding:3px 5px;border-radius:5px;background:var(--gold);color:var(--tinte)}
+.lvup{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
+.lvnum{font:800 64px/1 var(--display);color:var(--glutstein);text-shadow:0 0 24px rgba(240,144,58,.8)}
+.g5{grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:14px 8px}
+.loot-i{display:flex;flex-direction:column;gap:5px;align-items:stretch}
+.card.lootc::before{background:radial-gradient(circle at 50% 42%,#3a2c1c,#120c08 75%)}
+.card.lootc .lootimg{left:50%;top:40%;width:58%;transform:translate(-50%,-50%);z-index:1;filter:drop-shadow(0 4px 10px rgba(0,0,0,.8))}
+.card.lootc .lootn{left:0;right:0;bottom:12cqw;font:800 16cqw/1 var(--body);text-shadow:0 1px 3px #000;color:#fff}
+.card.lootc .plate{bottom:30cqw}
+.big-back.glow .back{animation:rare 1.1s ease-in-out infinite}
+.big-back.g1{--gc:rgba(220,230,240,.9)}.big-back.g2{--gc:rgba(240,200,80,.95)}.big-back.g3{--gc:rgba(120,220,255,1)}
+@keyframes rare{0%,100%{box-shadow:0 0 0 2px var(--gc),0 0 18px var(--gc)}50%{box-shadow:0 0 0 3px var(--gc),0 0 46px 10px var(--gc)}}
+.reveal.r2 .big,.reveal.r3 .big{filter:drop-shadow(0 0 22px rgba(240,200,80,.7))}
+.reveal.r3 .big{filter:drop-shadow(0 0 30px rgba(120,220,255,.9))}
+body.quake{animation:quake .5s}
+@keyframes quake{20%{transform:translate(-6px,3px)}40%{transform:translate(5px,-4px)}60%{transform:translate(-4px,-2px)}80%{transform:translate(3px,3px)}}
+.capnote{font-size:14.5px;padding:8px 10px;border-radius:8px;background:rgba(240,144,58,.15);border:1px solid rgba(240,144,58,.5)}
+.backs{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:12px}
+.bk{display:flex;flex-direction:column;gap:6px;padding:8px;border:1.5px solid var(--linie);border-radius:12px;background:rgba(0,0,0,.3)}
+.bk.act{border-color:var(--glutstein)}.bk img{width:100%;aspect-ratio:5/7;object-fit:cover;border-radius:7px}
+.bk b{font:700 16px/1.1 var(--display)}.bk span{font-size:13px;color:var(--nebel);display:flex;align-items:center;gap:5px}
+.bkprev{width:140px;align-self:center;border-radius:8px}
+.artbtn{position:relative;display:block;width:100%}
+.artbtn .zoom{position:absolute;left:50%;bottom:-10px;transform:translateX(-50%);white-space:nowrap;font:700 12px/1 var(--body);padding:4px 8px;border-radius:99px;background:rgba(0,0,0,.8);border:1px solid var(--linie);z-index:5}
+#art{position:fixed;inset:0;z-index:95;background:#050404;touch-action:pan-y;user-select:none}
+.art-img{position:absolute;inset:0 0 0 0;background:center/contain no-repeat}
+.art-txt{position:absolute;left:0;right:0;bottom:0;padding:40px 10% max(14px,env(safe-area-inset-bottom));text-align:center;background:linear-gradient(transparent,rgba(0,0,0,.85) 45%);display:flex;flex-direction:column;align-items:center;gap:4px;pointer-events:none}
+.art-txt p:last-child{color:var(--nebel);max-width:60ch}
+.art-nav{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:64px;font:700 40px/1 var(--body);background:rgba(0,0,0,.5);border-radius:10px;text-align:center}
+.art-nav.l{left:max(10px,env(safe-area-inset-left))}.art-nav.r{right:max(10px,env(safe-area-inset-right))}
+.art-x{position:absolute;top:max(10px,env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,.6);border:1px solid var(--linie);font-size:18px;text-align:center}
+.art-dots{position:absolute;top:max(18px,env(safe-area-inset-top));left:50%;transform:translateX(-50%);display:flex;gap:6px}.art-dots i{width:22px;height:3px;background:rgba(255,255,255,.3);border-radius:2px}.art-dots i.on{background:var(--glutstein)}
 </style>
 </head>
 <body>
 <div id="app" class="felt">
   <header>
-    <div class="logo"><i class="gem"></i>Glutstein</div>
+    <div class="logo"><i class="gem"></i>Glutstein</div><span class="plvl" id="plvl" role="img"></span>
     <div class="wallet"><span class="cur" role="img" aria-label="Gold"><span class="coin"></span><span id="gold">0</span></span><span class="cur" role="img" aria-label="Glutsteine"><span class="gem"></span><span id="gems">0</span></span></div>
     <button class="snd" id="snd" data-act="mute" aria-label="Ton an oder aus"></button><button class="snd on" data-act="settings" aria-label="Einstellungen"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
   </header>
@@ -525,6 +563,7 @@ input,textarea{-webkit-user-select:text;user-select:text}
 <div id="sheet" hidden></div>
 <div id="toast" role="status"></div>
 <div id="seq" data-act="seqNext" hidden></div>
+<div id="art" hidden></div>
 <div id="rotate" aria-live="polite"><svg viewBox="0 0 24 24" width="64" height="64" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M3 15a9 9 0 0 0 6 6M21 9a9 9 0 0 0-6-6"/><path d="M3 15l0-3M3 15l3 0M21 9l0 3M21 9l-3 0"/></svg><b>Bitte dreh dein Handy quer</b><p>Glutstein wird im Querformat gespielt.</p></div>
 
 <script>

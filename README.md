@@ -21,7 +21,7 @@ Solo-Kartenspiel mit automatischen Kämpfen. Fünf Elemente (Feuer, Wasser, Erde
 ```
 python3 build.py                         # index.html erzeugen
 python3 -m http.server -d .              # im Browser öffnen (Querformat)
-node tools/kampagne-sim.js engine.js     # Siegquoten der Kampagne
+node tools/kampagne-sim2.js engine.js    # Siegquoten der Kampagne (h = heroisch)
 node tools/set-sim.js engine.js 10       # Sets gegeneinander auf Level 10
 python3 tools/webapp-test.py .           # Web-App: startet sie auch offline?
 ```
