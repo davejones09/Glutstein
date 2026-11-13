@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#0c0a08">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-title" content="Glutstein">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="bilder/icon-180.png">
@@ -498,7 +498,9 @@ main.mapmode{padding:8px 10px;overflow:hidden}
 /* Web-App: Ränder von Kamera und Home-Leiste freihalten, kein Ziehen und Zoomen */
 html,body{overscroll-behavior:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 body{background:#0c0a08}
-#app{padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+#app{padding:env(safe-area-inset-top) env(safe-area-inset-right) 0 env(safe-area-inset-left)}
+header{background:rgba(6,5,4,.88);position:relative;z-index:2}
+.wallet .cur,.logo{text-shadow:0 1px 3px #000}
 #b-root{padding-top:max(8px,env(safe-area-inset-top));padding-right:max(14px,env(safe-area-inset-right));padding-bottom:max(10px,env(safe-area-inset-bottom));padding-left:max(14px,env(safe-area-inset-left))}
 input,textarea{-webkit-user-select:text;user-select:text}
 .newver{position:fixed;left:50%;bottom:max(14px,env(safe-area-inset-bottom));transform:translateX(-50%);z-index:70;padding:10px 16px;border-radius:99px;background:var(--glutstein);color:var(--tinte);font:800 15px/1 var(--body);box-shadow:0 6px 20px rgba(0,0,0,.6)}
@@ -756,12 +758,12 @@ const UNLOCK_SLOTS=[1,4,7]; /* Gefecht 2, 5 und 8 eines Gebiets schalten je eine
 /* Höchste Seltenheit der Gegnerkarten je Gebiet und Gefecht. Gebiet I bleibt leicht, damit man Gold für Truhen sammelt. */
 const RMAX=[[0,0,0,0,0,0,0,0],[0,0,0,1,1,1,2,1],[0,0,1,1,1,2,2,1],[0,0,0,1,1,1,1,1],[0,0,1,1,1,2,2,1]];
 /* Level der Gegnerkarten: Gebiet I bei 1, danach steigt es deutlich. Der Wurzelwald ist bewusst stärker, weil Feuerdecks dort Vorteil haben. */
-const AREA_LVL=[[1,1,2,3,3,4,4,5],[4,4,5,5,5,6,5,8],[8,9,9,9,8,8,8,9],[11,10,12,12,14,14,15,16],[14,14,15,15,15,15,14,17]];
+const AREA_LVL=[[1,2,2,3,4,5,5,5],[5,5,5,5,5,6,5,8],[9,9,10,10,9,9,9,9],[12,10,12,13,14,14,15,16],[15,15,16,15,16,15,15,17]];
 /* Kartenzahl der Gegner. Der Wurzelwald kommt mit vollen Decks, damit Feuer dort kein Selbstläufer ist. */
-const AREA_SIZE=[[3,3,3,4,4,4,5,6],[3,4,4,5,5,5,5,6],[5,6,6,7,7,8,8,8],[6,6,7,7,8,8,8,6],[4,5,5,6,6,7,7,6]];
+const AREA_SIZE=[[3,3,4,4,4,5,5,6],[3,4,4,5,5,5,5,6],[5,6,6,7,7,8,8,8],[6,6,7,7,8,8,8,6],[4,5,5,6,6,7,7,6]];
 const STAGES=STAGE_NAMES.map((n,k)=>{
   const a=Math.floor(k/8), i=k%8, boss=i===7, A=AREAS[a], u=UNLOCK_SLOTS.indexOf(i), lvl=AREA_LVL[a][i];
-  return {id:k+1,area:a,i,n,boss,set:A.set,cat:SETS[A.set].cat,unlock:u>=0?A.unl[u]:'',weak:k<4,
+  return {id:k+1,area:a,i,n,boss,set:A.set,cat:SETS[A.set].cat,unlock:u>=0?A.unl[u]:'',weak:k<2,
     size:AREA_SIZE[a][i], rmax:RMAX[a][i], top:boss?(a===0||a===3?2:3):-1,
     lvl, star:Math.min(MAXSTAR,Math.ceil(lvl/5)), hp:Math.round((800+i*60+(boss?400:0))*mult(Math.min(MAXSTAR,Math.ceil(lvl/5)),lvl)/10)*10,
     gold:boss?150+a*75:40+a*20+i*5};
@@ -1096,8 +1098,8 @@ const ITEM_PRE={feuer:'Glut',wasser:'Gischt',erde:'Wurzel',schatten:'Nacht',lich
 function itemName(cat,q){ return ITEM_PRE[cat]+ITEM_Q[q]; }
 const SKIP_CHANCE={holz:.05,silber:.1,gold:.2};
 /* Spielerlevel: Erfahrung aus Kämpfen und Tagesaufgaben. Höheres Level, bessere Kreaturen in Truhen. */
-const PMAX=40, XP={win:20,star:10,arena:15,lose:5,daily:50};
-function xpNeed(L){ return 50+15*(L-1); }
+const PMAX=40, XP={win:15,star:5,arena:10,lose:2,daily:30};
+function xpNeed(L){ return 80+40*(L-1); }
 /* Kartenrücken: rein optisch, für Glutsteine. */
 const BACKS={standard:{n:'Glutstein',p:0},abyss:{n:'Tiefsee',p:40},schmiede:{n:'Zwergenschmiede',p:40},mangrove:{n:'Mangroven',p:40},daemmerung:{n:'Dämmerung',p:40},totenwald:{n:'Totenwald',p:40},erwachen:{n:'Das Erwachen',p:40},kristall:{n:'Kristallsee',p:40},raeder:{n:'Räderwerk',p:40}};
 function backSrc(k){ return k==='standard'?'bilder/rueckseite.jpg':`bilder/ruecken-${k}.jpg`; }
