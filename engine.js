@@ -182,7 +182,7 @@ const UNLOCK_SLOTS=[1,4,7]; /* Gefecht 2, 5 und 8 eines Gebiets schalten je eine
 /* Höchste Seltenheit der Gegnerkarten je Gebiet und Gefecht. Gebiet I bleibt leicht, damit man Gold für Truhen sammelt. */
 const RMAX=[[0,0,0,0,0,0,0,0],[0,0,0,1,1,1,2,1],[0,0,1,1,1,2,2,1],[0,0,0,1,1,1,1,1],[0,0,1,1,1,2,2,1]];
 /* Level der Gegnerkarten: Gebiet I bei 1, danach steigt es deutlich. Der Wurzelwald ist bewusst stärker, weil Feuerdecks dort Vorteil haben. */
-const AREA_LVL=[[1,1,1,2,2,3,3,4],[5,5,6,6,6,6,6,6],[18,19,20,21,22,23,24,25],[12,12,12,13,13,13,13,14],[20,21,21,22,23,23,24,25]];
+const AREA_LVL=[[1,1,2,2,2,3,3,5],[3,4,4,5,5,5,4,6],[9,10,10,10,10,11,10,10],[10,11,11,11,10,10,9,9],[13,14,15,15,16,16,15,14]];
 /* Kartenzahl der Gegner. Der Wurzelwald kommt mit vollen Decks, damit Feuer dort kein Selbstläufer ist. */
 const AREA_SIZE=[[3,3,3,4,4,4,5,4],[3,4,4,5,5,5,5,6],[5,6,6,7,7,8,8,8],[4,4,5,5,5,6,6,6],[4,5,5,6,6,7,7,8]];
 const STAGES=STAGE_NAMES.map((n,k)=>{
@@ -194,15 +194,15 @@ const STAGES=STAGE_NAMES.map((n,k)=>{
 });
 function rng(seed){ return ()=>{ seed=seed+0x6D2B79F5|0; let t=Math.imul(seed^seed>>>15,1|seed); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
 function hash(s){ let h=2166136261; for(let i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619); } return h>>>0; }
-/* Gegnerdeck eines Gefechts: nur Karten aus dem Set des Gebiets, Doppelte erlaubt (PvE). Heroisch: +4 Level. */
+/* Gegnerdeck eines Gefechts: nur Karten aus dem Set des Gebiets, Doppelte erlaubt (PvE). Heroisch: +8 Level. */
 function stageDeck(st,hero){
   const r=rng(hash('g'+st.id)), pool=BASE.filter(c=>c.set===st.set&&c.r<=st.rmax), ids=[];
   if(st.top>=0){ const top=BASE.find(c=>c.set===st.set&&c.r===st.top); ids.push(top.id); }
   while(ids.length<st.size){ const w=pool.map(c=>c.r===st.rmax?2:1), sum=w.reduce((a,b)=>a+b,0); let v=r()*sum, i=0; while(v>w[i]&&i<w.length-1){ v-=w[i]; i++; } ids.push(pool[i].id); }
-  const lvl=Math.min(MAXLVL,st.lvl+(hero?4:0)), star=Math.min(MAXSTAR,Math.ceil(lvl/5));
+  const lvl=Math.min(MAXLVL,st.lvl+(hero?8:0)), star=Math.min(MAXSTAR,Math.ceil(lvl/5));
   return ids.map(id=>({id,lvl,star,weak:st.weak&&!hero}));
 }
-function stageHp(st,hero){ return hero?Math.round(st.hp*1.5/10)*10:st.hp; }
+function stageHp(st,hero){ return hero?Math.round(st.hp*2/10)*10:st.hp; }
 
 const LEAGUES=[{n:'Aschenliga',lo:0},{n:'Kupferliga',lo:150},{n:'Silberliga',lo:400},{n:'Goldliga',lo:750},{n:'Glutliga',lo:1200}];
 function leagueOf(t){ let i=0; LEAGUES.forEach((L,k)=>{ if(t>=L.lo) i=k; }); return i; }
