@@ -31,19 +31,19 @@ const SETS={
 Object.values(SETS).forEach(x=>{ if(!x.cats) x.cats=[x.cat]; });
 /* Setbonus ab 3 verschiedenen Karten eines Sets im Deck, großer Bonus ab 6. */
 const SET_BONUS={
-  glut:['Glut-Karten +10 % Angriff','zusätzlich Einschlag +50 %'],
+  glut:['Glut-Karten +5 % Angriff','zusätzlich Einschlag +50 %'],
   flut:['Held +20 % Leben','Flut-Karten Schild +15 %'],
-  hain:['Hain-Karten +10 % Leben','zusätzlich Heilung +8 %'],
-  nacht:['Nacht-Karten Rache +40 %','zusätzlich +10 % Angriff'],
-  sonne:['Sonne-Karten Heilung +8 %','Held heilt 5 % pro Runde'],
+  hain:['Hain-Karten +10 % Angriff und Leben','zusätzlich Heilung +8 %'],
+  nacht:['Nacht-Karten Rache +40 %, +10 % Angriff und Leben','zusätzlich +10 % Angriff und Leben'],
+  sonne:['Sonne-Karten Heilung +8 %, +10 % Angriff und Leben','Held heilt 5 % pro Runde, Sonne-Karten +10 % Angriff'],
   abyss:['Abyssal-Karten +10 % Angriff und Leben','zusätzlich heilen sie sich um 5 % pro Runde'],
-  schmiede:['Schmiede-Karten erleiden 10 % weniger Schaden','zusätzlich +25 % Angriff in der ersten Runde'],
+  schmiede:['Schmiede-Karten erleiden 5 % weniger Schaden','zusätzlich +25 % Angriff in der ersten Runde'],
   mangrove:['Mangroven-Karten +10 % Angriff und Leben','zusätzlich +5 % Angriff in jeder weiteren Runde auf dem Feld'],
   daemmerung:['Dämmerungs-Karten +10 % Angriff und Leben','ihr Elementvorteil steigt auf +75 %'],
   totenwald:['Gegnerische Karten verlieren pro Runde 4 % Leben','die erste eigene Karte, die fällt, kehrt einmal mit 40 % Leben zurück'],
   kristall:['Kristallsee-Karten +10 % Angriff und Leben, in der ersten Runde 20 % weniger Schaden','am Rundenbeginn heilt die schwächste eigene Karte um 15 %'],
   erwachen:['Gegnerische Karten machen in der ersten Runde 15 % weniger Schaden','fällt eine Erwachen-Karte, nimmt die Karte gegenüber 20 % ihrer Lebenspunkte Schaden'],
-  luft:['Luftpiraten treffen Helden im Flug mit 25 % mehr Schaden','zusätzlich 20 % weniger Schaden in der ersten Runde'],
+  luft:['Luftpiraten +10 % Angriff und Leben, Flug trifft Helden mit 50 % mehr Schaden','zusätzlich +10 % Angriff und 20 % weniger Schaden in der ersten Runde'],
   raeder:['Räderwerk-Karten +10 % Angriff und Leben','zusätzlich reparieren sie sich um 4 % pro Runde']
 };
 /* Setboni als Daten. Stufe 1 ab 3 Karten, Stufe 2 ab 6 (zusätzlich). Kartenwerte gelten für Karten des Sets, Seitenwerte für die ganze Seite. */
@@ -276,6 +276,7 @@ function killDead(B,ev){
 function roundStart(B){
   const ev=[]; if(B.over) return ev; B.round++; ev.push({t:'round',r:B.round});
   if(B.round>=FATIGUE_FROM){ const d=(B.round-FATIGUE_FROM+1)*FATIGUE_DMG; hurtHero(B,'p',d,ev,'fatigue'); hurtHero(B,'e',d,ev,'fatigue'); checkOver(B,ev); if(B.over) return ev; }
+  if(B.decay) ['p','e'].forEach(s=>B[s].lanes.forEach((c,l)=>{ if(c&&c.h>0){ const d=Math.max(1,Math.round(c.mh*B.decay)); c.h-=d; ev.push({t:'hit',s,l,d,st:0,n:CARD[c.id].n,by:'Der Zerfall'}); } }));
   ['p','e'].forEach(s=>{ const S=B[s]; if(S.regen&&S.hp<S.maxHp){ const b=S.hp; S.hp=Math.min(S.maxHp,S.hp+S.regen); ev.push({t:'heroheal',s,d:S.hp-b}); } });
   ['p','e'].forEach(s=>{
     const S=B[s], O=B[other(s)];
