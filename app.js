@@ -76,7 +76,7 @@ const ART={}; BASE.forEach(c=>ART[c.id]=`bilder/${c.id}.jpg`);
 /* Sondermotive je Karte: Anzahl der Motive. Motiv 1 = id-s.jpg, Motiv 2 = id-s2.jpg. Jedes Motiv wird einzeln in Truhen gefunden. */
 const SKINS={}; ['funkenwicht','glutwolf','brandbogner','flammenhexe','schlackenriese','aschendrache','tuempelgeist','gezeitenwache','perlentaucherin','nebelheilerin','sturmrufer','leviathan',
  'moosling','dornenhirsch','wurzelhueter','rudelfuehrerin','alteiche','waldkoenigin','nachtfalter','grabkriecher','schattendolch','kraehenschwarm','seelenhaendlerin','irrlicht','sonneneinhorn','sonnenloewe','lichtmagier','seraphin'].forEach(id=>SKINS[id]=1);
-SKINS.mitternachtsfuerstin=2; SKINS.lichtritter=2;
+SKINS.mitternachtsfuerstin=2; SKINS.lichtritter=2; SKINS.leuchtturmwaerterin=1;
 const SKIN_NAMES={mitternachtsfuerstin:['Fürstin','Fürst'],lichtritter:['Ritter','Ritterin']};
 for(const id in SKINS) for(let v=1;v<=SKINS[id];v++) ART[id+'-s'+(v>1?v:'')]=`bilder/${id}-s${v>1?v:''}.jpg`;
 function skinSrc(id,v){ return v&&ART[id+'-s'+(v>1?v:'')]||ART[id]; }
@@ -109,7 +109,7 @@ function okTable(t){ return t&&typeof t==='object'&&LEAGUES[t.lg]&&Array.isArray
 function seasonIdx(){ return Math.floor((Date.now()-SEASON_START)/(SEASON_DAYS*864e5)); }
 function fresh(){
   const decks=[STARTER.slice(),STARTER.slice(),STARTER.slice()];
-  return {v:6,gold:150,gems:0,skips:0,items:Object.fromEntries(Object.keys(CATS).map(c=>[c,[0,0,0,0]])),chests:[],cards:Object.fromEntries(STARTER.map(id=>[id,{lvl:1,star:1,dup:0}])),decks,di:0,unlocked:[],setsOpen:[],stars:{},hstars:{},campV:2,skins:{},skinOn:{},album:{},seen:{},stat:{fights:0,kills:0,best:null},lastSave:Date.now(),remind:'',ch:{wk:0,prog:{},all:0},chDecks:{},xp:0,plvl:1,back:'standard',backs:['standard'],
+  return {v:6,gold:150,gems:0,skips:0,items:Object.fromEntries(Object.keys(CATS).map(c=>[c,[0,0,0,0]])),chests:[],cards:Object.fromEntries(STARTER.map(id=>[id,{lvl:1,star:1,dup:0}])),decks,di:0,unlocked:[],setsOpen:[],stars:{},hstars:{},campV:2,hero:'kapuze',heroes:['kapuze'],skins:{},skinOn:{},album:{},seen:{},stat:{fights:0,kills:0,best:null},lastSave:Date.now(),remind:'',ch:{wk:0,prog:{},all:0},chDecks:{},xp:0,plvl:1,back:'standard',backs:['standard'],
   vol:{m:.6,s:.8,a:.45},fxOff:false,muted:false,speed:1,opened:0,name:'Neuling_'+(100+Math.floor(Math.random()*900)),tr:0,league:0,aw:0,al:0,wins:0,theme:'tanne',themes:['tanne'],
   table:mkTable(0),daily:null,uid:Math.floor(Math.random()*1e9),tut:true,tipSeen:{},ach:{},flags:{},season:seasonIdx(),seasonBest:0,seasonMsg:null};
 }
@@ -132,6 +132,7 @@ function sane(j){
   const cl=v=>Math.min(1,Math.max(0,+v||0));
   s.vol=s.vol&&typeof s.vol==='object'?{m:cl(s.vol.m),s:cl(s.vol.s),a:s.vol.a==null?f.vol.a:cl(s.vol.a)}:f.vol;
   s.fxOff=!!s.fxOff;
+  s.heroes=(Array.isArray(s.heroes)?s.heroes:[]).filter(k=>HEROES[k]); if(!s.heroes.includes('kapuze')) s.heroes.unshift('kapuze'); if(!s.heroes.includes(s.hero)) s.hero='kapuze';
   /* Kampagne 16 statt 8: jedes alte Gefecht zählt für die beiden neuen an seiner Stelle. */
   if((s.campV|0)<2){ ['stars','hstars'].forEach(k=>{ const o=s[k]||{}, n={}; for(const id in o){ const x=+id-1, a=Math.floor(x/8), j=x%8; if(a<5){ n[a*16+2*j+1]=o[id]; n[a*16+2*j+2]=o[id]; } } s[k]=n; }); s.campV=2; }
   s.stat=Object.assign({fights:0,kills:0,best:null},s.stat||{}); if(!s.lastSave) s.lastSave=Date.now(); if(typeof s.remind!=='string') s.remind='';
@@ -162,7 +163,7 @@ function addXp(n){
 }
 function showLvUp(){
   if(!LVUP.length||B||SQ||!$('#sheet').hidden) return; const u=LVUP.shift();
-  openSheet(`<div class="lvup"><p class="eyebrow">Aufstieg</p><b class="lvnum">${u.lv}</b><h2>Kartenbinder-Level ${u.lv}</h2><p class="r-line"><span class="coin"></span>+${u.g} Gold</p>${u.chest?'<p class="r-line"><img src="bilder/truhe.png" alt="" width="34" height="34">Silbertruhe <small>liegt im Laden</small></p>':''}<p class="muted">In Truhen stecken jetzt öfter bessere Kreaturen.</p><button class="btn primary" data-act="close">Weiter</button></div>`);
+  openSheet(`<div class="lvup"><p class="eyebrow">Aufstieg</p><b class="lvnum">${u.lv}</b><h2>Kartenbinder-Level ${u.lv}</h2><p class="r-line"><span class="coin"></span>+${u.g} Gold</p>${u.chest?'<p class="r-line"><img src="bilder/truhe-silber.png" alt="" width="34" height="34">Silbertruhe <small>liegt im Laden</small></p>':''}<p class="muted">In Truhen stecken jetzt öfter bessere Kreaturen.</p><button class="btn primary" data-act="close">Weiter</button></div>`);
   sfx('coin'); jingle('aufstieg');
 }
 
@@ -542,6 +543,12 @@ function itemIcon(cat,q,size){ const z=Math.round((size||22)*1.25); return `<img
 function skipIcon(z){ z=Math.round(z*1.25); return `<img class="itm" src="bilder/items/rolle.png" width="${z}" height="${z}" alt="">`; }
 function itemsLine(list){ return list.map(x=>`<span class="ichip">${itemIcon(x.cat,x.q,18)}+${x.n} ${itemName(x.cat,x.q)}</span>`).join(''); }
 function starsHTML(n,cls){ return `<span class="stars ${cls||''}" role="img" aria-label="${n} von 3 Sternen">${[1,2,3].map(i=>`<i class="st${i<=n?' on':''}"></i>`).join('')}</span>`; }
+/* Helden-Porträts: eigener Held (Laden, 30 Glutsteine) und feste Porträts der Rivalen. */
+const HEROES={kapuze:'Der Namenlose',feuermagierin:'Feuermagierin',zwerg:'Zwergenkrieger',elfe:'Waldläuferin',soeldner:'Söldner',meerhexe:'Meerhexe',gelehrter:'Gelehrter',vampirgraefin:'Vampirgräfin',ritter:'Junger Ritter',nomadin:'Nomadin',pirat:'Piratenkapitän',erfinderin:'Erfinderin'};
+const HERO_PRICE=30, HERO_KEYS=Object.keys(HEROES);
+function heroImg(k,cls){ return `<img class="pt${cls?' '+cls:''}" src="bilder/helden/${k}.png" alt="" aria-hidden="true">`; }
+function rivalHero(r){ return HERO_KEYS[1+((r.s>>>0)%(HERO_KEYS.length-1))]; }
+function rivalBySeed(n){ return S.table.rivals.find(x=>x.n===n); }
 function avHTML(n,hue){ return `<span class="av" style="--h:${hue??hash(n)%360}" aria-hidden="true">${esc(n[0].toUpperCase())}</span>`; }
 function deckInfo(d){ return d.length+' Karten · Ø Level '+Math.round(d.reduce((a,c)=>a+(c.lvl||1),0)/d.length); }
 function isOpen(st){ return st.id===1||S.stars[st.id-1]>0; }
@@ -680,23 +687,23 @@ function viewArena(){
 function viewDuels(){
   const lg=S.table.lg, L=LEAGUES[lg], nx=LEAGUES[lg+1], near=byDist(), best=near[0], opps=near.slice(0,3).sort((a,b)=>b.t-a.t);
   const all=S.table.rivals.map(r=>({n:r.n,t:r.t})).concat([{n:S.name,t:S.tr,me:1}]).sort((a,b)=>b.t-a.t||(a.me?-1:1)), rank=all.findIndex(r=>r.me)+1, left=WIN_CHEST_EVERY-S.aw%WIN_CHEST_EVERY, sb=Math.max(S.seasonBest,lg);
-  let h=`<section class="panelbox"><p class="eyebrow">${L.n} · Saison endet in ${seasonDaysLeft()} Tagen</p><div class="sec-h"><h1>${esc(S.name)}</h1><button class="link" data-act="rename">Name ändern</button></div>
+  let h=`<section class="panelbox arenahead"><img class="crest" src="bilder/liga-${lg}.png" alt="${L.n}"><p class="eyebrow">${L.n} · Saison endet in ${seasonDaysLeft()} Tagen</p><div class="sec-h"><h1>${esc(S.name)}</h1><button class="link" data-act="rename">Name ändern</button></div>
   <div class="facts"><div><b>${S.tr}</b><span>Pokale</span></div><div><b>${rank}.</b><span>Platz von ${all.length}</span></div><div><b>${S.aw}</b><span>Siege</span></div></div>
   ${nx?`<div class="prog"><div class="bar"><i style="width:${Math.round((S.tr-L.lo)/(nx.lo-L.lo)*100)}%"></i></div><span>Noch ${nx.lo-S.tr} Pokale bis zur ${nx.n}</span></div>`:'<p class="muted">Du spielst in der höchsten Liga.</p>'}
-  <div class="prog"><span class="pips3" aria-hidden="true">${Array.from({length:WIN_CHEST_EVERY},(_,i)=>`<i class="${i<S.aw%WIN_CHEST_EVERY?'on':''}"></i>`).join('')}</span><span>Holztruhe nach ${left===1?'dem nächsten Sieg':left+' weiteren Siegen'}</span></div>
+  <div class="prog"><span class="pips3" aria-hidden="true">${Array.from({length:WIN_CHEST_EVERY},(_,i)=>`<i class="${i<S.aw%WIN_CHEST_EVERY?'on':''}"></i>`).join('')}</span><span>Bronzetruhe nach ${left===1?'dem nächsten Sieg':left+' weiteren Siegen'}</span></div>
   <p class="muted">Saisonbelohnung bisher: ${5+5*sb} Glutsteine und ${100*(sb+1)} Gold.</p>
   <button class="btn primary block" data-act="duel" data-id="${best.s}">Duell gegen ${best.n}</button></section>`;
-  h+=`<section><div><h2>Gegner wählen</h2><p class="muted">Tippe einen Rivalen an, um sein Deck zu sehen.</p></div><ul class="rivals">${opps.map(r=>`<li><button data-act="rival" data-id="${r.s}">${avHTML(r.n)}<span class="nn"><b>${r.n}</b><small>Level ${rivalLvl(r)} · ${r.t} Pokale · ${deckInfo(rivalDeck(r))}</small></span><span class="delta"><b>+${trophyDelta(S.tr,r.t,true)}</b>${trophyDelta(S.tr,r.t,false)} bei Niederlage</span></button></li>`).join('')}</ul></section>`;
-  h+=`<section><div class="sec-h"><h2>Liga-Tabelle</h2><span class="count">${L.n}</span></div><ol class="table">${all.map((r,i)=>`<li class="${r.me?'me':''}"><span class="rk">${i+1}</span>${avHTML(r.n)}<span>${esc(r.n)}</span><span>${r.t}</span></li>`).join('')}</ol></section>`;
+  h+=`<section><div><h2>Gegner wählen</h2><p class="muted">Tippe einen Rivalen an, um sein Deck zu sehen.</p></div><ul class="rivals">${opps.map(r=>`<li><button data-act="rival" data-id="${r.s}">${heroImg(rivalHero(r))}<span class="nn"><b>${r.n}</b><small>Level ${rivalLvl(r)} · ${r.t} Pokale · ${deckInfo(rivalDeck(r))}</small></span><span class="delta"><b>+${trophyDelta(S.tr,r.t,true)}</b>${trophyDelta(S.tr,r.t,false)} bei Niederlage</span></button></li>`).join('')}</ul></section>`;
+  h+=`<section><div class="sec-h"><h2>Liga-Tabelle</h2><span class="count">${L.n}</span></div><ol class="table">${all.map((r,i)=>`<li class="${r.me?'me':''}"><span class="rk">${i+1}</span>${r.me?heroImg(S.hero):heroImg(rivalHero(rivalBySeed(r.n)||{s:0}))}<span>${esc(r.n)}</span><span>${r.t}</span></li>`).join('')}</ol></section>`;
   return h;
 }
 function viewShop(){
-  const ao=achOpen(), tabs=[['truhen','Truhen'],['tische','Tische'],['ruecken','Kartenrücken'],['erfolge','Erfolge'],['steine','Glutsteine']], co=S.chests.length;
+  const ao=achOpen(), tabs=[['truhen','Truhen'],['tische','Tische'],['ruecken','Kartenrücken'],['helden','Helden'],['erfolge','Erfolge'],['steine','Glutsteine']], co=S.chests.length;
   let h=`<div class="subnav">${tabs.map(([k,n])=>`<button data-act="shopTab" data-id="${k}" aria-pressed="${shopTab===k}">${n}${(k==='erfolge'&&ao)||(k==='truhen'&&co)?'<i class="dot" aria-label="neu"></i>':''}</button>`).join('')}</div>`;
   if(shopTab==='truhen') h+=`${S.chests.length?`<section class="panelbox"><div class="sec-h"><p class="eyebrow">Deine Truhen · gratis</p><span class="count">${S.chests.length}</span></div>
-  <div class="chests">${S.chests.map((x,i)=>`<div class="ch ${x.type}"><img src="bilder/truhe.png" alt=""><b>${CHESTS[x.type].n}</b><button class="btn primary" data-act="openOwned" data-id="${i}">Gratis öffnen</button></div>`).join('')}</div></section>`:''}
+  <div class="chests">${S.chests.map((x,i)=>`<div class="ch ${x.type}"><img src="bilder/truhe-${x.type}.png" alt=""><b>${CHESTS[x.type].n}</b><button class="btn primary" data-act="openOwned" data-id="${i}">Gratis öffnen</button></div>`).join('')}</div></section>`:''}
   <section class="panelbox"><p class="eyebrow">Truhen kaufen · nur für Gold</p>
-  <div class="chests">${Object.entries(CHESTS).map(([k,c])=>`<div class="ch ${k}"><img src="bilder/truhe.png" alt=""><b>${c.n}</b><button class="btn${S.gold>=c.price?' primary':''}" data-act="buyChest" data-id="${k}" ${S.gold>=c.price?'':'disabled'}><span class="coin"></span>${fmt(c.price)}</button></div>`).join('')}</div>
+  <div class="chests">${Object.entries(CHESTS).map(([k,c])=>`<div class="ch ${k}"><img src="bilder/truhe-${k}.png" alt=""><b>${c.n}</b><button class="btn${S.gold>=c.price?' primary':''}" data-act="buyChest" data-id="${k}" ${S.gold>=c.price?'':'disabled'}><span class="coin"></span>${fmt(c.price)}</button></div>`).join('')}</div>
   <p class="muted">Bronze 3 Karten, Silber 4, Gold 5. Jede Karte ist eine Kreatur, ein Gegenstand oder Gold, mindestens eine ist immer eine Kreatur. Bessere Truhen bringen bessere Gegenstände und mehr Gold.</p></section>
   <section><h2>Offene Quoten</h2><p class="muted">Seltenheit der Kreaturen auf deinem Kartenbinder-Level ${S.plvl}. Mit jedem Level steigt die Chance auf bessere Karten.</p>
   <table class="odds"><thead><tr><th>Seltenheit</th>${Object.values(CHESTS).map(c=>`<th>${c.n.replace('truhe','')}</th>`).join('')}</tr></thead><tbody>${RAR.map((n,i)=>`<tr><td>${n} <span class="muted">(${RAR_DESC[i]})</span></td>${Object.keys(CHESTS).map(k=>`<td>${chestOdds(k)[i]} %</td>`).join('')}</tr>`).join('')}</tbody></table>
@@ -705,6 +712,8 @@ function viewShop(){
   <p class="muted">Freigeschaltet sind deine Startkarten, Karten aus der Kampagne und nach jedem Endgegner das ganze Set seines Gebiets. Karten der freien Sets kommen, sobald ihr Element in der Kampagne erreicht ist: Feuer nach den ersten drei Gefechten, die anderen nach dem Endgegner ihres Gebiets. Je mehr Sterne eine Karte schon hat, desto seltener kommt sie als Doppelte.</p></section>`;
   else if(shopTab==='tische') h+=`<section><div class="sec-h"><h2>Spieltische</h2><span class="count">${S.themes.length}/${Object.keys(THEMES).length} im Besitz</span></div><p class="muted">Spieltische ändern nur Aussehen und Klang. Weitere Farben haben die Effekte des Grundtischs, Thementische eigene Effekte, Treffer und Geräusche.</p><div class="swatches">${Object.entries(THEMES).map(([id,t])=>{ const own=S.themes.includes(id), act=S.theme===id;
     return `<button class="sw${act?' act':''}" data-act="theme" data-id="${id}" style="--c1:${t.c[0]};--c2:${t.c[1]};--c3:${t.c[2]};${t.img?`--pic:url(${t.img})`:''}"><i></i><b>${t.n}</b><small class="tfx">${TFX[t.fx].d}</small><span>${act?'Liegt gerade auf':own?'Auflegen':`<span class="gem"></span>${t.p} Glutsteine`}</span></button>`; }).join('')}</div></section>`;
+  else if(shopTab==='helden') h+=`<section><div class="sec-h"><h2>Helden</h2><span class="count">${S.heroes.length}/${HERO_KEYS.length} im Besitz</span></div><p class="muted">Dein Held zeigt sich im Kampf, in der Arena und in den Gesprächen. Reines Aussehen.</p><div class="backs">${HERO_KEYS.map(k=>{ const own=S.heroes.includes(k), act=S.hero===k;
+    return `<button class="bk hk${act?' act':''}" data-act="heroPick" data-id="${k}">${heroImg(k)}<b>${HEROES[k]}</b><span>${act?'In Benutzung':own?'Benutzen':`<span class="gem"></span>${HERO_PRICE} Glutsteine`}</span></button>`; }).join('')}</div></section>`;
   else if(shopTab==='ruecken') h+=`<section><div class="sec-h"><h2>Kartenrücken</h2><span class="count">${S.backs.length}/${Object.keys(BACKS).length} im Besitz</span></div><p class="muted">Kartenrücken ändern nur das Aussehen: Ziehstapel, Truhen und Sammelbuch.</p><div class="backs">${Object.entries(BACKS).map(([k,b])=>{ const own=S.backs.includes(k), act=S.back===k;
     return `<button class="bk${act?' act':''}" data-act="back" data-id="${k}"><img src="${backSrc(k)}" alt=""><b>${b.n}</b><span>${act?'In Benutzung':own?'Benutzen':`<span class="gem"></span>${b.p} Glutsteine`}</span></button>`; }).join('')}</div></section>`;
   else if(shopTab==='erfolge'){ const done=ACH.filter(a=>S.ach[a.id]).length;
@@ -764,7 +773,7 @@ function sheetStage(id){
 }
 function sheetRival(seed){
   const r=S.table.rivals.find(x=>x.s===seed); if(!r) return; const dk=rivalDeck(r);
-  openSheet(`<p class="eyebrow">${LEAGUES[S.table.lg].n}</p><div class="rivalhead">${avHTML(r.n)}<h2>${r.n}</h2></div>
+  openSheet(`<p class="eyebrow">${LEAGUES[S.table.lg].n}</p><div class="rivalhead">${heroImg(rivalHero(r),"big")}<h2>${r.n}</h2></div>
   <ul class="kv"><li><span>Pokale</span><b>${r.t}</b></li><li><span>Deck</span><b>${deckInfo(dk)}</b></li><li><span>Bei Sieg</span><b>+${trophyDelta(S.tr,r.t,true)} Pokale · ${20+S.table.lg*5} Gold</b></li><li><span>Bei Niederlage</span><b>${trophyDelta(S.tr,r.t,false)} Pokale · 5 Gold</b></li></ul>
   <h3>Sein Deck</h3><div class="grid g4">${dk.map(c=>`<div class="tile">${cardHTML(c)}</div>`).join('')}</div>
   <div class="row-btns"><button class="btn" data-act="close">Zurück</button><button class="btn primary" data-act="duel" data-id="${r.s}">Duell starten</button></div>`);
@@ -834,7 +843,8 @@ function setInfo(html){ narr=html; if(infoCard) return; const p=$('#b-info'); if
 function infoText(){ return infoCard?describe(infoCard):(narr||'Der Kampf läuft automatisch. Tippe eine Karte an, um sie zu lesen.'); }
 function heroHTML(s){
   const H=B[s], pct=Math.max(0,H.hp/H.maxHp*100);
-  return `<div class="hero" id="hero-${s}"><b class="h-n">${s==='p'?esc(S.name):ctx.opp}</b><span class="hpbar"><i style="width:${pct}%"></i></span><span class="hpnum">${H.hp}</span></div>`;
+  const hk=s==='p'?S.hero:(ctx.mode==='arena'&&ctx.rival?rivalHero(ctx.rival):'');
+  return `<div class="hero" id="hero-${s}">${hk?heroImg(hk,'hb'):''}<b class="h-n">${s==='p'?esc(S.name):ctx.opp}</b><span class="hpbar"><i style="width:${pct}%"></i></span><span class="hpnum">${H.hp}</span></div>`;
 }
 function pileHTML(s){
   const P=B[s].pile, nx=P[0];
@@ -852,7 +862,7 @@ function resultHTML(){
   if(r.promo) lines+=`<p class="r-line">Aufstieg in die ${r.promo}</p>`;
   if(r.demo) lines+=`<p class="r-line">Abstieg in die ${r.demo}</p><p class="muted">Du startest in der Mitte der Liga.</p>`;
   if(r.xp) lines+=`<p class="r-line"><span class="xpi">EP</span>+${r.xp} Erfahrung${r.lvup?` <small>Level ${r.lvup} erreicht!</small>`:''}</p>`;
-  if(r.chests.length) lines+=`<p class="r-line"><img src="bilder/truhe.png" alt="" width="34" height="34">${r.chests.map(t=>CHESTS[t].n).join(' und ')} <small>liegt im Laden</small></p>`;
+  if(r.chests.length) lines+=`<p class="r-line"><img src="bilder/truhe-${r.chests[r.chests.length-1]}.png" alt="" width="34" height="34">${r.chests.map(t=>CHESTS[t].n).join(' und ')} <small>liegt im Laden</small></p>`;
   if(r.setOpen) lines+=`<p class="muted">Alle Karten des Sets ${SETS[r.setOpen].n} liegen jetzt in Truhen. Heroische Gefechte sind freigeschaltet.</p>`;
   const un=r.unlock?`<div class="unlock">${cardHTML({id:r.unlock,lvl:1,star:1})}<div><p class="eyebrow">Neue Karte freigeschaltet</p><h3>${CARD[r.unlock].n}</h3><p class="muted">Sie liegt jetzt in deiner Sammlung und kann ab sofort in Truhen auftauchen.</p></div></div>`:'';
   const showStars=r.win&&!arena;
@@ -943,7 +953,7 @@ function startBattle(c){
 function startDuel(seed){ const r=S.table.rivals.find(x=>x.s===seed)||byDist()[0]; startBattle({mode:'arena',rival:r,title:'Arena · '+LEAGUES[S.table.lg].n,opp:r.n}); }
 function stageDialog(st,hero){
   const lines=DLG[st.id]||[];
-  openSheet(`<p class="eyebrow">${AREAS[st.area].n} · Gefecht ${st.i+1}${hero?' · Heroisch':''}</p><h2>${st.n}</h2><div class="dlg">${lines.map(([w,t])=>w==='g'?`<div class="line">${avHTML(st.n,(st.id*47)%360)}<div class="bubble"><b>${st.n}</b>${t}</div></div>`:`<div class="line p"><div class="bubble"><b>${esc(S.name)}</b>${t}</div>${avHTML(S.name,28)}</div>`).join('')}</div>
+  openSheet(`<p class="eyebrow">${AREAS[st.area].n} · Gefecht ${st.i+1}${hero?' · Heroisch':''}</p><h2>${st.n}</h2><div class="dlg">${lines.map(([w,t])=>w==='g'?`<div class="line">${avHTML(st.n,(st.id*47)%360)}<div class="bubble"><b>${st.n}</b>${t}</div></div>`:`<div class="line p"><div class="bubble"><b>${esc(S.name)}</b>${t}</div>${heroImg(S.hero)}</div>`).join('')}</div>
   <div class="row-btns"><button class="btn" data-act="close">Zurück</button><button class="btn primary" data-act="fightGo" data-id="${st.id}${hero?'h':''}">Kampf beginnen</button></div>`);
 }
 function startStage(id,hero){ const st=STAGES.find(s=>s.id===id); if(!st||!isOpen(st)) return; if(deck().length<DECK_MIN){ startBattle({}); return; } stageDialog(st,hero); }
@@ -1045,6 +1055,10 @@ const ACT={
     if(S.gems<t.p){ toast(`Dir fehlen ${t.p-S.gems} Glutsteine.`); return; }
     openSheet(`<h2>${t.n} kaufen?</h2><p class="muted">Kostet ${t.p} Glutsteine. Du hast ${S.gems}.</p><div class="row-btns"><button class="btn" data-act="close">Abbrechen</button><button class="btn primary" data-act="themeYes" data-id="${id}">Kaufen und auflegen</button></div>`);
   },
+  heroPick(k){ if(!HEROES[k]) return; if(S.heroes.includes(k)){ S.hero=k; persist(); render(); return; }
+    if(S.gems<HERO_PRICE){ toast(`Dir fehlen ${HERO_PRICE-S.gems} Glutsteine.`); return; }
+    openSheet(`<h2>${HEROES[k]} als Held?</h2><div class="center">${heroImg(k,'big')}</div><p class="muted">Kostet ${HERO_PRICE} Glutsteine. Du hast ${S.gems}.</p><div class="row-btns"><button class="btn" data-act="close">Abbrechen</button><button class="btn primary" data-act="heroYes" data-id="${k}">Kaufen und benutzen</button></div>`); },
+  heroYes(k){ if(!HEROES[k]||S.heroes.includes(k)||S.gems<HERO_PRICE) return; S.gems-=HERO_PRICE; S.heroes.push(k); S.hero=k; persist(); closeSheet(); render(); sfx('coin'); },
   back(id){ const b=BACKS[id]; if(!b) return; if(S.backs.includes(id)){ S.back=id; persist(); applyTheme(); render(); return; }
     if(S.gems<b.p){ toast(`Dir fehlen ${b.p-S.gems} Glutsteine.`); return; }
     openSheet(`<h2>Kartenrücken ${b.n} kaufen?</h2><img class="bkprev" src="${backSrc(id)}" alt=""><p class="muted">Kostet ${b.p} Glutsteine. Du hast ${S.gems}.</p><div class="row-btns"><button class="btn" data-act="close">Abbrechen</button><button class="btn primary" data-act="backYes" data-id="${id}">Kaufen und benutzen</button></div>`); },
