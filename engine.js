@@ -31,7 +31,13 @@ const SETS={
   perle:{n:'Perlhafen',l:'P',cat:'wasser',cats:['wasser','licht'],col:'#2f8fa0',free:1},
   variete:{n:'Varieté',l:'V',cat:'schatten',cats:['schatten','licht'],col:'#a03a5a',free:1},
   wueste:{n:'Wüstensand',l:'W',cat:'feuer',cats:['feuer','schatten'],col:'#c8862a',free:1},
-  orkan:{n:'Orkanflotte',l:'O',cat:'feuer',cats:['feuer','wasser'],col:'#5a6a7a',free:1}
+  orkan:{n:'Orkanflotte',l:'O',cat:'feuer',cats:['feuer','wasser'],col:'#5a6a7a',free:1},
+  /* Gegner-Sets der Kampagne: nie in Truhen, als Belohnung für ein komplett heroisch geschafftes Gebiet. */
+  horde:{n:'Ormaks Horde',l:'I',cat:'feuer',col:'#a33a1a',foe:1},
+  gefolge:{n:'Ysras Gefolge',l:'II',cat:'wasser',col:'#1f6a8a',foe:1},
+  brut:{n:'Urborkes Wurzelbrut',l:'III',cat:'erde',col:'#4f6a2a',foe:1},
+  hof:{n:'Der Hohle Hof',l:'IV',cat:'schatten',col:'#5a2a7a',foe:1},
+  orden:{n:'Der Lichtorden',l:'V',cat:'licht',col:'#c8a040',foe:1}
 };
 Object.values(SETS).forEach(x=>{ if(!x.cats) x.cats=[x.cat]; });
 /* Setbonus ab 3 verschiedenen Karten eines Sets im Deck, großer Bonus ab 6. */
@@ -54,7 +60,12 @@ const SET_BONUS={
   perle:['Held +15 % Leben, Perlhafen-Karten +10 % Angriff und Leben','zusätzlich heilt jede besiegte gegnerische Karte deinen Helden um 5 %'],
   variete:['Varieté-Karten +5 % Angriff','gegnerische Karten verlieren pro Runde 3 % Leben'],
   wueste:['Wüstensand-Karten +15 % Angriff und +10 % Leben','zusätzlich +10 % Leben und +6 % Angriff in jeder weiteren Runde auf dem Feld'],
-  orkan:['Orkanflotten-Karten +5 % Angriff','zusätzlich +15 % Angriff in der ersten Runde']
+  orkan:['Orkanflotten-Karten +5 % Angriff','zusätzlich +15 % Angriff in der ersten Runde'],
+  horde:['Horden-Karten +10 % Angriff','zusätzlich Einschlag +50 %'],
+  gefolge:['Held +15 % Leben','Gefolge-Karten Schild +15 %'],
+  brut:['Wurzelbrut-Karten +10 % Leben','zusätzlich Heilung +8 %'],
+  hof:['Hof-Karten Rache +40 %','zusätzlich +10 % Angriff und Leben'],
+  orden:['Ordens-Karten +10 % Leben','Held heilt 5 % pro Runde']
 };
 /* Setboni als Daten. Stufe 1 ab 3 Karten, Stufe 2 ab 6 (zusätzlich). Kartenwerte gelten für Karten des Sets, Seitenwerte für die ganze Seite. */
 const SET_FX={
@@ -63,7 +74,7 @@ const SET_FX={
   abyss:[{hp:.1,atk:.1},{kw:{heilung:5/8}}], schmiede:[{kw:{schild:1/3}},{atk1:.25}], mangrove:[{atk:.1,hp:.1},{grow:.05}],
   daemmerung:[{atk:.1,hp:.1},{elem:1.75}], totenwald:[{curse:.04},{revive:.4}], kristall:[{dr1:.2,hp:.1,atk:.1},{mend:.15}],
   erwachen:[{fear:.15},{scare:.2}], luft:[{flyHero:.5,hp:.1,atk:.1},{dr1:.2,atk:.1}], raeder:[{hp:.1,atk:.1},{kw:{heilung:.5}}],
-  bruecke:[{hp:.1},{atk:.1,hp:.1}], perle:[{heroHp:.15,atk:.1,hp:.1},{nets:.05}], variete:[{atk:.05},{curse:.03}], wueste:[{hp:.1,atk:.15},{grow:.06,hp:.1}], orkan:[{atk:.05},{atk1:.15}]
+  bruecke:[{hp:.1},{atk:.1,hp:.1}], horde:[{atk:.1},{kw:{einschlag:1}}], gefolge:[{heroHp:.15},{kw:{schild:1}}], brut:[{hp:.1},{kw:{heilung:1}}], hof:[{kw:{rache:1}},{atk:.1,hp:.1}], orden:[{hp:.1},{heroRegen:.05}], perle:[{heroHp:.15,atk:.1,hp:.1},{nets:.05}], variete:[{atk:.05},{curse:.03}], wueste:[{hp:.1,atk:.15},{grow:.06,hp:.1}], orkan:[{atk:.05},{atk1:.15}]
 };
 const SIDE_FX=['heroHp','heroRegen','curse','revive','mend','fear','nets'];
 const RAR=['Bronze','Silber','Gold','Diamant'], RAR_DESC=['gewöhnlich','ungewöhnlich','selten','sehr selten'];
@@ -197,7 +208,37 @@ const BASE=[
  ['kanonierin','Kanonierin','orkan',1,5,3,{einschlag:1},'feuer'],
  ['enterkapitaen','Enterkapitän','orkan',1,4,5,{durchbruch:1},'feuer'],
  ['seeungeheuer','Seeungeheuer an der Kette','orkan',2,4,7,{wut:1},'wasser'],
- ['geisterschiff','Das brennende Geisterschiff','orkan',3,6,6,{einschlag:2,rache:1},'feuer']
+ ['geisterschiff','Das brennende Geisterschiff','orkan',3,6,6,{einschlag:2,rache:1},'feuer'],
+ ['aschekobold','Aschekobold','horde',0,4,3,{einschlag:1}],
+ ['lavahund','Lavahund','horde',0,4,4,{wut:1}],
+ ['glutsoldat','Glutsoldat','horde',1,4,5,{schild:1}],
+ ['feuerspeierin','Feuerspeierin','horde',1,5,3,{einschlag:1}],
+ ['schlackenhauptmann','Schlackenhauptmann','horde',2,4,6,{anfuehrer:1}],
+ ['ormak','Schlackenfürst Ormak','horde',3,4,8,{einschlag:2,schild:1}],
+ ['gischtgeist','Gischtgeist','gefolge',0,3,3,{flug:1}],
+ ['krabbenrotte','Krabbenrotte','gefolge',0,3,5,{schild:1}],
+ ['ertrunkenerwaechter','Ertrunkener Wächter','gefolge',1,4,5,{durchbruch:1}],
+ ['sirene','Sirene','gefolge',1,3,4,{segen:1}],
+ ['tiefseeschlange','Tiefseeschlange','gefolge',2,5,5,{wut:1}],
+ ['ysra','Gezeitenmutter Ysra','gefolge',3,4,7,{heilung:2,segen:1}],
+ ['dornling','Dornling','brut',0,4,3,{rache:1}],
+ ['moosgeist','Moosgeist','brut',0,2,5,{heilung:1}],
+ ['rankenwuerger','Rankenwürger','brut',1,5,4,{durchbruch:1}],
+ ['pilzhueterin','Pilzhüterin','brut',1,2,6,{segen:1}],
+ ['borkenbaer','Borkenbär','brut',2,4,7,{wut:1}],
+ ['urborke','Urborke, die Alteiche','brut',3,3,9,{heilung:2,schild:1}],
+ ['hohlkraehe','Hohlkrähe','hof',0,3,3,{flug:1}],
+ ['schattenknecht','Schattenknecht','hof',0,4,4,{rache:1}],
+ ['seelenfaenger','Seelenfänger','hof',1,3,5,{heilung:1}],
+ ['mondhexe','Mondhexe','hof',1,5,3,{einschlag:1}],
+ ['hohlegarde','Die hohle Garde','hof',2,4,6,{schild:1}],
+ ['hohlerkoenig','Der Hohle König','hof',3,5,7,{rache:2,segen:1}],
+ ['novize','Ordensnovize','orden',0,3,4,{segen:1}],
+ ['lichtfalke','Lichtfalke','orden',0,4,2,{flug:1}],
+ ['sonnenwaechter','Sonnenwächter','orden',1,3,6,{schild:1}],
+ ['inquisitorin','Inquisitorin','orden',1,5,4,{durchbruch:1}],
+ ['strahlende','Der Strahlende','orden',2,5,5,{flug:1}],
+ ['aurel','Erzseraphin Aurel','orden',3,5,7,{flug:1,einschlag:1,segen:1}]
 ].map(([id,n,set,r,a0,h0,k,cat])=>{
   /* Grundwerte je Seltenheit liegen eng beieinander. Jede Karte hat ihr eigenes Verhältnis von Angriff zu Leben (30–70 %). */
   const x=hashS(id), u=(x%1000)/1000, T=Math.round(RAR_BASE[r]*(1+((x>>10)%7-3)/100)/10)*10;
@@ -211,11 +252,11 @@ const STARTER=['funkenwicht','tuempelgeist','moosling','irrlicht','nachtfalter']
 
 /* ====== Kampagne: 5 Gebiete, je eines pro Kategorie, je 8 Gefechte. Gegner nur aus dem Set des Gebiets. ====== */
 const AREAS=[
- {set:'glut',n:'I · Der Aschenpfad',s:'Funken, Wölfe und der Schlackenfürst.',img:'kapitel-1',unl:['glutwolf','brandbogner','flammenhexe']},
- {set:'flut',n:'II · Die versunkene Küste',s:'Nebel, Gischt und die Gezeitenmutter.',img:'kapitel-2',unl:['gezeitenwache','perlentaucherin','nebelheilerin']},
- {set:'hain',n:'III · Der Wurzelwald',s:'Moos, Dornen und die älteste Eiche.',img:'kapitel-4',unl:['dornenhirsch','wurzelhueter','rudelfuehrerin']},
- {set:'nacht',n:'IV · Das Hohle Reich',s:'Krähen, Gräber und der Hohle König.',img:'kapitel-3',unl:['grabkriecher','schattendolch','kraehenschwarm']},
- {set:'sonne',n:'V · Die Sonnenwacht',s:'Der Orden des Lichts und sein Erzseraph.',img:'kapitel-5',unl:['sonneneinhorn','lichtritter','sonnenloewe']}
+ {set:'glut',foe:'horde',n:'I · Der Aschenpfad',s:'Funken, Wölfe und der Schlackenfürst.',img:'kapitel-1',unl:['glutwolf','brandbogner','flammenhexe']},
+ {set:'flut',foe:'gefolge',n:'II · Die versunkene Küste',s:'Nebel, Gischt und die Gezeitenmutter.',img:'kapitel-2',unl:['gezeitenwache','perlentaucherin','nebelheilerin']},
+ {set:'hain',foe:'brut',n:'III · Der Wurzelwald',s:'Moos, Dornen und die älteste Eiche.',img:'kapitel-4',unl:['dornenhirsch','wurzelhueter','rudelfuehrerin']},
+ {set:'nacht',foe:'hof',n:'IV · Das Hohle Reich',s:'Krähen, Gräber und der Hohle König.',img:'kapitel-3',unl:['grabkriecher','schattendolch','kraehenschwarm']},
+ {set:'sonne',foe:'orden',n:'V · Die Sonnenwacht',s:'Der Orden des Lichts und seine Erzseraphin.',img:'kapitel-5',unl:['sonneneinhorn','lichtritter','sonnenloewe']}
 ];
 /* Kampagne: 16 Gefechte je Gebiet. Die alten 8 Gefechte liegen auf den geraden Plätzen, dazwischen je ein leichteres neues. */
 const STAGES_PER=16;
@@ -224,7 +265,7 @@ const STAGE_NAMES_OLD=[
  'Tümpelgeister','Nebelbucht','Die Gezeitenwache','Perlengrund','Das Wrack','Sturmküste','Der Leuchtturm','Gezeitenmutter Ysra',
  'Moosige Senke','Dornendickicht','Die Wurzelbrücke','Hirschpfad','Rudelfelsen','Der Steinkreis','Herz des Waldes','Urborke, die Alteiche',
  'Krähenfeld','Grabhügel','Seelenmarkt','Nachtfalterwald','Schattengasse','Die Knochenbrücke','Die hohle Garde','Der Hohle König',
- 'Irrlichtschwarm','Der Sonnenweg','Orden des Lichts','Löwenfelsen','Die Spiegelhalle','Das Himmelstor','Die letzte Wacht','Erzseraph Aurel'
+ 'Irrlichtschwarm','Der Sonnenweg','Orden des Lichts','Löwenfelsen','Die Spiegelhalle','Das Himmelstor','Die letzte Wacht','Erzseraphin Aurel'
 ];
 const STAGE_NAMES_NEW=[
  'Der Ascheweg','Kohlenbrücke','Funkenschlucht','Die Glutmine','Rußdorf','Lavarinne','Die Brennöfen','Schlackenstufen',
@@ -237,14 +278,14 @@ const STAGE_NAMES=[]; for(let a=0;a<5;a++) for(let k=0;k<8;k++){ STAGE_NAMES.pus
 const UNLOCK_SLOTS=[3,8,13]; /* Gefecht 4, 9 und 14 eines Gebiets schalten je eine Karte frei. */
 /* Werte der alten 8 Gefechte; die neuen Zwischengefechte übernehmen die Werte des vorigen alten Gefechts (leichter). */
 const RMAX8=[[0,0,0,0,0,0,0,0],[0,0,0,1,1,1,1,1],[0,0,1,1,1,2,2,1],[0,0,0,1,1,1,1,1],[0,0,1,1,1,2,2,1]];
-const AREA_LVL8=[[1,2,2,3,4,5,5,6],[5,5,6,6,6,6,6,9],[9,9,10,10,9,9,9,9],[12,10,12,11,14,14,15,16],[15,15,16,15,16,15,15,17]];
-const AREA_SIZE8=[[3,3,4,4,4,5,5,4],[3,4,4,5,5,5,5,6],[5,6,6,7,7,8,7,8],[6,6,7,6,8,8,8,6],[4,5,5,6,6,6,6,7]];
+const AREA_LVL8=[[1,2,2,3,4,5,5,6],[5,5,6,6,6,6,6,8],[9,9,10,10,10,10,10,10],[12,10,12,11,12,11,12,15],[16,16,17,17,18,19,19,21]];
+const AREA_SIZE8=[[3,3,4,4,4,5,5,4],[3,4,4,5,5,5,5,6],[5,6,6,7,7,8,7,8],[6,6,7,6,7,8,7,6],[4,5,5,6,6,6,6,7]];
 const x16=(T,first)=>T.map((r,a)=>r.flatMap((v,k)=>[k?Math.min(r[k-1],v):first(v,a),v]));
 const RMAX=x16(RMAX8,v=>v), AREA_LVL=x16(AREA_LVL8,(v,a)=>a?AREA_LVL8[a-1][7]-1:v), AREA_SIZE=x16(AREA_SIZE8,v=>Math.max(3,v-1));
 const STAGES=STAGE_NAMES.map((n,k)=>{
   const a=Math.floor(k/STAGES_PER), i=k%STAGES_PER, boss=i===STAGES_PER-1, A=AREAS[a], u=UNLOCK_SLOTS.indexOf(i), lvl=AREA_LVL[a][i];
-  return {id:k+1,area:a,i,n,boss,set:A.set,cat:SETS[A.set].cat,unlock:u>=0?A.unl[u]:'',weak:k<2,
-    size:AREA_SIZE[a][i], rmax:RMAX[a][i], top:boss?(a===0||a===3?2:3):-1,
+  return {id:k+1,area:a,i,n,boss,set:A.foe,cat:SETS[A.foe].cat,unlock:u>=0?A.unl[u]:'',weak:k<2,
+    size:AREA_SIZE[a][i], rmax:RMAX[a][i], top:boss?3:-1,
     lvl, star:Math.min(MAXSTAR,Math.ceil(lvl/5)), hp:Math.round((800+i*30+(boss?400:0))*mult(Math.min(MAXSTAR,Math.ceil(lvl/5)),lvl)/10)*10,
     gold:boss?150+a*75:40+a*20+Math.round(i*2.5)};
 });

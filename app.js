@@ -114,7 +114,7 @@ function okTable(t){ return t&&typeof t==='object'&&LEAGUES[t.lg]&&Array.isArray
 function seasonIdx(){ return Math.floor((Date.now()-SEASON_START)/(SEASON_DAYS*864e5)); }
 function fresh(){
   const decks=[STARTER.slice(),STARTER.slice(),STARTER.slice()];
-  return {v:6,gold:150,gems:0,skips:0,items:Object.fromEntries(Object.keys(CATS).map(c=>[c,[0,0,0,0]])),chests:[],cards:Object.fromEntries(STARTER.map(id=>[id,{lvl:1,star:1,dup:0}])),decks,di:0,unlocked:[],setsOpen:[],stars:{},hstars:{},campV:2,hero:'kapuze',heroes:['kapuze'],skins:{},skinOn:{},album:{},seen:{},stat:{fights:0,kills:0,best:null},lastSave:Date.now(),remind:'',ch:{wk:0,prog:{},all:0},chDecks:{},xp:0,plvl:1,back:'standard',backs:['standard'],
+  return {v:6,gold:150,gems:0,skips:0,items:Object.fromEntries(Object.keys(CATS).map(c=>[c,[0,0,0,0]])),chests:[],cards:Object.fromEntries(STARTER.map(id=>[id,{lvl:1,star:1,dup:0}])),decks,di:0,unlocked:[],setsOpen:[],stars:{},hstars:{},foeSets:[],campV:2,hero:'kapuze',heroes:['kapuze'],skins:{},skinOn:{},album:{},seen:{},stat:{fights:0,kills:0,best:null},lastSave:Date.now(),remind:'',ch:{wk:0,prog:{},all:0},chDecks:{},xp:0,plvl:1,back:'standard',backs:['standard'],
   vol:{m:.6,s:.8,a:.45},fxOff:false,muted:false,speed:1,opened:0,name:'Neuling_'+(100+Math.floor(Math.random()*900)),tr:0,league:0,aw:0,al:0,wins:0,theme:'tanne',themes:['tanne'],
   table:mkTable(0),daily:null,uid:Math.floor(Math.random()*1e9),tut:true,tipSeen:{},ach:{},flags:{},season:seasonIdx(),seasonBest:0,seasonMsg:null};
 }
@@ -136,7 +136,7 @@ function sane(j){
   s.speed=[1,2,4].includes(s.speed)?s.speed:1;
   const cl=v=>Math.min(1,Math.max(0,+v||0));
   s.vol=s.vol&&typeof s.vol==='object'?{m:cl(s.vol.m),s:cl(s.vol.s),a:s.vol.a==null?f.vol.a:cl(s.vol.a)}:f.vol;
-  s.fxOff=!!s.fxOff;
+  s.fxOff=!!s.fxOff; if(!Array.isArray(s.foeSets)) s.foeSets=[];
   if(s.league>=4&&Array.isArray(s.backs)&&!s.backs.includes('champion')) s.backs.push('champion');
   s.heroes=(Array.isArray(s.heroes)?s.heroes:[]).filter(k=>HEROES[k]); if(!s.heroes.includes('kapuze')) s.heroes.unshift('kapuze'); if(!s.heroes.includes(s.hero)) s.hero='kapuze';
   /* Kampagne 16 statt 8: jedes alte Gefecht zählt für die beiden neuen an seiner Stelle. */
@@ -176,7 +176,7 @@ function showLvUp(){
 /* ====== Sammlung und Truhen ======
    Freigeschaltet: Startkarten, Kampagnenkarten, und nach jedem Endgegner das ganze Set seines Gebiets. Gesperrte Karten kommen nur selten.
    Je höher eine Karte schon aufgewertet ist, desto seltener wird sie gezogen. */
-function isUnlocked(id){ const c=CARD[id]; if(c.r===0) return true; if(SETS[c.set].free) return elemOpen(c.cat); return STARTER.includes(id)||S.unlocked.includes(id)||S.setsOpen.includes(c.set); }
+function isUnlocked(id){ const c=CARD[id]; if(SETS[c.set].foe) return false; if(c.r===0) return true; if(SETS[c.set].free) return elemOpen(c.cat); return STARTER.includes(id)||S.unlocked.includes(id)||S.setsOpen.includes(c.set); }
 function needLeft(o){ let n=0; for(let s=o.star+1;s<=MAXSTAR;s++) n+=STAR_UP[s].d; return n; }
 function ownSkins(id){ return Array.isArray(S.skins[id])?S.skins[id]:[]; }
 function grant(id,skin){
@@ -433,7 +433,7 @@ const SEQ={
  a1:{t:'II · Die versunkene Küste',slides:[['kapitel-2','Die Flut kam und ging nicht mehr.'],['seq/a2-2','In der Gischt singen Stimmen, die keinem Menschen gehören.'],['seq/a2-3','Gezeitenmutter Ysra hält den Splitter fest. Und sie will ihn nicht hergeben.']]},
  a2:{t:'III · Der Wurzelwald',slides:[['kapitel-4','Der Wald wächst. Jede Nacht ein Stück weiter.'],['seq/a3-2','Wer stehen bleibt, schlägt Wurzeln.'],['seq/a3-3','Urborke, die Alteiche, war der gütigste Wächter. Jetzt will sie die ganze Welt zu Wald machen.']]},
  a3:{t:'IV · Das Hohle Reich',slides:[['kapitel-3','Hier geht die Sonne nicht mehr auf.'],['seq/a4-2','Im Hohlen Reich bezahlt man mit dem, was man ist.'],['seq/a4-3','Der Hohle König hat den Splitter verschluckt. Seitdem ist er innen leer.']]},
- a4:{t:'V · Die Sonnenwacht',slides:[['seq/a5-1','Die letzte Festung des Lichts. Sie lässt niemanden ein.'],['seq/a5-2','Der Orden sagt, du darfst den Stein nicht zusammensetzen.'],['seq/a5-3','Erzseraph Aurel wartet. Er weiß, was im Stein schläft.']]},
+ a4:{t:'V · Die Sonnenwacht',slides:[['seq/a5-1','Die letzte Festung des Lichts. Sie lässt niemanden ein.'],['seq/a5-2','Der Orden sagt, du darfst den Stein nicht zusammensetzen.'],['seq/a5-3','Erzseraphin Aurel wartet. Sie weiß, was im Stein schläft.']]},
  ende:{t:'Der Stein ist ganz',music:'endgegner',slides:[['seq/ende-1','Der letzte Splitter fügt sich ein. Der Glutstein ist wieder ganz.'],['seq/ende-2','Doch in seinem Inneren öffnet sich ein Auge.'],['seq/ende-3','„Danke, Kartenbinder.“ Über dem Meer zerreißt der Himmel.\nFortsetzung folgt …']]}
 };
 let SQ=null;
@@ -550,10 +550,11 @@ function skipIcon(z){ z=Math.round(z*1.25); return `<img class="itm" src="bilder
 function itemsLine(list){ return list.map(x=>`<span class="ichip">${itemIcon(x.cat,x.q,18)}+${x.n} ${itemName(x.cat,x.q)}</span>`).join(''); }
 function starsHTML(n,cls){ return `<span class="stars ${cls||''}" role="img" aria-label="${n} von 3 Sternen">${[1,2,3].map(i=>`<i class="st${i<=n?' on':''}"></i>`).join('')}</span>`; }
 /* Helden-Porträts: eigener Held (Laden, 30 Glutsteine) und feste Porträts der Rivalen. */
-const HEROES={kapuze:'Der Namenlose',feuermagierin:'Feuermagierin',zwerg:'Zwergenkrieger',elfe:'Waldläuferin',soeldner:'Söldner',meerhexe:'Meerhexe',gelehrter:'Gelehrter',vampirgraefin:'Vampirgräfin',ritter:'Junger Ritter',nomadin:'Nomadin',pirat:'Piratenkapitän',erfinderin:'Erfinderin'};
+const HEROES={kapuze:'Der Namenlose',ormak:'Schlackenfürst Ormak',ysra:'Gezeitenmutter Ysra',urborke:'Urborke',hohlerkoenig:'Der Hohle König',aurel:'Erzseraphin Aurel',feuermagierin:'Feuermagierin',zwerg:'Zwergenkrieger',elfe:'Waldläuferin',soeldner:'Söldner',meerhexe:'Meerhexe',gelehrter:'Gelehrter',vampirgraefin:'Vampirgräfin',ritter:'Junger Ritter',nomadin:'Nomadin',pirat:'Piratenkapitän',erfinderin:'Erfinderin'};
 const HERO_PRICE=30, HERO_KEYS=Object.keys(HEROES);
 function heroImg(k,cls){ return `<img class="pt${cls?' '+cls:''}" src="bilder/helden/${k}.png" alt="" aria-hidden="true">`; }
-function rivalHero(r){ return HERO_KEYS[1+((r.s>>>0)%(HERO_KEYS.length-1))]; }
+const RIVAL_HEROES=HERO_KEYS.slice(6);
+function rivalHero(r){ return RIVAL_HEROES[(r.s>>>0)%RIVAL_HEROES.length]; }
 function rivalBySeed(n){ return S.table.rivals.find(x=>x.n===n); }
 function avHTML(n,hue){ return `<span class="av" style="--h:${hue??hash(n)%360}" aria-hidden="true">${esc(n[0].toUpperCase())}</span>`; }
 function deckInfo(d){ return d.length+' Karten · Ø Level '+Math.round(d.reduce((a,c)=>a+(c.lvl||1),0)/d.length); }
@@ -638,7 +639,7 @@ function viewMap(){
   if(done&&a<AREAS.length-1) h+=`<button class="marrow r" data-act="mapGo" data-id="${a+1}" aria-label="Nächstes Gebiet">${AREAS[a+1].n.split(' · ')[1]} ›</button>`;
   h+=`</div><aside class="mside"><section class="panelbox">`;
   h+= next?`<p class="eyebrow">Nächstes Gefecht</p><h3>${next.i+1} · ${next.n}</h3><p class="muted">${next.size} ${SETS[next.set].n}-Karten auf Level ${next.lvl}, Held mit ${next.hp} Leben.</p><button class="btn primary block" data-act="fight" data-id="${next.id}">Kämpfen</button>`
-          : `<p class="eyebrow">Gebiet geschafft</p><h3>${a===AREAS.length-1?'Der Erzseraph ist gefallen':A.n.split(' · ')[1]}</h3><p class="muted">Hol dir fehlende Sterne oder versuch dich an den heroischen Gefechten.</p>`;
+          : `<p class="eyebrow">Gebiet geschafft</p><h3>${a===AREAS.length-1?'Die Erzseraphin ist gefallen':A.n.split(' · ')[1]}</h3><p class="muted">Hol dir fehlende Sterne oder versuch dich an den heroischen Gefechten.</p>`;
   h+=`<button class="link" data-act="replaySeq" data-id="a${a}">Gebietsgeschichte ansehen</button><div class="facts"><div><b>${total}/${STAGES.length*3}</b><span>Sterne</span></div><div><b>${BASE.filter(c=>S.cards[c.id]).length}</b><span>Karten</span></div><div><b>${Object.keys(S.hstars).length}</b><span>heroisch</span></div></div></section>${tasksHTML()}</aside></div>`;
   return h;
 }
@@ -772,7 +773,7 @@ function sheetStage(id){
   const st=STAGES.find(s=>s.id===id), open=isOpen(st), got=S.stars[id]||0, hg=S.hstars[id]||0, hero=areaDone(st.area), d=stageDeck(st), uniq={}; d.forEach(c=>uniq[c.id]=(uniq[c.id]||0)+1);
   openSheet(`<p class="eyebrow">${AREAS[st.area].n} · Gefecht ${st.i+1}</p><div class="sec-h"><h2>${st.n}</h2>${starsHTML(got)}</div>
   <ul class="kv"><li><span>Gegner</span><b>${st.size} Karten · Level ${st.lvl} · Held ${st.hp} Leben</b></li>${hero?`<li><span>Heroisch: +8 Level, doppeltes Heldenleben</span><b>${hg?'★'.repeat(hg):'offen'}</b></li>`:''}</ul>
-  <h3>Belohnung</h3><ul class="rew"><li class="ok">Jeder Sieg: ${st.gold} Gold + 1 ${itemName(st.cat,stageItem(st).q)}</li><li class="${got>=2?'ok':''}">${got>=2?'✓ ':''}Erstmals ★★: +1 ${itemName(st.cat,stageItem(st).q)}</li><li class="${got>=3?'ok':''}">${got>=3?'✓ ':''}Erstmals ★★★: +50 % Gold</li>${hero?`<li class="${hg>=3?'ok':''}">Heroisch: 2 Gegenstände, 1,5-faches Gold${hg>=3?' ✓':''}</li>`:''}</ul>
+  <h3>Belohnung</h3><ul class="rew"><li class="ok">Jeder Sieg: ${st.gold} Gold + 1 ${itemName(st.cat,stageItem(st).q)}</li><li class="${got>=2?'ok':''}">${got>=2?'✓ ':''}Erstmals ★★: +1 ${itemName(st.cat,stageItem(st).q)}</li><li class="${got>=3?'ok':''}">${got>=3?'✓ ':''}Erstmals ★★★: +50 % Gold</li>${hero?`<li class="${hg>=3?'ok':''}">Heroisch: 2 Gegenstände, 1,5-faches Gold${hg>=3?' ✓':''}</li><li class="${S.foeSets.includes(AREAS[st.area].foe)?'ok':''}">Alle 16 Gefechte heroisch mit ★★★: das Set „${SETS[AREAS[st.area].foe].n}“</li>`:''}</ul>
   <h3>Gegnerisches Deck</h3><div class="grid g4">${Object.keys(uniq).map(c=>`<div class="tile">${cardHTML({id:c,lvl:st.lvl,star:st.star})}${uniq[c]>1?`<span class="flag">×${uniq[c]}</span>`:''}</div>`).join('')}</div>
   <div class="row-btns"><button class="btn" data-act="close">Zurück</button><button class="btn primary" data-act="fight" data-id="${id}" ${open?'':'disabled'}>${open?'Kampf beginnen':'Noch gesperrt'}</button>${hero?`<button class="btn" data-act="fightHero" data-id="${id}">Heroisch</button>`:''}</div>
   <div class="row-btns"><button class="btn" data-act="quickWin" data-id="${id}" ${got===3&&S.skips>0?'':'disabled'}>${skipIcon(18)} Schnellsieg (${S.skips})</button>${hero?`<button class="btn" data-act="quickWin" data-id="${id}h" ${hg===3&&S.skips>0?'':'disabled'}>${skipIcon(18)} Heroisch (${S.skips})</button>`:''}</div>`);
@@ -866,6 +867,7 @@ function resultHTML(){
   if(r.gems) lines+=`<p class="r-line"><span class="gem"></span>+${r.gems} Glutsteine</p>`;
   if(r.items&&r.items.length) lines+=`<div class="ichips">${itemsLine(r.items)}</div>`;
   if(r.promo) lines+=`<p class="r-line">Aufstieg in die ${r.promo}</p>`;
+  if(r.foeSet) lines+=`<p class="r-line">👑 Gebiet heroisch bezwungen: das Set „${r.foeSet}“ gehört jetzt dir!</p>`;
   if(r.champ) lines+=`<p class="r-line">🏆 Kartenrücken „Champion“ freigeschaltet!</p>`;
   if(r.demo) lines+=`<p class="r-line">Abstieg in die ${r.demo}</p><p class="muted">Du startest in der Mitte der Liga.</p>`;
   if(r.xp) lines+=`<p class="r-line"><span class="xpi">EP</span>+${r.xp} Erfahrung${r.lvup?` <small>Level ${r.lvup} erreicht!</small>`:''}</p>`;
@@ -979,6 +981,9 @@ function finish(){
       if(r.stars>=3&&prev<3){ r.bonus=Math.round(g*.5); r.gold+=r.bonus; }
       r.xp=XP.win+XP.star*Math.max(0,r.stars-prev);
       if(r.stars>prev) store[st.id]=r.stars;
+      /* Alle 16 Gefechte eines Gebiets heroisch mit 3 Sternen: das Gegner-Set gehört dir. */
+      if(H){ const A=AREAS[st.area], all=STAGES.filter(x=>x.area===st.area).every(x=>S.hstars[x.id]===3);
+        if(all&&!S.foeSets.includes(A.foe)){ S.foeSets.push(A.foe); BASE.filter(c=>c.set===A.foe).forEach(c=>{ if(!S.cards[c.id]) S.cards[c.id]={lvl:1,star:1,dup:0}; }); r.foeSet=SETS[A.foe].n; } }
       if(!H&&!prev){
         if(st.unlock){ if(!S.unlocked.includes(st.unlock)) S.unlocked.push(st.unlock); if(!S.cards[st.unlock]) S.cards[st.unlock]={lvl:1,star:1,dup:0}; r.unlock=st.unlock; }
         if(st.boss){ if(!S.setsOpen.includes(st.set)) S.setsOpen.push(st.set); r.setOpen=st.set; r.chests.push('gold'); S.gems+=GEM_BOSS; r.gems=GEM_BOSS; }
