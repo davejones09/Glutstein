@@ -556,6 +556,9 @@ function heroImg(k,cls){ return `<img class="pt${cls?' '+cls:''}" src="bilder/he
 const RIVAL_HEROES=HERO_KEYS.slice(6);
 function rivalHero(r){ return RIVAL_HEROES[(r.s>>>0)%RIVAL_HEROES.length]; }
 function rivalBySeed(n){ return S.table.rivals.find(x=>x.n===n); }
+/* Gesicht des Gegners im Dialog: beim Endgegner sein Porträt, sonst das stärkste Gegnerbild im Deck. */
+function foeAv(st){ if(st.boss){ const b=BASE.find(c=>c.set===st.set&&c.r===3); return heroImg(b.id); }
+  const d=stageDeck(st), top=d.map(x=>CARD[x.id]).sort((a,b)=>b.r-a.r)[0]; return `<img class="pt foeav" src="bilder/${top.id}.jpg" alt="" aria-hidden="true">`; }
 function avHTML(n,hue){ return `<span class="av" style="--h:${hue??hash(n)%360}" aria-hidden="true">${esc(n[0].toUpperCase())}</span>`; }
 function deckInfo(d){ return d.length+' Karten · Ø Level '+Math.round(d.reduce((a,c)=>a+(c.lvl||1),0)/d.length); }
 function isOpen(st){ return st.id===1||S.stars[st.id-1]>0; }
@@ -962,7 +965,7 @@ function startBattle(c){
 function startDuel(seed){ const r=S.table.rivals.find(x=>x.s===seed)||byDist()[0]; startBattle({mode:'arena',rival:r,title:'Arena · '+LEAGUES[S.table.lg].n,opp:r.n}); }
 function stageDialog(st,hero){
   const lines=DLG[st.id]||[];
-  openSheet(`<p class="eyebrow">${AREAS[st.area].n} · Gefecht ${st.i+1}${hero?' · Heroisch':''}</p><h2>${st.n}</h2><div class="dlg">${lines.map(([w,t])=>w==='g'?`<div class="line">${avHTML(st.n,(st.id*47)%360)}<div class="bubble"><b>${st.n}</b>${t}</div></div>`:`<div class="line p"><div class="bubble"><b>${esc(S.name)}</b>${t}</div>${heroImg(S.hero)}</div>`).join('')}</div>
+  openSheet(`<p class="eyebrow">${AREAS[st.area].n} · Gefecht ${st.i+1}${hero?' · Heroisch':''}</p><h2>${st.n}</h2><div class="dlg">${lines.map(([w,t])=>w==='g'?`<div class="line">${foeAv(st)}<div class="bubble"><b>${st.n}</b>${t}</div></div>`:`<div class="line p"><div class="bubble"><b>${esc(S.name)}</b>${t}</div>${heroImg(S.hero)}</div>`).join('')}</div>
   <div class="row-btns"><button class="btn" data-act="close">Zurück</button><button class="btn primary" data-act="fightGo" data-id="${st.id}${hero?'h':''}">Kampf beginnen</button></div>`);
 }
 function startStage(id,hero){ const st=STAGES.find(s=>s.id===id); if(!st||!isOpen(st)) return; if(deck().length<DECK_MIN){ startBattle({}); return; } stageDialog(st,hero); }

@@ -278,7 +278,7 @@ const STAGE_NAMES=[]; for(let a=0;a<5;a++) for(let k=0;k<8;k++){ STAGE_NAMES.pus
 const UNLOCK_SLOTS=[3,8,13]; /* Gefecht 4, 9 und 14 eines Gebiets schalten je eine Karte frei. */
 /* Werte der alten 8 Gefechte; die neuen Zwischengefechte übernehmen die Werte des vorigen alten Gefechts (leichter). */
 const RMAX8=[[0,0,0,0,0,0,0,0],[0,0,0,1,1,1,1,1],[0,0,1,1,1,2,2,1],[0,0,0,1,1,1,1,1],[0,0,1,1,1,2,2,1]];
-const AREA_LVL8=[[1,2,2,3,4,5,5,6],[5,5,6,6,6,6,6,8],[9,9,10,10,10,10,10,10],[12,10,12,11,12,11,12,15],[16,16,17,17,18,19,19,21]];
+const AREA_LVL8=[[1,2,2,3,4,5,5,6],[5,5,6,6,5,5,6,8],[9,9,10,10,10,10,10,8],[11,10,9,10,11,10,11,12],[16,16,17,17,18,18,18,20]];
 const AREA_SIZE8=[[3,3,4,4,4,5,5,4],[3,4,4,5,5,5,5,6],[5,6,6,7,7,8,7,8],[6,6,7,6,7,8,7,6],[4,5,5,6,6,6,6,7]];
 const x16=(T,first)=>T.map((r,a)=>r.flatMap((v,k)=>[k?Math.min(r[k-1],v):first(v,a),v]));
 const RMAX=x16(RMAX8,v=>v), AREA_LVL=x16(AREA_LVL8,(v,a)=>a?AREA_LVL8[a-1][7]-1:v), AREA_SIZE=x16(AREA_SIZE8,v=>Math.max(3,v-1));
@@ -293,10 +293,14 @@ const BOSS_ID=a=>(a+1)*STAGES_PER, LAST_ID=AREAS.length*STAGES_PER;
 function rng(seed){ return ()=>{ seed=seed+0x6D2B79F5|0; let t=Math.imul(seed^seed>>>15,1|seed); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
 function hash(s){ let h=2166136261; for(let i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619); } return h>>>0; }
 /* Gegnerdeck eines Gefechts: nur Karten aus dem Set des Gebiets, Doppelte erlaubt (PvE). Heroisch: +8 Level. */
+/* Gegnerdeck: Gefechte 1–4 nur Bronze, ab 5 Silber, ab 9 der Gold-Elitegegner, Gefecht 16 der Endgegner.
+   Ab dem zweiten Abschnitt ist immer eine Karte der neuen Stufe dabei, abwechselnd, damit jeder Gegner auftaucht. */
+function stageMaxR(st){ return st.boss?3:st.i<4?0:st.i<8?1:2; }
 function stageDeck(st,hero){
-  const r=rng(hash('g'+st.id)), pool=BASE.filter(c=>c.set===st.set&&c.r<=st.rmax), ids=[];
-  if(st.top>=0){ const top=BASE.find(c=>c.set===st.set&&c.r===st.top); ids.push(top.id); }
-  while(ids.length<st.size){ const w=pool.map(c=>c.r===st.rmax?2:1), sum=w.reduce((a,b)=>a+b,0); let v=r()*sum, i=0; while(v>w[i]&&i<w.length-1){ v-=w[i]; i++; } ids.push(pool[i].id); }
+  const r=rng(hash('g'+st.id)), mr=Math.min(2,stageMaxR(st)), set=BASE.filter(c=>c.set===st.set), pool=set.filter(c=>c.r<=mr), ids=[];
+  if(st.boss) ids.push(set.find(c=>c.r===3).id);
+  if(mr>0){ const lead=set.filter(c=>c.r===mr); ids.push(lead[st.i%lead.length].id); }
+  while(ids.length<st.size){ const w=pool.map(c=>c.r===mr?2:1), sum=w.reduce((a,b)=>a+b,0); let v=r()*sum, i=0; while(v>w[i]&&i<w.length-1){ v-=w[i]; i++; } ids.push(pool[i].id); }
   const lvl=Math.min(MAXLVL,st.lvl+(hero?8:0)), star=Math.min(MAXSTAR,Math.ceil(lvl/5));
   return ids.map(id=>({id,lvl,star,weak:st.weak&&!hero}));
 }
