@@ -109,7 +109,7 @@ function okTable(t){ return t&&typeof t==='object'&&LEAGUES[t.lg]&&Array.isArray
 function seasonIdx(){ return Math.floor((Date.now()-SEASON_START)/(SEASON_DAYS*864e5)); }
 function fresh(){
   const decks=[STARTER.slice(),STARTER.slice(),STARTER.slice()];
-  return {v:6,gold:150,gems:0,skips:0,items:Object.fromEntries(Object.keys(CATS).map(c=>[c,[0,0,0,0]])),chests:[],cards:Object.fromEntries(STARTER.map(id=>[id,{lvl:1,star:1,dup:0}])),decks,di:0,unlocked:[],setsOpen:[],stars:{},hstars:{},skins:{},skinOn:{},album:{},seen:{},xp:0,plvl:1,back:'standard',backs:['standard'],
+  return {v:6,gold:150,gems:0,skips:0,items:Object.fromEntries(Object.keys(CATS).map(c=>[c,[0,0,0,0]])),chests:[],cards:Object.fromEntries(STARTER.map(id=>[id,{lvl:1,star:1,dup:0}])),decks,di:0,unlocked:[],setsOpen:[],stars:{},hstars:{},skins:{},skinOn:{},album:{},seen:{},stat:{fights:0,kills:0,best:null},lastSave:Date.now(),remind:'',ch:{wk:0,prog:{},all:0},chDecks:{},xp:0,plvl:1,back:'standard',backs:['standard'],
   vol:{m:.6,s:.8,a:.45},fxOff:false,muted:false,speed:1,opened:0,name:'Neuling_'+(100+Math.floor(Math.random()*900)),tr:0,league:0,aw:0,al:0,wins:0,theme:'tanne',themes:['tanne'],
   table:mkTable(0),daily:null,uid:Math.floor(Math.random()*1e9),tut:true,tipSeen:{},ach:{},flags:{},season:seasonIdx(),seasonBest:0,seasonMsg:null};
 }
@@ -132,6 +132,8 @@ function sane(j){
   const cl=v=>Math.min(1,Math.max(0,+v||0));
   s.vol=s.vol&&typeof s.vol==='object'?{m:cl(s.vol.m),s:cl(s.vol.s),a:s.vol.a==null?f.vol.a:cl(s.vol.a)}:f.vol;
   s.fxOff=!!s.fxOff;
+  s.stat=Object.assign({fights:0,kills:0,best:null},s.stat||{}); if(!s.lastSave) s.lastSave=Date.now(); if(typeof s.remind!=='string') s.remind='';
+  if(!s.ch||typeof s.ch!=='object') s.ch={wk:0,prog:{},all:0}; if(!s.chDecks||typeof s.chDecks!=='object') s.chDecks={};
   s.plvl=Math.min(PMAX,Math.max(1,s.plvl|0)); s.xp=Math.max(0,s.xp|0);
   s.backs=(Array.isArray(s.backs)?s.backs:[]).filter(b=>BACKS[b]); if(!s.backs.includes('standard')) s.backs.unshift('standard'); if(!s.backs.includes(s.back)) s.back='standard';
   /* Sondermotive: früher 1 = besessen, jetzt Liste der gefundenen Motive. */
@@ -201,7 +203,7 @@ function openChest(type){
   if(Math.random()<SKIP_CHANCE[type]){ const f=notK(); if(f.length) kinds[f[Math.floor(Math.random()*f.length)]]='rolle'; else if(kinds.filter(k=>k==='kreatur').length>1) kinds[kinds.length-1]='rolle'; }
   if(type==='gold'&&Math.random()<GEM_CHANCE){ const f=kinds.map((k,i)=>k!=='kreatur'&&k!=='rolle'?i:-1).filter(i=>i>=0); if(f.length) kinds[f[0]]='steine'; else if(kinds.filter(k=>k==='kreatur').length>1) kinds[kinds.lastIndexOf('kreatur')]='steine'; }
   const cards=kinds.map(k=>{
-    if(k==='kreatur'){ const id=drawCard(odds); return Object.assign({t:'kreatur'},grant(id,!!SKINS[id]&&Math.random()<SKIN_CHANCE)); }
+    if(k==='kreatur'){ const id=drawCard(odds); if(!S.stat.best||CARD[id].r>CARD[S.stat.best].r) S.stat.best=id; return Object.assign({t:'kreatur'},grant(id,!!SKINS[id]&&Math.random()<SKIN_CHANCE)); }
     if(k==='gegenstand'){ const q=pick(CHEST_Q[type]), cat=Object.keys(CATS)[Math.floor(Math.random()*5)], n=rnd2(...Q_AMOUNT[q]); S.items[cat][q]+=n; return {t:'gegenstand',cat,q,n}; }
     if(k==='gold'){ const n=rnd2(...C.gold); addGold(n); return {t:'gold',n}; }
     if(k==='rolle'){ S.skips++; return {t:'rolle',n:1}; }
@@ -214,7 +216,7 @@ function openChest(type){
 function stageItem(st,hero){ return {cat:st.cat,q:st.i<3?0:st.i<5?1:st.i<7?2:3,n:hero?2:1}; }
 function giveItems(list){ list.forEach(x=>S.items[x.cat][x.q]+=x.n); }
 function canLevel(id){ const o=S.cards[id]; if(!o||o.lvl>=o.star*5) return false; const c=lvlCost(o.lvl), d=CARD[id]; return S.items[d.cat][d.r]>=c.n&&S.gold>=c.g; }
-function canStar(id){ const o=S.cards[id]; if(!o||o.star>=MAXSTAR||o.lvl<o.star*5) return false; const u=STAR_UP[o.star+1]; return o.dup>=u.d&&S.gold>=u.g; }
+function canStar(id){ const o=S.cards[id]; if(!o||o.star>=MAXSTAR) return false; const u=STAR_UP[o.star+1]; return o.dup>=u.d&&S.gold>=u.g; }
 function canUp(id){ return canLevel(id)||canStar(id); }
 function deckObjs(){ return deck().map(id=>({id,lvl:S.cards[id].lvl,star:S.cards[id].star,skin:skinOn(id)})); }
 function deckLim(){ const d=deckObjs(); return {n:d.length,r:Math.max(...d.map(c=>CARD[c.id].r)),l:Math.max(1,Math.round(d.reduce((a,c)=>a+c.lvl,0)/d.length))}; }
@@ -304,11 +306,11 @@ function fxOn(){ return !S.fxOff&&!RM; }
 function ambApply(){
   if(!FXC.cv){ FXC.cv=document.createElement('canvas'); FXC.cv.id='amb'; FXC.cv.setAttribute('aria-hidden','true'); document.body.appendChild(FXC.cv); FXC.g=FXC.cv.getContext('2d'); addEventListener('resize',fxSize); fxSize(); }
   const k=fxKind(); if(k!==FXC.kind){ FXC.kind=k; FXC.parts=[]; }
-  FXC.cv.style.display=fxOn()?'block':'none';
+  FXC.cv.style.display=fxOn()?'block':'none'; fxSize();
   if(fxOn()&&!FXC.run){ FXC.run=true; FXC.last=performance.now(); requestAnimationFrame(fxLoop); }
   ambSound();
 }
-function fxSize(){ const c=FXC.cv; FXC.dpr=Math.min(2,devicePixelRatio||1); FXC.w=innerWidth; FXC.h=innerHeight; c.width=FXC.w*FXC.dpr; c.height=FXC.h*FXC.dpr; FXC.g.setTransform(FXC.dpr,0,0,FXC.dpr,0,0); }
+function fxSize(){ const c=FXC.cv, hd=document.querySelector('header'), top=hd&&$('#battle').hidden?Math.round(hd.getBoundingClientRect().bottom):0; c.style.top=top+'px'; c.style.height=`calc(100% - ${top}px)`; FXC.dpr=Math.min(2,devicePixelRatio||1); FXC.w=innerWidth; FXC.h=innerHeight-top; c.width=FXC.w*FXC.dpr; c.height=FXC.h*FXC.dpr; FXC.g.setTransform(FXC.dpr,0,0,FXC.dpr,0,0); }
 const rnd=(a,b)=>a+Math.random()*(b-a);
 /* Ein Teilchen der Umgebung je Tisch. x/y in Pixeln, v Geschwindigkeit, l Lebenszeit in s. */
 function spawnAmb(k,init){
@@ -467,6 +469,65 @@ function artClose(){ AV=null; const el=$('#art'); el.hidden=true; el.innerHTML='
 (()=>{ let x0=null; document.addEventListener('pointerdown',e=>{ if(AV&&e.target.closest('#art')) x0=e.clientX; });
   document.addEventListener('pointerup',e=>{ if(!AV||x0==null) return; const dx=e.clientX-x0; x0=null; if(Math.abs(dx)>40){ artStep(dx<0?1:-1); e.preventDefault(); } else if(!e.target.closest('.art-nav,.art-x')) artClose(); }); })();
 
+/* ====== Herausforderungen: jede Woche drei Regeln, je drei Kämpfe ====== */
+const RULES=[
+ {id:'bronze',n:'Nur Bronze',d:'Nur Bronzekarten sind erlaubt.',ok:c=>c.r===0},
+ {id:'elem',n:p=>'Nur '+CATS[p],d:p=>`Nur ${CATS[p]}-Karten sind erlaubt.`,param:'cat',ok:(c,o,p)=>c.cat===p},
+ {id:'vier',n:'Kleines Deck',d:'Höchstens 4 Karten im Deck.',max:4},
+ {id:'keindia',n:'Ohne Diamant',d:'Diamantkarten sind nicht erlaubt.',ok:c=>c.r<3},
+ {id:'zweisets',n:'Zwei Sets',d:'Karten aus höchstens zwei Sets.',sets:2},
+ {id:'vorteil',n:'Gegen den Strom',d:'Die Gegner haben Elementvorteil gegen dein Deck.',enemy:'advantage'},
+ {id:'ohneheld',n:'Ohne Held',d:'Dein Held hat nur 1 Leben: Eine leere Bahn bedeutet die Niederlage.',noHero:1},
+ {id:'schild',n:'Schildwall',d:'Alle gegnerischen Karten haben Schild.',eShield:1},
+ {id:'zerfall',n:'Zerfall',d:'Zu Beginn jeder Runde verlieren alle Karten 5 % ihres Lebens.',decay:.05},
+ {id:'jung',n:'Frische Kräfte',d:'Nur Karten unter Level 10.',ok:(c,o)=>o.lvl<10},
+ {id:'freiset',n:p=>'Invasion: '+SETS[p].n,d:p=>`Der Gegner spielt das ganze Set ${SETS[p].n}.`,param:'set',enemy:'freeset'},
+ {id:'spiegel',n:'Spiegelkampf',d:'Der Gegner hat genau dein Deck.',enemy:'mirror'}];
+const RULE=Object.fromEntries(RULES.map(r=>[r.id,r]));
+function weekNo(){ return Math.floor((Date.now()/864e5+3)/7); }
+function weekRules(){
+  const wk=weekNo(), r=rng(wk*7919+13), pool=shuffle(RULES.slice(),r).slice(0,3), free=Object.keys(SETS).filter(x=>SETS[x].free);
+  return pool.map(x=>({rid:x.id,p:x.param==='cat'?Object.keys(CATS)[Math.floor(r()*5)]:x.param==='set'?free[Math.floor(r()*free.length)]:null}));
+}
+function chState(){ const wk=weekNo(); if(S.ch.wk!==wk) S.ch={wk,prog:{},all:0}; return S.ch; }
+function txt(v,p){ return typeof v==='function'?v(p):v; }
+function chAllowed(w,id){ const R=RULE[w.rid], c=CARD[id], o=S.cards[id]; return !!o&&(!R.ok||R.ok(c,o,w.p)); }
+function chMax(w){ return RULE[w.rid].max||DECK_MAX; }
+function chDeck(w){ const k=w.rid+(w.p||''); return (S.chDecks[k]=(S.chDecks[k]||[]).filter(id=>chAllowed(w,id)).slice(0,chMax(w))); }
+function chValid(w){ const d=chDeck(w), R=RULE[w.rid]; return d.length>=DECK_MIN&&(!R.sets||new Set(d.map(id=>CARD[id].set)).size<=R.sets); }
+function chObjs(w){ return chDeck(w).map(id=>({id,lvl:S.cards[id].lvl,star:S.cards[id].star,skin:skinOn(id)})); }
+/* Gegner: Stärke nach Kartenbinder-Level, jeder der drei Kämpfe etwas härter. */
+function chEnemy(w,k,pd){
+  const R=RULE[w.rid], q=Math.min(1,S.plvl/40+k*.07), seed=weekNo()*101+RULES.indexOf(R)*17+k, base=botDeck(seed,q), lvl=Math.round(base.reduce((x,c)=>x+c.lvl,0)/base.length);
+  const mk=ids=>ids.map(id=>({id,lvl,star:Math.min(MAXSTAR,Math.ceil(lvl/5))}));
+  if(R.enemy==='mirror') return pd.map(d=>Object.assign({},d,{skin:0}));
+  if(R.enemy==='freeset') return mk(BASE.filter(c=>c.set===w.p).map(c=>c.id));
+  if(R.enemy==='advantage'){ const cnt={}; pd.forEach(d=>{ const c=CARD[d.id].cat; cnt[c]=(cnt[c]||0)+1; }); const main=Object.keys(cnt).sort((a,b)=>cnt[b]-cnt[a])[0], beat=Object.keys(STRONG).filter(c=>STRONG[c]===main);
+    const r=rng(seed), pool=shuffle(BASE.filter(c=>beat.includes(c.cat)&&c.r<=Math.max(...base.map(b=>CARD[b.id].r))),r); return mk(pool.slice(0,base.length).map(c=>c.id)); }
+  return base;
+}
+function startChallenge(i){
+  const w=weekRules()[i], ch=chState(), k=ch.prog[w.rid]||0; if(k>=3) return; if(!chValid(w)){ sheetChDeck(i); return; }
+  const R=RULE[w.rid], pd=chObjs(w);
+  startBattle({mode:'heraus',ci:i,w,k,pDeck:pd,eDeck:chEnemy(w,k,pd),rule:R,title:`${txt(R.n,w.p)} · Kampf ${k+1} von 3`,opp:'Herausforderung'});
+}
+function sheetChDeck(i){
+  const w=weekRules()[i], R=RULE[w.rid], d=chDeck(w), ids=Object.keys(S.cards).filter(id=>chAllowed(w,id)).sort((a,b)=>power(b)-power(a));
+  openSheet(`<p class="eyebrow">Herausforderung</p><div class="sec-h"><h2>${txt(R.n,w.p)}</h2><span class="count">${d.length}/${chMax(w)} Karten</span></div><p class="muted">${txt(R.d,w.p)} Tippe Karten an, um sie ins Deck zu nehmen. Mindestens ${DECK_MIN}.</p>
+  ${ids.length?`<div class="grid g5">${ids.map(id=>`<button class="tile chpick${d.includes(id)?' on':''}" data-act="chPick" data-id="${i}:${id}">${cardHTML({id,lvl:S.cards[id].lvl,star:S.cards[id].star})}${d.includes(id)?'<span class="flag">✓</span>':''}</button>`).join('')}</div>`:'<p class="muted">Du hast noch keine passenden Karten.</p>'}
+  <div class="row-btns"><button class="btn" data-act="close">Fertig</button><button class="btn primary" data-act="chGo" data-id="${i}" ${chValid(w)?'':'disabled'}>Kampf beginnen</button></div>`);
+}
+function viewChallenges(){
+  if(!S.stars[8]) return `<section class="panelbox"><h2>Herausforderungen</h2><p class="muted">Besiege den Endgegner des Aschenpfads, dann warten hier jede Woche drei Herausforderungen mit eigenen Deckregeln.</p></section>`;
+  const ch=chState(), ws=weekRules(), done=ws.filter(w=>(ch.prog[w.rid]||0)>=3).length, left=7-Math.floor((Date.now()/864e5+3)%7);
+  let h=`<section class="panelbox"><p class="eyebrow">Diese Woche · noch ${left} ${left===1?'Tag':'Tage'}</p><h2>Herausforderungen</h2><p class="muted">Jede besteht aus 3 Kämpfen, die immer schwerer werden. Für jede eigene Regeln und ein eigenes Deck. Belohnung: je eine Silbertruhe, für alle drei zusätzlich eine Goldtruhe.</p><div class="prog"><div class="bar"><i style="width:${Math.round(done/3*100)}%"></i></div><span>${done} von 3 geschafft${ch.all?' · Goldtruhe abgeholt':''}</span></div></section>`;
+  ws.forEach((w,i)=>{ const R=RULE[w.rid], k=ch.prog[w.rid]||0, d=chDeck(w), ok=chValid(w);
+    h+=`<section class="chal${k>=3?' fertig':''}"><div class="sec-h"><h3>${txt(R.n,w.p)}</h3><span class="pips3">${[0,1,2].map(x=>`<i class="${x<k?'on':''}"></i>`).join('')}</span></div><p class="muted">${txt(R.d,w.p)}</p>
+    ${k>=3?'<p class="r-line">✓ Geschafft · Silbertruhe erhalten</p>':`<div class="row-btns"><button class="btn" data-act="chDeck" data-id="${i}">Deck (${d.length}/${chMax(w)})</button><button class="btn primary" data-act="chGo" data-id="${i}" ${ok?'':'disabled'}>Kampf ${k+1} von 3</button></div>`}</section>`; });
+  return h;
+}
+let arenaTab='duelle';
+
 /* ====== Bausteine ====== */
 function kwLine(k){ return Object.entries(k).map(([x,v])=>KW[x].n+(KWP[x]?' '+v*KWP[x]+' %':'')).join(' · '); }
 function kwLong(k){ return Object.entries(k).map(([x,v])=>`<b>${KW[x].n}${KWP[x]?' '+v*KWP[x]+' %':''}:</b> ${KW[x].d(v)}`); }
@@ -519,7 +580,7 @@ function render(){
     const dot=(b.dataset.tab==='shop'&&(achOpen()||S.chests.length))||(b.dataset.tab==='album'&&albumOpen()); b.querySelector('.dot')?.remove(); if(dot) b.insertAdjacentHTML('beforeend','<i class="dot" aria-label="neu"></i>');
   });
   $('#view').className=tab==='map'?'mapmode':''; $('#view').innerHTML=({map:viewMap,deck:viewDeck,album:viewAlbum,arena:viewArena,shop:viewShop})[tab]();
-  setTimeout(storyCheck,0);
+  setTimeout(storyCheck,0); setTimeout(saveReminder,50);
   if(S.seasonMsg&&$('#sheet').hidden){ const m=S.seasonMsg; S.seasonMsg=null; persist(); openSheet(`<p class="eyebrow">Saison beendet</p><h2>Belohnung für die ${LEAGUES[m.best].n}</h2><p class="r-line"><span class="gem"></span>+${m.gems} Glutsteine</p><p class="r-line"><span class="coin"></span>+${m.gold} Gold</p><p class="muted">Deine Pokale wurden für die neue Saison um 30 % gesenkt.</p><button class="btn primary" data-act="close">Weiter</button>`); }
 }
 function tasksHTML(){
@@ -531,23 +592,28 @@ function tasksHTML(){
 function stageReward(st){ return ''; }
 /* ====== Kampagne als Landkarte ======
    Jedes Gebiet hat eine eigene Karte. Gezeigt wird nur, was schon erkundet ist; Wechsel zwischen Gebieten erst, wenn eines durchgespielt ist. */
-const MAP_PTS=[
- [[12,84],[24,67],[43,57],[39,45],[45,25],[64,62],[68,24],[85,12]],
- [[12,80],[22,62],[66,62],[59,47],[43,54],[25,33],[64,15],[86,14]],
- [[12,78],[25,64],[30,40],[43,55],[56,55],[77,45],[66,32],[85,15]],
- [[10,78],[25,62],[37,46],[64,60],[58,40],[80,38],[64,22],[87,12]],
- [[11,78],[21,62],[25,35],[54,54],[80,50],[48,35],[70,25],[85,13]]];
+/* Wege auf den Landkarten (Prozent der Kartenbreite/-höhe), nachgezeichnet entlang der gemalten Straße. MAP_ST: welche Wegpunkte die 8 Stationen sind. */
+const MAP_PATH=[
+ [[12,86],[16,83],[21,79],[25,74],[30,71],[37,71],[44,71],[50,70],[54,66],[58,63],[63,62],[68,62],[73,61],[79,57],[84,52],[87,47],[85,42],[80,38],[74,35],[69,32],[72,27],[78,23],[83,19],[85,13]],
+ [[13,86],[19,80],[24,73],[28,68],[36,68],[45,71],[54,71],[62,68],[70,65],[77,61],[78,56],[72,53],[64,54],[56,53],[46,50],[40,49],[34,46],[31,41],[36,39],[44,38],[50,35],[53,29],[58,24],[66,22],[74,20],[82,17],[87,14]],
+ [[12,86],[17,84],[23,80],[28,74],[34,71],[42,70],[50,71],[56,68],[59,63],[60,58],[66,56],[73,54],[80,50],[84,46],[78,42],[70,39],[68,34],[75,31],[80,26],[83,20],[85,14]],
+ [[12,80],[17,80],[23,75],[30,71],[38,67],[43,62],[41,56],[38,51],[40,46],[46,43],[50,37],[56,31],[64,30],[72,27],[78,21],[84,16],[87,12]],
+ [[11,85],[17,82],[22,77],[28,71],[32,65],[31,58],[30,51],[33,45],[39,43],[46,41],[52,37],[58,34],[64,31],[70,27],[76,22],[81,17],[85,12]]];
+const MAP_ST=[[0,3,6,10,14,17,19,23],[0,3,6,9,13,17,22,26],[0,3,6,9,12,15,17,20],[0,2,4,7,9,11,13,16],[0,3,5,7,9,11,13,16]];
+const MAP_PTS=MAP_ST.map((st,a)=>st.map(k=>MAP_PATH[a][k]));
+/* Weich geschwungene Linie durch die Wegpunkte (Catmull-Rom als Bézier). */
+function smoothPath(P){ if(P.length<2) return ''; let d=`M${P[0][0]},${P[0][1]}`; for(let i=0;i<P.length-1;i++){ const p0=P[i-1]||P[i], p1=P[i], p2=P[i+1], p3=P[i+2]||p2; d+=` C${(p1[0]+(p2[0]-p0[0])/6).toFixed(1)},${(p1[1]+(p2[1]-p0[1])/6).toFixed(1)} ${(p2[0]-(p3[0]-p1[0])/6).toFixed(1)},${(p2[1]-(p3[1]-p1[1])/6).toFixed(1)} ${p2[0]},${p2[1]}`; } return d; }
 let mapArea=null, lastCur=null;
 function curArea(){ const nx=STAGES.find(s=>!S.stars[s.id]); return nx?nx.area:AREAS.length-1; }
 function areaKnown(a){ return a>=0&&a<=curArea(); }
 function viewMap(){
   const cur=curArea(); if(mapArea==null||!areaKnown(mapArea)||cur!==lastCur){ mapArea=cur; lastCur=cur; }
   const a=mapArea, A=AREAS[a], list=STAGES.filter(s=>s.area===a), P=MAP_PTS[a], done=areaDone(a), next=list.find(s=>!S.stars[s.id]);
-  const total=Object.values(S.stars).reduce((x,y)=>x+y,0), pts=P.map(p=>p.join(',')).join(' ');
-  const reach=list.filter(isOpen).length, donePts=P.slice(0,reach).map(p=>p.join(',')).join(' ');
-  let h=`<div class="mapwrap"><div class="mapbox" style="--map:url(bilder/karte-${a+1}.jpg)"><svg class="mpath" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polyline class="pl-all" points="${pts}"/>${reach>1?`<polyline class="pl-done" points="${donePts}"/>`:''}</svg>`;
-  list.forEach((st,k)=>{ const got=S.stars[st.id]||0, open=isOpen(st), cls=got?'done':open?'open':'locked';
-    h+=`<button class="mnode ${cls}${st.boss?' boss':''}" style="left:${P[k][0]}%;top:${P[k][1]}%" data-act="stage" data-id="${st.id}" ${open?'':'disabled'} aria-label="${open?st.n:'Noch unbekannt'}"><span class="mn"><b>${open?k+1:'?'}</b></span>${got?starsHTML(got,'mini'):''}${cls==='open'?`<span class="mtag">${st.n}</span>`:''}</button>`; });
+  const total=Object.values(S.stars).reduce((x,y)=>x+y,0), W=MAP_PATH[a];
+  const reach=list.filter(isOpen).length, doneTo=MAP_ST[a][Math.max(0,reach-1)];
+  let h=`<div class="mapwrap"><div class="mapbox" style="--map:url(bilder/karte-${a+1}.jpg)"><svg class="mpath" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path class="pl-all" d="${smoothPath(W)}"/>${reach>1?`<path class="pl-done" d="${smoothPath(W.slice(0,doneTo+1))}"/>`:''}</svg>`;
+  list.forEach((st,k)=>{ const got=S.stars[st.id]||0, hg=S.hstars[st.id]||0, open=isOpen(st), cls=got?'done':open?'open':'locked';
+    h+=`<button class="mnode ${cls}${st.boss?' boss':''}${hg?' hero':''}" style="left:${P[k][0]}%;top:${P[k][1]}%" data-act="stage" data-id="${st.id}" ${open?'':'disabled'} aria-label="${open?st.n+(hg?', heroisch geschafft':''):'Noch unbekannt'}"><span class="mn"><b>${open?k+1:'?'}</b>${hg?'<i class="crown">♛</i>':''}</span>${got?`<span class="mst">${starsHTML(got,'mini')}${hg?starsHTML(hg,'mini hs'):''}</span>`:''}${cls==='open'?`<span class="mtag">${st.n}</span>`:''}</button>`; });
   h+=`<div class="mtitle"><p class="eyebrow">Gebiet ${ROM[a+1]}</p><h2>${A.n.split(' · ')[1]}</h2></div>`;
   if(a>0) h+=`<button class="marrow l" data-act="mapGo" data-id="${a-1}" aria-label="Voriges Gebiet">‹ ${AREAS[a-1].n.split(' · ')[1]}</button>`;
   if(done&&a<AREAS.length-1) h+=`<button class="marrow r" data-act="mapGo" data-id="${a+1}" aria-label="Nächstes Gebiet">${AREAS[a+1].n.split(' · ')[1]} ›</button>`;
@@ -601,6 +667,11 @@ function viewAlbum(){
   return h;
 }
 function viewArena(){
+  const sub=`<div class="subnav"><button data-act="arenaTab" data-id="duelle" aria-pressed="${arenaTab==='duelle'}">Duelle</button><button data-act="arenaTab" data-id="heraus" aria-pressed="${arenaTab==='heraus'}">Herausforderungen</button></div>`;
+  if(arenaTab==='heraus') return sub+viewChallenges();
+  return sub+viewDuels();
+}
+function viewDuels(){
   const lg=S.table.lg, L=LEAGUES[lg], nx=LEAGUES[lg+1], near=byDist(), best=near[0], opps=near.slice(0,3).sort((a,b)=>b.t-a.t);
   const all=S.table.rivals.map(r=>({n:r.n,t:r.t})).concat([{n:S.name,t:S.tr,me:1}]).sort((a,b)=>b.t-a.t||(a.me?-1:1)), rank=all.findIndex(r=>r.me)+1, left=WIN_CHEST_EVERY-S.aw%WIN_CHEST_EVERY, sb=Math.max(S.seasonBest,lg);
   let h=`<section class="panelbox"><p class="eyebrow">${L.n} · Saison endet in ${seasonDaysLeft()} Tagen</p><div class="sec-h"><h1>${esc(S.name)}</h1><button class="link" data-act="rename">Name ändern</button></div>
@@ -639,6 +710,16 @@ function viewShop(){
   <section><h2>So kommst du an Gold und Glutsteine</h2><ul class="kv"><li><span>Gefecht in der Kampagne</span><b>Gold und Gegenstände</b></li><li><span>Endgegner</span><b>Goldtruhe + ${GEM_BOSS} Glutsteine</b></li><li><span>Sieg in der Arena</span><b>20–40 Gold</b></li><li><span>Jeder ${WIN_CHEST_EVERY}. Arena-Sieg</span><b>Holztruhe</b></li><li><span>Tagesaufgaben</span><b>Silbertruhe</b></li><li><span>Liga-Aufstieg</span><b>Goldtruhe + ${GEM_PROMO} Glutsteine</b></li><li><span>Erfolge, Album, Saisonende</span><b>Glutsteine</b></li></ul></section>`;
   return h;
 }
+function statsHTML(){
+  const strong=Object.keys(S.cards).sort((a,b)=>power(b)-power(a))[0], best=S.stat.best, days=Math.floor((Date.now()-S.lastSave)/864e5);
+  return `<section><h3>Statistik</h3><ul class="kv"><li><span>Kartenbinder-Level</span><b>${S.plvl}</b></li><li><span>Kämpfe gespielt</span><b>${S.stat.fights}</b></li><li><span>Siege gesamt</span><b>${S.wins}</b></li><li><span>Arena</span><b>${S.aw} Siege · ${S.al} Niederlagen</b></li><li><span>Besiegte Karten</span><b>${S.stat.kills}</b></li><li><span>Truhen geöffnet</span><b>${S.opened}</b></li><li><span>Karten gesammelt</span><b>${Object.keys(S.cards).length} von ${BASE.length}</b></li><li><span>Sterne in der Kampagne</span><b>${Object.values(S.stars).reduce((x,y)=>x+y,0)} von ${STAGES.length*3}</b></li>${strong?`<li><span>Stärkste Karte</span><b>${CARD[strong].n}</b></li>`:''}${best?`<li><span>Seltenster Fund</span><b>${CARD[best].n} (${RAR[CARD[best].r]})</b></li>`:''}<li><span>Höchste Liga</span><b>${LEAGUES[S.league].n}</b></li><li><span>Zuletzt gesichert</span><b>${days===0?'heute':days===1?'gestern':`vor ${days} Tagen`}</b></li></ul></section>`;
+}
+/* Erinnerung: alle 3 Tage einmal fragen, ob der Spielstand gesichert werden soll. Safari kann Daten nach längerer Pause löschen. */
+function saveReminder(){
+  if(B||SQ||!$('#sheet').hidden||tab!=='map'||!S.seen.intro) return; const today=dayKey();
+  if(Date.now()-S.lastSave<3*864e5||S.remind===today) return; S.remind=today; persist();
+  openSheet(`<h2>Spielstand sichern?</h2><p class="muted">Dein Fortschritt liegt nur auf diesem Gerät. Safari kann gespeicherte Daten löschen, wenn du die App länger nicht öffnest. Mit einem Sicherungscode holst du alles zurück.</p><div class="row-btns"><button class="btn" data-act="close">Später</button><button class="btn primary" data-act="saveNow">Jetzt sichern</button></div>`);
+}
 function sheetSettings(){
   const el=c=>`<span class="el" style="--fc:${CCOL[c][1]}"><i></i>${CATS[c]}</span>`;
   openSheet(`<div class="sec-h"><h2>Einstellungen</h2><button class="btn" data-act="close">Schließen</button></div>
@@ -647,6 +728,7 @@ function sheetSettings(){
   <label class="slider" for="vols">Effekte<input type="range" id="vols" min="0" max="100" value="${Math.round(S.vol.s*100)}" data-vol="s"><span id="vols-v">${Math.round(S.vol.s*100)}</span></label>
   <label class="slider" for="vola">Umgebung<input type="range" id="vola" min="0" max="100" value="${Math.round(S.vol.a*100)}" data-vol="a"><span id="vola-v">${Math.round(S.vol.a*100)}</span></label></section>
   <section><h3>Tischeffekte</h3><div class="decknum"><span>Bewegte Effekte am Tisch und bei Treffern<br><small class="muted">Für ältere Handys ausschalten.</small></span><button class="btn${S.fxOff?'':' primary'}" data-act="fxToggle">${S.fxOff?'Aus':'An'}</button></div></section>
+  ${statsHTML()}
   <section><h3>So wird gespielt</h3><ol class="steps">
   <li>Jede Seite hat einen Helden, drei Karten auf dem Feld und einen gemischten Ziehstapel. Die nächste Karte ist sichtbar.</li>
   <li>Zu Beginn jeder Runde wirken Fähigkeiten. Dann kämpfen Bahn 1, 2 und 3 nacheinander. Auf einer Bahn schlagen beide Karten gleichzeitig zu.</li>
@@ -669,6 +751,7 @@ function sheetStage(id){
   const st=STAGES.find(s=>s.id===id), open=isOpen(st), got=S.stars[id]||0, hg=S.hstars[id]||0, hero=areaDone(st.area), d=stageDeck(st), uniq={}; d.forEach(c=>uniq[c.id]=(uniq[c.id]||0)+1);
   openSheet(`<p class="eyebrow">${AREAS[st.area].n} · Gefecht ${st.i+1}</p><div class="sec-h"><h2>${st.n}</h2>${starsHTML(got)}</div>
   <ul class="kv"><li><span>Gegner</span><b>${st.size} Karten · Level ${st.lvl} · Held ${st.hp} Leben</b></li>${hero?`<li><span>Heroisch: +8 Level, doppeltes Heldenleben</span><b>${hg?'★'.repeat(hg):'offen'}</b></li>`:''}</ul>
+  <h3>Belohnung</h3><ul class="rew"><li class="ok">Jeder Sieg: ${st.gold} Gold + 1 ${itemName(st.cat,stageItem(st).q)}</li><li class="${got>=2?'ok':''}">${got>=2?'✓ ':''}Erstmals ★★: +1 ${itemName(st.cat,stageItem(st).q)}</li><li class="${got>=3?'ok':''}">${got>=3?'✓ ':''}Erstmals ★★★: +50 % Gold</li>${hero?`<li class="${hg>=3?'ok':''}">Heroisch: 2 Gegenstände, 1,5-faches Gold${hg>=3?' ✓':''}</li>`:''}</ul>
   <h3>Gegnerisches Deck</h3><div class="grid g4">${Object.keys(uniq).map(c=>`<div class="tile">${cardHTML({id:c,lvl:st.lvl,star:st.star})}${uniq[c]>1?`<span class="flag">×${uniq[c]}</span>`:''}</div>`).join('')}</div>
   <div class="row-btns"><button class="btn" data-act="close">Zurück</button><button class="btn primary" data-act="fight" data-id="${id}" ${open?'':'disabled'}>${open?'Kampf beginnen':'Noch gesperrt'}</button>${hero?`<button class="btn" data-act="fightHero" data-id="${id}">Heroisch</button>`:''}</div>
   <div class="row-btns"><button class="btn" data-act="quickWin" data-id="${id}" ${got===3&&S.skips>0?'':'disabled'}>${skipIcon(18)} Schnellsieg (${S.skips})</button>${hero?`<button class="btn" data-act="quickWin" data-id="${id}h" ${hg===3&&S.skips>0?'':'disabled'}>${skipIcon(18)} Heroisch (${S.skips})</button>`:''}</div>`);
@@ -685,9 +768,10 @@ function sheetCard(id){
   let act='';
   if(o.lvl<cap){ const c=lvlCost(o.lvl), nx=stats(id,o.lvl+1,o.star), mi=Math.max(0,c.n-have), mg=Math.max(0,c.g-S.gold);
     act=`<button class="btn primary block" data-act="levelUp" data-id="${id}" ${canLevel(id)?'':'disabled'}>${canLevel(id)?`Auf Level ${o.lvl+1} · ${c.n} ${iname} · ${fmt(c.g)} Gold`:`Level ${o.lvl+1}: es fehlen ${[mi?mi+' '+iname:'',mg?fmt(mg)+' Gold':''].filter(Boolean).join(' und ')}`}</button><p class="muted center">Danach ${nx.a} Angriff · ${nx.h} Leben</p>`; }
-  else if(o.star<MAXSTAR){ const u=STAR_UP[o.star+1], nx=stats(id,o.lvl,o.star+1), md=Math.max(0,u.d-o.dup), mg=Math.max(0,u.g-S.gold);
-    act=`<p class="capnote">Level ${o.lvl} ist erreicht. Die Kreatur muss erst verbessert werden, um weiter zu leveln.${md?` Es fehlen noch ${md} Doppelte.`:''}</p>`+`<button class="btn primary block" data-act="starUp" data-id="${id}" ${canStar(id)?'':'disabled'}>${canStar(id)?`Verbessern auf ${'★'.repeat(o.star+1)} · ${u.d} Doppelte · ${fmt(u.g)} Gold`:`Verbessern: es fehlen ${[md?md+' Doppelte':'',mg?fmt(mg)+' Gold':''].filter(Boolean).join(' und ')}`}</button><p class="muted center">Danach ${nx.a} Angriff · ${nx.h} Leben, Level bis ${cap+5} möglich</p>`; }
-  else act='<p class="muted">Höchststand erreicht. Weitere Doppelte werden zu Gold.</p>';
+  else if(o.star<MAXSTAR) act=`<p class="capnote">Level ${o.lvl} ist die Grenze für ${'★'.repeat(o.star)}. Verbessere die Kreatur, um weiter zu leveln.</p>`;
+  if(o.star<MAXSTAR){ const u=STAR_UP[o.star+1], nx=stats(id,o.lvl,o.star+1), md=Math.max(0,u.d-o.dup), mg=Math.max(0,u.g-S.gold);
+    act+=`<button class="btn primary block" data-act="starUp" data-id="${id}" ${canStar(id)?'':'disabled'}>${canStar(id)?`Verbessern auf ${'★'.repeat(o.star+1)} · ${u.d} Doppelte · ${fmt(u.g)} Gold`:`Verbessern: es fehlen ${[md?md+' Doppelte':'',mg?fmt(mg)+' Gold':''].filter(Boolean).join(' und ')}`}</button><p class="muted center">Danach ${nx.a} Angriff · ${nx.h} Leben, Level bis ${cap+5} möglich</p>`; }
+  if(o.star>=MAXSTAR&&o.lvl>=cap) act='<p class="muted">Höchststand erreicht. Weitere Doppelte werden zu Gold.</p>';
   const own=ownSkins(id), cur=skinOn(id);
   const skin=own.length?`<div class="skinsel"><span>Motiv${SKINS[id]>1?` <small>${own.length} von ${SKINS[id]} gefunden</small>`:''}</span><div class="row-btns"><button class="btn${cur?'':' primary'}" data-act="skinSel" data-id="${id}:0">Standard</button>${own.map(v=>`<button class="btn${cur===v?' primary':''}" data-act="skinSel" data-id="${id}:${v}">✦ ${SKINS[id]>1?skinName(id,v):'Sondermotiv'}</button>`).join('')}</div></div>`:'';
   openSheet(`<div class="cardhead"><div><button class="artbtn" data-act="artOpen" data-id="${id}" aria-label="Bild groß ansehen">${cardHTML({id,lvl:o.lvl,star:o.star})}<span class="zoom">⤢ Groß ansehen</span></button></div><div><p class="eyebrow">${CATS[d.cat]} · Set ${SETS[d.set].n} · ${RAR[d.r]}</p><h2>${d.n}</h2>
@@ -753,6 +837,8 @@ function pileHTML(s){
 function resultHTML(){
   const r=result, arena=ctx.mode==='arena'; let lines='';
   if(arena) lines+=`<p class="r-line">${r.tr>=0?'+':'−'}${Math.abs(r.tr)} Pokale <small>jetzt ${S.tr}</small></p>`;
+  if(r.chal) lines+=`<p class="r-line">${r.chal}${r.chalDone?' · <b>Herausforderung geschafft!</b>':''}</p>`;
+  if(r.chalAll) lines+=`<p class="r-line">Alle drei Herausforderungen der Woche geschafft: Goldtruhe!</p>`;
   if(r.gold) lines+=`<p class="r-line"><span class="coin"></span>+${r.gold} Gold${r.bonus?` <small>davon ${r.bonus} für den 3. Stern</small>`:''}</p>`;
   if(r.star2) lines+=`<p class="muted">2. Stern: +${r.star2.n} ${itemName(r.star2.cat,r.star2.q)} extra</p>`;
   if(r.gems) lines+=`<p class="r-line"><span class="gem"></span>+${r.gems} Glutsteine</p>`;
@@ -769,7 +855,7 @@ function resultHTML(){
   ${showStars?`<p class="muted">${r.stars===3?'Alle drei Karten stehen noch.':r.stars===2?'Zwei Karten stehen noch.':'Nur eine Karte steht noch, oder keine.'}</p>`:''}
   <div class="r-lines">${lines}</div>${un}
   ${r.win?'':'<p class="muted">Sieh dir das gegnerische Deck an und achte auf die Elemente. Leveln kannst du unter „Deck“.</p>'}
-  <div class="row-btns">${arena?'<button class="btn" data-act="leave">Zur Arena</button><button class="btn primary" data-act="nextduel">Nächstes Duell</button>':'<button class="btn" data-act="again">Nochmal</button><button class="btn primary" data-act="leave">Zur Kampagne</button>'}</div></div></div>`;
+  <div class="row-btns">${ctx.mode==='heraus'?`<button class="btn" data-act="leave">Zur Arena</button>${(chState().prog[ctx.w.rid]||0)<3?`<button class="btn primary" data-act="chNext">${r.win?'Nächster Kampf':'Nochmal'}</button>`:''}`:arena?'<button class="btn" data-act="leave">Zur Arena</button><button class="btn primary" data-act="nextduel">Nächstes Duell</button>':'<button class="btn" data-act="again">Nochmal</button><button class="btn primary" data-act="leave">Zur Kampagne</button>'}</div></div></div>`;
 }
 function battleShell(){
   $('#b-root').innerHTML=`<div class="b-top"><button data-act="giveup" id="b-giveup">Aufgeben</button><b>${ctx.title}</b><button data-act="speed" id="b-speed" aria-label="Tempo ändern">Tempo ${S.speed}×</button></div>
@@ -840,10 +926,11 @@ async function runBattle(id){
   if(aliveB(id)) finish();
 }
 function startBattle(c){
-  if(deck().length<DECK_MIN){ toast(`Dein Deck braucht mindestens ${DECK_MIN} Karten.`); tab='deck'; render(); return; }
+  if(c.mode!=='heraus'&&deck().length<DECK_MIN){ toast(`Dein Deck braucht mindestens ${DECK_MIN} Karten.`); tab='deck'; render(); return; }
   closeSheet(); ctx=c; result=null; infoCard=null; narr=''; skip=false; forfeit=false;
-  B= c.mode==='arena' ? newBattle(deckObjs(),rivalDeck(c.rival)) : newBattle(deckObjs(),stageDeck(c.stage,c.hero),stageHp(c.stage,c.hero));
-  $('#battle').hidden=false; battleShell(); renderBattle();
+  B= c.mode==='arena' ? newBattle(deckObjs(),rivalDeck(c.rival)) : c.mode==='heraus' ? newBattle(c.pDeck,c.eDeck) : newBattle(deckObjs(),stageDeck(c.stage,c.hero),stageHp(c.stage,c.hero));
+  if(c.mode==='heraus'){ const R=c.rule; if(R.noHero){ B.p.hp=B.p.maxHp=1; } if(R.eShield) B.e.pile.concat(B.e.lanes).forEach(x=>{ if(x) x.k.schild=(x.k.schild||0)+1; }); if(R.decay) B.decay=R.decay; }
+  $('#battle').hidden=false; if(FXC.cv) fxSize(); battleShell(); renderBattle();
   music(c.mode==='kampagne'&&c.stage.boss?'endgegner':'kampf',true);
   runBattle(++battleId);
 }
@@ -856,6 +943,7 @@ function stageDialog(st,hero){
 function startStage(id,hero){ const st=STAGES.find(s=>s.id===id); if(!st||!isOpen(st)) return; if(deck().length<DECK_MIN){ startBattle({}); return; } stageDialog(st,hero); }
 function finish(){
   const win=B.over==='p', r={win,gold:0,chests:[],items:[]};
+  if(!forfeit){ S.stat.fights++; S.stat.kills+=B.e.lost||0; }
   const xpBefore=S.plvl;
   if(win){ r.stars=stars(B); track('win'); S.wins++; if(ctx.mode==='kampagne'&&r.stars===3){ track('three'); S.flags.three=1; } const lv=setLevels(deckObjs()); if(Object.values(lv).some(v=>v>=1)) S.flags.set3=1; if(Object.values(lv).some(v=>v>=2)) S.flags.set6=1; }
   if(ctx.mode==='kampagne'){
@@ -874,6 +962,11 @@ function finish(){
       }
       const m={}; r.items.forEach(x=>{ const k=x.cat+x.q; if(m[k]) m[k].n+=x.n; else m[k]=Object.assign({},x); }); r.items=Object.values(m);
     }else{ r.gold=forfeit?0:5; r.xp=forfeit?0:XP.lose; }
+  }else if(ctx.mode==='heraus'){
+    const ch=chState(), w=ctx.w; r.chal=`${txt(ctx.rule.n,w.p)} · Kampf ${ctx.k+1} von 3`;
+    if(win&&(ch.prog[w.rid]||0)===ctx.k){ ch.prog[w.rid]=ctx.k+1; r.gold=20+10*ctx.k; r.xp=XP.win;
+      if(ctx.k+1===3){ r.chests.push('silber'); r.chalDone=1; if(!ch.all&&weekRules().every(x=>(ch.prog[x.rid]||0)>=3)){ ch.all=1; r.chests.push('gold'); r.chalAll=1; } } }
+    else{ r.gold=forfeit?0:5; r.xp=forfeit?0:XP.lose; }
   }else{
     const rv=ctx.rival, lg=S.table.lg, d=trophyDelta(S.tr,rv.t,win), before=S.tr;
     S.tr=Math.max(0,S.tr+d); r.tr=S.tr-before;
@@ -891,7 +984,7 @@ function finish(){
   addGold(r.gold); persist(); result=r; skip=false; renderBattle();
   stopMusic(); jingle(r.promo?'aufstieg':win?'sieg':'niederlage',true);
 }
-function leaveBattle(){ setTimeout(flushAch,300); setTimeout(showLvUp,400); B=null; battleId++; result=null; skip=false; $('#b-tip').innerHTML=''; $('#battle').hidden=true; $('#fx').innerHTML=''; render(); music(tabMusic()); }
+function leaveBattle(){ setTimeout(flushAch,300); setTimeout(showLvUp,400); B=null; battleId++; result=null; skip=false; $('#b-tip').innerHTML=''; $('#battle').hidden=true; $('#fx').innerHTML=''; if(FXC.cv) fxSize(); render(); music(tabMusic()); }
 
 /* ====== Bedienung ====== */
 const ACT={
@@ -931,6 +1024,7 @@ const ACT={
   deckSlot(id){ S.di=+id; persist(); render(); },
   deckToggle(id){ const d=deck(), i=d.indexOf(id); if(i>=0){ if(d.length<=DECK_MIN){ toast(`Ein Deck braucht mindestens ${DECK_MIN} Karten.`); return; } d.splice(i,1); } else{ if(!S.cards[id]||d.length>=DECK_MAX) return; d.push(id); } persist(); render(); sheetCard(id); sfx('place'); },
   skinSel(x){ const [id,v]=x.split(':'), n=+v; if(n&&!ownSkins(id).includes(n)) return; S.skinOn[id]=n; persist(); render(); sheetCard(id); },
+  saveNow(){ sheetSettings(); setTimeout(()=>{ const el=$('#savecode'); if(el) el.scrollIntoView({block:'center'}); ACT.export(); },60); },
   fxToggle(){ S.fxOff=!S.fxOff; persist(); ambApply(); sheetSettings(); },
   levelUp(id){ if(!canLevel(id)) return; const o=S.cards[id], d=CARD[id], c=lvlCost(o.lvl); S.items[d.cat][d.r]-=c.n; S.gold-=c.g; o.lvl++; persist(); render(); sheetCard(id); sfx('coin'); },
   starUp(id){ if(!canStar(id)) return; const o=S.cards[id], u=STAR_UP[o.star+1]; o.dup-=u.d; S.gold-=u.g; o.star++; persist(); render(); sheetCard(id); sfx('coin'); toast(`${CARD[id].n} hat jetzt ${'★'.repeat(o.star)}.`); },
@@ -953,7 +1047,7 @@ const ACT={
   themeYes(id){ const t=THEMES[id]; if(!t||S.themes.includes(id)||S.gems<t.p) return; S.gems-=t.p; S.themes.push(id); S.theme=id; persist(); applyTheme(); closeSheet(); render(); sfx('coin'); },
   iap(id){ buyIAP(id); },
   export(){
-    const code='GS6.'+btoa(unescape(encodeURIComponent(JSON.stringify(S)))), ta=$('#savecode'); ta.value=code; ta.select();
+    S.lastSave=Date.now(); persist(); const code='GS6.'+btoa(unescape(encodeURIComponent(JSON.stringify(S)))), ta=$('#savecode'); ta.value=code; ta.select();
     try{ navigator.clipboard.writeText(code).then(()=>toast('Code kopiert.'),()=>toast('Code steht im Feld. Markiere und kopiere ihn.')); }catch(e){ toast('Code steht im Feld. Markiere und kopiere ihn.'); }
   },
   import(){
@@ -970,6 +1064,13 @@ const ACT={
     el.dataset.sure='1'; el.textContent='Wirklich aufgeben?'; setTimeout(()=>{ if(el.isConnected){ delete el.dataset.sure; el.textContent='Aufgeben'; } },3000);
   },
   again(){ startStage(ctx.stage.id,ctx.hero); },
+  chNext(){ const i=ctx.ci; leaveBattle(); startChallenge(i); },
+  arenaTab(id){ arenaTab=id; sfx('tap'); render(); },
+  chDeck(id){ sheetChDeck(+id); }, chGo(id){ startChallenge(+id); },
+  chPick(x){ const [i,id]=x.split(':'), w=weekRules()[+i], R=RULE[w.rid], d=chDeck(w), k=w.rid+(w.p||'');
+    if(d.includes(id)) S.chDecks[k]=d.filter(y=>y!==id);
+    else{ if(d.length>=chMax(w)){ toast(`Höchstens ${chMax(w)} Karten.`); return; } if(R.sets&&new Set(d.concat(id).map(y=>CARD[y].set)).size>R.sets){ toast(`Nur Karten aus ${R.sets} Sets erlaubt.`); return; } S.chDecks[k]=d.concat(id); }
+    persist(); sheetChDeck(+i); },
   leave(){ leaveBattle(); }
 };
 document.addEventListener('click',e=>{ const el=e.target.closest('[data-act]'); if(!el||el.disabled) return; const f=ACT[el.dataset.act]; f&&f(el.dataset.id,el); });

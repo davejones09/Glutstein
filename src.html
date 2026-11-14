@@ -420,7 +420,7 @@ main.mapmode{padding:8px 10px;overflow:hidden}
 .mapbox{position:relative;flex:none;aspect-ratio:3/2;align-self:center;width:min(calc(100vw - 96px - 270px - 32px),calc((100vh - 64px)*1.5));border-radius:12px;overflow:hidden;background:var(--map) center/cover no-repeat;box-shadow:0 0 0 1px var(--linie),0 8px 30px rgba(0,0,0,.6)}
 @supports (height:1dvh){.mapbox{width:min(calc(100vw - 96px - 270px - 32px),calc((100dvh - 64px)*1.5))}}
 .mpath{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.mpath polyline{fill:none;vector-effect:non-scaling-stroke;stroke-linecap:round;stroke-linejoin:round}
+.mpath path,.mpath polyline{fill:none;vector-effect:non-scaling-stroke;stroke-linecap:round;stroke-linejoin:round}
 .pl-all{stroke:rgba(20,14,8,.55);stroke-width:5;stroke-dasharray:2 9}
 .pl-done{stroke:#ffcf7a;stroke-width:3;stroke-dasharray:6 7;filter:drop-shadow(0 0 4px rgba(255,170,60,.9));animation:march 1.4s linear infinite}
 @keyframes march{to{stroke-dashoffset:-13}}
@@ -500,7 +500,8 @@ html,body{overscroll-behavior:none;-webkit-user-select:none;user-select:none;-we
 body{background:#0c0a08}
 #app{padding:env(safe-area-inset-top) env(safe-area-inset-right) 0 env(safe-area-inset-left)}
 header{background:rgba(6,5,4,.88);position:relative;z-index:2}
-.wallet .cur,.logo{text-shadow:0 1px 3px #000}
+header,header *{-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision}
+header{isolation:isolate}
 #b-root{padding-top:max(8px,env(safe-area-inset-top));padding-right:max(14px,env(safe-area-inset-right));padding-bottom:max(10px,env(safe-area-inset-bottom));padding-left:max(14px,env(safe-area-inset-left))}
 input,textarea{-webkit-user-select:text;user-select:text}
 .newver{position:fixed;left:50%;bottom:max(14px,env(safe-area-inset-bottom));transform:translateX(-50%);z-index:70;padding:10px 16px;border-radius:99px;background:var(--glutstein);color:var(--tinte);font:800 15px/1 var(--body);box-shadow:0 6px 20px rgba(0,0,0,.6)}
@@ -542,6 +543,23 @@ body.quake{animation:quake .5s}
 .art-nav.l{left:max(10px,env(safe-area-inset-left))}.art-nav.r{right:max(10px,env(safe-area-inset-right))}
 .art-x{position:absolute;top:max(10px,env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,.6);border:1px solid var(--linie);font-size:18px;text-align:center}
 .art-dots{position:absolute;top:max(18px,env(safe-area-inset-top));left:50%;transform:translateX(-50%);display:flex;gap:6px}.art-dots i{width:22px;height:3px;background:rgba(255,255,255,.3);border-radius:2px}.art-dots i.on{background:var(--glutstein)}
+
+/* Kampagne: Spalte bündig zur Karte, Heroisch-Markierung, Belohnungen; Herausforderungen */
+.mapwrap{--mw:min(calc(100vw - 96px - 270px - 32px),calc((100vh - 64px)*1.5))}
+@supports (height:1dvh){.mapwrap{--mw:min(calc(100vw - 96px - 270px - 32px),calc((100dvh - 64px)*1.5))}}
+.mapbox{width:var(--mw)}
+.mside{align-self:center;height:calc(var(--mw)/1.5);max-height:100%}
+.mst{display:flex;flex-direction:column;align-items:center;gap:0}
+.stars.hs .st{filter:hue-rotate(-40deg) saturate(1.6)}
+.mnode.hero .mn{border-color:#e2402a;box-shadow:0 0 0 3px rgba(226,64,42,.55),0 2px 8px rgba(0,0,0,.7)}
+.mnode .crown{position:absolute;top:-13px;left:50%;transform:translateX(-50%);font-style:normal;font-size:15px;color:#ffcf5a;text-shadow:0 1px 3px #000}
+.mnode.boss .crown{transform:translateX(-50%) rotate(-45deg)}
+.mn{position:relative}
+.rew{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:4px;font-size:15px}
+.rew li{padding:6px 10px;border-radius:8px;background:rgba(0,0,0,.25);color:var(--nebel)}.rew li.ok{color:var(--bein)}
+.chal{border:1.5px solid var(--linie);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.chal.fertig{border-color:var(--gold);opacity:.85}
+.chpick{position:relative;border-radius:8px;padding:2px}.chpick.on{outline:3px solid var(--glutstein)}
 </style>
 </head>
 <body>
