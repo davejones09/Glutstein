@@ -82,7 +82,7 @@ for(const id in SKINS) for(let v=1;v<=SKINS[id];v++) ART[id+'-s'+(v>1?v:'')]=`bi
 function skinSrc(id,v){ return v&&ART[id+'-s'+(v>1?v:'')]||ART[id]; }
 function skinName(id,v){ return (SKIN_NAMES[id]&&SKIN_NAMES[id][v-1])||'Motiv '+v; }
 /* Freie Sets: jede Karte kommt erst in Truhen, wenn ihr Element in der Kampagne erreicht ist. Feuer nach 3 Gefechten, sonst nach dem Endgegner des Gebiets. */
-const ELEM_GATE={feuer:3,wasser:16,erde:24,schatten:32,licht:40};
+const ELEM_GATE={feuer:3,wasser:BOSS_ID(1),erde:BOSS_ID(2),schatten:BOSS_ID(3),licht:BOSS_ID(4)};
 function elemOpen(cat){ return !!(S.stars[ELEM_GATE[cat]]>0); }
 const UNLOCK_AT={}; STAGES.forEach(st=>{ if(st.unlock) UNLOCK_AT[st.unlock]=st.id; });
 
@@ -109,7 +109,7 @@ function okTable(t){ return t&&typeof t==='object'&&LEAGUES[t.lg]&&Array.isArray
 function seasonIdx(){ return Math.floor((Date.now()-SEASON_START)/(SEASON_DAYS*864e5)); }
 function fresh(){
   const decks=[STARTER.slice(),STARTER.slice(),STARTER.slice()];
-  return {v:6,gold:150,gems:0,skips:0,items:Object.fromEntries(Object.keys(CATS).map(c=>[c,[0,0,0,0]])),chests:[],cards:Object.fromEntries(STARTER.map(id=>[id,{lvl:1,star:1,dup:0}])),decks,di:0,unlocked:[],setsOpen:[],stars:{},hstars:{},skins:{},skinOn:{},album:{},seen:{},stat:{fights:0,kills:0,best:null},lastSave:Date.now(),remind:'',ch:{wk:0,prog:{},all:0},chDecks:{},xp:0,plvl:1,back:'standard',backs:['standard'],
+  return {v:6,gold:150,gems:0,skips:0,items:Object.fromEntries(Object.keys(CATS).map(c=>[c,[0,0,0,0]])),chests:[],cards:Object.fromEntries(STARTER.map(id=>[id,{lvl:1,star:1,dup:0}])),decks,di:0,unlocked:[],setsOpen:[],stars:{},hstars:{},campV:2,skins:{},skinOn:{},album:{},seen:{},stat:{fights:0,kills:0,best:null},lastSave:Date.now(),remind:'',ch:{wk:0,prog:{},all:0},chDecks:{},xp:0,plvl:1,back:'standard',backs:['standard'],
   vol:{m:.6,s:.8,a:.45},fxOff:false,muted:false,speed:1,opened:0,name:'Neuling_'+(100+Math.floor(Math.random()*900)),tr:0,league:0,aw:0,al:0,wins:0,theme:'tanne',themes:['tanne'],
   table:mkTable(0),daily:null,uid:Math.floor(Math.random()*1e9),tut:true,tipSeen:{},ach:{},flags:{},season:seasonIdx(),seasonBest:0,seasonMsg:null};
 }
@@ -132,6 +132,8 @@ function sane(j){
   const cl=v=>Math.min(1,Math.max(0,+v||0));
   s.vol=s.vol&&typeof s.vol==='object'?{m:cl(s.vol.m),s:cl(s.vol.s),a:s.vol.a==null?f.vol.a:cl(s.vol.a)}:f.vol;
   s.fxOff=!!s.fxOff;
+  /* Kampagne 16 statt 8: jedes alte Gefecht zählt für die beiden neuen an seiner Stelle. */
+  if((s.campV|0)<2){ ['stars','hstars'].forEach(k=>{ const o=s[k]||{}, n={}; for(const id in o){ const x=+id-1, a=Math.floor(x/8), j=x%8; if(a<5){ n[a*16+2*j+1]=o[id]; n[a*16+2*j+2]=o[id]; } } s[k]=n; }); s.campV=2; }
   s.stat=Object.assign({fights:0,kills:0,best:null},s.stat||{}); if(!s.lastSave) s.lastSave=Date.now(); if(typeof s.remind!=='string') s.remind='';
   if(!s.ch||typeof s.ch!=='object') s.ch={wk:0,prog:{},all:0}; if(!s.chDecks||typeof s.chDecks!=='object') s.chDecks={};
   s.plvl=Math.min(PMAX,Math.max(1,s.plvl|0)); s.xp=Math.max(0,s.xp|0);
@@ -167,7 +169,7 @@ function showLvUp(){
 /* ====== Sammlung und Truhen ======
    Freigeschaltet: Startkarten, Kampagnenkarten, und nach jedem Endgegner das ganze Set seines Gebiets. Gesperrte Karten kommen nur selten.
    Je höher eine Karte schon aufgewertet ist, desto seltener wird sie gezogen. */
-function isUnlocked(id){ const c=CARD[id]; if(SETS[c.set].free) return elemOpen(c.cat); return STARTER.includes(id)||S.unlocked.includes(id)||S.setsOpen.includes(c.set); }
+function isUnlocked(id){ const c=CARD[id]; if(c.r===0) return true; if(SETS[c.set].free) return elemOpen(c.cat); return STARTER.includes(id)||S.unlocked.includes(id)||S.setsOpen.includes(c.set); }
 function needLeft(o){ let n=0; for(let s=o.star+1;s<=MAXSTAR;s++) n+=STAR_UP[s].d; return n; }
 function ownSkins(id){ return Array.isArray(S.skins[id])?S.skins[id]:[]; }
 function grant(id,skin){
@@ -213,7 +215,7 @@ function openChest(type){
   return {type,cards};
 }
 /* Gegenstand eines Gefechts: Element des Gebiets, Qualität nach Gefecht (1–3 Splitter, 4–5 Kristall, 6–7 Kern, Endgegner Herz). Heroisch doppelt. */
-function stageItem(st,hero){ return {cat:st.cat,q:st.i<3?0:st.i<5?1:st.i<7?2:3,n:hero?2:1}; }
+function stageItem(st,hero){ return {cat:st.cat,q:st.i<5?0:st.i<10?1:st.i<15?2:3,n:hero?2:1}; }
 function giveItems(list){ list.forEach(x=>S.items[x.cat][x.q]+=x.n); }
 function canLevel(id){ const o=S.cards[id]; if(!o||o.lvl>=o.star*5) return false; const c=lvlCost(o.lvl), d=CARD[id]; return S.items[d.cat][d.r]>=c.n&&S.gold>=c.g; }
 function canStar(id){ const o=S.cards[id]; if(!o||o.star>=MAXSTAR) return false; const u=STAR_UP[o.star+1]; return o.dup>=u.d&&S.gold>=u.g; }
@@ -450,7 +452,7 @@ function seqEnd(){ const q=SQ; if(!q) return; clearTimeout(q.t); SQ=null; const 
 function storyCheck(){
   if(SQ||B||tab!=='map'||!$('#sheet').hidden) return;
   if(!S.seen.intro) return playSeq('intro',()=>{ render(); if(!S.stars[1]) startStage(1,false); });
-  if(S.stars[40]&&!S.seen.ende) return playSeq('ende',()=>render());
+  if(S.stars[LAST_ID]&&!S.seen.ende) return playSeq('ende',()=>render());
   if(mapArea!=null&&!S.seen['a'+mapArea]) return playSeq('a'+mapArea,()=>render());
 }
 
@@ -518,7 +520,7 @@ function sheetChDeck(i){
   <div class="row-btns"><button class="btn" data-act="close">Fertig</button><button class="btn primary" data-act="chGo" data-id="${i}" ${chValid(w)?'':'disabled'}>Kampf beginnen</button></div>`);
 }
 function viewChallenges(){
-  if(!S.stars[8]) return `<section class="panelbox"><h2>Herausforderungen</h2><p class="muted">Besiege den Endgegner des Aschenpfads, dann warten hier jede Woche drei Herausforderungen mit eigenen Deckregeln.</p></section>`;
+  if(!S.stars[BOSS_ID(0)]) return `<section class="panelbox"><h2>Herausforderungen</h2><p class="muted">Besiege den Endgegner des Aschenpfads, dann warten hier jede Woche drei Herausforderungen mit eigenen Deckregeln.</p></section>`;
   const ch=chState(), ws=weekRules(), done=ws.filter(w=>(ch.prog[w.rid]||0)>=3).length, left=7-Math.floor((Date.now()/864e5+3)%7);
   let h=`<section class="panelbox"><p class="eyebrow">Diese Woche · noch ${left} ${left===1?'Tag':'Tage'}</p><h2>Herausforderungen</h2><p class="muted">Jede besteht aus 3 Kämpfen, die immer schwerer werden. Für jede eigene Regeln und ein eigenes Deck. Belohnung: je eine Silbertruhe, für alle drei zusätzlich eine Goldtruhe.</p><div class="prog"><div class="bar"><i style="width:${Math.round(done/3*100)}%"></i></div><span>${done} von 3 geschafft${ch.all?' · Goldtruhe abgeholt':''}</span></div></section>`;
   ws.forEach((w,i)=>{ const R=RULE[w.rid], k=ch.prog[w.rid]||0, d=chDeck(w), ok=chValid(w);
@@ -543,7 +545,7 @@ function starsHTML(n,cls){ return `<span class="stars ${cls||''}" role="img" ari
 function avHTML(n,hue){ return `<span class="av" style="--h:${hue??hash(n)%360}" aria-hidden="true">${esc(n[0].toUpperCase())}</span>`; }
 function deckInfo(d){ return d.length+' Karten · Ø Level '+Math.round(d.reduce((a,c)=>a+(c.lvl||1),0)/d.length); }
 function isOpen(st){ return st.id===1||S.stars[st.id-1]>0; }
-function areaDone(a){ return !!S.stars[a*8+8]; }
+function areaDone(a){ return !!S.stars[BOSS_ID(a)]; }
 function elLine(cat){ return `Stark gegen ${CATS[STRONG[cat]]}, schwach gegen ${CATS[WEAKTO[cat]]}.`; }
 function knownSets(){ return Object.keys(SETS).filter(x=>BASE.some(c=>c.set===x&&S.cards[c.id])); }
 function setChip(x,on,act){ return `<button class="setchip${on?' on':''}" style="--fc:${SCOL(x)}" ${act?`data-act="${act}" data-id="${x}" aria-pressed="${on}"`:''}><i>${SETS[x].l}</i>${SETS[x].n}</button>`; }
@@ -594,13 +596,17 @@ function stageReward(st){ return ''; }
    Jedes Gebiet hat eine eigene Karte. Gezeigt wird nur, was schon erkundet ist; Wechsel zwischen Gebieten erst, wenn eines durchgespielt ist. */
 /* Wege auf den Landkarten (Prozent der Kartenbreite/-höhe), nachgezeichnet entlang der gemalten Straße. MAP_ST: welche Wegpunkte die 8 Stationen sind. */
 const MAP_PATH=[
- [[12,86],[16,83],[21,79],[25,74],[30,71],[37,71],[44,71],[50,70],[54,66],[58,63],[63,62],[68,62],[73,61],[79,57],[84,52],[87,47],[85,42],[80,38],[74,35],[69,32],[72,27],[78,23],[83,19],[85,13]],
+ [[12,86],[16,83],[21,79],[25,74],[30,71],[37,71],[44,71],[50,70],[54,66],[58,63],[63,62],[68,62],[73,61],[79,57],[84,52],[87,47],[85,42],[80,38],[75,34],[73,29],[78,23],[83,19],[85,13]],
  [[13,86],[19,80],[24,73],[28,68],[36,68],[45,71],[54,71],[62,68],[70,65],[77,61],[78,56],[72,53],[64,54],[56,53],[46,50],[40,49],[34,46],[31,41],[36,39],[44,38],[50,35],[53,29],[58,24],[66,22],[74,20],[82,17],[87,14]],
  [[12,86],[17,84],[23,80],[28,74],[34,71],[42,70],[50,71],[56,68],[59,63],[60,58],[66,56],[73,54],[80,50],[84,46],[78,42],[70,39],[68,34],[75,31],[80,26],[83,20],[85,14]],
  [[12,80],[17,80],[23,75],[30,71],[38,67],[43,62],[41,56],[38,51],[40,46],[46,43],[50,37],[56,31],[64,30],[72,27],[78,21],[84,16],[87,12]],
  [[11,85],[17,82],[22,77],[28,71],[32,65],[31,58],[30,51],[33,45],[39,43],[46,41],[52,37],[58,34],[64,31],[70,27],[76,22],[81,17],[85,12]]];
 const MAP_ST=[[0,3,6,10,14,17,19,23],[0,3,6,9,13,17,22,26],[0,3,6,9,12,15,17,20],[0,2,4,7,9,11,13,16],[0,3,5,7,9,11,13,16]];
-const MAP_PTS=MAP_ST.map((st,a)=>st.map(k=>MAP_PATH[a][k]));
+/* 16 Stationen gleichmäßig entlang des Wegs verteilen (Karte ist 3:2, deshalb x-Abstände breiter gewichtet). */
+function walk(P){ const L=[0]; for(let i=1;i<P.length;i++) L.push(L[i-1]+Math.hypot((P[i][0]-P[i-1][0])*1.5,P[i][1]-P[i-1][1])); return L; }
+function atLen(P,L,d){ let i=1; while(i<P.length-1&&L[i]<d) i++; const t=Math.max(0,Math.min(1,(d-L[i-1])/(L[i]-L[i-1]||1))); return [+(P[i-1][0]+(P[i][0]-P[i-1][0])*t).toFixed(1),+(P[i-1][1]+(P[i][1]-P[i-1][1])*t).toFixed(1),i]; }
+const MAP_PTS=MAP_PATH.map(P=>{ const L=walk(P), T=L[L.length-1]; return Array.from({length:STAGES_PER},(_,k)=>atLen(P,L,T*k/(STAGES_PER-1))); });
+function pathTo(a,k){ const P=MAP_PATH[a], q=MAP_PTS[a][k]; return P.slice(0,q[2]).concat([[q[0],q[1]]]); }
 /* Weich geschwungene Linie durch die Wegpunkte (Catmull-Rom als Bézier). */
 function smoothPath(P){ if(P.length<2) return ''; let d=`M${P[0][0]},${P[0][1]}`; for(let i=0;i<P.length-1;i++){ const p0=P[i-1]||P[i], p1=P[i], p2=P[i+1], p3=P[i+2]||p2; d+=` C${(p1[0]+(p2[0]-p0[0])/6).toFixed(1)},${(p1[1]+(p2[1]-p0[1])/6).toFixed(1)} ${(p2[0]-(p3[0]-p1[0])/6).toFixed(1)},${(p2[1]-(p3[1]-p1[1])/6).toFixed(1)} ${p2[0]},${p2[1]}`; } return d; }
 let mapArea=null, lastCur=null;
@@ -610,8 +616,8 @@ function viewMap(){
   const cur=curArea(); if(mapArea==null||!areaKnown(mapArea)||cur!==lastCur){ mapArea=cur; lastCur=cur; }
   const a=mapArea, A=AREAS[a], list=STAGES.filter(s=>s.area===a), P=MAP_PTS[a], done=areaDone(a), next=list.find(s=>!S.stars[s.id]);
   const total=Object.values(S.stars).reduce((x,y)=>x+y,0), W=MAP_PATH[a];
-  const reach=list.filter(isOpen).length, doneTo=MAP_ST[a][Math.max(0,reach-1)];
-  let h=`<div class="mapwrap"><div class="mapbox" style="--map:url(bilder/karte-${a+1}.jpg)"><svg class="mpath" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path class="pl-all" d="${smoothPath(W)}"/>${reach>1?`<path class="pl-done" d="${smoothPath(W.slice(0,doneTo+1))}"/>`:''}</svg>`;
+  const reach=list.filter(isOpen).length;
+  let h=`<div class="mapwrap"><div class="mapbox" style="--map:url(bilder/karte-${a+1}.jpg)"><svg class="mpath" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path class="pl-all" d="${smoothPath(W)}"/>${reach>1?`<path class="pl-done" d="${smoothPath(pathTo(a,reach-1))}"/>`:''}</svg>`;
   list.forEach((st,k)=>{ const got=S.stars[st.id]||0, hg=S.hstars[st.id]||0, open=isOpen(st), cls=got?'done':open?'open':'locked';
     h+=`<button class="mnode ${cls}${st.boss?' boss':''}${hg?' hero':''}" style="left:${P[k][0]}%;top:${P[k][1]}%" data-act="stage" data-id="${st.id}" ${open?'':'disabled'} aria-label="${open?st.n+(hg?', heroisch geschafft':''):'Noch unbekannt'}"><span class="mn"><b>${open?k+1:'?'}</b>${hg?'<i class="crown">♛</i>':''}</span>${got?`<span class="mst">${starsHTML(got,'mini')}${hg?starsHTML(hg,'mini hs'):''}</span>`:''}${cls==='open'?`<span class="mtag">${st.n}</span>`:''}</button>`; });
   h+=`<div class="mtitle"><p class="eyebrow">Gebiet ${ROM[a+1]}</p><h2>${A.n.split(' · ')[1]}</h2></div>`;
@@ -738,7 +744,7 @@ function sheetSettings(){
   <button class="btn" data-act="tutReset">Tutorial im nächsten Kampf erneut zeigen</button></section>
   <section><h3>Elemente</h3><p class="muted">Mit Elementvorteil gibt es ${Math.round((STRONG_MULT-1)*100)} % mehr Schaden gegen die Karte gegenüber, aufgerundet.</p>
   <div class="wheel">${el('wasser')}<span>schlägt</span>${el('feuer')}${el('feuer')}<span>schlägt</span>${el('erde')}${el('erde')}<span>schlägt</span>${el('wasser')}${el('licht')}<span>und</span>${el('schatten')}</div></section>
-  <section><h3>Setboni</h3><ul class="gloss">${knownSets().map(x=>`<li>${setChip(x,true)} ab 3: ${SET_BONUS[x][0]} · alle 6: ${SET_BONUS[x][1]}</li>`).join('')}</ul></section>
+  
   <section><h3>Leveln und Verbessern</h3><p class="muted">Jedes Level bringt +${LVL_PCT*100} % auf Angriff und Leben und kostet Gegenstände und Gold. Pro Stern sind 5 Level möglich. Am Ende eines Sterns verbesserst du die Karte mit Doppelten: +${STAR_PCT*100} %, und 5 weitere Level werden frei. Höchstens ${MAXSTAR} Sterne und Level ${MAXLVL}.</p><ul class="kv">${[2,3,4,5].map(x=>`<li><span>${'★'.repeat(x)} (bis Level ${x*5})</span><b>${STAR_UP[x].d} Doppelte · ${fmt(STAR_UP[x].g)} Gold</b></li>`).join('')}</ul></section>
   <section><h3>Schlüsselwörter</h3><ul class="gloss">${Object.values(KW).map(k=>`<li><b>${k.n}${k.v?' X':''}:</b> ${k.d('X')}</li>`).join('')}</ul></section>
   <section><h3>Fairness</h3><ol class="steps"><li>Kein Vorteil gegen Geld. Glutsteine kaufen nur Aussehen.</li><li>Keine Energie, keine Wartezeiten.</li><li>Truhen gibt es nie für Echtgeld, alle Quoten stehen offen im Laden.</li><li>Rivalen in der Arena sind computergesteuert.</li></ol></section>
@@ -776,7 +782,7 @@ function sheetCard(id){
   const skin=own.length?`<div class="skinsel"><span>Motiv${SKINS[id]>1?` <small>${own.length} von ${SKINS[id]} gefunden</small>`:''}</span><div class="row-btns"><button class="btn${cur?'':' primary'}" data-act="skinSel" data-id="${id}:0">Standard</button>${own.map(v=>`<button class="btn${cur===v?' primary':''}" data-act="skinSel" data-id="${id}:${v}">✦ ${SKINS[id]>1?skinName(id,v):'Sondermotiv'}</button>`).join('')}</div></div>`:'';
   openSheet(`<div class="cardhead"><div><button class="artbtn" data-act="artOpen" data-id="${id}" aria-label="Bild groß ansehen">${cardHTML({id,lvl:o.lvl,star:o.star})}<span class="zoom">⤢ Groß ansehen</span></button></div><div><p class="eyebrow">${CATS[d.cat]} · Set ${SETS[d.set].n} · ${RAR[d.r]}</p><h2>${d.n}</h2>
   <p class="lore">„${LORE[id]}“</p><ul class="kv"><li><span>Level</span><b>${o.lvl} von ${cap}</b></li><li><span>Sterne</span><b>${'★'.repeat(o.star)}</b></li><li><span>Angriff / Leben</span><b>${now.a} / ${now.h}</b></li><li><span>Doppelte</span><b>${o.dup}</b></li><li><span>${itemIcon(d.cat,d.r,18)} ${iname}</span><b>${have}</b></li></ul>
-  <p class="muted">${elLine(d.cat)}</p>${kws.length?`<ul class="gloss">${kws.map(k=>`<li>${k}</li>`).join('')}</ul>`:'<p class="muted">Keine Fähigkeiten, dafür kräftige Werte.</p>'}</div></div>
+  <p class="muted">${elLine(d.cat)}</p>${kws.length?`<ul class="gloss">${kws.map(k=>`<li>${k}</li>`).join('')}</ul>`:'<p class="muted">Keine Fähigkeiten, dafür kräftige Werte.</p>'}<p class="muted setbon"><b>Set ${SETS[d.set].n}:</b> ab 3 Karten ${SET_BONUS[d.set][0]}. Mit allen 6: ${SET_BONUS[d.set][1]}.</p></div></div>
   <div class="decknum"><span>Deck ${S.di+1}</span><button class="btn${inD?'':' primary'}" data-act="deckToggle" data-id="${id}" ${!inD&&full?'disabled':''}>${inD?'Herausnehmen':full?'Deck ist voll':'Ins Deck legen'}</button></div>
   ${skin}${act}<button class="btn" data-act="close">Schließen</button>`);
 }
