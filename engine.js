@@ -176,27 +176,38 @@ const AREAS=[
  {set:'nacht',n:'IV · Das Hohle Reich',s:'Krähen, Gräber und der Hohle König.',img:'kapitel-3',unl:['grabkriecher','schattendolch','kraehenschwarm']},
  {set:'sonne',n:'V · Die Sonnenwacht',s:'Der Orden des Lichts und sein Erzseraph.',img:'kapitel-5',unl:['sonneneinhorn','lichtritter','sonnenloewe']}
 ];
-const STAGE_NAMES=[
+/* Kampagne: 16 Gefechte je Gebiet. Die alten 8 Gefechte liegen auf den geraden Plätzen, dazwischen je ein leichteres neues. */
+const STAGES_PER=16;
+const STAGE_NAMES_OLD=[
  'Funkenplage','Glimmende Hecke','Wolfsrudel','Brandwache am Pass','Rauchende Felder','Schmiede der Asche','Der Glutturm','Schlackenfürst Ormak',
  'Tümpelgeister','Nebelbucht','Die Gezeitenwache','Perlengrund','Das Wrack','Sturmküste','Der Leuchtturm','Gezeitenmutter Ysra',
  'Moosige Senke','Dornendickicht','Die Wurzelbrücke','Hirschpfad','Rudelfelsen','Der Steinkreis','Herz des Waldes','Urborke, die Alteiche',
  'Krähenfeld','Grabhügel','Seelenmarkt','Nachtfalterwald','Schattengasse','Die Knochenbrücke','Die hohle Garde','Der Hohle König',
  'Irrlichtschwarm','Der Sonnenweg','Orden des Lichts','Löwenfelsen','Die Spiegelhalle','Das Himmelstor','Die letzte Wacht','Erzseraph Aurel'
 ];
-const UNLOCK_SLOTS=[1,4,7]; /* Gefecht 2, 5 und 8 eines Gebiets schalten je eine Karte frei. */
-/* Höchste Seltenheit der Gegnerkarten je Gebiet und Gefecht. Gebiet I bleibt leicht, damit man Gold für Truhen sammelt. */
-const RMAX=[[0,0,0,0,0,0,0,0],[0,0,0,1,1,1,2,1],[0,0,1,1,1,2,2,1],[0,0,0,1,1,1,1,1],[0,0,1,1,1,2,2,1]];
-/* Level der Gegnerkarten: Gebiet I bei 1, danach steigt es deutlich. Der Wurzelwald ist bewusst stärker, weil Feuerdecks dort Vorteil haben. */
-const AREA_LVL=[[1,2,2,3,4,5,5,5],[5,5,5,5,5,6,5,8],[9,9,10,10,9,9,9,9],[12,10,12,13,14,14,15,16],[15,15,16,15,16,15,15,17]];
-/* Kartenzahl der Gegner. Der Wurzelwald kommt mit vollen Decks, damit Feuer dort kein Selbstläufer ist. */
-const AREA_SIZE=[[3,3,4,4,4,5,5,6],[3,4,4,5,5,5,5,6],[5,6,6,7,7,8,8,8],[6,6,7,7,8,8,8,6],[4,5,5,6,6,7,7,6]];
+const STAGE_NAMES_NEW=[
+ 'Der Ascheweg','Kohlenbrücke','Funkenschlucht','Die Glutmine','Rußdorf','Lavarinne','Die Brennöfen','Schlackenstufen',
+ 'Strandgut','Salzklippen','Muschelbank','Flutgräben','Gischtpfad','Seetangwald','Ertrunkene Kapelle','Am Strudelrand',
+ 'Waldrand','Pilzlichtung','Farnschlucht','Baumhausdorf','Wurzeltunnel','Moorsteg','Die Kristallquelle','Uralte Pforte',
+ 'Totenacker','Die Vogelscheuchen','Gruft am Hügel','Galgenweg','Nebelsumpf','Ruinenkapelle','Mondschatten','Das Burgtor',
+ 'Mühlenweg','Der Bergpass','Der Wachturm','Brücke der Banner','Die weiße Kuppel','Brunnen des Lichts','Der Säulengang','Die Tempelstufen'
+];
+const STAGE_NAMES=[]; for(let a=0;a<5;a++) for(let k=0;k<8;k++){ STAGE_NAMES.push(STAGE_NAMES_NEW[a*8+k],STAGE_NAMES_OLD[a*8+k]); }
+const UNLOCK_SLOTS=[3,8,13]; /* Gefecht 4, 9 und 14 eines Gebiets schalten je eine Karte frei. */
+/* Werte der alten 8 Gefechte; die neuen Zwischengefechte übernehmen die Werte des vorigen alten Gefechts (leichter). */
+const RMAX8=[[0,0,0,0,0,0,0,0],[0,0,0,1,1,1,1,1],[0,0,1,1,1,2,2,1],[0,0,0,1,1,1,1,1],[0,0,1,1,1,2,2,1]];
+const AREA_LVL8=[[1,2,2,3,4,5,5,6],[5,5,6,6,6,6,6,9],[9,9,10,10,9,9,9,9],[12,10,12,11,14,14,15,16],[15,15,16,15,16,15,15,17]];
+const AREA_SIZE8=[[3,3,4,4,4,5,5,4],[3,4,4,5,5,5,5,6],[5,6,6,7,7,8,7,8],[6,6,7,6,8,8,8,6],[4,5,5,6,6,6,6,7]];
+const x16=(T,first)=>T.map((r,a)=>r.flatMap((v,k)=>[k?Math.min(r[k-1],v):first(v,a),v]));
+const RMAX=x16(RMAX8,v=>v), AREA_LVL=x16(AREA_LVL8,(v,a)=>a?AREA_LVL8[a-1][7]-1:v), AREA_SIZE=x16(AREA_SIZE8,v=>Math.max(3,v-1));
 const STAGES=STAGE_NAMES.map((n,k)=>{
-  const a=Math.floor(k/8), i=k%8, boss=i===7, A=AREAS[a], u=UNLOCK_SLOTS.indexOf(i), lvl=AREA_LVL[a][i];
+  const a=Math.floor(k/STAGES_PER), i=k%STAGES_PER, boss=i===STAGES_PER-1, A=AREAS[a], u=UNLOCK_SLOTS.indexOf(i), lvl=AREA_LVL[a][i];
   return {id:k+1,area:a,i,n,boss,set:A.set,cat:SETS[A.set].cat,unlock:u>=0?A.unl[u]:'',weak:k<2,
     size:AREA_SIZE[a][i], rmax:RMAX[a][i], top:boss?(a===0||a===3?2:3):-1,
-    lvl, star:Math.min(MAXSTAR,Math.ceil(lvl/5)), hp:Math.round((800+i*60+(boss?400:0))*mult(Math.min(MAXSTAR,Math.ceil(lvl/5)),lvl)/10)*10,
-    gold:boss?150+a*75:40+a*20+i*5};
+    lvl, star:Math.min(MAXSTAR,Math.ceil(lvl/5)), hp:Math.round((800+i*30+(boss?400:0))*mult(Math.min(MAXSTAR,Math.ceil(lvl/5)),lvl)/10)*10,
+    gold:boss?150+a*75:40+a*20+Math.round(i*2.5)};
 });
+const BOSS_ID=a=>(a+1)*STAGES_PER, LAST_ID=AREAS.length*STAGES_PER;
 function rng(seed){ return ()=>{ seed=seed+0x6D2B79F5|0; let t=Math.imul(seed^seed>>>15,1|seed); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
 function hash(s){ let h=2166136261; for(let i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619); } return h>>>0; }
 /* Gegnerdeck eines Gefechts: nur Karten aus dem Set des Gebiets, Doppelte erlaubt (PvE). Heroisch: +8 Level. */
