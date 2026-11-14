@@ -572,6 +572,7 @@ img.pt.hb{width:34px;height:34px;margin-right:4px}
 .arenahead .crest{position:absolute;right:14px;top:12px;width:96px;height:96px;object-fit:contain;filter:drop-shadow(0 4px 10px rgba(0,0,0,.7))}
 .bk.hk img.pt{width:100%;height:auto;aspect-ratio:1}
 .ch img{object-fit:contain}
+.bk.earn img{filter:grayscale(.7) brightness(.6)}
 </style>
 </head>
 <body>
@@ -1261,7 +1262,12 @@ const SKIP_CHANCE={holz:.05,silber:.1,gold:.2};
 const PMAX=40, XP={win:15,star:5,arena:10,lose:2,daily:30};
 function xpNeed(L){ return 80+40*(L-1); }
 /* Kartenrücken: rein optisch, für Glutsteine. */
-const BACKS={standard:{n:'Glutstein',p:0},abyss:{n:'Tiefsee',p:40},schmiede:{n:'Zwergenschmiede',p:40},mangrove:{n:'Mangroven',p:40},daemmerung:{n:'Dämmerung',p:40},totenwald:{n:'Totenwald',p:40},erwachen:{n:'Das Erwachen',p:40},kristall:{n:'Kristallsee',p:40},raeder:{n:'Räderwerk',p:40}};
+const BACKS={standard:{n:'Glutstein',p:0},abyss:{n:'Tiefsee',p:40},schmiede:{n:'Zwergenschmiede',p:40},mangrove:{n:'Mangroven',p:40},daemmerung:{n:'Dämmerung',p:40},totenwald:{n:'Totenwald',p:40},erwachen:{n:'Das Erwachen',p:40},kristall:{n:'Kristallsee',p:40},raeder:{n:'Räderwerk',p:40},
+  glut:{n:'Glut',p:40},flut:{n:'Flut',p:40},hain:{n:'Hain',p:40},nacht:{n:'Nacht',p:40},sonne:{n:'Sonne',p:40},luft:{n:'Wolkenhimmel',p:40},
+  bruecke:{n:'Brückenstadt',p:40},perle:{n:'Perlhafen',p:40},variete:{n:'Varieté',p:40},wueste:{n:'Wüstensand',p:40},orkan:{n:'Orkanflotte',p:40},
+  champion:{n:'Champion',p:0,earn:'Erreiche die Glutliga'}};
+/* Der Champion-Rücken ist nicht käuflich: er gehört dir, sobald du einmal die Glutliga erreicht hast. */
+function champCheck(){ if(S.league>=4&&!S.backs.includes('champion')) S.backs.push('champion'); }
 function backSrc(k){ return k==='standard'?'bilder/rueckseite.jpg':`bilder/ruecken-${k}.jpg`; }
 const GEM_PROMO=20, GEM_BOSS=10, WIN_CHEST_EVERY=5, REPLAY_SHARE=.2, THREE_STAR_BONUS=50, HERO_GOLD=1.5, ALBUM_REWARD={gold:300,gems:15};
 const SEASON_START=Date.UTC(2026,10,2), SEASON_DAYS=14;
@@ -1358,6 +1364,7 @@ function sane(j){
   const cl=v=>Math.min(1,Math.max(0,+v||0));
   s.vol=s.vol&&typeof s.vol==='object'?{m:cl(s.vol.m),s:cl(s.vol.s),a:s.vol.a==null?f.vol.a:cl(s.vol.a)}:f.vol;
   s.fxOff=!!s.fxOff;
+  if(s.league>=4&&Array.isArray(s.backs)&&!s.backs.includes('champion')) s.backs.push('champion');
   s.heroes=(Array.isArray(s.heroes)?s.heroes:[]).filter(k=>HEROES[k]); if(!s.heroes.includes('kapuze')) s.heroes.unshift('kapuze'); if(!s.heroes.includes(s.hero)) s.hero='kapuze';
   /* Kampagne 16 statt 8: jedes alte Gefecht zählt für die beiden neuen an seiner Stelle. */
   if((s.campV|0)<2){ ['stars','hstars'].forEach(k=>{ const o=s[k]||{}, n={}; for(const id in o){ const x=+id-1, a=Math.floor(x/8), j=x%8; if(a<5){ n[a*16+2*j+1]=o[id]; n[a*16+2*j+2]=o[id]; } } s[k]=n; }); s.campV=2; }
@@ -1941,7 +1948,7 @@ function viewShop(){
   else if(shopTab==='helden') h+=`<section><div class="sec-h"><h2>Helden</h2><span class="count">${S.heroes.length}/${HERO_KEYS.length} im Besitz</span></div><p class="muted">Dein Held zeigt sich im Kampf, in der Arena und in den Gesprächen. Reines Aussehen.</p><div class="backs">${HERO_KEYS.map(k=>{ const own=S.heroes.includes(k), act=S.hero===k;
     return `<button class="bk hk${act?' act':''}" data-act="heroPick" data-id="${k}">${heroImg(k)}<b>${HEROES[k]}</b><span>${act?'In Benutzung':own?'Benutzen':`<span class="gem"></span>${HERO_PRICE} Glutsteine`}</span></button>`; }).join('')}</div></section>`;
   else if(shopTab==='ruecken') h+=`<section><div class="sec-h"><h2>Kartenrücken</h2><span class="count">${S.backs.length}/${Object.keys(BACKS).length} im Besitz</span></div><p class="muted">Kartenrücken ändern nur das Aussehen: Ziehstapel, Truhen und Sammelbuch.</p><div class="backs">${Object.entries(BACKS).map(([k,b])=>{ const own=S.backs.includes(k), act=S.back===k;
-    return `<button class="bk${act?' act':''}" data-act="back" data-id="${k}"><img src="${backSrc(k)}" alt=""><b>${b.n}</b><span>${act?'In Benutzung':own?'Benutzen':`<span class="gem"></span>${b.p} Glutsteine`}</span></button>`; }).join('')}</div></section>`;
+    return `<button class="bk${act?' act':''}${b.earn&&!own?' earn':''}" data-act="back" data-id="${k}"><img src="${backSrc(k)}" alt=""><b>${b.n}</b><span>${act?'In Benutzung':own?'Benutzen':b.earn?'🏆 '+b.earn:`<span class="gem"></span>${b.p} Glutsteine`}</span></button>`; }).join('')}</div></section>`;
   else if(shopTab==='erfolge'){ const done=ACH.filter(a=>S.ach[a.id]).length;
     h+=`<section class="panelbox"><div class="sec-h"><h2>Erfolge</h2><span class="count">${done}/${ACH.length}${ao?` · ${ao} abholbereit`:''}</span></div>
     <ul>${ACH.slice().sort((a,b)=>((S.ach[b.id]===1)-(S.ach[a.id]===1))||((!!S.ach[a.id])-(!!S.ach[b.id]))).map(a=>{ const st=S.ach[a.id];
@@ -2086,6 +2093,7 @@ function resultHTML(){
   if(r.gems) lines+=`<p class="r-line"><span class="gem"></span>+${r.gems} Glutsteine</p>`;
   if(r.items&&r.items.length) lines+=`<div class="ichips">${itemsLine(r.items)}</div>`;
   if(r.promo) lines+=`<p class="r-line">Aufstieg in die ${r.promo}</p>`;
+  if(r.champ) lines+=`<p class="r-line">🏆 Kartenrücken „Champion“ freigeschaltet!</p>`;
   if(r.demo) lines+=`<p class="r-line">Abstieg in die ${r.demo}</p><p class="muted">Du startest in der Mitte der Liga.</p>`;
   if(r.xp) lines+=`<p class="r-line"><span class="xpi">EP</span>+${r.xp} Erfahrung${r.lvup?` <small>Level ${r.lvup} erreicht!</small>`:''}</p>`;
   if(r.chests.length) lines+=`<p class="r-line"><img src="bilder/truhe-${r.chests[r.chests.length-1]}.png" alt="" width="34" height="34">${r.chests.map(t=>CHESTS[t].n).join(' und ')} <small>liegt im Laden</small></p>`;
@@ -2219,7 +2227,7 @@ function finish(){
     else{ S.al++; r.gold=forfeit?0:5; rv.t+=Math.round(-d/2); }
     drift(rv);
     const now=leagueOf(S.tr);
-    if(now>lg){ S.table=mkTable(now); r.promo=LEAGUES[now].n; S.seasonBest=Math.max(S.seasonBest,now); if(now>S.league){ S.league=now; S.gems+=GEM_PROMO; r.gems=GEM_PROMO; r.chests.push('gold'); } }
+    if(now>lg){ S.table=mkTable(now); r.promo=LEAGUES[now].n; S.seasonBest=Math.max(S.seasonBest,now); if(now>S.league){ S.league=now; S.gems+=GEM_PROMO; r.gems=GEM_PROMO; r.chests.push('gold'); if(now>=4&&!S.backs.includes('champion')){ champCheck(); r.champ=1; } } }
   }
   addXp(r.xp||0); if(S.plvl>xpBefore) r.lvup=S.plvl;
   giveItems(r.items); r.chests.forEach(t=>S.chests.push({type:t}));
@@ -2286,6 +2294,7 @@ const ACT={
     openSheet(`<h2>${HEROES[k]} als Held?</h2><div class="center">${heroImg(k,'big')}</div><p class="muted">Kostet ${HERO_PRICE} Glutsteine. Du hast ${S.gems}.</p><div class="row-btns"><button class="btn" data-act="close">Abbrechen</button><button class="btn primary" data-act="heroYes" data-id="${k}">Kaufen und benutzen</button></div>`); },
   heroYes(k){ if(!HEROES[k]||S.heroes.includes(k)||S.gems<HERO_PRICE) return; S.gems-=HERO_PRICE; S.heroes.push(k); S.hero=k; persist(); closeSheet(); render(); sfx('coin'); },
   back(id){ const b=BACKS[id]; if(!b) return; if(S.backs.includes(id)){ S.back=id; persist(); applyTheme(); render(); return; }
+    if(b.earn){ toast(b.earn+', dann gehört dir dieser Rücken.'); return; }
     if(S.gems<b.p){ toast(`Dir fehlen ${b.p-S.gems} Glutsteine.`); return; }
     openSheet(`<h2>Kartenrücken ${b.n} kaufen?</h2><img class="bkprev" src="${backSrc(id)}" alt=""><p class="muted">Kostet ${b.p} Glutsteine. Du hast ${S.gems}.</p><div class="row-btns"><button class="btn" data-act="close">Abbrechen</button><button class="btn primary" data-act="backYes" data-id="${id}">Kaufen und benutzen</button></div>`); },
   backYes(id){ const b=BACKS[id]; if(!b||S.backs.includes(id)||S.gems<b.p) return; S.gems-=b.p; S.backs.push(id); S.back=id; persist(); applyTheme(); closeSheet(); render(); sfx('coin'); },
