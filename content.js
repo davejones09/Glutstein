@@ -1,6 +1,6 @@
 /* ====== Texte: Dialoge vor den Gefechten, Kartentexte, Erfolge ====== */
 /* Dialog je Gefecht: g = Gegner, p = du. */
-const DLG={
+const DLG_OLD={
  1:[['g','Hihi! Ein Wanderer mit fünf Karten? Die verbrennen wir schneller als Zunder!'],['p','Dann probier mal, Wasser anzuzünden.']],
  2:[['g','Halt! Diese Hecke glimmt seit hundert Jahren. Niemand geht hindurch.'],['p','Dann gehe ich eben durch dich.']],
  3:[['g','Grrr … der Aschenpfad gehört dem Rudel.'],['p','Ich will nur durch. Ihr könnt mir folgen oder Platz machen.']],
@@ -42,6 +42,52 @@ const DLG={
  39:[['g','Ich bin die letzte Wacht. Nach mir kommt nur noch er.'],['p','Dann bringen wir es hinter uns.']],
  40:[['g','Licht ohne Schatten, Ordnung ohne Glut. So soll die Welt sein.'],['p','Ohne Glut wird die Welt kalt, Aurel.'],['g','Dann beweise es, Wanderer.']]
 };
+const DLG={};
+/* Alte Gefechte liegen jetzt auf den geraden Plätzen (2, 4, …), neue dazwischen. */
+for(const o in DLG_OLD){ const n=+o-1, a=Math.floor(n/8), k=n%8; DLG[a*16+2*k+2]=DLG_OLD[o]; }
+Object.assign(DLG,{
+ 1:[['g','Noch einer, der dem Rauch folgt? Der Ascheweg frisst Wanderer.'],['p','Mich spuckt er wieder aus.']],
+ 3:[['g','Die Kohlenbrücke trägt nur, wer brennt.'],['p','Dann halte ich mich an meine Karten.']],
+ 5:[['g','In der Schlucht fliegen die Funken wie Hornissen!'],['p','Hornissen mögen kein Wasser.']],
+ 7:[['g','Die Mine gehört uns. Grab dir deine eigene!'],['p','Ich suche nur einen Splitter, kein Gold.']],
+ 9:[['g','Rußdorf hat schon lange keinen Gast mehr gesehen. Bleib doch … für immer.'],['p','Danke, ich bin auf der Durchreise.']],
+ 11:[['g','Ein Schritt daneben und du schwimmst in Lava.'],['p','Dann trete ich eben genau.']],
+ 13:[['g','Die Öfen brennen für Ormak. Und für dich gleich mit!'],['p','Ich bringe meine eigene Kühlung mit.']],
+ 15:[['g','Jede Stufe näher am Thron wird heißer.'],['p','Gut, mir war eh kalt.']],
+ 17:[['g','Alles, was die Flut bringt, gehört dem Meer.'],['p','Dann nehme ich nur, was mir gehört.']],
+ 19:[['g','Von den Klippen hat noch keiner zurückgeschaut.'],['p','Ich schaue lieber nach vorn.']],
+ 21:[['g','Die Muscheln flüstern deinen Namen. Sie wollen dich behalten.'],['p','Sie müssen sich hinten anstellen.']],
+ 23:[['g','Die Gräben füllen sich. Bald stehst du bis zum Hals drin.'],['p','Dann beeile ich mich.']],
+ 25:[['g','Die Gischt sieht alles. Und sie erzählt es Ysra.'],['p','Soll sie ruhig wissen, dass ich komme.']],
+ 27:[['g','Im Tangwald verfängt sich jeder.'],['p','Ich habe scharfe Karten.']],
+ 29:[['g','Die Glocke der Kapelle läutet unter Wasser. Für dich.'],['p','Noch läutet sie für niemanden.']],
+ 31:[['g','Der Strudel zieht. Spürst du es?'],['p','Ich spüre vor allem den Splitter.']],
+ 33:[['g','Pst. Der Wald schläft. Weck ihn nicht.'],['p','Zu spät, glaube ich.']],
+ 35:[['g','Die Pilze leuchten, wenn jemand stirbt. Heute leuchten sie hell.'],['p','Dann leuchten sie eben für dich.']],
+ 37:[['g','Die Farne wachsen über alles, was stehen bleibt.'],['p','Ich bleibe nicht stehen.']],
+ 39:[['g','Unser Dorf hängt in den Bäumen. Und du hängst gleich mit!'],['p','Ich bevorzuge festen Boden.']],
+ 41:[['g','Im Tunnel sind die Wurzeln lebendig.'],['p','Das bin ich auch.']],
+ 43:[['g','Der Steg trägt nur Leichte. Bist du leicht?'],['p','Leichtfüßig genug.']],
+ 45:[['g','Wer aus der Quelle trinkt, wird Teil des Waldes.'],['p','Ich hatte schon Frühstück.']],
+ 47:[['g','Hinter der Pforte wartet Urborke. Sie hat dich kommen hören.'],['p','Gut, dann muss ich nicht klopfen.']],
+ 49:[['g','Hier liegen die, die vor dir kamen.'],['p','Ich lege mich heute nicht dazu.']],
+ 51:[['g','Die Scheuchen drehen ihre Köpfe nach dir.'],['p','Sollen sie gucken.']],
+ 53:[['g','In der Gruft ist es still. Zu still für dich.'],['p','Ich mache gern ein bisschen Lärm.']],
+ 55:[['g','Der Galgenweg führt nur in eine Richtung.'],['p','Nach vorn. Passt.']],
+ 57:[['g','Im Sumpf verschwinden selbst Schatten.'],['p','Meine Karten nicht.']],
+ 59:[['g','Die Kapelle betet nicht mehr. Sie hungert.'],['p','Bei mir gibt es nichts zu holen.']],
+ 61:[['g','Wo der Mond keinen Schatten wirft, wohnt etwas anderes.'],['p','Dann sag ihm, dass ich da bin.']],
+ 63:[['g','Das Tor öffnet sich nur für die Toten.'],['p','Oder für die Hartnäckigen.']],
+ 65:[['g','Ein Fremder auf dem Mühlenweg? Der Orden wird das nicht mögen.'],['p','Der Orden wird sich daran gewöhnen.']],
+ 67:[['g','Der Pass ist gesperrt. Befehl des Erzseraphs.'],['p','Ich habe eine andere Meinung dazu.']],
+ 69:[['g','Vom Turm aus sehen wir jeden Schritt.'],['p','Dann schaut gut hin.']],
+ 71:[['g','Unter diesen Bannern ist noch keiner durchgekommen.'],['p','Einer muss der Erste sein.']],
+ 73:[['g','Kehr um, Kartenbinder. Du weißt nicht, was du tust.'],['p','Ich weiß genau, was ich suche.']],
+ 75:[['g','Der Brunnen heilt alle, die dem Licht dienen.'],['p','Dann wird es für dich knapp.']],
+ 77:[['g','Zwischen den Säulen hallt jede Lüge zurück.'],['p','Gut, dass ich die Wahrheit sage.']],
+ 79:[['g','Noch eine Stufe. Aurel erwartet dich. Er hofft, dass du aufgibst.'],['p','Da muss er mich schlecht kennen.']]
+});
+
 const LORE={
  funkenwicht:'Kichert immer kurz, bevor etwas Feuer fängt.',
  glutwolf:'Wo sein Rudel jagt, bleibt nur warme Asche.',
@@ -137,11 +183,11 @@ const ACH=[
  {id:'liga2',t:'Silberliga',d:'Erreiche die Silberliga.',g:15,ok:()=>S.league>=2},
  {id:'liga3',t:'Goldliga',d:'Erreiche die Goldliga.',g:20,ok:()=>S.league>=3},
  {id:'liga4',t:'Glutliga',d:'Erreiche die Glutliga.',g:30,ok:()=>S.league>=4},
- {id:'kap1',t:'Der Aschenpfad',d:'Besiege den Schlackenfürsten.',g:10,ok:()=>!!S.stars[8]},
- {id:'kap2',t:'Die versunkene Küste',d:'Besiege die Gezeitenmutter.',g:15,ok:()=>!!S.stars[16]},
- {id:'kap3',t:'Der Wurzelwald',d:'Besiege Urborke.',g:15,ok:()=>!!S.stars[24]},
- {id:'kap4',t:'Das Hohle Reich',d:'Besiege den Hohlen König.',g:20,ok:()=>!!S.stars[32]},
- {id:'kap5',t:'Die Sonnenwacht',d:'Besiege den Erzseraph.',g:30,ok:()=>!!S.stars[40]},
+ {id:'kap1',t:'Der Aschenpfad',d:'Besiege den Schlackenfürsten.',g:10,ok:()=>!!S.stars[BOSS_ID(0)]},
+ {id:'kap2',t:'Die versunkene Küste',d:'Besiege die Gezeitenmutter.',g:15,ok:()=>!!S.stars[BOSS_ID(1)]},
+ {id:'kap3',t:'Der Wurzelwald',d:'Besiege Urborke.',g:15,ok:()=>!!S.stars[BOSS_ID(2)]},
+ {id:'kap4',t:'Das Hohle Reich',d:'Besiege den Hohlen König.',g:20,ok:()=>!!S.stars[BOSS_ID(3)]},
+ {id:'kap5',t:'Die Sonnenwacht',d:'Besiege den Erzseraph.',g:30,ok:()=>!!S.stars[BOSS_ID(4)]},
  {id:'hero1',t:'Heroisch',d:'Gewinne ein heroisches Gefecht.',g:10,ok:()=>Object.keys(S.hstars).length>0},
  {id:'setb',t:'Setbonus',d:'Gewinne mit 3 Karten eines Sets im Deck.',g:10,ok:()=>!!S.flags.set3},
  {id:'setv',t:'Volles Set',d:'Gewinne mit allen 6 Karten eines Sets im Deck.',g:20,ok:()=>!!S.flags.set6},
