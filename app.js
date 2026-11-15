@@ -84,6 +84,7 @@ const ART={}; BASE.forEach(c=>ART[c.id]=`bilder/${c.id}.jpg`);
 const SKINS={}; ['funkenwicht','glutwolf','brandbogner','flammenhexe','schlackenriese','aschendrache','tuempelgeist','gezeitenwache','perlentaucherin','nebelheilerin','sturmrufer','leviathan',
  'moosling','dornenhirsch','wurzelhueter','rudelfuehrerin','alteiche','waldkoenigin','nachtfalter','grabkriecher','schattendolch','kraehenschwarm','seelenhaendlerin','irrlicht','sonneneinhorn','sonnenloewe','lichtmagier','seraphin'].forEach(id=>SKINS[id]=1);
 SKINS.mitternachtsfuerstin=2; SKINS.lichtritter=2; SKINS.leuchtturmwaerterin=1;
+['wahrsagerin','pilzhueterin','ghul','netzflickerin','fischerin','zirkusdirektor','fliegerass','totenherrin','dschinn','abgrundkoenigin','messingkoloss','runenschmiedin','messerwerferin','sphinx','geisterschiff','erwachter','schwanenritter','enterkapitaen','eklipsenwaechter','vampirjaegerin','himmelsschiff','mangrovenriese','tiefenkrake'].forEach(id=>SKINS[id]=1);
 const SKIN_NAMES={mitternachtsfuerstin:['Fürstin','Fürst'],lichtritter:['Ritter','Ritterin']};
 for(const id in SKINS) for(let v=1;v<=SKINS[id];v++) ART[id+'-s'+(v>1?v:'')]=`bilder/${id}-s${v>1?v:''}.jpg`;
 function skinSrc(id,v){ return v&&ART[id+'-s'+(v>1?v:'')]||ART[id]; }
@@ -562,7 +563,7 @@ function skipIcon(z){ z=Math.round(z*1.25); return `<img class="itm" src="bilder
 function itemsLine(list){ return list.map(x=>`<span class="ichip">${itemIcon(x.cat,x.q,18)}+${x.n} ${itemName(x.cat,x.q)}</span>`).join(''); }
 function starsHTML(n,cls){ return `<span class="stars ${cls||''}" role="img" aria-label="${n} von 3 Sternen">${[1,2,3].map(i=>`<i class="st${i<=n?' on':''}"></i>`).join('')}</span>`; }
 /* Helden-Porträts: eigener Held (Laden, 30 Glutsteine) und feste Porträts der Rivalen. */
-const HEROES={sammler:'Kartenbinder',sammlerin:'Kartenbinderin',kapuze:'Der Namenlose',ormak:'Schlackenfürst Ormak',ysra:'Gezeitenmutter Ysra',urborke:'Urborke',hohlerkoenig:'Der Hohle König',aurel:'Erzseraphin Aurel',feuermagierin:'Feuermagierin',zwerg:'Zwergenkrieger',elfe:'Waldläuferin',soeldner:'Söldner',meerhexe:'Meerhexe',gelehrter:'Gelehrter',vampirgraefin:'Vampirgräfin',ritter:'Junger Ritter',nomadin:'Nomadin',pirat:'Piratenkapitän',erfinderin:'Erfinderin'};
+const HEROES={sammler:'Kartenbinder',sammlerin:'Kartenbinderin',kapuze:'Der Namenlose',ormak:'Schlackenfürst Ormak',ysra:'Gezeitenmutter Ysra',urborke:'Urborke',hohlerkoenig:'Der Hohle König',aurel:'Erzseraphin Aurel',feuermagierin:'Feuermagierin',zwerg:'Zwergenkrieger',elfe:'Waldläuferin',soeldner:'Söldner',meerhexe:'Meerhexe',gelehrter:'Gelehrter',vampirgraefin:'Vampirgräfin',ritter:'Junger Ritter',nomadin:'Nomadin',pirat:'Piratenkapitän',erfinderin:'Erfinderin',leuchtturm:'Leuchtturmwärterin',fliegerass:'Fliegerass',zirkusdirektor:'Zirkusdirektor',nekromant:'Nekromant'};
 function kb(t){ return String(t).replace(/\{KB\}/g,S.sex==='w'?'Kartenbinderin':'Kartenbinder'); }
 const HERO_PRICE=30, HERO_KEYS=Object.keys(HEROES);
 function heroImg(k,cls){ return `<img class="pt${cls?' '+cls:''}" src="bilder/helden/${k}.png" alt="" aria-hidden="true">`; }
@@ -694,7 +695,7 @@ function viewAlbum(){
   let h=`<section><h2>Sammelbuch</h2><p class="muted">Jedes vollständige Set bringt einmalig ${ALBUM_REWARD.gems} Glutsteine und ${ALBUM_REWARD.gold} Gold. Tippe ein Set an, um es auf- oder zuzuklappen.</p></section>`;
   knownSets().forEach(x=>{
     const cards=BASE.filter(c=>c.set===x), have=cards.filter(c=>S.cards[c.id]).length, sk=cards.reduce((n,c)=>n+ownSkins(c.id).length,0), skT=cards.reduce((n,c)=>n+(SKINS[c.id]||0),0), full=have===cards.length, open=albumOpenSets.has(x), claim=full&&!S.album[x];
-    h+=`<section class="panelbox"><button class="album-h fold" data-act="albumFold" data-id="${x}" aria-expanded="${open}"><span class="setchip${full?' on':''}" style="--fc:${SCOL(x)}"><i>${SETS[x].l}</i>${SETS[x].n}</span><span class="count">${setCats(x)} · ${have}/${cards.length} Karten · ${sk}/${skT} Sondermotive</span>${claim?'<i class="dot" aria-label="Belohnung"></i>':''}<span class="chev" aria-hidden="true">${open?'▴':'▾'}</span></button>
+    h+=`<section class="panelbox${full?' setdone':''}"><button class="album-h fold" data-act="albumFold" data-id="${x}" aria-expanded="${open}"><span class="setchip${full?' on':''}" style="--fc:${SCOL(x)}"><i>${SETS[x].l}</i>${SETS[x].n}</span><span class="count">${setCats(x)} · ${have}/${cards.length} Karten · ${sk}/${skT} Sondermotive</span>${full?'<span class="done-ck" aria-label="komplett">✓</span>':''}${claim?'<i class="dot" aria-label="Belohnung"></i>':''}<span class="chev" aria-hidden="true">${open?'▴':'▾'}</span></button>
     <div class="bar"><i style="width:${Math.round(have/cards.length*100)}%;background:${SCOL(x)}"></i></div>
     ${open?`<div class="grid g3">${cards.map(c=>tile(c.id)).join('')}</div>
     <p class="muted"><b>Setbonus</b> ab 3 Karten im Deck: ${SET_BONUS[x][0]}. Mit allen 6: ${SET_BONUS[x][1]}.</p>
@@ -972,8 +973,20 @@ function startBattle(c){
   B= c.mode==='arena' ? newBattle(deckObjs(),rivalDeck(c.rival)) : c.mode==='heraus' ? newBattle(c.pDeck,c.eDeck) : newBattle(deckObjs(),stageDeck(c.stage,c.hero),stageHp(c.stage,c.hero));
   if(c.mode==='heraus'){ const R=c.rule; if(R.noHero){ B.p.hp=B.p.maxHp=1; } if(R.eShield) B.e.pile.concat(B.e.lanes).forEach(x=>{ if(x) x.k.schild=(x.k.schild||0)+1; }); if(R.decay) B.decay=R.decay; }
   $('#battle').hidden=false; if(FXC.cv) fxSize(); battleShell(); renderBattle();
-  music(c.mode==='kampagne'&&c.stage.boss?'endgegner':'kampf',true);
+  { const mc=c.mode==='kampagne'&&c.stage.boss?'endgegner':'kampf'; music(mc,curCat!==mc); }
   runBattle(++battleId);
+}
+
+/* ====== Bossauftritt vor Endgegner-Kämpfen ====== */
+let BI=null;
+function bossIntro(st,hero,then){
+  const b=BASE.find(c=>c.set===st.set&&c.r===3), A=AREAS[st.area], line=((DLG[st.id]||[]).find(l=>l[0]==='g')||[])[1]||'';
+  const el=$('#bossin'); el.hidden=false;
+  el.innerHTML=`<div class="bi-bg" style="background-image:url(bilder/${A.img}.jpg)"></div><div class="bi-in"><p class="eyebrow">${A.n}${hero?' · Heroisch':''}</p>${heroImg(b.id,'bi-pt')}<h1>${CARD[b.id].n}</h1>${line?`<p class="bi-line">„${esc(kb(line))}“</p>`:''}</div><button class="sq-skip" data-act="bossSkip">Weiter</button>`;
+  music('endgegner',true); setTimeout(()=>sfx('hero'),650);
+  setTimeout(()=>{ document.body.classList.remove('quake'); void document.body.offsetWidth; document.body.classList.add('quake'); setTimeout(()=>document.body.classList.remove('quake'),600); },650);
+  let fin=false; BI={done(){ if(fin) return; fin=true; clearTimeout(BI.t); el.classList.add('out'); setTimeout(()=>{ el.hidden=true; el.classList.remove('out'); el.innerHTML=''; BI=null; then(); },350); }};
+  BI.t=setTimeout(()=>BI&&BI.done(),Math.max(3800,line.length*70));
 }
 function startDuel(seed){ const r=S.table.rivals.find(x=>x.s===seed)||byDist()[0]; startBattle({mode:'arena',rival:r,title:'Arena · '+LEAGUES[S.table.lg].n,opp:r.n}); }
 function stageDialog(st,hero){
@@ -1041,7 +1054,8 @@ const ACT={
   seqNext(){ seqNext(); }, seqSkip(){ seqEnd(); },
   replaySeq(id){ playSeq(id); },
   fightHero(id){ startStage(+id,true); },
-  fightGo(id){ const hero=String(id).endsWith('h'), st=STAGES.find(s=>s.id===parseInt(id)); startBattle({mode:'kampagne',stage:st,hero,title:`${st.n}${hero?' · Heroisch':''}`,opp:st.n}); },
+  fightGo(id){ const hero=String(id).endsWith('h'), st=STAGES.find(s=>s.id===parseInt(id)); const go=()=>startBattle({mode:'kampagne',stage:st,hero,title:`${st.n}${hero?' · Heroisch':''}`,opp:st.n}); if(st.boss&&deck().length>=DECK_MIN){ closeSheet(); bossIntro(st,hero,go); } else go(); },
+  bossSkip(){ if(BI) BI.done(); },
   rival(id){ sfx('tap'); sheetRival(+id); },
   duel(id){ startDuel(+id); },
   nextduel(){ startDuel(byDist()[0].s); },
@@ -1129,18 +1143,19 @@ function hasProgress(){ return !!(S.seen.intro||S.stat.fights||Object.keys(S.sta
 function menuSparks(){ let h=''; for(let i=0;i<14;i++){ const r=hash('sp'+i); h+=`<i class="m-spark" style="left:${(r%1000)/10}%;--dx:${(r>>10)%60-30}px;animation-duration:${6+(r>>4)%6}s;animation-delay:${((r>>8)%70)/10}s"></i>`; } return h; }
 function renderMenu(){
   const m=$('#menu'); if(!menuOn){ m.hidden=true; m.innerHTML=''; return; }
-  m.hidden=false; let h='';
+  m.hidden=false; let h='', mcard='';
   if(menuStep==='main'){
     const go=hasProgress();
-    h=`<img class="m-logo" src="bilder/logo.webp" alt="Glutstein"><div class="m-btns">${go?`<button class="btn primary" data-act="menuGo">Weiterspielen</button>`:''}<button class="btn${go?'':' primary'}" data-act="menuNew">Neues Spiel</button><button class="btn" data-act="menuSave">Spielstand</button><button class="btn" data-act="settings">Einstellungen</button></div>`;
+    const mc=menuCard(); if(mc) mcard=`<img class="m-card" src="${skinSrc(mc,skinOn(mc))}" alt="${CARD[mc].n}">`; h=`<img class="m-logo" src="bilder/logo.webp" alt="Glutstein"><div class="m-btns">${go?`<button class="btn primary" data-act="menuGo">Weiterspielen</button>`:''}<button class="btn${go?'':' primary'}" data-act="menuNew">Neues Spiel</button><button class="btn" data-act="menuSave">Spielstand</button><button class="btn" data-act="settings">Einstellungen</button></div>`;
   } else if(menuStep==='name'){
     h=`<h2>Wie heißt du?</h2><p class="muted">Bis zu 16 Zeichen. Du kannst ihn später in der Arena ändern.</p><input type="text" id="ngname" maxlength="16" value="${esc(NG.name)}" autocomplete="off" placeholder="Dein Name" enterkeyhint="next"><div class="m-row"><button class="btn" data-act="menuBack">Zurück</button><button class="btn primary" data-act="menuName">Weiter</button></div>`;
   } else {
     h=`<h2>Wer bist du?</h2><div class="m-pick">${[['m','sammler','Kartenbinder'],['w','sammlerin','Kartenbinderin']].map(([x,k,n])=>`<button class="${NG.sex===x?'act':''}" data-act="menuSex" data-id="${x}">${heroImg(k)}${n}</button>`).join('')}</div><div class="m-row"><button class="btn" data-act="menuBack">Zurück</button><button class="btn primary" data-act="menuStart" ${NG.sex?'':'disabled'}>Los geht's</button></div>`;
   }
-  m.innerHTML=menuSparks()+`<div class="m-in">${h}</div>`;
+  m.innerHTML=menuSparks()+mcard+`<div class="m-in">${h}</div>`;
   if(menuStep==='name') setTimeout(()=>{ const i=$('#ngname'); if(i){ i.focus(); i.onkeydown=e=>{ if(e.key==='Enter') ACT.menuName(); }; } },50);
 }
+function menuCard(){ const own=Object.keys(S.cards).filter(id=>CARD[id]); if(!own.length) return null; const top=Math.max(...own.map(id=>CARD[id].r)), pool=own.filter(id=>CARD[id].r>=Math.min(top,2)); return pool[Math.floor(Math.random()*pool.length)]; }
 function openMenu(){ closeSheet(); menuOn=true; menuStep='main'; renderMenu(); music('menue'); }
 function hideMenu(){ menuOn=false; renderMenu(); render(); music(tabMusic()); }
 function sheetSave(){
