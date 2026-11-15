@@ -82,7 +82,7 @@ Object.assign(DLG,{
  67:[['g','Der Pass ist gesperrt. Befehl der Erzseraphin.'],['p','Ich habe eine andere Meinung dazu.']],
  69:[['g','Vom Turm aus sehen wir jeden Schritt.'],['p','Dann schaut gut hin.']],
  71:[['g','Unter diesen Bannern ist noch keiner durchgekommen.'],['p','Einer muss der Erste sein.']],
- 73:[['g','Kehr um, Kartenbinder. Du weißt nicht, was du tust.'],['p','Ich weiß genau, was ich suche.']],
+ 73:[['g','Kehr um, {KB}. Du weißt nicht, was du tust.'],['p','Ich weiß genau, was ich suche.']],
  75:[['g','Der Brunnen heilt alle, die dem Licht dienen.'],['p','Dann wird es für dich knapp.']],
  77:[['g','Zwischen den Säulen hallt jede Lüge zurück.'],['p','Gut, dass ich die Wahrheit sage.']],
  79:[['g','Noch eine Stufe. Aurel erwartet dich. Sie hofft, dass du aufgibst.'],['p','Da muss sie mich schlecht kennen.']]
