@@ -577,6 +577,28 @@ img.pt.foeav{border-radius:50%;object-fit:cover;object-position:50% 18%;border:2
 .loot-i,.ff{position:relative}
 .mult{position:absolute;top:-6px;right:-6px;z-index:6;padding:4px 8px;border-radius:99px;background:linear-gradient(#ffe08a,#d6a032);color:#2a1a06;font:900 15px/1 var(--body);box-shadow:0 2px 8px rgba(0,0,0,.7),0 0 12px rgba(255,200,80,.7)}
 .mult.big{font-size:22px;padding:6px 12px;top:-10px;right:-10px}
+/* Hauptmenü */
+#menu{position:fixed;inset:0;z-index:35;background:#0b0705 url(bilder/menue.jpg) center/cover no-repeat;display:flex;align-items:center;justify-content:center;overflow:hidden}
+#menu[hidden]{display:none}
+#menu::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 50% 45%,rgba(10,6,4,.35),rgba(6,4,3,.82) 75%),linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.55));animation:mglow 4s ease-in-out infinite alternate}
+@keyframes mglow{from{opacity:.92}to{opacity:1}}
+.m-in{position:relative;display:flex;flex-direction:column;align-items:center;gap:min(2.2vh,12px);width:min(92vw,560px);max-height:100%;padding:max(10px,env(safe-area-inset-top)) 16px max(10px,env(safe-area-inset-bottom));overflow:auto}
+.m-logo{width:min(64vw,520px);max-height:40vh;object-fit:contain;filter:drop-shadow(0 6px 24px rgba(255,110,30,.35));animation:mlogo 3.5s ease-in-out infinite alternate}
+@keyframes mlogo{from{filter:drop-shadow(0 6px 20px rgba(255,110,30,.25))}to{filter:drop-shadow(0 6px 30px rgba(255,130,40,.55))}}
+.m-btns{display:flex;flex-direction:column;gap:8px;width:min(80vw,300px)}
+.m-btns .btn{min-height:min(46px,10.5vh);background:rgba(12,8,6,.78);backdrop-filter:blur(2px)}
+.m-btns .btn.primary{background:var(--glutstein)}
+.m-in h2{margin:0;font-size:min(30px,8vh);text-shadow:0 2px 8px #000}
+.m-in .muted{margin:0;text-align:center;text-shadow:0 1px 4px #000}
+.m-in input{width:min(80vw,300px);font-size:20px;text-align:center}
+.m-row{display:flex;gap:10px;width:min(80vw,300px)}.m-row .btn{flex:1}
+.m-pick{display:flex;gap:min(5vw,28px)}
+.m-pick button{display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px;border-radius:14px;border:2px solid transparent;background:rgba(12,8,6,.6);font:800 16px/1.1 var(--body);color:var(--bein)}
+.m-pick button.act{border-color:var(--glutstein);box-shadow:0 0 20px rgba(255,140,50,.45)}
+.m-pick img{width:min(36vh,180px);height:min(36vh,180px)}
+.m-ver{position:absolute;right:12px;bottom:max(8px,env(safe-area-inset-bottom));font-size:12px;opacity:.6}
+.m-spark{position:absolute;bottom:-10px;width:4px;height:4px;border-radius:50%;background:#ffb04a;box-shadow:0 0 8px #ff8a2a;animation:mspark linear infinite;opacity:0}
+@keyframes mspark{0%{transform:translate(0,0);opacity:0}10%{opacity:.9}100%{transform:translate(var(--dx),-105vh);opacity:0}}
 </style>
 </head>
 <body>
@@ -597,6 +619,7 @@ img.pt.foeav{border-radius:50%;object-fit:cover;object-position:50% 18%;border:2
 </div>
 <div id="battle" class="felt" hidden><div id="b-root"></div></div>
 <div id="fx"></div>
+<div id="menu" hidden></div>
 <div id="sheet" hidden></div>
 <div id="toast" role="status"></div>
 <div id="seq" data-act="seqNext" hidden></div>

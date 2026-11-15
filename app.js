@@ -116,7 +116,7 @@ function okTable(t){ return t&&typeof t==='object'&&LEAGUES[t.lg]&&Array.isArray
 function seasonIdx(){ return Math.floor((Date.now()-SEASON_START)/(SEASON_DAYS*864e5)); }
 function fresh(){
   const decks=[STARTER.slice(),STARTER.slice(),STARTER.slice()];
-  return {v:6,gold:150,gems:0,skips:0,items:Object.fromEntries(Object.keys(CATS).map(c=>[c,[0,0,0,0]])),chests:[],cards:Object.fromEntries(STARTER.map(id=>[id,{lvl:1,star:1,dup:0}])),decks,di:0,unlocked:[],setsOpen:[],stars:{},hstars:{},foeSets:[],campV:2,hero:'kapuze',heroes:['kapuze'],skins:{},skinOn:{},album:{},seen:{},stat:{fights:0,kills:0,best:null},lastSave:Date.now(),remind:'',ch:{wk:0,prog:{},all:0},chDecks:{},xp:0,plvl:1,back:'standard',backs:['standard'],
+  return {v:6,gold:150,gems:0,skips:0,items:Object.fromEntries(Object.keys(CATS).map(c=>[c,[0,0,0,0]])),chests:[],cards:Object.fromEntries(STARTER.map(id=>[id,{lvl:1,star:1,dup:0}])),decks,di:0,unlocked:[],setsOpen:[],stars:{},hstars:{},foeSets:[],campV:2,hero:'sammler',heroes:FREE_HEROES.slice(),sex:'m',skins:{},skinOn:{},album:{},seen:{},stat:{fights:0,kills:0,best:null},lastSave:Date.now(),remind:'',ch:{wk:0,prog:{},all:0},chDecks:{},xp:0,plvl:1,back:'standard',backs:['standard'],
   vol:{m:.6,s:.8,a:.45},fxOff:false,muted:false,speed:1,opened:0,name:'Neuling_'+(100+Math.floor(Math.random()*900)),tr:0,league:0,aw:0,al:0,wins:0,theme:'tanne',themes:['tanne'],
   table:mkTable(0),daily:null,uid:Math.floor(Math.random()*1e9),tut:true,tipSeen:{},ach:{},flags:{},season:seasonIdx(),seasonBest:0,seasonMsg:null};
 }
@@ -140,7 +140,7 @@ function sane(j){
   s.vol=s.vol&&typeof s.vol==='object'?{m:cl(s.vol.m),s:cl(s.vol.s),a:s.vol.a==null?f.vol.a:cl(s.vol.a)}:f.vol;
   s.fxOff=!!s.fxOff; if(!Array.isArray(s.foeSets)) s.foeSets=[];
   if(s.league>=4&&Array.isArray(s.backs)&&!s.backs.includes('champion')) s.backs.push('champion');
-  s.heroes=(Array.isArray(s.heroes)?s.heroes:[]).filter(k=>HEROES[k]); if(!s.heroes.includes('kapuze')) s.heroes.unshift('kapuze'); if(!s.heroes.includes(s.hero)) s.hero='kapuze';
+  s.heroes=(Array.isArray(s.heroes)?s.heroes:[]).filter(k=>HEROES[k]); FREE_HEROES.slice().reverse().forEach(k=>{ if(!s.heroes.includes(k)) s.heroes.unshift(k); }); if(!s.heroes.includes(s.hero)) s.hero='sammler'; if(s.sex!=='w') s.sex=s.hero==='sammlerin'?'w':'m';
   /* Kampagne 16 statt 8: jedes alte Gefecht zählt für die beiden neuen an seiner Stelle. */
   if((s.campV|0)<2){ ['stars','hstars'].forEach(k=>{ const o=s[k]||{}, n={}; for(const id in o){ const x=+id-1, a=Math.floor(x/8), j=x%8; if(a<5){ n[a*16+2*j+1]=o[id]; n[a*16+2*j+2]=o[id]; } } s[k]=n; }); s.campV=2; }
   s.stat=Object.assign({fights:0,kills:0,best:null},s.stat||{}); if(!s.lastSave) s.lastSave=Date.now(); if(typeof s.remind!=='string') s.remind='';
@@ -262,37 +262,45 @@ function checkSeason(){
 function seasonDaysLeft(){ const end=SEASON_START+(seasonIdx()+1)*SEASON_DAYS*864e5; return Math.max(1,Math.ceil((end-Date.now())/864e5)); }
 
 /* ====== Musik und Töne ====== */
-const LOOPS=['menue','kampf','endgegner','karte','arena'], JINGLES=['sieg','niederlage','truhe','aufstieg'];
-let AC=null, mOut=null, sOut=null, aOut=null, AU={}, curLoop=null, wantLoop='karte', duckT=0;
+/* Musik: pro Bereich mehrere Stücke. Beim Betreten wird zufällig eins gewählt, danach wechseln sie sich ab. */
+const POOLS={menue:['menue-2','menue'],karte:['karte','karte-2'],kampf:['kampf','kampf-2'],endgegner:['endgegner','endgegner-2'],arena:['arena','arena-2']}, LOOPS=[].concat(...Object.values(POOLS)), JINGLES=['sieg','niederlage','truhe','aufstieg'];
+let AC=null, mOut=null, sOut=null, aOut=null, AU={}, curLoop=null, curCat=null, wantLoop='karte', duckT=0, menuFirst=true;
 function audioInit(){
   if(AC) return true;
   try{
     AC=new (window.AudioContext||window.webkitAudioContext)();
     mOut=AC.createGain(); sOut=AC.createGain(); aOut=AC.createGain(); mOut.connect(AC.destination); sOut.connect(AC.destination); aOut.connect(AC.destination); applyVol(); ambStart();
     LOOPS.concat(JINGLES).forEach(n=>{
-      const a=new Audio('musik/'+n+'.mp3'); a.preload='auto'; a.loop=LOOPS.includes(n); a.setAttribute('playsinline','');
+      const a=new Audio('musik/'+n+'.mp3'); a.preload='auto'; a.setAttribute('playsinline','');
       const g=AC.createGain(); g.gain.value=0; AC.createMediaElementSource(a).connect(g); g.connect(mOut); AU[n]={a,g};
-      a.play().then(()=>{ if(n!==wantLoop) a.pause(); }).catch(()=>{});
+      if(LOOPS.includes(n)) a.addEventListener('ended',()=>{ if(curLoop===n&&curCat) playTrack(nextTrack(curCat,n)); });
+      a.play().then(()=>{ if(n!==curLoop) a.pause(); }).catch(()=>{});
     });
     return true;
   }catch(e){ AC=null; return false; }
 }
 function applyVol(){ if(!AC) return; const t=AC.currentTime; mOut.gain.setTargetAtTime(S.muted?0:S.vol.m,t,.05); sOut.gain.setTargetAtTime(S.muted?0:S.vol.s,t,.05); aOut.gain.setTargetAtTime(S.muted?0:S.vol.a*.6,t,.3); }
 function fade(g,to,dur){ const t=AC.currentTime; g.gain.cancelScheduledValues(t); g.gain.setValueAtTime(g.gain.value,t); g.gain.linearRampToValueAtTime(to,t+dur); }
-function music(n,restart){
-  wantLoop=n; if(!AC) return;
-  if(curLoop===n&&!restart) return;
+function nextTrack(cat,cur){ const p=POOLS[cat]||[cat]; if(p.length<2) return p[0]; const o=p.filter(x=>x!==cur); return o[Math.floor(Math.random()*o.length)]; }
+function playTrack(n){
   const old=curLoop&&AU[curLoop]; if(old&&curLoop!==n){ fade(old.g,0,.7); const oa=old.a; setTimeout(()=>{ if(curLoop!==oa._n) oa.pause(); },800); }
   const nu=AU[n]; if(!nu) return; nu.a._n=n; curLoop=n;
-  if(restart) try{ nu.a.currentTime=0; }catch(e){}
+  try{ nu.a.currentTime=0; }catch(e){}
   nu.a.play().catch(()=>{}); fade(nu.g,1,.9);
 }
-function stopMusic(){ if(!AC||!curLoop) return; const o=AU[curLoop]; fade(o.g,0,.5); const a=o.a; setTimeout(()=>a.pause(),600); curLoop=null; }
+function music(cat,restart){
+  wantLoop=cat; if(!AC) return;
+  if(curCat===cat&&!restart) return;
+  curCat=cat;
+  let n; if(cat==='menue'&&menuFirst){ n=POOLS.menue[0]; menuFirst=false; } else n=nextTrack(cat,curLoop);
+  playTrack(n);
+}
+function stopMusic(){ if(!AC||!curLoop) return; const o=AU[curLoop]; fade(o.g,0,.5); const a=o.a; setTimeout(()=>a.pause(),600); curLoop=null; curCat=null; }
 function jingle(n,keepDuck){
   if(!AC||!AU[n]) return; const j=AU[n]; try{ j.a.currentTime=0; }catch(e){} j.g.gain.value=1; j.a.play().catch(()=>{});
   if(curLoop&&!keepDuck){ const g=AU[curLoop].g; fade(g,.25,.2); clearTimeout(duckT); duckT=setTimeout(()=>{ if(curLoop) fade(AU[curLoop].g,1,.8); },(j.a.duration||4)*1000); }
 }
-function tabMusic(){ return tab==='arena'?'arena':tab==='map'?'karte':'menue'; }
+function tabMusic(){ return menuOn?'menue':tab==='arena'?'arena':tab==='map'?'karte':'menue'; }
 function tone(f,d,type,vol,when,slide){
   const t=AC.currentTime+(when||0), o=AC.createOscillator(), g=AC.createGain(); o.type=type; o.frequency.setValueAtTime(f,t);
   if(slide) o.frequency.exponentialRampToValueAtTime(Math.max(30,f*slide),t+d);
@@ -430,7 +438,7 @@ const SEQ={
   ['seq/intro-1','Einst hielt ein Stein die Welt im Gleichgewicht. Fünf Wächter hüteten ihn, einer für jedes Element.'],
   ['seq/intro-2','In einer Nacht ohne Sterne zerbrach er.'],
   ['seq/intro-3','Seine Splitter fielen auf Asche, Meer, Wald, Schatten und Licht. Und die Wächter verloren sich in ihnen.'],
-  ['seq/intro-4','Du bist Kartenbinder. Und der Splitter in deiner Hand ist noch warm.'],
+  ['seq/intro-4','Du bist {KB}. Und der Splitter in deiner Hand ist noch warm.'],
   ['seq/intro-5','Was du besiegst, bannst du in Karten. Was du bannst, kämpft für dich.'],
   ['seq/intro-6','Der erste Splitter ruft aus der Asche. Geh.']]},
  a0:{t:'I · Der Aschenpfad',slides:[['kapitel-1','Hier brennt die Erde, seit der Splitter fiel.'],['seq/a1-2','Die Tiere des Feuers jagen jetzt alles, was sich bewegt.'],['seq/a1-3','Schlackenfürst Ormak wollte den Splitter schützen. Nun schützt der Splitter ihn.']]},
@@ -438,7 +446,7 @@ const SEQ={
  a2:{t:'III · Der Wurzelwald',slides:[['kapitel-4','Der Wald wächst. Jede Nacht ein Stück weiter.'],['seq/a3-2','Wer stehen bleibt, schlägt Wurzeln.'],['seq/a3-3','Urborke, die Alteiche, war der gütigste Wächter. Jetzt will sie die ganze Welt zu Wald machen.']]},
  a3:{t:'IV · Das Hohle Reich',slides:[['kapitel-3','Hier geht die Sonne nicht mehr auf.'],['seq/a4-2','Im Hohlen Reich bezahlt man mit dem, was man ist.'],['seq/a4-3','Der Hohle König hat den Splitter verschluckt. Seitdem ist er innen leer.']]},
  a4:{t:'V · Die Sonnenwacht',slides:[['seq/a5-1','Die letzte Festung des Lichts. Sie lässt niemanden ein.'],['seq/a5-2','Der Orden sagt, du darfst den Stein nicht zusammensetzen.'],['seq/a5-3','Erzseraphin Aurel wartet. Sie weiß, was im Stein schläft.']]},
- ende:{t:'Der Stein ist ganz',music:'endgegner',slides:[['seq/ende-1','Der letzte Splitter fügt sich ein. Der Glutstein ist wieder ganz.'],['seq/ende-2','Doch in seinem Inneren öffnet sich ein Auge.'],['seq/ende-3','„Danke, Kartenbinder.“ Über dem Meer zerreißt der Himmel.\nFortsetzung folgt …']]}
+ ende:{t:'Der Stein ist ganz',music:'endgegner',slides:[['seq/ende-1','Der letzte Splitter fügt sich ein. Der Glutstein ist wieder ganz.'],['seq/ende-2','Doch in seinem Inneren öffnet sich ein Auge.'],['seq/ende-3','„Danke, {KB}.“ Über dem Meer zerreißt der Himmel.\nFortsetzung folgt …']]}
 };
 let SQ=null;
 function playSeq(key,then){
@@ -453,7 +461,7 @@ function seqNext(){
   if(SQ.i>=SQ.q.slides.length) return seqEnd();
   const [img,txt]=SQ.q.slides[SQ.i], L=document.querySelectorAll('#seq .sq-img'), a=L[SQ.lay], b=L[1-SQ.lay];
   a.style.backgroundImage=`url(bilder/${img}.jpg)`; a.classList.remove('on'); void a.offsetWidth; a.classList.add('on'); b.classList.remove('on'); SQ.lay=1-SQ.lay;
-  const t=$('#seq .sq-t'); t.classList.remove('on'); t.innerHTML=esc(txt).replace(/\n/g,'<br>'); void t.offsetWidth; t.classList.add('on');
+  const t=$('#seq .sq-t'); t.classList.remove('on'); t.innerHTML=esc(kb(txt)).replace(/\n/g,'<br>'); void t.offsetWidth; t.classList.add('on');
   document.querySelectorAll('#seq .sq-dots i').forEach((d,k)=>d.classList.toggle('on',k<=SQ.i));
   const nx=SQ.q.slides[SQ.i+1]; if(nx){ const pre=new Image(); pre.src=`bilder/${nx[0]}.jpg`; }
   SQ.t=setTimeout(seqNext,Math.max(5500,txt.length*85));
@@ -461,7 +469,7 @@ function seqNext(){
 function seqEnd(){ const q=SQ; if(!q) return; clearTimeout(q.t); SQ=null; const el=$('#seq'); el.hidden=true; el.innerHTML=''; S.seen[q.key]=1; persist(); if(q.q.music) music(tabMusic()); if(q.then) q.then(); }
 /* Prüft nach jedem Neuzeichnen der Kampagne, ob eine Sequenz fällig ist. */
 function storyCheck(){
-  if(SQ||B||tab!=='map'||!$('#sheet').hidden) return;
+  if(menuOn||SQ||B||tab!=='map'||!$('#sheet').hidden) return;
   if(!S.seen.intro) return playSeq('intro',()=>{ render(); if(!S.stars[1]) startStage(1,false); });
   if(S.stars[LAST_ID]&&!S.seen.ende) return playSeq('ende',()=>render());
   if(mapArea!=null&&!S.seen['a'+mapArea]) return playSeq('a'+mapArea,()=>render());
@@ -554,10 +562,11 @@ function skipIcon(z){ z=Math.round(z*1.25); return `<img class="itm" src="bilder
 function itemsLine(list){ return list.map(x=>`<span class="ichip">${itemIcon(x.cat,x.q,18)}+${x.n} ${itemName(x.cat,x.q)}</span>`).join(''); }
 function starsHTML(n,cls){ return `<span class="stars ${cls||''}" role="img" aria-label="${n} von 3 Sternen">${[1,2,3].map(i=>`<i class="st${i<=n?' on':''}"></i>`).join('')}</span>`; }
 /* Helden-Porträts: eigener Held (Laden, 30 Glutsteine) und feste Porträts der Rivalen. */
-const HEROES={kapuze:'Der Namenlose',ormak:'Schlackenfürst Ormak',ysra:'Gezeitenmutter Ysra',urborke:'Urborke',hohlerkoenig:'Der Hohle König',aurel:'Erzseraphin Aurel',feuermagierin:'Feuermagierin',zwerg:'Zwergenkrieger',elfe:'Waldläuferin',soeldner:'Söldner',meerhexe:'Meerhexe',gelehrter:'Gelehrter',vampirgraefin:'Vampirgräfin',ritter:'Junger Ritter',nomadin:'Nomadin',pirat:'Piratenkapitän',erfinderin:'Erfinderin'};
+const HEROES={sammler:'Kartenbinder',sammlerin:'Kartenbinderin',kapuze:'Der Namenlose',ormak:'Schlackenfürst Ormak',ysra:'Gezeitenmutter Ysra',urborke:'Urborke',hohlerkoenig:'Der Hohle König',aurel:'Erzseraphin Aurel',feuermagierin:'Feuermagierin',zwerg:'Zwergenkrieger',elfe:'Waldläuferin',soeldner:'Söldner',meerhexe:'Meerhexe',gelehrter:'Gelehrter',vampirgraefin:'Vampirgräfin',ritter:'Junger Ritter',nomadin:'Nomadin',pirat:'Piratenkapitän',erfinderin:'Erfinderin'};
+function kb(t){ return String(t).replace(/\{KB\}/g,S.sex==='w'?'Kartenbinderin':'Kartenbinder'); }
 const HERO_PRICE=30, HERO_KEYS=Object.keys(HEROES);
 function heroImg(k,cls){ return `<img class="pt${cls?' '+cls:''}" src="bilder/helden/${k}.png" alt="" aria-hidden="true">`; }
-const RIVAL_HEROES=HERO_KEYS.slice(6);
+const FREE_HEROES=['sammler','sammlerin','kapuze'], RIVAL_HEROES=HERO_KEYS.slice(8);
 function rivalHero(r){ return RIVAL_HEROES[(r.s>>>0)%RIVAL_HEROES.length]; }
 function rivalBySeed(n){ return S.table.rivals.find(x=>x.n===n); }
 /* Gesicht des Gegners im Dialog: beim Endgegner sein Porträt, sonst das stärkste Gegnerbild im Deck. */
@@ -774,7 +783,7 @@ function sheetSettings(){
   <section><h3>Spielstand</h3><p class="muted">Dein Spielstand liegt in diesem Browser. Mit dem Code nimmst du ihn auf ein anderes Gerät mit.</p>
   <label class="lbl" for="savecode">Spielstand-Code</label><textarea id="savecode" rows="3" spellcheck="false" autocomplete="off"></textarea>
   <div class="row-btns"><button class="btn" data-act="export">Code erzeugen</button><button class="btn" data-act="import">Code laden</button></div>
-  <button class="btn danger" data-act="reset">Neu anfangen</button><p class="muted">Prototyp 0.7 · Arbeitstitel Glutstein · Gegenstandssymbole sind Platzhalter</p></section>`);
+  <button class="btn" data-act="menuOpen">Zum Hauptmenü</button><p class="muted">Prototyp 0.7 · Arbeitstitel Glutstein · Gegenstandssymbole sind Platzhalter</p></section>`);
 }
 function sheetStage(id){
   const st=STAGES.find(s=>s.id===id), open=isOpen(st), got=S.stars[id]||0, hg=S.hstars[id]||0, hero=areaDone(st.area), d=stageDeck(st), uniq={}; d.forEach(c=>uniq[c.id]=(uniq[c.id]||0)+1);
@@ -969,7 +978,7 @@ function startBattle(c){
 function startDuel(seed){ const r=S.table.rivals.find(x=>x.s===seed)||byDist()[0]; startBattle({mode:'arena',rival:r,title:'Arena · '+LEAGUES[S.table.lg].n,opp:r.n}); }
 function stageDialog(st,hero){
   const lines=DLG[st.id]||[];
-  openSheet(`<p class="eyebrow">${AREAS[st.area].n} · Gefecht ${st.i+1}${hero?' · Heroisch':''}</p><h2>${st.n}</h2><div class="dlg">${lines.map(([w,t])=>w==='g'?`<div class="line">${foeAv(st)}<div class="bubble"><b>${st.n}</b>${t}</div></div>`:`<div class="line p"><div class="bubble"><b>${esc(S.name)}</b>${t}</div>${heroImg(S.hero)}</div>`).join('')}</div>
+  openSheet(`<p class="eyebrow">${AREAS[st.area].n} · Gefecht ${st.i+1}${hero?' · Heroisch':''}</p><h2>${st.n}</h2><div class="dlg">${lines.map(([w,t])=>w==='g'?`<div class="line">${foeAv(st)}<div class="bubble"><b>${st.n}</b>${kb(t)}</div></div>`:`<div class="line p"><div class="bubble"><b>${esc(S.name)}</b>${kb(t)}</div>${heroImg(S.hero)}</div>`).join('')}</div>
   <div class="row-btns"><button class="btn" data-act="close">Zurück</button><button class="btn primary" data-act="fightGo" data-id="${st.id}${hero?'h':''}">Kampf beginnen</button></div>`);
 }
 function startStage(id,hero){ const st=STAGES.find(s=>s.id===id); if(!st||!isOpen(st)) return; if(deck().length<DECK_MIN){ startBattle({}); return; } stageDialog(st,hero); }
@@ -1074,7 +1083,7 @@ const ACT={
     if(S.gems<t.p){ toast(`Dir fehlen ${t.p-S.gems} Glutsteine.`); return; }
     openSheet(`<h2>${t.n} kaufen?</h2><p class="muted">Kostet ${t.p} Glutsteine. Du hast ${S.gems}.</p><div class="row-btns"><button class="btn" data-act="close">Abbrechen</button><button class="btn primary" data-act="themeYes" data-id="${id}">Kaufen und auflegen</button></div>`);
   },
-  heroPick(k){ if(!HEROES[k]) return; if(S.heroes.includes(k)){ S.hero=k; persist(); render(); return; }
+  heroPick(k){ if(!HEROES[k]) return; if(S.heroes.includes(k)){ S.hero=k; if(k==='sammler') S.sex='m'; if(k==='sammlerin') S.sex='w'; persist(); render(); return; }
     if(S.gems<HERO_PRICE){ toast(`Dir fehlen ${HERO_PRICE-S.gems} Glutsteine.`); return; }
     openSheet(`<h2>${HEROES[k]} als Held?</h2><div class="center">${heroImg(k,'big')}</div><p class="muted">Kostet ${HERO_PRICE} Glutsteine. Du hast ${S.gems}.</p><div class="row-btns"><button class="btn" data-act="close">Abbrechen</button><button class="btn primary" data-act="heroYes" data-id="${k}">Kaufen und benutzen</button></div>`); },
   heroYes(k){ if(!HEROES[k]||S.heroes.includes(k)||S.gems<HERO_PRICE) return; S.gems-=HERO_PRICE; S.heroes.push(k); S.hero=k; persist(); closeSheet(); render(); sfx('coin'); },
@@ -1092,7 +1101,7 @@ const ACT={
   },
   import(){
     const raw=$('#savecode').value.trim();
-    try{ if(!raw.startsWith('GS6.')) throw 0; const j=JSON.parse(decodeURIComponent(escape(atob(raw.slice(4))))); if(!j||j.v!==6) throw 0; S=sane(j); persist(); applyTheme(); applyVol(); closeSheet(); render(); toast('Spielstand geladen.'); }
+    try{ if(!raw.startsWith('GS6.')) throw 0; const j=JSON.parse(decodeURIComponent(escape(atob(raw.slice(4))))); if(!j||j.v!==6) throw 0; S=sane(j); persist(); applyTheme(); applyVol(); closeSheet(); render(); renderMenu(); toast('Spielstand geladen.'); }
     catch(e){ toast('Das ist kein gültiger Code. Er beginnt mit GS6.'); }
   },
   reset(){ openSheet(`<h2>Wirklich neu anfangen?</h2><p class="muted">Karten, Pokale, Sterne, Gold und Glutsteine gehen verloren.</p><div class="row-btns"><button class="btn" data-act="close">Abbrechen</button><button class="btn danger" data-act="resetYes">Alles löschen</button></div>`); },
@@ -1113,6 +1122,45 @@ const ACT={
     persist(); sheetChDeck(+i); },
   leave(){ leaveBattle(); }
 };
+
+/* ====== Hauptmenü, neues Spiel mit Name und Kartenbinder(in) ====== */
+let menuOn=false, menuStep='main', NG={name:'',sex:''};
+function hasProgress(){ return !!(S.seen.intro||S.stat.fights||Object.keys(S.stars).length); }
+function menuSparks(){ let h=''; for(let i=0;i<14;i++){ const r=hash('sp'+i); h+=`<i class="m-spark" style="left:${(r%1000)/10}%;--dx:${(r>>10)%60-30}px;animation-duration:${6+(r>>4)%6}s;animation-delay:${((r>>8)%70)/10}s"></i>`; } return h; }
+function renderMenu(){
+  const m=$('#menu'); if(!menuOn){ m.hidden=true; m.innerHTML=''; return; }
+  m.hidden=false; let h='';
+  if(menuStep==='main'){
+    const go=hasProgress();
+    h=`<img class="m-logo" src="bilder/logo.webp" alt="Glutstein"><div class="m-btns">${go?`<button class="btn primary" data-act="menuGo">Weiterspielen</button>`:''}<button class="btn${go?'':' primary'}" data-act="menuNew">Neues Spiel</button><button class="btn" data-act="menuSave">Spielstand</button><button class="btn" data-act="settings">Einstellungen</button></div>`;
+  } else if(menuStep==='name'){
+    h=`<h2>Wie heißt du?</h2><p class="muted">Bis zu 16 Zeichen. Du kannst ihn später in der Arena ändern.</p><input type="text" id="ngname" maxlength="16" value="${esc(NG.name)}" autocomplete="off" placeholder="Dein Name" enterkeyhint="next"><div class="m-row"><button class="btn" data-act="menuBack">Zurück</button><button class="btn primary" data-act="menuName">Weiter</button></div>`;
+  } else {
+    h=`<h2>Wer bist du?</h2><div class="m-pick">${[['m','sammler','Kartenbinder'],['w','sammlerin','Kartenbinderin']].map(([x,k,n])=>`<button class="${NG.sex===x?'act':''}" data-act="menuSex" data-id="${x}">${heroImg(k)}${n}</button>`).join('')}</div><div class="m-row"><button class="btn" data-act="menuBack">Zurück</button><button class="btn primary" data-act="menuStart" ${NG.sex?'':'disabled'}>Los geht's</button></div>`;
+  }
+  m.innerHTML=menuSparks()+`<div class="m-in">${h}</div>`;
+  if(menuStep==='name') setTimeout(()=>{ const i=$('#ngname'); if(i){ i.focus(); i.onkeydown=e=>{ if(e.key==='Enter') ACT.menuName(); }; } },50);
+}
+function openMenu(){ closeSheet(); menuOn=true; menuStep='main'; renderMenu(); music('menue'); }
+function hideMenu(){ menuOn=false; renderMenu(); render(); music(tabMusic()); }
+function sheetSave(){
+  openSheet(`<div class="sec-h"><h2>Spielstand</h2><button class="btn" data-act="close">Schließen</button></div><p class="muted">Dein Spielstand liegt in diesem Browser. Mit dem Code sicherst du ihn oder nimmst ihn auf ein anderes Gerät mit.</p>
+  <label class="lbl" for="savecode">Spielstand-Code</label><textarea id="savecode" rows="3" spellcheck="false" autocomplete="off"></textarea>
+  <div class="row-btns"><button class="btn" data-act="export">Code erzeugen</button><button class="btn" data-act="import">Code laden</button></div>`);
+}
+Object.assign(ACT,{
+  menuGo(){ hideMenu(); },
+  menuNew(){ NG={name:'',sex:''};
+    if(!hasProgress()){ menuStep='name'; renderMenu(); return; }
+    openSheet(`<h2>Neues Spiel starten?</h2><p class="muted">Dein bisheriger Spielstand mit Karten, Sternen, Gold und Glutsteinen wird überschrieben. Sichere ihn vorher, wenn du ihn behalten willst.</p><div class="row-btns"><button class="btn" data-act="close">Abbrechen</button><button class="btn" data-act="menuSave">Erst sichern</button><button class="btn danger" data-act="menuNewYes">Neu anfangen</button></div>`); },
+  menuNewYes(){ closeSheet(); menuStep='name'; renderMenu(); },
+  menuSave(){ sheetSave(); },
+  menuBack(){ if(menuStep==='held'){ menuStep='name'; } else menuStep='main'; renderMenu(); },
+  menuName(){ const i=$('#ngname'), v=i?i.value.trim().slice(0,16):''; if(!v){ toast('Bitte gib einen Namen ein.'); return; } NG.name=v; menuStep='held'; renderMenu(); sfx('tap'); },
+  menuSex(x){ NG.sex=x==='w'?'w':'m'; renderMenu(); sfx('tap'); },
+  menuStart(){ if(!NG.sex||!NG.name) return; S=Object.assign(fresh(),{vol:S.vol,muted:S.muted,speed:S.speed,name:NG.name,sex:NG.sex,hero:NG.sex==='w'?'sammlerin':'sammler'}); persist(); applyTheme(); tab='map'; mapArea=null; hideMenu(); },
+  menuOpen(){ openMenu(); }
+});
 document.addEventListener('click',e=>{ const el=e.target.closest('[data-act]'); if(!el||el.disabled) return; const f=ACT[el.dataset.act]; f&&f(el.dataset.id,el); });
 document.addEventListener('input',e=>{ const k=e.target.dataset&&e.target.dataset.vol; if(!k) return; S.vol[k]=e.target.value/100; const v=$('#vol'+k+'-v'); if(v) v.textContent=e.target.value; applyVol(); persist(); });
 document.addEventListener('pointerdown',e=>{
@@ -1123,8 +1171,8 @@ document.addEventListener('pointerdown',e=>{
 document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&!$('#sheet').hidden&&!$('#sheet').dataset.modal) closeSheet(); });
 
 function start(data){
-  S=data&&data.save?sane(data.save):load(); tab=(data&&data.tab)||'map'; wantLoop=tabMusic();
-  applyTheme(); render(); persist();
+  S=data&&data.save?sane(data.save):load(); tab=(data&&data.tab)||'map'; menuOn=!(data&&data.tab); wantLoop=tabMusic();
+  applyTheme(); render(); persist(); renderMenu();
 }
 /* Web-App: Offline-Speicher anmelden (nur auf der eigenen Seite, nicht eingebettet). Neue Version: Hinweis zum Neuladen, damit kein Kampf abbricht. */
 if('serviceWorker' in navigator&&window.top===window&&/^https?:$/.test(location.protocol)&&!/claude/.test(location.hostname)){
