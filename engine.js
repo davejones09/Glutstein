@@ -1,9 +1,10 @@
 /*ENGINE-START*/
 /* ====== Spielregeln und Daten. Dieser Block kennt kein DOM und lässt sich einzeln testen. ====== */
-const P_HP=2000, MAXLVL=25, MAXSTAR=5, DECK_MIN=3, DECK_MAX=8, LANES=3, FATIGUE_FROM=15, FATIGUE_DMG=150;
+const P_HP=3200, MAXLVL=25, MAXSTAR=5, DECK_MIN=3, DECK_MAX=8, LANES=3, FATIGUE_FROM=25, FATIGUE_DMG=150;
 const STAR_PCT=.25, LVL_PCT=.04;
 /* Grundbudget je Seltenheit, Wachstum pro Level je Seltenheit, Sterne ab denen Fähigkeiten wirken. */
-const RAR_BASE=[600,680,760,840], LVL_PCT_R=[.03,.04,.05,.06], KW_STAR=[5,3,1,1];
+/* Eine Seltenheit ist etwa 1,75 Sterne wert. Leben doppelt, Angriff auf 60 %, damit Karten mehrere Treffer aushalten. */
+const RAR_BASE=[600,860,1125,1390], ATK_F=.6, HP_F=2, LVL_PCT_R=[.03,.04,.05,.06], KW_STAR=[5,3,1,1];
 function hashS(s){ let h=2166136261; for(let i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619); } return h>>>0; }
 /* Kategorien (Elemente): Wasser schlägt Feuer, Feuer schlägt Erde, Erde schlägt Wasser, Licht und Schatten schlagen sich gegenseitig. */
 const CATS={feuer:'Feuer',wasser:'Wasser',erde:'Erde',schatten:'Schatten',licht:'Licht'};
@@ -69,18 +70,40 @@ const SET_BONUS={
 };
 /* Setboni als Daten. Stufe 1 ab 3 Karten, Stufe 2 ab 6 (zusätzlich). Kartenwerte gelten für Karten des Sets, Seitenwerte für die ganze Seite. */
 const SET_FX={
-  glut:[{atk:.05},{kw:{einschlag:1}}], flut:[{heroHp:.2},{kw:{schild:1}}], hain:[{hp:.1,atk:.1},{kw:{heilung:1}}],
-  nacht:[{kw:{rache:1},atk:.1,hp:.1},{atk:.1,hp:.1}], sonne:[{kw:{heilung:1},hp:.1,atk:.1},{heroRegen:.05,atk:.1}],
-  abyss:[{hp:.1,atk:.1},{kw:{heilung:5/8}}], schmiede:[{kw:{schild:1/3}},{atk1:.25}], mangrove:[{atk:.1,hp:.1},{grow:.05}],
-  daemmerung:[{atk:.1,hp:.1},{elem:1.75}], totenwald:[{curse:.04},{revive:.4}], kristall:[{dr1:.2,hp:.1,atk:.1},{mend:.15}],
-  erwachen:[{fear:.15},{scare:.2}], luft:[{flyHero:.5,hp:.1,atk:.1},{dr1:.2,atk:.1}], raeder:[{hp:.1,atk:.1},{kw:{heilung:.5}}],
-  bruecke:[{hp:.1},{atk:.1,hp:.1}], horde:[{atk:.1},{kw:{einschlag:1}}], gefolge:[{heroHp:.15},{kw:{schild:1}}], brut:[{hp:.1},{kw:{heilung:1}}], hof:[{kw:{rache:1}},{atk:.1,hp:.1}], orden:[{hp:.1},{heroRegen:.05}], perle:[{heroHp:.15,atk:.1,hp:.1},{nets:.05}], variete:[{atk:.05},{curse:.03}], wueste:[{hp:.1,atk:.15},{grow:.06,hp:.1}], orkan:[{atk:.05},{atk1:.15}]
+  glut:[{atk:.15,hp:.1},{kw:{einschlag:1},atk:.1}], flut:[{heroHp:.2},{kw:{schild:1}}], hain:[{hp:.1,atk:.1},{kw:{heilung:1}}],
+  nacht:[{kw:{rache:1},atk:.15,hp:.15},{atk:.1,hp:.1}], sonne:[{kw:{heilung:1},atk:.1},{heroRegen:.05,atk:.1}],
+  abyss:[{hp:.1,atk:.1},{kw:{heilung:5/8}}], schmiede:[{kw:{schild:1/3},atk:.05},{atk1:.25,atk:.05}], mangrove:[{atk:.1,hp:.1},{grow:.015}],
+  daemmerung:[{atk:.2,hp:.2},{elem:1.75}], totenwald:[{curse:.03,atk:.1},{revive:.5}], kristall:[{dr1:.2,hp:.1,atk:.1},{mend:.06}],
+  erwachen:[{fear:.15,atk:.1},{scare:.2}], luft:[{flyHero:.5,hp:.1,atk:.1},{dr1:.2,atk:.1}], raeder:[{hp:.1,atk:.1},{kw:{heilung:.5}}],
+  bruecke:[{hp:.1},{atk:.1,hp:.1}], horde:[{atk:.1},{kw:{einschlag:1}}], gefolge:[{heroHp:.15},{kw:{schild:1}}], brut:[{hp:.1,atk:.1},{kw:{heilung:1}}], hof:[{kw:{rache:1}},{atk:.1,hp:.1}], orden:[{hp:.15,atk:.2},{heroRegen:.03,atk:.1,hp:.1}], perle:[{heroHp:.15,atk:.1,hp:.1},{nets:.05}], variete:[{atk:.05},{curse:.015}], wueste:[{hp:.1,atk:.15},{grow:.025,hp:.1}], orkan:[{atk:.1,hp:.05},{atk1:.15}]
 };
+/* Setbonus-Texte werden aus den Werten erzeugt, damit Text und Wirkung immer übereinstimmen. */
+const KW_LABEL={schild:'Schild',einschlag:'Einschlag',heilung:'Heilung',segen:'Segen',rache:'Rache'};
+function fxText(f){
+  const P=v=>Math.round(v*100)+' %', out=[];
+  if(f.atk&&f.hp&&f.atk===f.hp) out.push('+'+P(f.atk)+' Angriff und Leben'); else { if(f.atk) out.push('+'+P(f.atk)+' Angriff'); if(f.hp) out.push('+'+P(f.hp)+' Leben'); }
+  if(f.kw) for(const k in f.kw) out.push(KW_LABEL[k]+' +'+Math.round(f.kw[k]*KWP[k])+' %');
+  if(f.atk1) out.push('+'+P(f.atk1)+' Angriff in der ersten Runde');
+  if(f.dr1) out.push(P(f.dr1)+' weniger Schaden in der ersten Runde');
+  if(f.grow) out.push('+'+P(f.grow)+' Angriff in jeder weiteren Runde auf dem Feld');
+  if(f.elem) out.push('Elementvorteil steigt auf +'+P(f.elem-1));
+  if(f.flyHero) out.push('Flug trifft Helden mit '+P(f.flyHero)+' mehr Schaden');
+  if(f.heroHp) out.push('Held +'+P(f.heroHp)+' Leben');
+  if(f.heroRegen) out.push('Held heilt '+P(f.heroRegen)+' pro Runde');
+  if(f.curse) out.push('gegnerische Karten verlieren pro Runde '+P(f.curse)+' Leben');
+  if(f.mend) out.push('am Rundenbeginn heilt die schwächste eigene Karte um '+P(f.mend));
+  if(f.fear) out.push('gegnerische Karten machen in der ersten Runde '+P(f.fear)+' weniger Schaden');
+  if(f.scare) out.push('fällt eine Karte des Sets, nimmt die Karte gegenüber '+P(f.scare)+' ihrer Lebenspunkte Schaden');
+  if(f.revive) out.push('die erste eigene Karte, die fällt, kehrt einmal mit '+P(f.revive)+' Leben zurück');
+  if(f.nets) out.push('jede besiegte gegnerische Karte heilt deinen Helden um '+P(f.nets));
+  return out.join(', ');
+}
 const SIDE_FX=['heroHp','heroRegen','curse','revive','mend','fear','nets'];
 const RAR=['Bronze','Silber','Gold','Diamant'], RAR_DESC=['gewöhnlich','ungewöhnlich','selten','sehr selten'];
 /* Schlüsselwörter in Punkten. Ein Punkt entspricht: Schild 15 % weniger Schaden, Einschlag 50 % des Angriffs, Heilung 8 % der Lebenspunkte,
    Segen 6 % für alle eigenen Karten, Rache 40 % des Angriffs auf den Helden. */
-const KWP={schild:15,einschlag:50,heilung:8,segen:6,rache:40};
+const KWP={schild:15,einschlag:50,heilung:4,segen:3,rache:40};
+for(const k in SET_FX){ const [a,b]=SET_FX[k]; SET_BONUS[k]=['Set-Karten '+fxText(a),'zusätzlich '+fxText(b)].map(t=>t.replace('Set-Karten Held','Held').replace('Set-Karten gegnerische','Gegnerische')); }
 const KW={
   schild:{n:'Schild',v:1,d:v=>`Erleidet pro Treffer ${Math.round(v*15)} % weniger Schaden.`},
   durchbruch:{n:'Durchbruch',d:()=>'Überschüssiger Schaden trifft den gegnerischen Helden.'},
@@ -242,7 +265,7 @@ const BASE=[
 ].map(([id,n,set,r,a0,h0,k,cat])=>{
   /* Grundwerte je Seltenheit liegen eng beieinander. Jede Karte hat ihr eigenes Verhältnis von Angriff zu Leben (30–70 %). */
   const x=hashS(id), u=(x%1000)/1000, T=Math.round(RAR_BASE[r]*(1+((x>>10)%7-3)/100)/10)*10;
-  const share=Math.min(.7,Math.max(.3,.45*a0/(a0+h0)+.55*(.3+.4*u))), a=Math.round(T*share/10)*10, h=T-a;
+  const share=Math.min(.7,Math.max(.3,.45*a0/(a0+h0)+.55*(.3+.4*u))), a=Math.round(T*share*ATK_F/10)*10, h=Math.round(T*(1-share)*HP_F/10)*10;
   return {id,n,set,cat:cat||SETS[set].cat,r,a,h,k};
 });
 /* Fähigkeiten wachsen mit: Bronze erst mit 5 Sternen, Silber ab 3 Sternen, Gold und Diamant von Anfang an. Vorher stehen sie nicht auf der Karte. */
@@ -278,8 +301,8 @@ const STAGE_NAMES=[]; for(let a=0;a<5;a++) for(let k=0;k<8;k++){ STAGE_NAMES.pus
 const UNLOCK_SLOTS=[3,8,13]; /* Gefecht 4, 9 und 14 eines Gebiets schalten je eine Karte frei. */
 /* Werte der alten 8 Gefechte; die neuen Zwischengefechte übernehmen die Werte des vorigen alten Gefechts (leichter). */
 const RMAX8=[[0,0,0,0,0,0,0,0],[0,0,0,1,1,1,1,1],[0,0,1,1,1,2,2,1],[0,0,0,1,1,1,1,1],[0,0,1,1,1,2,2,1]];
-const AREA_LVL8=[[1,2,2,3,4,5,5,5],[5,5,6,6,5,5,6,7],[9,9,10,10,10,10,10,9],[11,10,9,10,11,10,11,12],[16,16,17,17,18,18,18,23]];
-const AREA_SIZE8=[[3,3,4,4,4,5,5,5],[3,4,4,5,5,5,5,6],[5,6,6,7,7,8,7,8],[6,6,7,6,7,8,7,6],[4,5,5,6,6,6,6,7]];
+const AREA_LVL8=[[1,2,2,3,3,3,3,1],[5,5,5,5,4,4,4,4],[9,9,9,7,7,7,6,6],[11,10,9,10,10,9,9,10],[16,16,16,15,14,14,13,11]];
+const AREA_SIZE8=[[3,3,4,4,4,5,5,5],[3,4,4,5,5,5,5,6],[5,6,6,7,7,8,7,6],[6,6,7,6,7,8,7,6],[4,5,5,6,6,6,6,7]];
 const x16=(T,first)=>T.map((r,a)=>r.flatMap((v,k)=>[k?Math.min(r[k-1],v):first(v,a),v]));
 const RMAX=x16(RMAX8,v=>v), AREA_LVL=x16(AREA_LVL8,(v,a)=>a?AREA_LVL8[a-1][7]-1:v), AREA_SIZE=x16(AREA_SIZE8,v=>Math.max(3,v-1));
 const STAGES=STAGE_NAMES.map((n,k)=>{

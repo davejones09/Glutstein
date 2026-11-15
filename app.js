@@ -23,6 +23,8 @@ function chestOdds(type,lv){
 const SLOT_W={kreatur:55,gegenstand:35,gold:10};
 /* Gegenstandsqualität je Truhe: [Qualität, Gewicht]. Menge je Qualität. */
 const CHEST_Q={holz:[[0,85],[1,15]],silber:[[0,50],[1,45],[2,5]],gold:[[1,50],[2,42],[3,8]]}, Q_AMOUNT=[[3,5],[2,4],[1,3],[1,1]];
+/* Mehrfachkarten: in besseren Truhen gibt es eine Kreatur manchmal doppelt oder dreifach. */
+const MULTI={silber:[[2,.15]],gold:[[3,.08],[2,.25]]};
 const GEM_CHANCE=.02, GEM_FIND=[5,10];
 const SKIN_CHANCE=.03, LOCKED_CHANCE=.02, STAR_WEIGHT=[0,1,.7,.45,.25,.1];
 /* Verbessern (Stern): Doppelte + Gold. Leveln: Gegenstände passend zur Seltenheit + Gold, steigt mit jedem Level. */
@@ -212,7 +214,9 @@ function openChest(type){
   if(Math.random()<SKIP_CHANCE[type]){ const f=notK(); if(f.length) kinds[f[Math.floor(Math.random()*f.length)]]='rolle'; else if(kinds.filter(k=>k==='kreatur').length>1) kinds[kinds.length-1]='rolle'; }
   if(type==='gold'&&Math.random()<GEM_CHANCE){ const f=kinds.map((k,i)=>k!=='kreatur'&&k!=='rolle'?i:-1).filter(i=>i>=0); if(f.length) kinds[f[0]]='steine'; else if(kinds.filter(k=>k==='kreatur').length>1) kinds[kinds.lastIndexOf('kreatur')]='steine'; }
   const cards=kinds.map(k=>{
-    if(k==='kreatur'){ const id=drawCard(odds); if(!S.stat.best||CARD[id].r>CARD[S.stat.best].r) S.stat.best=id; return Object.assign({t:'kreatur'},grant(id,!!SKINS[id]&&Math.random()<SKIN_CHANCE)); }
+    if(k==='kreatur'){ const id=drawCard(odds); if(!S.stat.best||CARD[id].r>CARD[S.stat.best].r) S.stat.best=id;
+      let m=1, v=Math.random(); for(const [n,p] of (MULTI[type]||[])){ if(v<p){ m=n; break; } v-=p; }
+      const g=Object.assign({t:'kreatur',mult:m},grant(id,!!SKINS[id]&&Math.random()<SKIN_CHANCE)); for(let q=1;q<m;q++){ const x=grant(id,false); if(x.gold) g.gold=(g.gold||0)+x.gold; } return g; }
     if(k==='gegenstand'){ const q=pick(CHEST_Q[type]), cat=Object.keys(CATS)[Math.floor(Math.random()*5)], n=rnd2(...Q_AMOUNT[q]); S.items[cat][q]+=n; return {t:'gegenstand',cat,q,n}; }
     if(k==='gold'){ const n=rnd2(...C.gold); addGold(n); return {t:'gold',n}; }
     if(k==='rolle'){ S.skips++; return {t:'rolle',n:1}; }
@@ -812,7 +816,7 @@ function drawReveal(){
   const it=LQ.items[LQ.ci], res=it.res, C=CHESTS[res.type], head=`<p class="eyebrow">${C.n}${LQ.items.length>1?` · ${LQ.ci+1} von ${LQ.items.length}`:''}</p>`;
   if(LQ.ki>=res.cards.length){
     const more=LQ.ci<LQ.items.length-1;
-    openSheet(`${head}<h2>${it.t||'Das war drin'}</h2><div class="grid g5">${res.cards.map((x,k)=>x.t==='kreatur'?`<button class="loot-i" data-act="artOpen" data-id="${x.id}">${cardHTML({id:x.id,lvl:S.cards[x.id].lvl,star:S.cards[x.id].star,skin:x.skin||undefined})}<span class="lt ${x.skin?'sp':x.kind}">${x.skin?'Sondermotiv':x.kind==='neu'?'Neu':x.kind==='dup'?'Doppelt':'+'+x.gold+' Gold'}</span></button>`:`<div class="loot-i">${lootCardHTML(x)}<span class="lt">${lootLabel(x)}</span></div>`).join('')}</div>
+    openSheet(`${head}<h2>${it.t||'Das war drin'}</h2><div class="grid g5">${res.cards.map((x,k)=>x.t==='kreatur'?`<button class="loot-i" data-act="artOpen" data-id="${x.id}">${cardHTML({id:x.id,lvl:S.cards[x.id].lvl,star:S.cards[x.id].star,skin:x.skin||undefined})}${x.mult>1?`<span class="mult">×${x.mult}</span>`:''}<span class="lt ${x.skin?'sp':x.kind}">${x.skin?'Sondermotiv':x.kind==='neu'?'Neu':x.kind==='dup'?'Doppelt':'+'+x.gold+' Gold'}</span></button>`:`<div class="loot-i">${lootCardHTML(x)}<span class="lt">${lootLabel(x)}</span></div>`).join('')}</div>
     <button class="btn primary block" data-act="${more?'lootNextChest':'lootDone'}">${more?'Nächste Truhe':'Fertig'}</button>`,true); return;
   }
   const x=res.cards[LQ.ki], rar=lootRar(x);
@@ -820,7 +824,7 @@ function drawReveal(){
   if(x.t!=='kreatur'){ openSheet(`${head}<div class="reveal"><div class="big"><div class="flip"><div class="fi"><div class="ff">${lootCardHTML(x)}</div><div class="fb"><span class="back"></span></div></div></div></div>
     <p class="lt neu">${lootLabel(x)}</p><h2>${lootTitle(x)}</h2><p class="muted">${lootText(x)}</p></div><button class="btn primary block" data-act="lootNext">Weiter</button>`,true); return; }
   const d=CARD[x.id], o=S.cards[x.id], kws=kwLong(kwOf(x.id,o.star));
-  openSheet(`${head}<div class="reveal r${d.r}"><div class="big"><div class="flip"><div class="fi"><div class="ff">${cardHTML({id:x.id,lvl:o.lvl,star:o.star,skin:x.skin||undefined})}</div><div class="fb"><span class="back"></span></div></div></div></div>
+  openSheet(`${head}<div class="reveal r${d.r}"><div class="big"><div class="flip"><div class="fi"><div class="ff">${cardHTML({id:x.id,lvl:o.lvl,star:o.star,skin:x.skin||undefined})}${x.mult>1?`<span class="mult big">×${x.mult}</span>`:''}</div><div class="fb"><span class="back"></span></div></div></div></div>
   <p class="lt ${x.skin?'sp':x.kind}">${kindLabel(x)}${x.skin?' · mit Sondermotiv!':''}</p><h2>${d.n}</h2><p class="meta">${CATS[d.cat]} · Set ${SETS[d.set].n} · ${RAR[d.r]}${!isUnlocked(x.id)?' · noch nicht freigeschaltet':''}</p>
   <p class="lore">„${LORE[d.id]}“</p>${kws.length?`<ul class="gloss">${kws.map(k=>`<li>${k}</li>`).join('')}</ul>`:''}<p class="meta">${elLine(d.cat)}</p></div>
   <button class="btn primary block" data-act="lootNext">Weiter</button>`,true);
