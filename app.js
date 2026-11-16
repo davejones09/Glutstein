@@ -83,6 +83,7 @@ const ART={}; BASE.forEach(c=>ART[c.id]=`bilder/${c.id}.jpg`);
 /* Sondermotive je Karte: Anzahl der Motive. Motiv 1 = id-s.jpg, Motiv 2 = id-s2.jpg. Jedes Motiv wird einzeln in Truhen gefunden. */
 const SKINS={}; ['funkenwicht','glutwolf','brandbogner','flammenhexe','schlackenriese','aschendrache','tuempelgeist','gezeitenwache','perlentaucherin','nebelheilerin','sturmrufer','leviathan',
  'moosling','dornenhirsch','wurzelhueter','rudelfuehrerin','alteiche','waldkoenigin','nachtfalter','grabkriecher','schattendolch','kraehenschwarm','seelenhaendlerin','irrlicht','sonneneinhorn','sonnenloewe','lichtmagier','seraphin'].forEach(id=>SKINS[id]=1);
+['kryoschlaeferin','sheriff','kopfgeldjaegerin','kutschenraeuberin','runenjaegerin','sternenschmugglerin','strassenhackerin','schattenagentin'].forEach(id=>SKINS[id]=1);
 SKINS.mitternachtsfuerstin=2; SKINS.lichtritter=2; SKINS.leuchtturmwaerterin=1;
 ['wahrsagerin','pilzhueterin','ghul','netzflickerin','fischerin','zirkusdirektor','fliegerass','totenherrin','dschinn','abgrundkoenigin','messingkoloss','runenschmiedin','messerwerferin','sphinx','geisterschiff','erwachter','schwanenritter','enterkapitaen','eklipsenwaechter','vampirjaegerin','himmelsschiff','mangrovenriese','tiefenkrake'].forEach(id=>SKINS[id]=1);
 const SKIN_NAMES={mitternachtsfuerstin:['Fürstin','Fürst'],lichtritter:['Ritter','Ritterin']};
@@ -139,7 +140,7 @@ function sane(j){
   s.speed=[1,2,4].includes(s.speed)?s.speed:1;
   const cl=v=>Math.min(1,Math.max(0,+v||0));
   s.vol=s.vol&&typeof s.vol==='object'?{m:cl(s.vol.m),s:cl(s.vol.s),a:s.vol.a==null?f.vol.a:cl(s.vol.a)}:f.vol;
-  s.fxOff=!!s.fxOff; if(!Array.isArray(s.foeSets)) s.foeSets=[];
+  s.fxOff=!!s.fxOff; if(s.ev&&(!SETS[s.ev.set]||!Array.isArray(s.ev.pts)||!Array.isArray(s.ev.tasks))) s.ev=null; if(!Array.isArray(s.foeSets)) s.foeSets=[];
   if(s.league>=4&&Array.isArray(s.backs)&&!s.backs.includes('champion')) s.backs.push('champion');
   s.heroes=(Array.isArray(s.heroes)?s.heroes:[]).filter(k=>HEROES[k]); FREE_HEROES.slice().reverse().forEach(k=>{ if(!s.heroes.includes(k)) s.heroes.unshift(k); }); if(!s.heroes.includes(s.hero)) s.hero='sammler'; if(s.sex!=='w') s.sex=s.hero==='sammlerin'?'w':'m';
   /* Kampagne 16 statt 8: jedes alte Gefecht zählt für die beiden neuen an seiner Stelle. */
@@ -179,7 +180,7 @@ function showLvUp(){
 /* ====== Sammlung und Truhen ======
    Freigeschaltet: Startkarten, Kampagnenkarten, und nach jedem Endgegner das ganze Set seines Gebiets. Gesperrte Karten kommen nur selten.
    Je höher eine Karte schon aufgewertet ist, desto seltener wird sie gezogen. */
-function isUnlocked(id){ const c=CARD[id]; if(SETS[c.set].foe) return false; if(c.r===0) return true; if(SETS[c.set].free) return elemOpen(c.cat); return STARTER.includes(id)||S.unlocked.includes(id)||S.setsOpen.includes(c.set); }
+function isUnlocked(id){ const c=CARD[id]; if(SETS[c.set].ev) return !!S.cards[id]; if(SETS[c.set].foe) return false; if(c.r===0) return true; if(SETS[c.set].free) return elemOpen(c.cat); return STARTER.includes(id)||S.unlocked.includes(id)||S.setsOpen.includes(c.set); }
 function needLeft(o){ let n=0; for(let s=o.star+1;s<=MAXSTAR;s++) n+=STAR_UP[s].d; return n; }
 function ownSkins(id){ return Array.isArray(S.skins[id])?S.skins[id]:[]; }
 function grant(id,skin){
@@ -197,19 +198,21 @@ function weighted(pool){
   const w=pool.map(c=>{ const o=S.cards[c.id]; return o?STAR_WEIGHT[o.star]:1; }), sum=w.reduce((a,b)=>a+b,0); let v=Math.random()*sum;
   for(let i=0;i<pool.length;i++){ v-=w[i]; if(v<=0) return pool[i]; } return pool[pool.length-1];
 }
+/* Normale Truhen: keine Gegner- und keine Event-Karten. */
+const NORMAL=BASE.filter(c=>!SETS[c.set].foe&&!SETS[c.set].ev);
 function drawCard(odds){
-  const locked=BASE.filter(c=>!isUnlocked(c.id));
+  const locked=NORMAL.filter(c=>!isUnlocked(c.id));
   if(locked.length&&Math.random()<LOCKED_CHANCE){ const r=rollRar(odds); for(let d=0;d<=r;d++){ const pool=locked.filter(c=>c.r===r-d); if(pool.length) return weighted(pool).id; } }
   let r=rollRar(odds), pool=[];
-  for(let d=0;d<4&&!pool.length;d++){ pool=BASE.filter(c=>isUnlocked(c.id)&&c.r===r-d); if(!pool.length) pool=BASE.filter(c=>isUnlocked(c.id)&&c.r===r+d); }
-  return weighted(pool.length?pool:BASE.filter(c=>isUnlocked(c.id))).id;
+  for(let d=0;d<4&&!pool.length;d++){ pool=NORMAL.filter(c=>isUnlocked(c.id)&&c.r===r-d); if(!pool.length) pool=NORMAL.filter(c=>isUnlocked(c.id)&&c.r===r+d); }
+  return weighted(pool.length?pool:NORMAL.filter(c=>isUnlocked(c.id))).id;
 }
 function pick(list){ const sum=list.reduce((a,x)=>a+x[1],0); let v=Math.random()*sum; for(const x of list){ v-=x[1]; if(v<=0) return x[0]; } return list[list.length-1][0]; }
 function rnd2(a,b){ return a+Math.floor(Math.random()*(b-a+1)); }
 /* Truhe öffnen: 3/4/5 Karten. Jede Karte ist Kreatur, Gegenstand oder Gold; selten Schnellsieg-Rolle oder Glutsteine. */
-function openChest(type){
-  const C=CHESTS[type], odds=chestOdds(type), kinds=[];
-  for(let i=0;i<C.slots;i++){ const opts=Object.entries(SLOT_W).filter(([k])=>k!=='gold'||!kinds.includes('gold')); kinds.push(pick(opts)); }
+function openChest(type,slots){
+  const C=CHESTS[type], odds=chestOdds(type), kinds=[]; track('chest');
+  for(let i=0;i<(slots||C.slots);i++){ const opts=Object.entries(SLOT_W).filter(([k])=>k!=='gold'||!kinds.includes('gold')); kinds.push(pick(opts)); }
   if(!kinds.includes('kreatur')) kinds[Math.floor(Math.random()*kinds.length)]='kreatur';
   const notK=()=>kinds.map((k,i)=>k!=='kreatur'?i:-1).filter(i=>i>=0);
   if(Math.random()<SKIP_CHANCE[type]){ const f=notK(); if(f.length) kinds[f[Math.floor(Math.random()*f.length)]]='rolle'; else if(kinds.filter(k=>k==='kreatur').length>1) kinds[kinds.length-1]='rolle'; }
@@ -247,7 +250,7 @@ function daily(){
   const tasks=[]; while(tasks.length<3&&pool.length){ const t=pool.splice(Math.floor(r()*pool.length),1)[0]; tasks.push({k:t.k,g:t.g,t:t.t,p:0}); }
   S.daily={day:k,tasks,claimed:false}; return S.daily;
 }
-function track(k,n){ const d=daily(); d.tasks.forEach(t=>{ if(t.k===k&&t.p<t.g) t.p=Math.min(t.g,t.p+(n||1)); }); }
+function track(k,n){ evTrack(k,n); const d=daily(); d.tasks.forEach(t=>{ if(t.k===k&&t.p<t.g) t.p=Math.min(t.g,t.p+(n||1)); }); }
 function dailyDone(){ return daily().tasks.every(t=>t.p>=t.g); }
 let pendingAch=[];
 function flushAch(){ if(!pendingAch.length||!$('#sheet').hidden||B) return; toast(pendingAch.length===1?`Erfolg: ${pendingAch[0]} · abholen im Laden`:`${pendingAch.length} Erfolge · abholen im Laden`); pendingAch=[]; render(); }
@@ -301,7 +304,7 @@ function jingle(n,keepDuck){
   if(!AC||!AU[n]) return; const j=AU[n]; try{ j.a.currentTime=0; }catch(e){} j.g.gain.value=1; j.a.play().catch(()=>{});
   if(curLoop&&!keepDuck){ const g=AU[curLoop].g; fade(g,.25,.2); clearTimeout(duckT); duckT=setTimeout(()=>{ if(curLoop) fade(AU[curLoop].g,1,.8); },(j.a.duration||4)*1000); }
 }
-function tabMusic(){ return menuOn?'menue':tab==='arena'?'arena':tab==='map'?'karte':'menue'; }
+function tabMusic(){ return menuOn?'menue':tab==='arena'?'arena':tab==='map'||tab==='event'?'karte':'menue'; }
 function tone(f,d,type,vol,when,slide){
   const t=AC.currentTime+(when||0), o=AC.createOscillator(), g=AC.createGain(); o.type=type; o.frequency.setValueAtTime(f,t);
   if(slide) o.frequency.exponentialRampToValueAtTime(Math.max(30,f*slide),t+d);
@@ -586,11 +589,11 @@ function bonusHTML(ids){
     return `<li><span class="setchip${lv?' on':''}" style="--fc:${SCOL(x)}"><i>${SETS[x].l}</i>${n}/6</span> ${lv?`<b>${SET_BONUS[x][0]}${lv>=2?', '+SET_BONUS[x][1]:''}</b>`:`<span class="muted">ab 3: ${SET_BONUS[x][0]}</span>`}</li>`; }).join('')}</ul>`;
 }
 /* Karten ohne Kreatur in der Truhe: Gegenstand, Gold, Rolle, Glutsteine. Rahmen nach Wert. */
-function lootRar(x){ return x.t==='kreatur'?CARD[x.id].r:x.t==='gegenstand'?x.q:x.t==='steine'?3:x.t==='rolle'?2:x.t==='gold'?1:0; }
-function lootImg(x){ return x.t==='gegenstand'?`bilder/items/${x.cat}-${x.q}.png`:x.t==='gold'?'bilder/muenze.png':x.t==='rolle'?'bilder/items/rolle.png':'bilder/glutstein.png'; }
-function lootTitle(x){ return x.t==='gegenstand'?itemName(x.cat,x.q):x.t==='gold'?'Gold':x.t==='rolle'?'Schnellsieg-Rolle':'Glutsteine'; }
-function lootLabel(x){ return x.t==='gegenstand'?`+${x.n} ${itemName(x.cat,x.q)}`:x.t==='gold'?`+${x.n} Gold`:x.t==='rolle'?'+1 Rolle':`+${x.n} Glutsteine`; }
-function lootText(x){ return x.t==='gegenstand'?`Zum Leveln von ${CATS[x.cat]}-Karten der Seltenheit ${RAR[x.q]}.`:x.t==='gold'?'Für Truhen, Leveln und Verbessern.':x.t==='rolle'?'Gewinnt ein Gefecht sofort, das du schon mit drei Sternen geschafft hast.':'Ein seltener Fund! Glutsteine gibt es für Aussehen im Laden.'; }
+function lootRar(x){ return x.t==='punkte'?x.tier+1:x.t==='kreatur'?CARD[x.id].r:x.t==='gegenstand'?x.q:x.t==='steine'?3:x.t==='rolle'?2:x.t==='gold'?1:0; }
+function lootImg(x){ return x.t==='punkte'?medal(x.tier):x.t==='gegenstand'?`bilder/items/${x.cat}-${x.q}.png`:x.t==='gold'?'bilder/muenze.png':x.t==='rolle'?'bilder/items/rolle.png':'bilder/glutstein.png'; }
+function lootTitle(x){ return x.t==='punkte'?EV_TN[x.tier]+'punkte':x.t==='gegenstand'?itemName(x.cat,x.q):x.t==='gold'?'Gold':x.t==='rolle'?'Schnellsieg-Rolle':'Glutsteine'; }
+function lootLabel(x){ return x.t==='punkte'?`+${x.n} ${EV_TN[x.tier]}punkte`:x.t==='gegenstand'?`+${x.n} ${itemName(x.cat,x.q)}`:x.t==='gold'?`+${x.n} Gold`:x.t==='rolle'?'+1 Rolle':`+${x.n} Glutsteine`; }
+function lootText(x){ return x.t==='punkte'?'Eventpunkte für die nächste, bessere Eventtruhe.':x.t==='gegenstand'?`Zum Leveln von ${CATS[x.cat]}-Karten der Seltenheit ${RAR[x.q]}.`:x.t==='gold'?'Für Truhen, Leveln und Verbessern.':x.t==='rolle'?'Gewinnt ein Gefecht sofort, das du schon mit drei Sternen geschafft hast.':'Ein seltener Fund! Glutsteine gibt es für Aussehen im Laden.'; }
 function lootCardHTML(x){ return `<span class="card lootc r${lootRar(x)}"><span class="frm"></span><img class="lootimg" src="${lootImg(x)}" alt=""><span class="plate"><b class="nm">${lootTitle(x)}</b></span><span class="lootn">${x.t==='rolle'?'×1':x.t==='gold'?x.n:'×'+x.n}</span></span>`; }
 function kindLabel(x){
   if(x.kind==='neu') return 'Neue Karte'; if(x.kind==='gold') return `+${x.gold} Gold (Karte ausgereizt)`;
@@ -610,9 +613,9 @@ function render(){
   sn.innerHTML=`<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/>${!S.muted?'<path d="M16.5 8.5a5 5 0 0 1 0 7"/>':'<path d="M17 9l5 6M22 9l-5 6"/>'}</svg>`;
   document.querySelectorAll('#tabs button').forEach(b=>{
     if(b.dataset.tab===tab) b.setAttribute('aria-current','page'); else b.removeAttribute('aria-current');
-    const dot=(b.dataset.tab==='shop'&&(achOpen()||S.chests.length))||(b.dataset.tab==='album'&&albumOpen()); b.querySelector('.dot')?.remove(); if(dot) b.insertAdjacentHTML('beforeend','<i class="dot" aria-label="neu"></i>');
+    const dot=(b.dataset.tab==='event'&&evDot())||(b.dataset.tab==='shop'&&(achOpen()||S.chests.length))||(b.dataset.tab==='album'&&albumOpen()); b.querySelector('.dot')?.remove(); if(dot) b.insertAdjacentHTML('beforeend','<i class="dot" aria-label="neu"></i>');
   });
-  $('#view').className=tab==='map'?'mapmode':''; $('#view').innerHTML=({map:viewMap,deck:viewDeck,album:viewAlbum,arena:viewArena,shop:viewShop})[tab]();
+  $('#view').className=tab==='map'||tab==='event'?'mapmode':''; $('#view').innerHTML=({map:viewMap,event:viewEvent,deck:viewDeck,album:viewAlbum,arena:viewArena,shop:viewShop})[tab]();
   setTimeout(storyCheck,0); setTimeout(saveReminder,50);
   if(S.seasonMsg&&$('#sheet').hidden){ const m=S.seasonMsg; S.seasonMsg=null; persist(); openSheet(`<p class="eyebrow">Saison beendet</p><h2>Belohnung für die ${LEAGUES[m.best].n}</h2><p class="r-line"><span class="gem"></span>+${m.gems} Glutsteine</p><p class="r-line"><span class="coin"></span>+${m.gold} Gold</p><p class="muted">Deine Pokale wurden für die neue Saison um 30 % gesenkt.</p><button class="btn primary" data-act="close">Weiter</button>`); }
 }
@@ -823,7 +826,7 @@ function sheetCard(id){
 let LQ=null;
 function revealChests(items,onDone){ if(!items.length) return; LQ={items,ci:0,ki:0,flipped:false,onDone}; jingle('truhe'); drawReveal(); }
 function drawReveal(){
-  const it=LQ.items[LQ.ci], res=it.res, C=CHESTS[res.type], head=`<p class="eyebrow">${C.n}${LQ.items.length>1?` · ${LQ.ci+1} von ${LQ.items.length}`:''}</p>`;
+  const it=LQ.items[LQ.ci], res=it.res, C=CHESTS[res.type], head=`<p class="eyebrow">${res.name||C.n}${LQ.items.length>1?` · ${LQ.ci+1} von ${LQ.items.length}`:''}</p>`;
   if(LQ.ki>=res.cards.length){
     const more=LQ.ci<LQ.items.length-1;
     openSheet(`${head}<h2>${it.t||'Das war drin'}</h2><div class="grid g5">${res.cards.map((x,k)=>x.t==='kreatur'?`<button class="loot-i" data-act="artOpen" data-id="${x.id}">${cardHTML({id:x.id,lvl:S.cards[x.id].lvl,star:S.cards[x.id].star,skin:x.skin||undefined})}${x.mult>1?`<span class="mult">×${x.mult}</span>`:''}<span class="lt ${x.skin?'sp':x.kind}">${x.skin?'Sondermotiv':x.kind==='neu'?'Neu':x.kind==='dup'?'Doppelt':'+'+x.gold+' Gold'}</span></button>`:`<div class="loot-i">${lootCardHTML(x)}<span class="lt">${lootLabel(x)}</span></div>`).join('')}</div>
@@ -879,6 +882,8 @@ function resultHTML(){
   if(arena) lines+=`<p class="r-line">${r.tr>=0?'+':'−'}${Math.abs(r.tr)} Pokale <small>jetzt ${S.tr}</small></p>`;
   if(r.chal) lines+=`<p class="r-line">${r.chal}${r.chalDone?' · <b>Herausforderung geschafft!</b>':''}</p>`;
   if(r.chalAll) lines+=`<p class="r-line">Alle drei Herausforderungen der Woche geschafft: Goldtruhe!</p>`;
+  if(r.evPts) lines+=r.evPts.n?`<p class="r-line"><img src="${medal(r.evPts.tier)}" alt="" width="30" height="30">+${r.evPts.n} ${EV_TN[r.evPts.tier]}punkte</p>`:`<p class="muted">Keine neuen Sterne, deshalb keine weiteren Punkte für dieses Gefecht.</p>`;
+  if(r.evOld) lines+=`<p class="muted">Das Event ist inzwischen gewechselt.</p>`;
   if(r.gold) lines+=`<p class="r-line"><span class="coin"></span>+${r.gold} Gold${r.bonus?` <small>davon ${r.bonus} für den 3. Stern</small>`:''}</p>`;
   if(r.star2) lines+=`<p class="muted">2. Stern: +${r.star2.n} ${itemName(r.star2.cat,r.star2.q)} extra</p>`;
   if(r.gems) lines+=`<p class="r-line"><span class="gem"></span>+${r.gems} Glutsteine</p>`;
@@ -897,7 +902,7 @@ function resultHTML(){
   ${showStars?`<p class="muted">${r.stars===3?'Alle drei Karten stehen noch.':r.stars===2?'Zwei Karten stehen noch.':'Nur eine Karte steht noch, oder keine.'}</p>`:''}
   <div class="r-lines">${lines}</div>${un}
   ${r.win?'':'<p class="muted">Sieh dir das gegnerische Deck an und achte auf die Elemente. Leveln kannst du unter „Deck“.</p>'}
-  <div class="row-btns">${ctx.mode==='heraus'?`<button class="btn" data-act="leave">Zur Arena</button>${(chState().prog[ctx.w.rid]||0)<3?`<button class="btn primary" data-act="chNext">${r.win?'Nächster Kampf':'Nochmal'}</button>`:''}`:arena?'<button class="btn" data-act="leave">Zur Arena</button><button class="btn primary" data-act="nextduel">Nächstes Duell</button>':'<button class="btn" data-act="again">Nochmal</button><button class="btn primary" data-act="leave">Zur Kampagne</button>'}</div></div></div>`;
+  <div class="row-btns">${ctx.mode==='heraus'?`<button class="btn" data-act="leave">Zur Arena</button>${(chState().prog[ctx.w.rid]||0)<3?`<button class="btn primary" data-act="chNext">${r.win?'Nächster Kampf':'Nochmal'}</button>`:''}`:arena?'<button class="btn" data-act="leave">Zur Arena</button><button class="btn primary" data-act="nextduel">Nächstes Duell</button>':`<button class="btn" data-act="again">Nochmal</button><button class="btn primary" data-act="leave">${ctx.mode==='event'?'Zum Event':'Zur Kampagne'}</button>`}</div></div></div>`;
 }
 function battleShell(){
   $('#b-root').innerHTML=`<div class="b-top"><button data-act="giveup" id="b-giveup">Aufgeben</button><b>${ctx.title}</b><button data-act="speed" id="b-speed" aria-label="Tempo ändern">Tempo ${S.speed}×</button></div>
@@ -970,10 +975,10 @@ async function runBattle(id){
 function startBattle(c){
   if(c.mode!=='heraus'&&deck().length<DECK_MIN){ toast(`Dein Deck braucht mindestens ${DECK_MIN} Karten.`); tab='deck'; render(); return; }
   closeSheet(); ctx=c; result=null; infoCard=null; narr=''; skip=false; forfeit=false;
-  B= c.mode==='arena' ? newBattle(deckObjs(),rivalDeck(c.rival)) : c.mode==='heraus' ? newBattle(c.pDeck,c.eDeck) : newBattle(deckObjs(),stageDeck(c.stage,c.hero),stageHp(c.stage,c.hero));
+  B= c.mode==='arena' ? newBattle(deckObjs(),rivalDeck(c.rival)) : c.mode==='heraus' ? newBattle(c.pDeck,c.eDeck) : c.mode==='event' ? newBattle(deckObjs(),evDeck(c.stage),c.stage.hp) : newBattle(deckObjs(),stageDeck(c.stage,c.hero),stageHp(c.stage,c.hero));
   if(c.mode==='heraus'){ const R=c.rule; if(R.noHero){ B.p.hp=B.p.maxHp=1; } if(R.eShield) B.e.pile.concat(B.e.lanes).forEach(x=>{ if(x) x.k.schild=(x.k.schild||0)+1; }); if(R.decay) B.decay=R.decay; }
   $('#battle').hidden=false; if(FXC.cv) fxSize(); battleShell(); renderBattle();
-  { const mc=c.mode==='kampagne'&&c.stage.boss?'endgegner':'kampf'; music(mc,curCat!==mc); }
+  { const mc=(c.mode==='kampagne'||c.mode==='event')&&c.stage.boss?'endgegner':'kampf'; music(mc,curCat!==mc); }
   runBattle(++battleId);
 }
 
@@ -999,7 +1004,7 @@ function finish(){
   const win=B.over==='p', r={win,gold:0,chests:[],items:[]};
   if(!forfeit){ S.stat.fights++; S.stat.kills+=B.e.lost||0; }
   const xpBefore=S.plvl;
-  if(win){ r.stars=stars(B); track('win'); S.wins++; if(ctx.mode==='kampagne'&&r.stars===3){ track('three'); S.flags.three=1; } const lv=setLevels(deckObjs()); if(Object.values(lv).some(v=>v>=1)) S.flags.set3=1; if(Object.values(lv).some(v=>v>=2)) S.flags.set6=1; }
+  if(win){ r.stars=stars(B); track('win'); S.wins++; if(new Set(deckObjs().map(c=>CARD[c.id].cat)).size===1) track('mono'); if(ctx.mode==='kampagne'&&r.stars===3){ track('three'); S.flags.three=1; } const lv=setLevels(deckObjs()); if(Object.values(lv).some(v=>v>=1)) S.flags.set3=1; if(Object.values(lv).some(v=>v>=2)) S.flags.set6=1; }
   if(ctx.mode==='kampagne'){
     const st=ctx.stage;
     if(win){
@@ -1008,7 +1013,7 @@ function finish(){
       r.gold=g; r.items=[Object.assign({},it)];
       if(r.stars>=2&&prev<2){ r.items.push(Object.assign({},it)); r.star2=it; }
       if(r.stars>=3&&prev<3){ r.bonus=Math.round(g*.5); r.gold+=r.bonus; }
-      r.xp=XP.win+XP.star*Math.max(0,r.stars-prev);
+      r.xp=XP.win+XP.star*Math.max(0,r.stars-prev); if(H) track('heroWin');
       if(r.stars>prev) store[st.id]=r.stars;
       /* Alle 16 Gefechte eines Gebiets heroisch mit 3 Sternen: das Gegner-Set gehört dir. */
       if(H){ const A=AREAS[st.area], all=STAGES.filter(x=>x.area===st.area).every(x=>S.hstars[x.id]===3);
@@ -1019,6 +1024,11 @@ function finish(){
       }
       const m={}; r.items.forEach(x=>{ const k=x.cat+x.q; if(m[k]) m[k].n+=x.n; else m[k]=Object.assign({},x); }); r.items=Object.values(m);
     }else{ r.gold=forfeit?0:5; r.xp=forfeit?0:XP.lose; }
+  }else if(ctx.mode==='event'){
+    const E=ev(), st=ctx.stage;
+    if(win&&E.day===ctx.day){ const prev=E.st[st.k]||0, n=Math.max(0,r.stars-prev); track('evWin'); if(r.stars===3) track('evThree');
+      if(n){ E.pts[st.tier]+=n; E.st[st.k]=r.stars; } r.evPts={tier:st.tier,n}; r.xp=XP.win+XP.star*n; }
+    else{ r.xp=forfeit?0:XP.lose; if(win) r.evOld=1; }
   }else if(ctx.mode==='heraus'){
     const ch=chState(), w=ctx.w; r.chal=`${txt(ctx.rule.n,w.p)} · Kampf ${ctx.k+1} von 3`;
     if(win&&(ch.prog[w.rid]||0)===ctx.k){ ch.prog[w.rid]=ctx.k+1; r.gold=20+10*ctx.k; r.xp=XP.win;
@@ -1029,7 +1039,7 @@ function finish(){
     S.tr=Math.max(0,S.tr+d); r.tr=S.tr-before;
     /* Abstieg: Wer unter die Liga fällt, startet in der Mitte der Liga darunter. */
     if(!win&&lg>0&&S.tr<LEAGUES[lg].lo){ const L=LEAGUES[lg-1]; S.tr=Math.round(L.lo+(LEAGUES[lg].lo-L.lo)*.5); r.tr=S.tr-before; r.demo=L.n; S.table=mkTable(lg-1); }
-    r.xp=win?XP.arena:forfeit?0:XP.lose;
+    r.xp=win?XP.arena:forfeit?0:XP.lose; if(!forfeit) track('arenaFight');
     if(win){ track('arenaWin'); S.aw++; r.gold=20+lg*5; rv.t=Math.max(LEAGUES[lg].lo,rv.t-Math.round(d/2)); if(S.aw%WIN_CHEST_EVERY===0) r.chests.push('holz'); }
     else{ S.al++; r.gold=forfeit?0:5; rv.t+=Math.round(-d/2); }
     drift(rv);
@@ -1041,7 +1051,7 @@ function finish(){
   addGold(r.gold); persist(); result=r; skip=false; renderBattle();
   stopMusic(); jingle(r.promo?'aufstieg':win?'sieg':'niederlage',true);
 }
-function leaveBattle(){ setTimeout(flushAch,300); setTimeout(showLvUp,400); B=null; battleId++; result=null; skip=false; $('#b-tip').innerHTML=''; $('#battle').hidden=true; $('#fx').innerHTML=''; if(FXC.cv) fxSize(); render(); music(tabMusic()); }
+function leaveBattle(){ setTimeout(flushAch,300); setTimeout(()=>{ if(evPend.length){ toast(evPend.join(' · ')); evPend=[]; } },900); setTimeout(showLvUp,400); B=null; battleId++; result=null; skip=false; $('#b-tip').innerHTML=''; $('#battle').hidden=true; $('#fx').innerHTML=''; if(FXC.cv) fxSize(); render(); music(tabMusic()); }
 
 /* ====== Bedienung ====== */
 const ACT={
@@ -1084,8 +1094,8 @@ const ACT={
   skinSel(x){ const [id,v]=x.split(':'), n=+v; if(n&&!ownSkins(id).includes(n)) return; S.skinOn[id]=n; persist(); render(); sheetCard(id); },
   saveNow(){ sheetSettings(); setTimeout(()=>{ const el=$('#savecode'); if(el) el.scrollIntoView({block:'center'}); ACT.export(); },60); },
   fxToggle(){ S.fxOff=!S.fxOff; persist(); ambApply(); sheetSettings(); },
-  levelUp(id){ if(!canLevel(id)) return; const o=S.cards[id], d=CARD[id], c=lvlCost(o.lvl); S.items[d.cat][d.r]-=c.n; S.gold-=c.g; o.lvl++; persist(); render(); sheetCard(id); sfx('coin'); },
-  starUp(id){ if(!canStar(id)) return; const o=S.cards[id], u=STAR_UP[o.star+1]; o.dup-=u.d; S.gold-=u.g; o.star++; persist(); render(); sheetCard(id); sfx('coin'); toast(`${CARD[id].n} hat jetzt ${'★'.repeat(o.star)}.`); },
+  levelUp(id){ if(!canLevel(id)) return; const o=S.cards[id], d=CARD[id], c=lvlCost(o.lvl); S.items[d.cat][d.r]-=c.n; S.gold-=c.g; o.lvl++; track('lvl:'+d.cat); persist(); render(); sheetCard(id); sfx('coin'); },
+  starUp(id){ if(!canStar(id)) return; const o=S.cards[id], u=STAR_UP[o.star+1]; o.dup-=u.d; S.gold-=u.g; o.star++; track('star'); persist(); render(); sheetCard(id); sfx('coin'); toast(`${CARD[id].n} hat jetzt ${'★'.repeat(o.star)}.`); },
   buyChest(id){ const C=CHESTS[id]; if(!C) return; if(S.gold<C.price){ toast(`Dir fehlen ${C.price-S.gold} Gold.`); return; } S.gold-=C.price; const res=openChest(id); persist(); render(); revealChests([{t:'',res}],()=>render()); },
   lootFlip(){ LQ.flipped=true; const x=LQ.items[LQ.ci].res.cards[LQ.ki], r=lootRar(x); sfx(r>=2||x.kind==='neu'||x.skin?'coin':'flip'); if(r>=1&&x.t==='kreatur') sfx('rare'+r); if(r===3&&x.t==='kreatur'&&!RM){ document.body.classList.remove('quake'); void document.body.offsetWidth; document.body.classList.add('quake'); } drawReveal(); },
   lootNext(){ LQ.ki++; LQ.flipped=false; drawReveal(); },
@@ -1126,7 +1136,7 @@ const ACT={
     if(el.dataset.sure){ forfeit=true; skip=true; B.over='e'; if(tipDone){ const f=tipDone; tipDone=null; f(); } return; }
     el.dataset.sure='1'; el.textContent='Wirklich aufgeben?'; setTimeout(()=>{ if(el.isConnected){ delete el.dataset.sure; el.textContent='Aufgeben'; } },3000);
   },
-  again(){ startStage(ctx.stage.id,ctx.hero); },
+  again(){ if(ctx.mode==='event'){ startEv(ctx.stage.k); return; } startStage(ctx.stage.id,ctx.hero); },
   chNext(){ const i=ctx.ci; leaveBattle(); startChallenge(i); },
   arenaTab(id){ arenaTab=id; sfx('tap'); render(); },
   chDeck(id){ sheetChDeck(+id); }, chGo(id){ startChallenge(+id); },
@@ -1136,6 +1146,126 @@ const ACT={
     persist(); sheetChDeck(+i); },
   leave(){ leaveBattle(); }
 };
+
+/* ====== Tages-Event ======
+   Jeden Tag ein anderes Event-Set. 4 Abschnitte mit je 16 Gefechten: 12 normale (Bronzepunkte), 3 Elite (Silberpunkte), 1 Boss (Goldpunkte).
+   Punkte gibt es pro neuem Stern. Eventtruhen kosten Punkte und enthalten immer eine Eventkarte. Um Mitternacht beginnt alles neu. */
+const EV_SETS=Object.keys(SETS).filter(x=>SETS[x].ev), EV_PER=16, EV_ELITE=[4,9,13], EV_TN=['Bronze','Silber','Gold'];
+const EV_MAPS={walgesang:[1,2,3,4],stationnull:[3,0,4,1],roteschlucht:[0,4,2,3],frostmark:[4,1,2,3],sternenkurs:[4,1,3,0],neonstadt:[3,0,1,4],savanne:[2,0,4,1],kirschbluete:[2,4,1,3]};
+const EV_AREAS={
+ walgesang:['Die Brandung','Das offene Meer','Das Riff im Mondlicht','Die lichtlose Tiefe'],
+ stationnull:['Die Andockschleuse','Die Kälteschlafkammer','Die Labore','Der Reaktorkern'],
+ roteschlucht:['Die Goldgräberstadt','Der Postkutschenweg','Die Felsschlucht','Die Höllenbrücke'],
+ frostmark:['Die Schneefelder','Die Mammutsteppe','Das Polarlichttal','Der Gletscherberg'],
+ sternenkurs:['Der Raumhafen','Der Gasnebel','Die Ozeanwelt','Der Sternenstrom'],
+ neonstadt:['Die Hinterhöfe','Der Nachtmarkt','Die Hochhausdächer','Der Konzernturm'],
+ savanne:['Der Termitenhügel','Das hohe Gras','Die Wasserstelle','Der Affenbrotbaum'],
+ kirschbluete:['Der Bambuswald','Das Teehaus','Die Tempelstufen','Der Fuchsschrein']};
+const EV_CHEST=[
+ {t:'holz',cost:10,n:'Event-Bronzetruhe',ev:[[0,75],[1,25]],bonus:[1,[1,2]]},
+ {t:'silber',cost:6,n:'Event-Silbertruhe',ev:[[1,70],[2,30]],bonus:[2,[1,1]]},
+ {t:'gold',cost:4,n:'Event-Goldtruhe',ev:[[2,75],[3,25]],bonus:null}];
+const EV_TASKS=[
+ {k:'evWin',g:5,t:'Gewinne 5 Event-Kämpfe'},
+ {k:'evThree',g:3,t:'Gewinne 3 Event-Kämpfe mit 3 Sternen',h:1},
+ {k:'lvl',g:3,t:'Levele 3-mal eine {E}-Karte auf'},
+ {k:'star',g:1,t:'Verbessere eine Karte um einen Stern',h:1},
+ {k:'chest',g:2,t:'Öffne 2 Truhen'},
+ {k:'arenaFight',g:3,t:'Bestreite 3 Duelle in der Arena'},
+ {k:'heroWin',g:1,t:'Gewinne ein heroisches Gefecht',h:1,need:()=>areaDone(0)},
+ {k:'kill',g:15,t:'Besiege 15 gegnerische Karten'},
+ {k:'mono',g:1,t:'Gewinne einen Kampf nur mit Karten eines Elements',h:1},
+ {k:'strong',g:8,t:'Triff 8-mal mit Elementvorteil'}];
+/* Schwierigkeit (abgestimmt mit tools/event-sim.js): Level-Versatz und Anstieg je Abschnitt, Heldenleben-Faktor,
+   Seltenheiten der Gegner (Bronze, Silber, Gold, Diamant) passend zur Deckstärke. */
+const EV_OFF=[-3,-1,0,1], EV_GR=[2,3,3,4], EV_HPF=[1,1.4,1.8,2.3], EV_ROWS=[[5,1,0,0],[3,2,1,0],[1,3,2,0],[1,2,2,0],[0,2,3,1]], EV_TOPR=[1,2,2,3,3];
+function evRow(anc,a){ return Math.max(0,Math.min(4,a+(anc<=4?-1:anc>=14?1:0))); }
+let evArea=null, evPend=[];
+function medal(t){ const c=[['#e3a272','#7a3f16'],['#eef0f4','#7c7f8c'],['#ffe08a','#a8761e']][t]||['#ccc','#666'];
+  return 'data:image/svg+xml,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="29" fill="${c[1]}"/><circle cx="32" cy="32" r="24" fill="${c[0]}"/><path d="M32 15l5 10.2 11.2 1.6-8.1 7.9 1.9 11.2L32 40.6l-10 5.3 1.9-11.2-8.1-7.9 11.2-1.6z" fill="${c[1]}"/></svg>`); }
+function evDayIdx(d){ d=d||new Date(); return Math.floor(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())/864e5); }
+function evOrder(b){ const r=rng(hash('evb'+b)), a=EV_SETS.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(r()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+/* Alle Event-Sets kommen reihum in zufälliger Reihenfolge dran, nie zweimal hintereinander. */
+function evSetFor(day){ const n=EV_SETS.length, b=Math.floor(day/n), o=evOrder(b), p=evOrder(b-1); if(o[0]===p[n-1]) [o[0],o[1]]=[o[1],o[0]]; return o[day-b*n]; }
+function evTasks(day){
+  const r=rng(hash('evt'+day+':'+S.uid)), pool=EV_TASKS.filter(t=>!t.need||t.need()), out=[];
+  while(out.length<3&&pool.length){ const t=pool.splice(Math.floor(r()*pool.length),1)[0]; let k=t.k, txt=t.t;
+    if(k==='lvl'){ const c=Object.keys(CATS)[Math.floor(r()*5)]; k='lvl:'+c; txt=txt.replace('{E}',CATS[c]); } out.push({k,g:t.g,t:txt,p:0,h:t.h?1:0}); }
+  let hi=out.findIndex(t=>t.h); if(hi<0) hi=out.length-1; out.forEach((t,i)=>t.h=i===hi?1:0);
+  return out;
+}
+/* Stärke des Events richtet sich nach dem Durchschnittslevel deines Decks beim Start des Tages. */
+function evAnchor(){ try{ return deck().length?Math.max(1,deckLim().l):1; }catch(e){ return 1; } }
+function ev(){
+  const k=dayKey(); if(S.ev&&S.ev.day===k) return S.ev;
+  S.ev={day:k,set:evSetFor(evDayIdx()),anc:evAnchor(),st:{},pts:[0,0,0],tasks:evTasks(k)}; evArea=null; return S.ev;
+}
+function evTrack(k,n){ const E=S.ev; if(!E||E.day!==dayKey()) return;
+  E.tasks.forEach(t=>{ if(t.k!==k||t.p>=t.g) return; t.p=Math.min(t.g,t.p+(n||1)); if(t.p>=t.g){ E.pts[0]+=3; if(t.h) E.pts[1]+=2; const m=`Event-Aufgabe geschafft: +3 Bronze${t.h?', +2 Silber':''}`; if(B) evPend.push(m); else setTimeout(()=>toast(m),50); } }); }
+let EVS=null;
+function evStages(E){
+  const key=E.day+E.set+E.anc; if(EVS&&EVS.key===key) return EVS.list;
+  const top=r=>BASE.find(c=>c.set===E.set&&c.r===r), list=[];
+  for(let a=0;a<4;a++) for(let i=0;i<EV_PER;i++){
+    const k=a*EV_PER+i, boss=i===EV_PER-1, elite=EV_ELITE.includes(i), lvl=Math.max(1,Math.min(MAXLVL,E.anc+EV_OFF[a]+Math.floor(i*EV_GR[a]/15)+(elite?2:0)+(boss?2:0))), star=Math.min(MAXSTAR,Math.ceil(lvl/5));
+    list.push({k,a,i,boss,elite,tier:boss?2:elite?1:0,lvl,star,size:Math.min(8,[3,4,5,6][a]+Math.floor(i/6)+(boss?1:0)),
+      hp:Math.round((800+i*30+a*150+(boss?400:0))*EV_HPF[a]*mult(star,lvl)/10)*10, n:boss?top(EV_TOPR[evRow(E.anc,a)]).n:elite?`Elitegefecht ${i+1}`:`Gefecht ${i+1}`});
+  }
+  EVS={key,list}; return list;
+}
+function evDeck(st){
+  const E=ev(), r=rng(hash('ev'+E.day+':'+st.k)), set=BASE.filter(c=>c.set===E.set), of=x=>set.filter(c=>c.r===x), pk=a=>a[Math.floor(r()*a.length)].id, ids=[];
+  const R=evRow(E.anc,st.a), w=EV_ROWS[R], sum=w.reduce((x,y)=>x+y,0);
+  if(st.boss) ids.push(of(EV_TOPR[R])[0].id);
+  if(st.elite) ids.push(pk(of(EV_TOPR[R])));
+  while(ids.length<st.size){ let v=r()*sum, x=0; while(v>=w[x]&&x<3){ v-=w[x]; x++; } ids.push(pk(of(x))); }
+  return ids.map(id=>({id,lvl:st.lvl,star:st.star}));
+}
+function evOpen(E,k){ return k===0||(E.st[k-1]||0)>0; }
+function evDot(){ const E=S.ev&&S.ev.day===dayKey()?S.ev:null; return !!E&&EV_CHEST.some((C,t)=>E.pts[t]>=C.cost); }
+function evLeft(){ const n=new Date(), m=new Date(n.getFullYear(),n.getMonth(),n.getDate()+1), d=Math.max(0,m-n), h=Math.floor(d/36e5), mi=Math.floor(d%36e5/6e4); return h?`${h} Std. ${mi} Min.`:`${mi} Min.`; }
+function viewEvent(){
+  const E=ev(), L=evStages(E), Sx=SETS[E.set], cur=Math.min(3,Math.floor((L.find(s=>!E.st[s.k])||L[L.length-1]).k/EV_PER));
+  if(evArea==null||evArea>cur) evArea=cur;
+  const a=evArea, mi=EV_MAPS[E.set][a], W=MAP_PATH[mi], P=MAP_PTS[mi], list=L.filter(s=>s.a===a), reach=list.filter(s=>evOpen(E,s.k)).length, next=list.find(s=>!E.st[s.k]&&evOpen(E,s.k));
+  const cards=BASE.filter(c=>c.set===E.set), have=cards.filter(c=>S.cards[c.id]).length;
+  let h=`<div class="mapwrap"><div class="mapbox evmap" style="--map:url(bilder/karte-${mi+1}.jpg);--evc:${Sx.col}"><i class="evtint"></i><svg class="mpath" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path class="pl-all" d="${smoothPath(W)}"/>${reach>1?`<path class="pl-done" d="${smoothPath(MAP_PATH[mi].slice(0,P[reach-1][2]).concat([[P[reach-1][0],P[reach-1][1]]]))}"/>`:''}</svg>`;
+  list.forEach((st,k)=>{ const got=E.st[st.k]||0, open=evOpen(E,st.k), cls=got?'done':open?'open':'locked';
+    h+=`<button class="mnode ${cls}${st.boss?' boss':''}${st.elite?' elite':''}" style="left:${P[k][0]}%;top:${P[k][1]}%" data-act="evStage" data-id="${st.k}" ${open?'':'disabled'} aria-label="${open?st.n:'Noch gesperrt'}"><span class="mn"><b>${open?k+1:'?'}</b></span>${got?`<span class="mst">${starsHTML(got,'mini')}</span>`:''}${cls==='open'?`<span class="mtag">${st.n}</span>`:''}</button>`; });
+  h+=`<div class="mtitle"><p class="eyebrow">Event · Abschnitt ${ROM[a+1]}</p><h2>${EV_AREAS[E.set][a]}</h2></div>`;
+  if(a>0) h+=`<button class="marrow l" data-act="evGo" data-id="${a-1}">‹ ${EV_AREAS[E.set][a-1]}</button>`;
+  if(a<cur) h+=`<button class="marrow r" data-act="evGo" data-id="${a+1}">${EV_AREAS[E.set][a+1]} ›</button>`;
+  h+=`</div><aside class="mside"><section class="panelbox"><p class="eyebrow">Tages-Event · endet in ${evLeft()}</p><h3 style="color:${Sx.col}">${Sx.n}</h3>
+  <div class="evpts">${E.pts.map((n,t)=>`<span><img src="${medal(t)}" alt="${EV_TN[t]}punkte">${n}</span>`).join('')}</div>
+  ${next?`<button class="btn primary block" data-act="evStage" data-id="${next.k}">${next.n}</button>`:'<p class="muted">Abschnitt geschafft!</p>'}
+  <p class="muted">Pro neuem Stern: Bronze bei normalen Gefechten, Silber bei Elite, Gold beim Boss. Um Mitternacht beginnt ein neues Event.</p></section>
+  <section class="panelbox"><h3>Eventtruhen</h3><div class="evchests">${EV_CHEST.map((C,t)=>`<button class="btn${E.pts[t]>=C.cost?' primary':''}" data-act="evChest" data-id="${t}" ${E.pts[t]>=C.cost?'':'disabled'}><img src="bilder/truhe-${C.t}.png" alt="" width="34" height="34"><span>${C.n.replace('Event-','')}<small><img src="${medal(t)}" alt="" width="14" height="14">${C.cost}</small></span></button>`).join('')}</div><p class="muted">Jede Truhe enthält garantiert eine ${Sx.n}-Karte.</p></section>
+  <section class="panelbox"><h3>Event-Aufgaben</h3><ul class="evtasks">${E.tasks.map(t=>`<li class="${t.p>=t.g?'ok':''}"><span>${t.p>=t.g?'✓ ':''}${t.t}</span><small>${t.p}/${t.g} · +3 B${t.h?', +2 S':''}</small></li>`).join('')}</ul></section>
+  <section class="panelbox"><div class="sec-h"><h3>Set</h3><span class="count">${have}/6</span></div><div class="evset">${cards.map(c=>`<img class="${S.cards[c.id]?'got':''}" src="${ART[c.id]}" alt="${c.n}" title="${c.n} · ${RAR[c.r]}">`).join('')}</div></section></aside></div>`;
+  return h;
+}
+function sheetEvStage(k){
+  const E=ev(), st=evStages(E)[k]; if(!st) return; const got=E.st[k]||0, open=evOpen(E,k), d=evDeck(st), uniq={}; d.forEach(c=>uniq[c.id]=(uniq[c.id]||0)+1);
+  openSheet(`<p class="eyebrow">${SETS[E.set].n} · ${EV_AREAS[E.set][st.a]}</p><div class="sec-h"><h2>${st.n}</h2>${starsHTML(got)}</div>
+  <ul class="kv"><li><span>Gegner</span><b>${st.size} Karten · Level ${st.lvl} · Held ${st.hp} Leben</b></li><li><span>Belohnung pro neuem Stern</span><b><img src="${medal(st.tier)}" alt="" width="16" height="16"> 1 ${EV_TN[st.tier]}punkt</b></li></ul>
+  <h3>Gegnerisches Deck</h3><div class="grid g4">${Object.keys(uniq).map(c=>`<div class="tile">${cardHTML({id:c,lvl:st.lvl,star:st.star})}${uniq[c]>1?`<span class="flag">×${uniq[c]}</span>`:''}</div>`).join('')}</div>
+  <div class="row-btns"><button class="btn" data-act="close">Zurück</button><button class="btn primary" data-act="evFight" data-id="${k}" ${open?'':'disabled'}>${open?'Kampf beginnen':'Noch gesperrt'}</button></div>`);
+}
+function startEv(k){ const E=ev(), st=evStages(E)[k]; if(!st||!evOpen(E,k)) return; startBattle({mode:'event',stage:st,day:E.day,title:`${SETS[E.set].n} · ${st.n}`,opp:st.n}); }
+function evChest(t){
+  const E=ev(), C=EV_CHEST[t]; if(!C||E.pts[t]<C.cost) return; E.pts[t]-=C.cost;
+  const res=openChest(C.t), r=pick(C.ev), pool=BASE.filter(c=>c.set===E.set&&c.r===r), id=weighted(pool).id;
+  if(!S.stat.best||CARD[id].r>CARD[S.stat.best].r) S.stat.best=id;
+  res.cards.unshift(Object.assign({t:'kreatur',mult:1},grant(id,!!SKINS[id]&&Math.random()<.06)));
+  if(C.bonus){ const n=rnd2(...C.bonus[1]); E.pts[C.bonus[0]]+=n; res.cards.push({t:'punkte',tier:C.bonus[0],n}); }
+  res.name=C.n; persist(); render(); revealChests([{t:'',res}],()=>render());
+}
+Object.assign(ACT,{
+  evStage(k){ sfx('tap'); sheetEvStage(+k); },
+  evFight(k){ startEv(+k); },
+  evGo(a){ evArea=+a; sfx('flip'); render(); },
+  evChest(t){ evChest(+t); }
+});
 
 /* ====== Hauptmenü, neues Spiel mit Name und Kartenbinder(in) ====== */
 let menuOn=false, menuStep='main', NG={name:'',sex:''};

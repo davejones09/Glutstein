@@ -78,7 +78,7 @@ section{display:flex;flex-direction:column;gap:12px}
 .row-btns{display:flex;gap:10px;flex-wrap:wrap}
 .row-btns .btn{flex:1 1 140px}
 
-nav{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--linie);background:rgba(0,0,0,.55)}
+nav{display:grid;grid-template-columns:repeat(6,1fr);border-top:1px solid var(--linie);background:rgba(0,0,0,.55)}
 nav button{padding:13px 2px 15px;font:700 14px/1 var(--body);color:var(--nebel);border-top:2px solid transparent;text-align:center}
 nav button[aria-current]{color:var(--bein);border-top-color:var(--glutstein)}
 
@@ -621,6 +621,23 @@ img.pt.bi-pt{width:min(46vh,240px);height:min(46vh,240px);filter:drop-shadow(0 0
 .m-card{position:absolute;left:calc(50% + min(32vw,270px));top:50%;width:min(22vw,40vh*.667,170px);aspect-ratio:2/3;object-fit:cover;border-radius:10px;border:2px solid #d6a848;transform:translateY(-50%) rotate(6deg);box-shadow:0 10px 30px rgba(0,0,0,.7),0 0 26px rgba(255,140,50,.4);animation:mcard 5s ease-in-out infinite alternate;z-index:0}
 @keyframes mcard{from{transform:translateY(-52%) rotate(5deg)}to{transform:translateY(-48%) rotate(7deg)}}
 @media (max-width:700px){.m-card{display:none}}
+/* Tages-Event */
+.evmap .evtint{position:absolute;inset:0;background:var(--evc);mix-blend-mode:color;opacity:.38;pointer-events:none}
+.mnode.elite .mn{border-color:#d8dbe6;box-shadow:0 0 0 3px rgba(216,219,230,.5),0 2px 8px rgba(0,0,0,.7)}
+.evpts{display:flex;gap:12px;justify-content:space-between}
+.evpts span{display:flex;align-items:center;gap:5px;font:800 18px/1 var(--body)}
+.evpts img{width:26px;height:26px}
+.evchests{display:flex;flex-direction:column;gap:6px}
+.evchests .btn{justify-content:flex-start;gap:10px;min-height:44px;padding:6px 10px}
+.evchests .btn>span{display:flex;flex-direction:column;align-items:flex-start;gap:3px}
+.evchests small{display:flex;align-items:center;gap:4px;font-weight:700;opacity:.85}
+.evtasks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.evtasks li{display:flex;flex-direction:column;gap:2px;font-size:14.5px}
+.evtasks li small{color:var(--nebel)}
+.evtasks li.ok span{color:#9fd88a}
+.evset{display:grid;grid-template-columns:repeat(6,1fr);gap:4px}
+.evset img{width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:5px;filter:grayscale(1) brightness(.45);border:1px solid var(--linie)}
+.evset img.got{filter:none;border-color:#d6a848}
 </style>
 </head>
 <body>
@@ -633,6 +650,7 @@ img.pt.bi-pt{width:min(46vh,240px);height:min(46vh,240px);filter:drop-shadow(0 0
   <main id="view"></main>
   <nav id="tabs" aria-label="Bereiche">
     <button data-act="tab" data-tab="map">Kampagne</button>
+    <button data-act="tab" data-tab="event">Event</button>
     <button data-act="tab" data-tab="deck">Deck</button>
     <button data-act="tab" data-tab="album">Album</button>
     <button data-act="tab" data-tab="arena">Arena</button>
