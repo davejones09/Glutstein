@@ -210,8 +210,9 @@ function drawCard(odds){
 function pick(list){ const sum=list.reduce((a,x)=>a+x[1],0); let v=Math.random()*sum; for(const x of list){ v-=x[1]; if(v<=0) return x[0]; } return list[list.length-1][0]; }
 function rnd2(a,b){ return a+Math.floor(Math.random()*(b-a+1)); }
 /* Truhe öffnen: 3/4/5 Karten. Jede Karte ist Kreatur, Gegenstand oder Gold; selten Schnellsieg-Rolle oder Glutsteine. */
-function openChest(type,slots){
-  const C=CHESTS[type], odds=chestOdds(type), kinds=[]; track('chest');
+/* opt.ev: Eventtruhe – normale Karten mit Bronzetruhen-Chancen, keine Mehrfachkarten, Gegenstände eine Stufe schwächer. */
+function openChest(type,slots,opt){
+  opt=opt||{}; const C=CHESTS[type], odds=chestOdds(opt.ev?'holz':type), kinds=[]; track('chest');
   for(let i=0;i<(slots||C.slots);i++){ const opts=Object.entries(SLOT_W).filter(([k])=>k!=='gold'||!kinds.includes('gold')); kinds.push(pick(opts)); }
   if(!kinds.includes('kreatur')) kinds[Math.floor(Math.random()*kinds.length)]='kreatur';
   const notK=()=>kinds.map((k,i)=>k!=='kreatur'?i:-1).filter(i=>i>=0);
@@ -219,9 +220,9 @@ function openChest(type,slots){
   if(type==='gold'&&Math.random()<GEM_CHANCE){ const f=kinds.map((k,i)=>k!=='kreatur'&&k!=='rolle'?i:-1).filter(i=>i>=0); if(f.length) kinds[f[0]]='steine'; else if(kinds.filter(k=>k==='kreatur').length>1) kinds[kinds.lastIndexOf('kreatur')]='steine'; }
   const cards=kinds.map(k=>{
     if(k==='kreatur'){ const id=drawCard(odds); if(!S.stat.best||CARD[id].r>CARD[S.stat.best].r) S.stat.best=id;
-      let m=1, v=Math.random(); for(const [n,p] of (MULTI[type]||[])){ if(v<p){ m=n; break; } v-=p; }
+      let m=1, v=Math.random(); for(const [n,p] of (opt.ev?[]:MULTI[type]||[])){ if(v<p){ m=n; break; } v-=p; }
       const g=Object.assign({t:'kreatur',mult:m},grant(id,!!SKINS[id]&&Math.random()<SKIN_CHANCE)); for(let q=1;q<m;q++){ const x=grant(id,false); if(x.gold) g.gold=(g.gold||0)+x.gold; } return g; }
-    if(k==='gegenstand'){ const q=pick(CHEST_Q[type]), cat=Object.keys(CATS)[Math.floor(Math.random()*5)], n=rnd2(...Q_AMOUNT[q]); S.items[cat][q]+=n; return {t:'gegenstand',cat,q,n}; }
+    if(k==='gegenstand'){ const q=Math.max(0,pick(CHEST_Q[type])-(opt.ev?1:0)), cat=Object.keys(CATS)[Math.floor(Math.random()*5)], n=rnd2(...Q_AMOUNT[q]); S.items[cat][q]+=n; return {t:'gegenstand',cat,q,n}; }
     if(k==='gold'){ const n=rnd2(...C.gold); addGold(n); return {t:'gold',n}; }
     if(k==='rolle'){ S.skips++; return {t:'rolle',n:1}; }
     const n=rnd2(...GEM_FIND); S.gems+=n; return {t:'steine',n};
@@ -1163,8 +1164,8 @@ const EV_AREAS={
  kirschbluete:['Der Bambuswald','Das Teehaus','Die Tempelstufen','Der Fuchsschrein']};
 const EV_CHEST=[
  {t:'holz',cost:10,n:'Event-Bronzetruhe',ev:[[0,75],[1,25]],bonus:[1,[1,2]]},
- {t:'silber',cost:6,n:'Event-Silbertruhe',ev:[[1,70],[2,30]],bonus:[2,[1,1]]},
- {t:'gold',cost:4,n:'Event-Goldtruhe',ev:[[2,75],[3,25]],bonus:null}];
+ {t:'silber',cost:6,n:'Event-Silbertruhe',ev:[[1,80],[2,20]],bonus:[2,[1,1]]},
+ {t:'gold',cost:4,n:'Event-Goldtruhe',ev:[[2,85],[3,15]],bonus:null}];
 const EV_TASKS=[
  {k:'evWin',g:5,t:'Gewinne 5 Event-Kämpfe'},
  {k:'evThree',g:3,t:'Gewinne 3 Event-Kämpfe mit 3 Sternen',h:1},
@@ -1254,7 +1255,7 @@ function sheetEvStage(k){
 function startEv(k){ const E=ev(), st=evStages(E)[k]; if(!st||!evOpen(E,k)) return; startBattle({mode:'event',stage:st,day:E.day,title:`${SETS[E.set].n} · ${st.n}`,opp:st.n}); }
 function evChest(t){
   const E=ev(), C=EV_CHEST[t]; if(!C||E.pts[t]<C.cost) return; E.pts[t]-=C.cost;
-  const res=openChest(C.t), r=pick(C.ev), pool=BASE.filter(c=>c.set===E.set&&c.r===r), id=weighted(pool).id;
+  const res=openChest(C.t,0,{ev:1}), r=pick(C.ev), pool=BASE.filter(c=>c.set===E.set&&c.r===r), id=weighted(pool).id;
   if(!S.stat.best||CARD[id].r>CARD[S.stat.best].r) S.stat.best=id;
   res.cards.unshift(Object.assign({t:'kreatur',mult:1},grant(id,!!SKINS[id]&&Math.random()<.06)));
   if(C.bonus){ const n=rnd2(...C.bonus[1]); E.pts[C.bonus[0]]+=n; res.cards.push({t:'punkte',tier:C.bonus[0],n}); }
