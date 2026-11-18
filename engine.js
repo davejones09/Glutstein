@@ -47,7 +47,11 @@ const SETS={
   sternenkurs:{n:'Sternenkurs',l:'SK',cat:'licht',cats:['licht','wasser'],col:'#3a6ab8',ev:1},
   neonstadt:{n:'Neonstadt',l:'NS',cat:'schatten',cats:['schatten','feuer'],col:'#c83a9a',ev:1},
   savanne:{n:'Savannenglut',l:'SG',cat:'erde',cats:['erde','licht'],col:'#d8902a',ev:1},
-  kirschbluete:{n:'Kirschblütental',l:'KT',cat:'licht',cats:['licht','erde'],col:'#d86a8a',ev:1}
+  kirschbluete:{n:'Kirschblütental',l:'KT',cat:'licht',cats:['licht','erde'],col:'#d86a8a',ev:1},
+  riff:{n:'Im Riff',l:'IR',cat:'licht',cats:['licht','erde'],col:'#2ab0c0',ev:1},
+  maerchen:{n:'Dornenmärchen',l:'DM',cat:'schatten',cats:['erde','schatten'],col:'#7a3a7a',ev:1},
+  amazonen:{n:'Amazonenreich',l:'AR',cat:'erde',cats:['erde','feuer'],col:'#5a8a2a',ev:1},
+  gladiatoren:{n:'Arena der Gladiatoren',l:'AG',cat:'feuer',cats:['feuer','licht'],col:'#b8442a',ev:1}
 };
 Object.values(SETS).forEach(x=>{ if(!x.cats) x.cats=[x.cat]; });
 /* Setbonus ab 3 verschiedenen Karten eines Sets im Deck, großer Bonus ab 6. */
@@ -83,10 +87,11 @@ const SET_FX={
   nacht:[{kw:{rache:1},atk:.15,hp:.15},{atk:.1,hp:.1}],
   walgesang:[{heroHp:.15,hp:.1},{atk:.15}], stationnull:[{atk:.1,hp:.05},{dr1:.15}], roteschlucht:[{atk1:.2,atk:.05},{atk:.15}],
   frostmark:[{kw:{schild:1/3},hp:.1},{hp:.15,atk:.05}], sternenkurs:[{atk:.15,hp:.15},{heroRegen:.04,atk:.1,hp:.1}], neonstadt:[{atk:.1,hp:.05},{atk:.1}],
-  savanne:[{grow:.015,atk:.05},{atk:.1,hp:.1}], kirschbluete:[{atk:.2,hp:.15},{kw:{heilung:1},atk:.1}], sonne:[{kw:{heilung:1},atk:.1},{heroRegen:.05,atk:.1}],
+  savanne:[{grow:.015,atk:.05},{atk:.1,hp:.1}], kirschbluete:[{atk:.2,hp:.15},{kw:{heilung:1},atk:.1}],
+  riff:[{hp:.15,atk:.1},{heroRegen:.04,hp:.1}], maerchen:[{curse:.015,atk:.1},{atk:.15,hp:.1}], amazonen:[{atk:.15,hp:.05},{atk1:.2,atk:.05}], gladiatoren:[{atk:.1,hp:.05},{atk:.05,hp:.05}], sonne:[{kw:{heilung:1},atk:.1},{heroRegen:.05,atk:.1}],
   abyss:[{hp:.1,atk:.1},{kw:{heilung:5/8}}], schmiede:[{kw:{schild:1/3},atk:.05},{atk1:.25,atk:.05}], mangrove:[{atk:.1,hp:.1},{grow:.015}],
   daemmerung:[{atk:.2,hp:.2},{elem:1.75}], totenwald:[{curse:.03,atk:.1},{revive:.5}], kristall:[{dr1:.2,hp:.1,atk:.1},{mend:.06}],
-  erwachen:[{fear:.15,atk:.1},{scare:.2}], luft:[{flyHero:.5,hp:.1,atk:.1},{dr1:.2,atk:.1}], raeder:[{hp:.1,atk:.1},{kw:{heilung:.5}}],
+  erwachen:[{fear:.15,atk:.1},{scare:.2}], luft:[{flyHero:.3,hp:.15,atk:.1},{hp:.1}], raeder:[{hp:.1,atk:.1},{kw:{heilung:.5}}],
   bruecke:[{hp:.1},{atk:.1,hp:.1}], horde:[{atk:.1},{kw:{einschlag:1}}], gefolge:[{heroHp:.15},{kw:{schild:1}}], brut:[{hp:.1,atk:.1},{kw:{heilung:1}}], hof:[{kw:{rache:1}},{atk:.1,hp:.1}], orden:[{hp:.15,atk:.2},{heroRegen:.03,atk:.1,hp:.1}], perle:[{heroHp:.15,atk:.1,hp:.1},{nets:.05}], variete:[{atk:.05},{curse:.015}], wueste:[{hp:.1,atk:.15},{grow:.025,hp:.1}], orkan:[{atk:.1,hp:.05},{atk1:.15}]
 };
 /* Setbonus-Texte werden aus den Werten erzeugt, damit Text und Wirkung immer übereinstimmen. */
@@ -203,10 +208,10 @@ const BASE=[
  ['brunnending','Das Ding im Brunnen','erwachen',2,4,8,{rache:2},'schatten'],
  ['erwachter','Der Erwachte','erwachen',3,6,8,{einschlag:2,durchbruch:1},'feuer'],
  ['flugschuelerin','Flugschülerin','luft',0,2,3,{flug:1},'licht'],
- ['raketenkobold','Raketenkobold','luft',0,4,2,{einschlag:1},'feuer'],
+ ['raketenkobold','Raketenkobold','luft',0,4,2,{flug:1},'feuer'],
  ['wolkenkurier','Wolkenkurier','luft',1,3,5,{segen:1},'licht'],
  ['fliegerass','Fliegerass','luft',1,4,4,{flug:1},'licht'],
- ['glutfalke','Glutfalke','luft',2,5,6,{einschlag:2,durchbruch:1},'feuer'],
+ ['glutfalke','Glutfalke','luft',2,5,6,{flug:1},'feuer'],
  ['himmelsschiff','Das Himmelsschiff','luft',3,5,9,{flug:1,schild:1},'licht'],
  ['zahnradkaefer','Zahnradkäfer','raeder',0,2,5,{schild:1},'erde'],
  ['kesselflicker','Kesselflicker','raeder',0,3,3,{wut:1},'feuer'],
@@ -321,7 +326,31 @@ const BASE=[
  ['tempelwaechterin','Tempelwächterin','kirschbluete',1,5,4,{segen:1}],
  ['steinloewe','Steinlöwe','kirschbluete',1,4,6,{schild:1},'erde'],
  ['samurai','Wandernder Samurai','kirschbluete',2,6,4,{durchbruch:1},'erde'],
- ['kitsune','Die Neunschwänzige Füchsin','kirschbluete',3,5,8,{flug:1,heilung:1}]
+ ['kitsune','Die Neunschwänzige Füchsin','kirschbluete',3,5,8,{flug:1,heilung:1}],
+ ['clownfische','Clownfische','riff',0,3,4,{segen:1}],
+ ['seepferdchen','Seepferdchen','riff',0,3,4,{schild:1},'erde'],
+ ['meeresschildkroete','Meeresschildkröte','riff',1,3,7,{schild:1},'erde'],
+ ['mantarochen','Mantarochen','riff',1,5,4,{flug:1}],
+ ['mimikoktopus','Mimik-Oktopus','riff',2,5,5,{rache:1},'erde'],
+ ['walhai','Der Sanfte Riese','riff',3,4,10,{segen:1,heilung:1}],
+ ['brotkrumenkinder','Brotkrumenkinder','maerchen',0,3,4,{segen:1},'erde'],
+ ['lebkuchenhexe','Lebkuchenhexe','maerchen',0,4,3,{rache:1}],
+ ['rotkaeppchen','Rotkäppchen','maerchen',1,4,5,{schild:1},'erde'],
+ ['boeserwolf','Der Böse Wolf','maerchen',1,6,4,{wut:1}],
+ ['dornenritter','Dornröschens Ritter','maerchen',2,5,6,{durchbruch:1},'erde'],
+ ['spiegelkoenigin','Die Spiegelkönigin','maerchen',3,5,8,{einschlag:1,rache:1}],
+ ['speerwerferin','Speerwerferin','amazonen',0,4,3,{einschlag:1}],
+ ['falknerin','Falknerin','amazonen',0,3,3,{flug:1},'feuer'],
+ ['schildmaid','Schildmaid','amazonen',1,3,7,{schild:1}],
+ ['pantherreiterin','Pantherreiterin','amazonen',1,6,4,{durchbruch:1},'feuer'],
+ ['kriegspriesterin','Kriegspriesterin','amazonen',2,4,6,{segen:1,heilung:1}],
+ ['amazonenkoenigin','Die Amazonenkönigin','amazonen',3,6,7,{anfuehrer:1,einschlag:1},'feuer'],
+ ['netzkaempfer','Netzkämpfer','gladiatoren',0,3,4,{schild:1},'licht'],
+ ['wagenlenker','Wagenlenker','gladiatoren',0,4,3,{durchbruch:1}],
+ ['loewenbaendiger','Löwenbändiger','gladiatoren',1,4,4,{wut:1}],
+ ['schildbrecher','Schildbrecher','gladiatoren',1,5,5,{durchbruch:1},'licht'],
+ ['lanista','Der Lanista','gladiatoren',2,3,6,{anfuehrer:1,segen:1},'licht'],
+ ['champion','Der Champion','gladiatoren',3,5,8,{wut:1}]
 ].map(([id,n,set,r,a0,h0,k,cat])=>{
   /* Grundwerte je Seltenheit liegen eng beieinander. Jede Karte hat ihr eigenes Verhältnis von Angriff zu Leben (30–70 %). */
   const x=hashS(id), u=(x%1000)/1000, T=Math.round(RAR_BASE[r]*(1+((x>>10)%7-3)/100)/10)*10;
@@ -362,7 +391,7 @@ const UNLOCK_SLOTS=[3,8,13]; /* Gefecht 4, 9 und 14 eines Gebiets schalten je ei
 /* Werte der alten 8 Gefechte; die neuen Zwischengefechte übernehmen die Werte des vorigen alten Gefechts (leichter). */
 const RMAX8=[[0,0,0,0,0,0,0,0],[0,0,0,1,1,1,1,1],[0,0,1,1,1,2,2,1],[0,0,0,1,1,1,1,1],[0,0,1,1,1,2,2,1]];
 const AREA_LVL8=[[1,2,2,3,3,3,3,1],[5,5,5,5,4,4,4,4],[9,9,9,7,7,7,6,6],[11,10,9,10,10,9,9,10],[16,16,16,15,14,14,13,11]];
-const AREA_SIZE8=[[3,3,4,4,4,5,5,5],[3,4,4,5,5,5,5,6],[5,6,6,7,7,8,7,6],[6,6,7,6,7,8,7,6],[4,5,5,6,6,6,6,7]];
+const AREA_SIZE8=[[3,3,4,4,4,5,5,5],[3,4,4,5,5,5,5,6],[5,6,6,7,7,7,7,6],[6,6,7,6,7,8,7,6],[4,5,5,6,6,6,6,7]];
 const x16=(T,first)=>T.map((r,a)=>r.flatMap((v,k)=>[k?Math.min(r[k-1],v):first(v,a),v]));
 const RMAX=x16(RMAX8,v=>v), AREA_LVL=x16(AREA_LVL8,(v,a)=>a?AREA_LVL8[a-1][7]-1:v), AREA_SIZE=x16(AREA_SIZE8,v=>Math.max(3,v-1));
 const STAGES=STAGE_NAMES.map((n,k)=>{
@@ -386,7 +415,9 @@ function stageDeck(st,hero){
   else if(st.i<8){ ids.push(pick(of(1))); w=[3,2,st.i>=5&&r()<.4?1:0]; if(w[2]) { ids.push(of(2)[0].id); w[2]=0; } }
   else { ids.push(pick(of(1))); ids.push(of(2)[0].id); w=[2,2,st.i>=12?1:0]; }
   const sum=w[0]+w[1]+w[2];
-  while(ids.length<st.size){ let v=r()*sum, k=0; while(v>=w[k]&&k<2){ v-=w[k]; k++; } ids.push(pick(of(k))); }
+  /* Höchstens eine Goldkarte in normalen Gefechten, zwei im Bosskampf – sonst häufen sich starke Flieger. */
+  const gcap=st.boss?2:1; let gold=ids.filter(id=>CARD[id].r===2).length;
+  while(ids.length<st.size){ let v=r()*sum, k=0; while(v>=w[k]&&k<2){ v-=w[k]; k++; } if(k===2&&gold>=gcap) k=1; if(k===2) gold++; ids.push(pick(of(k))); }
   const lvl=Math.min(MAXLVL,st.lvl+(hero?8:0)), star=Math.min(MAXSTAR,Math.ceil(lvl/5));
   return ids.map(id=>({id,lvl,star,weak:st.weak&&!hero}));
 }

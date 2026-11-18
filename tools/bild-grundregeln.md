@@ -21,6 +21,7 @@ STIL
 - Keine Punkt- oder Mosaikstruktur, kein Fotorealismus, kein 3D-Render, keine Pixelart, kein Comic-Look.
 - Ton: düster-märchenhaft, nicht blutig.
 - Alle Bilder sollen aussehen wie vom selben Künstler. Halte Stil, Strich und Lichtstimmung gleich.
+- Jede Figur eines Sets hat ein eigenes, klar unterscheidbares Gesicht, eine eigene Frisur und Haarfarbe sowie ein anderes Alter oder einen anderen Körperbau. Es sind verschiedene Personen, nicht dieselbe Person in anderen Rollen.
 
 BILDAUFBAU
 - Ein einzelnes Hauptmotiv, mittig im oberen Zweidrittel, Kopf im oberen Drittel.

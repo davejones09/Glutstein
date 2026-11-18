@@ -638,6 +638,12 @@ img.pt.bi-pt{width:min(46vh,240px);height:min(46vh,240px);filter:drop-shadow(0 0
 .evset{display:grid;grid-template-columns:repeat(6,1fr);gap:4px}
 .evset img{width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:5px;filter:grayscale(1) brightness(.45);border:1px solid var(--linie)}
 .evset img.got{filter:none;border-color:#d6a848}
+/* Diamantkarten: Kampfbewegungen haben Vorrang vor dem Leuchten */
+.card.r3.lunge-up{animation:lungeUp .26s ease}.card.r3.lunge-dn{animation:lungeDn .26s ease}
+.card.r3.swoop-up{animation:swoopUp .7s ease}.card.r3.swoop-dn{animation:swoopDn .7s ease}
+.card.r3.shake{animation:shake .22s linear}.card.r3.dying{animation:dying .35s ease-in forwards}
+.card.r3.flash{animation:flash .3s ease}.card.r3.buff{animation:buff .3s ease}
+.srcic{color:#e8c46a;font-weight:800}
 </style>
 </head>
 <body>
@@ -717,7 +723,11 @@ const SETS={
   sternenkurs:{n:'Sternenkurs',l:'SK',cat:'licht',cats:['licht','wasser'],col:'#3a6ab8',ev:1},
   neonstadt:{n:'Neonstadt',l:'NS',cat:'schatten',cats:['schatten','feuer'],col:'#c83a9a',ev:1},
   savanne:{n:'Savannenglut',l:'SG',cat:'erde',cats:['erde','licht'],col:'#d8902a',ev:1},
-  kirschbluete:{n:'Kirschblütental',l:'KT',cat:'licht',cats:['licht','erde'],col:'#d86a8a',ev:1}
+  kirschbluete:{n:'Kirschblütental',l:'KT',cat:'licht',cats:['licht','erde'],col:'#d86a8a',ev:1},
+  riff:{n:'Im Riff',l:'IR',cat:'licht',cats:['licht','erde'],col:'#2ab0c0',ev:1},
+  maerchen:{n:'Dornenmärchen',l:'DM',cat:'schatten',cats:['erde','schatten'],col:'#7a3a7a',ev:1},
+  amazonen:{n:'Amazonenreich',l:'AR',cat:'erde',cats:['erde','feuer'],col:'#5a8a2a',ev:1},
+  gladiatoren:{n:'Arena der Gladiatoren',l:'AG',cat:'feuer',cats:['feuer','licht'],col:'#b8442a',ev:1}
 };
 Object.values(SETS).forEach(x=>{ if(!x.cats) x.cats=[x.cat]; });
 /* Setbonus ab 3 verschiedenen Karten eines Sets im Deck, großer Bonus ab 6. */
@@ -753,10 +763,11 @@ const SET_FX={
   nacht:[{kw:{rache:1},atk:.15,hp:.15},{atk:.1,hp:.1}],
   walgesang:[{heroHp:.15,hp:.1},{atk:.15}], stationnull:[{atk:.1,hp:.05},{dr1:.15}], roteschlucht:[{atk1:.2,atk:.05},{atk:.15}],
   frostmark:[{kw:{schild:1/3},hp:.1},{hp:.15,atk:.05}], sternenkurs:[{atk:.15,hp:.15},{heroRegen:.04,atk:.1,hp:.1}], neonstadt:[{atk:.1,hp:.05},{atk:.1}],
-  savanne:[{grow:.015,atk:.05},{atk:.1,hp:.1}], kirschbluete:[{atk:.2,hp:.15},{kw:{heilung:1},atk:.1}], sonne:[{kw:{heilung:1},atk:.1},{heroRegen:.05,atk:.1}],
+  savanne:[{grow:.015,atk:.05},{atk:.1,hp:.1}], kirschbluete:[{atk:.2,hp:.15},{kw:{heilung:1},atk:.1}],
+  riff:[{hp:.15,atk:.1},{heroRegen:.04,hp:.1}], maerchen:[{curse:.015,atk:.1},{atk:.15,hp:.1}], amazonen:[{atk:.15,hp:.05},{atk1:.2,atk:.05}], gladiatoren:[{atk:.1,hp:.05},{atk:.05,hp:.05}], sonne:[{kw:{heilung:1},atk:.1},{heroRegen:.05,atk:.1}],
   abyss:[{hp:.1,atk:.1},{kw:{heilung:5/8}}], schmiede:[{kw:{schild:1/3},atk:.05},{atk1:.25,atk:.05}], mangrove:[{atk:.1,hp:.1},{grow:.015}],
   daemmerung:[{atk:.2,hp:.2},{elem:1.75}], totenwald:[{curse:.03,atk:.1},{revive:.5}], kristall:[{dr1:.2,hp:.1,atk:.1},{mend:.06}],
-  erwachen:[{fear:.15,atk:.1},{scare:.2}], luft:[{flyHero:.5,hp:.1,atk:.1},{dr1:.2,atk:.1}], raeder:[{hp:.1,atk:.1},{kw:{heilung:.5}}],
+  erwachen:[{fear:.15,atk:.1},{scare:.2}], luft:[{flyHero:.3,hp:.15,atk:.1},{hp:.1}], raeder:[{hp:.1,atk:.1},{kw:{heilung:.5}}],
   bruecke:[{hp:.1},{atk:.1,hp:.1}], horde:[{atk:.1},{kw:{einschlag:1}}], gefolge:[{heroHp:.15},{kw:{schild:1}}], brut:[{hp:.1,atk:.1},{kw:{heilung:1}}], hof:[{kw:{rache:1}},{atk:.1,hp:.1}], orden:[{hp:.15,atk:.2},{heroRegen:.03,atk:.1,hp:.1}], perle:[{heroHp:.15,atk:.1,hp:.1},{nets:.05}], variete:[{atk:.05},{curse:.015}], wueste:[{hp:.1,atk:.15},{grow:.025,hp:.1}], orkan:[{atk:.1,hp:.05},{atk1:.15}]
 };
 /* Setbonus-Texte werden aus den Werten erzeugt, damit Text und Wirkung immer übereinstimmen. */
@@ -873,10 +884,10 @@ const BASE=[
  ['brunnending','Das Ding im Brunnen','erwachen',2,4,8,{rache:2},'schatten'],
  ['erwachter','Der Erwachte','erwachen',3,6,8,{einschlag:2,durchbruch:1},'feuer'],
  ['flugschuelerin','Flugschülerin','luft',0,2,3,{flug:1},'licht'],
- ['raketenkobold','Raketenkobold','luft',0,4,2,{einschlag:1},'feuer'],
+ ['raketenkobold','Raketenkobold','luft',0,4,2,{flug:1},'feuer'],
  ['wolkenkurier','Wolkenkurier','luft',1,3,5,{segen:1},'licht'],
  ['fliegerass','Fliegerass','luft',1,4,4,{flug:1},'licht'],
- ['glutfalke','Glutfalke','luft',2,5,6,{einschlag:2,durchbruch:1},'feuer'],
+ ['glutfalke','Glutfalke','luft',2,5,6,{flug:1},'feuer'],
  ['himmelsschiff','Das Himmelsschiff','luft',3,5,9,{flug:1,schild:1},'licht'],
  ['zahnradkaefer','Zahnradkäfer','raeder',0,2,5,{schild:1},'erde'],
  ['kesselflicker','Kesselflicker','raeder',0,3,3,{wut:1},'feuer'],
@@ -991,7 +1002,31 @@ const BASE=[
  ['tempelwaechterin','Tempelwächterin','kirschbluete',1,5,4,{segen:1}],
  ['steinloewe','Steinlöwe','kirschbluete',1,4,6,{schild:1},'erde'],
  ['samurai','Wandernder Samurai','kirschbluete',2,6,4,{durchbruch:1},'erde'],
- ['kitsune','Die Neunschwänzige Füchsin','kirschbluete',3,5,8,{flug:1,heilung:1}]
+ ['kitsune','Die Neunschwänzige Füchsin','kirschbluete',3,5,8,{flug:1,heilung:1}],
+ ['clownfische','Clownfische','riff',0,3,4,{segen:1}],
+ ['seepferdchen','Seepferdchen','riff',0,3,4,{schild:1},'erde'],
+ ['meeresschildkroete','Meeresschildkröte','riff',1,3,7,{schild:1},'erde'],
+ ['mantarochen','Mantarochen','riff',1,5,4,{flug:1}],
+ ['mimikoktopus','Mimik-Oktopus','riff',2,5,5,{rache:1},'erde'],
+ ['walhai','Der Sanfte Riese','riff',3,4,10,{segen:1,heilung:1}],
+ ['brotkrumenkinder','Brotkrumenkinder','maerchen',0,3,4,{segen:1},'erde'],
+ ['lebkuchenhexe','Lebkuchenhexe','maerchen',0,4,3,{rache:1}],
+ ['rotkaeppchen','Rotkäppchen','maerchen',1,4,5,{schild:1},'erde'],
+ ['boeserwolf','Der Böse Wolf','maerchen',1,6,4,{wut:1}],
+ ['dornenritter','Dornröschens Ritter','maerchen',2,5,6,{durchbruch:1},'erde'],
+ ['spiegelkoenigin','Die Spiegelkönigin','maerchen',3,5,8,{einschlag:1,rache:1}],
+ ['speerwerferin','Speerwerferin','amazonen',0,4,3,{einschlag:1}],
+ ['falknerin','Falknerin','amazonen',0,3,3,{flug:1},'feuer'],
+ ['schildmaid','Schildmaid','amazonen',1,3,7,{schild:1}],
+ ['pantherreiterin','Pantherreiterin','amazonen',1,6,4,{durchbruch:1},'feuer'],
+ ['kriegspriesterin','Kriegspriesterin','amazonen',2,4,6,{segen:1,heilung:1}],
+ ['amazonenkoenigin','Die Amazonenkönigin','amazonen',3,6,7,{anfuehrer:1,einschlag:1},'feuer'],
+ ['netzkaempfer','Netzkämpfer','gladiatoren',0,3,4,{schild:1},'licht'],
+ ['wagenlenker','Wagenlenker','gladiatoren',0,4,3,{durchbruch:1}],
+ ['loewenbaendiger','Löwenbändiger','gladiatoren',1,4,4,{wut:1}],
+ ['schildbrecher','Schildbrecher','gladiatoren',1,5,5,{durchbruch:1},'licht'],
+ ['lanista','Der Lanista','gladiatoren',2,3,6,{anfuehrer:1,segen:1},'licht'],
+ ['champion','Der Champion','gladiatoren',3,5,8,{wut:1}]
 ].map(([id,n,set,r,a0,h0,k,cat])=>{
   /* Grundwerte je Seltenheit liegen eng beieinander. Jede Karte hat ihr eigenes Verhältnis von Angriff zu Leben (30–70 %). */
   const x=hashS(id), u=(x%1000)/1000, T=Math.round(RAR_BASE[r]*(1+((x>>10)%7-3)/100)/10)*10;
@@ -1032,7 +1067,7 @@ const UNLOCK_SLOTS=[3,8,13]; /* Gefecht 4, 9 und 14 eines Gebiets schalten je ei
 /* Werte der alten 8 Gefechte; die neuen Zwischengefechte übernehmen die Werte des vorigen alten Gefechts (leichter). */
 const RMAX8=[[0,0,0,0,0,0,0,0],[0,0,0,1,1,1,1,1],[0,0,1,1,1,2,2,1],[0,0,0,1,1,1,1,1],[0,0,1,1,1,2,2,1]];
 const AREA_LVL8=[[1,2,2,3,3,3,3,1],[5,5,5,5,4,4,4,4],[9,9,9,7,7,7,6,6],[11,10,9,10,10,9,9,10],[16,16,16,15,14,14,13,11]];
-const AREA_SIZE8=[[3,3,4,4,4,5,5,5],[3,4,4,5,5,5,5,6],[5,6,6,7,7,8,7,6],[6,6,7,6,7,8,7,6],[4,5,5,6,6,6,6,7]];
+const AREA_SIZE8=[[3,3,4,4,4,5,5,5],[3,4,4,5,5,5,5,6],[5,6,6,7,7,7,7,6],[6,6,7,6,7,8,7,6],[4,5,5,6,6,6,6,7]];
 const x16=(T,first)=>T.map((r,a)=>r.flatMap((v,k)=>[k?Math.min(r[k-1],v):first(v,a),v]));
 const RMAX=x16(RMAX8,v=>v), AREA_LVL=x16(AREA_LVL8,(v,a)=>a?AREA_LVL8[a-1][7]-1:v), AREA_SIZE=x16(AREA_SIZE8,v=>Math.max(3,v-1));
 const STAGES=STAGE_NAMES.map((n,k)=>{
@@ -1056,7 +1091,9 @@ function stageDeck(st,hero){
   else if(st.i<8){ ids.push(pick(of(1))); w=[3,2,st.i>=5&&r()<.4?1:0]; if(w[2]) { ids.push(of(2)[0].id); w[2]=0; } }
   else { ids.push(pick(of(1))); ids.push(of(2)[0].id); w=[2,2,st.i>=12?1:0]; }
   const sum=w[0]+w[1]+w[2];
-  while(ids.length<st.size){ let v=r()*sum, k=0; while(v>=w[k]&&k<2){ v-=w[k]; k++; } ids.push(pick(of(k))); }
+  /* Höchstens eine Goldkarte in normalen Gefechten, zwei im Bosskampf – sonst häufen sich starke Flieger. */
+  const gcap=st.boss?2:1; let gold=ids.filter(id=>CARD[id].r===2).length;
+  while(ids.length<st.size){ let v=r()*sum, k=0; while(v>=w[k]&&k<2){ v-=w[k]; k++; } if(k===2&&gold>=gcap) k=1; if(k===2) gold++; ids.push(pick(of(k))); }
   const lvl=Math.min(MAXLVL,st.lvl+(hero?8:0)), star=Math.min(MAXSTAR,Math.ceil(lvl/5));
   return ids.map(id=>({id,lvl,star,weak:st.weak&&!hero}));
 }
@@ -1277,6 +1314,30 @@ Object.assign(DLG,{
 });
 
 const LORE={
+ clownfische:'Ihre Anemone ist ihr Zuhause, ihre Festung und ihr Spielplatz.',
+ seepferdchen:'Es hält sich fest, egal wie stark die Strömung zieht.',
+ meeresschildkroete:'Sie war schon alt, als das Riff noch jung war.',
+ mantarochen:'Er fliegt durchs Wasser, als gäbe es keinen Unterschied zum Himmel.',
+ mimikoktopus:'Was du siehst, ist nie, was er ist.',
+ walhai:'Riesig, sanft und völlig unbeeindruckt von allem.',
+ brotkrumenkinder:'Die Spur führt nach Hause. Hoffen sie.',
+ lebkuchenhexe:'Komm herein, mein Kind. Es gibt Kuchen.',
+ rotkaeppchen:'Sie kennt den Weg. Und diesmal kennt sie auch den Wolf.',
+ boeserwolf:'Großmutter, was hast du für große Zähne?',
+ dornenritter:'Hundert Jahre Dornen. Ein Schwert.',
+ spiegelkoenigin:'Spieglein, Spieglein. Sie kennt die Antwort längst.',
+ speerwerferin:'Ihr Speer trifft, bevor der Feind sie sieht.',
+ falknerin:'Ihr Falke sieht, was im Dschungel verborgen liegt.',
+ schildmaid:'Hinter ihrem Schild ist die Reihe geschlossen.',
+ pantherreiterin:'Sie und ihr Panther jagen als ein Schatten.',
+ kriegspriesterin:'Ihr Segen begleitet jede Kriegerin in die Schlacht.',
+ amazonenkoenigin:'Sie herrscht nicht durch Erbe, sondern durch Sieg.',
+ netzkaempfer:'Erst das Netz, dann der Dreizack.',
+ wagenlenker:'In der Kurve entscheidet sich alles.',
+ loewenbaendiger:'Feuer, Peitsche und kein bisschen Angst.',
+ schildbrecher:'Kein Schild hält ihm länger als einen Schlag stand.',
+ lanista:'Er hat jeden Champion gemacht. Und jeden verkauft.',
+ champion:'Unbesiegt. Die Menge kennt nur seinen Namen.',
  fliegendefische:'Für einen Herzschlag lang gehört ihnen der Himmel.',
  schattenrochen:'Er gleitet so leise, dass selbst der Sand ihn nicht bemerkt.',
  grindwalschule:'Keiner von ihnen schwimmt je allein.',
@@ -1587,7 +1648,7 @@ const ART={}; BASE.forEach(c=>ART[c.id]=`bilder/${c.id}.jpg`);
 /* Sondermotive je Karte: Anzahl der Motive. Motiv 1 = id-s.jpg, Motiv 2 = id-s2.jpg. Jedes Motiv wird einzeln in Truhen gefunden. */
 const SKINS={}; ['funkenwicht','glutwolf','brandbogner','flammenhexe','schlackenriese','aschendrache','tuempelgeist','gezeitenwache','perlentaucherin','nebelheilerin','sturmrufer','leviathan',
  'moosling','dornenhirsch','wurzelhueter','rudelfuehrerin','alteiche','waldkoenigin','nachtfalter','grabkriecher','schattendolch','kraehenschwarm','seelenhaendlerin','irrlicht','sonneneinhorn','sonnenloewe','lichtmagier','seraphin'].forEach(id=>SKINS[id]=1);
-['kryoschlaeferin','sheriff','kopfgeldjaegerin','kutschenraeuberin','runenjaegerin','sternenschmugglerin','strassenhackerin','schattenagentin'].forEach(id=>SKINS[id]=1);
+['speerwerferin','falknerin','schildmaid','pantherreiterin','kriegspriesterin','amazonenkoenigin','kryoschlaeferin','sheriff','kopfgeldjaegerin','kutschenraeuberin','runenjaegerin','sternenschmugglerin','strassenhackerin','schattenagentin'].forEach(id=>SKINS[id]=1);
 SKINS.mitternachtsfuerstin=2; SKINS.lichtritter=2; SKINS.leuchtturmwaerterin=1;
 ['wahrsagerin','pilzhueterin','ghul','netzflickerin','fischerin','zirkusdirektor','fliegerass','totenherrin','dschinn','abgrundkoenigin','messingkoloss','runenschmiedin','messerwerferin','sphinx','geisterschiff','erwachter','schwanenritter','enterkapitaen','eklipsenwaechter','vampirjaegerin','himmelsschiff','mangrovenriese','tiefenkrake'].forEach(id=>SKINS[id]=1);
 const SKIN_NAMES={mitternachtsfuerstin:['Fürstin','Fürst'],lichtritter:['Ritter','Ritterin']};
@@ -1704,12 +1765,18 @@ function weighted(pool){
 }
 /* Normale Truhen: keine Gegner- und keine Event-Karten. */
 const NORMAL=BASE.filter(c=>!SETS[c.set].foe&&!SETS[c.set].ev);
-function drawCard(odds){
+/* Truhen aus einem Modus ziehen die Sets dieses Modus dreimal so oft. Alles bleibt überall ziehbar. */
+const SRC_SETS={kampagne:['abyss','schmiede','variete','daemmerung','totenwald'],arena:['luft','bruecke','raeder','wueste'],heraus:['kristall','erwachen','mangrove','orkan','perle']};
+const SRC_N={kampagne:'Kampagne',arena:'Arena',heraus:'Herausforderung'}, SRC_ICON={kampagne:'⚑',arena:'⚔',heraus:'✦'}, SRC_BOOST=3;
+function setSrc(set){ return Object.keys(SRC_SETS).find(k=>SRC_SETS[k].includes(set))||null; }
+function srcPick(pool,src){ if(!src||!SRC_SETS[src]) return weighted(pool); const w=pool.map(c=>SRC_SETS[src].includes(c.set)?SRC_BOOST:1), sum=w.reduce((a,b)=>a+b,0); let v=Math.random()*sum;
+  for(let i=0;i<pool.length;i++){ v-=w[i]; if(v<=0) return pool[i]; } return pool[pool.length-1]; }
+function drawCard(odds,src){
   const locked=NORMAL.filter(c=>!isUnlocked(c.id));
-  if(locked.length&&Math.random()<LOCKED_CHANCE){ const r=rollRar(odds); for(let d=0;d<=r;d++){ const pool=locked.filter(c=>c.r===r-d); if(pool.length) return weighted(pool).id; } }
+  if(locked.length&&Math.random()<LOCKED_CHANCE){ const r=rollRar(odds); for(let d=0;d<=r;d++){ const pool=locked.filter(c=>c.r===r-d); if(pool.length) return srcPick(pool,src).id; } }
   let r=rollRar(odds), pool=[];
   for(let d=0;d<4&&!pool.length;d++){ pool=NORMAL.filter(c=>isUnlocked(c.id)&&c.r===r-d); if(!pool.length) pool=NORMAL.filter(c=>isUnlocked(c.id)&&c.r===r+d); }
-  return weighted(pool.length?pool:NORMAL.filter(c=>isUnlocked(c.id))).id;
+  return srcPick(pool.length?pool:NORMAL.filter(c=>isUnlocked(c.id)),src).id;
 }
 function pick(list){ const sum=list.reduce((a,x)=>a+x[1],0); let v=Math.random()*sum; for(const x of list){ v-=x[1]; if(v<=0) return x[0]; } return list[list.length-1][0]; }
 function rnd2(a,b){ return a+Math.floor(Math.random()*(b-a+1)); }
@@ -1723,7 +1790,7 @@ function openChest(type,slots,opt){
   if(Math.random()<SKIP_CHANCE[type]){ const f=notK(); if(f.length) kinds[f[Math.floor(Math.random()*f.length)]]='rolle'; else if(kinds.filter(k=>k==='kreatur').length>1) kinds[kinds.length-1]='rolle'; }
   if(type==='gold'&&Math.random()<GEM_CHANCE){ const f=kinds.map((k,i)=>k!=='kreatur'&&k!=='rolle'?i:-1).filter(i=>i>=0); if(f.length) kinds[f[0]]='steine'; else if(kinds.filter(k=>k==='kreatur').length>1) kinds[kinds.lastIndexOf('kreatur')]='steine'; }
   const cards=kinds.map(k=>{
-    if(k==='kreatur'){ const id=drawCard(odds); if(!S.stat.best||CARD[id].r>CARD[S.stat.best].r) S.stat.best=id;
+    if(k==='kreatur'){ const id=drawCard(odds,opt.src); if(!S.stat.best||CARD[id].r>CARD[S.stat.best].r) S.stat.best=id;
       let m=1, v=Math.random(); for(const [n,p] of (opt.ev?[]:MULTI[type]||[])){ if(v<p){ m=n; break; } v-=p; }
       const g=Object.assign({t:'kreatur',mult:m},grant(id,!!SKINS[id]&&Math.random()<SKIN_CHANCE)); for(let q=1;q<m;q++){ const x=grant(id,false); if(x.gold) g.gold=(g.gold||0)+x.gold; } return g; }
     if(k==='gegenstand'){ const q=Math.max(0,pick(CHEST_Q[type])-(opt.ev?1:0)), cat=Object.keys(CATS)[Math.floor(Math.random()*5)], n=rnd2(...Q_AMOUNT[q]); S.items[cat][q]+=n; return {t:'gegenstand',cat,q,n}; }
@@ -2203,7 +2270,7 @@ function viewAlbum(){
   let h=`<section><h2>Sammelbuch</h2><p class="muted">Jedes vollständige Set bringt einmalig ${ALBUM_REWARD.gems} Glutsteine und ${ALBUM_REWARD.gold} Gold. Tippe ein Set an, um es auf- oder zuzuklappen.</p></section>`;
   knownSets().forEach(x=>{
     const cards=BASE.filter(c=>c.set===x), have=cards.filter(c=>S.cards[c.id]).length, sk=cards.reduce((n,c)=>n+ownSkins(c.id).length,0), skT=cards.reduce((n,c)=>n+(SKINS[c.id]||0),0), full=have===cards.length, open=albumOpenSets.has(x), claim=full&&!S.album[x];
-    h+=`<section class="panelbox${full?' setdone':''}"><button class="album-h fold" data-act="albumFold" data-id="${x}" aria-expanded="${open}"><span class="setchip${full?' on':''}" style="--fc:${SCOL(x)}"><i>${SETS[x].l}</i>${SETS[x].n}</span><span class="count">${setCats(x)} · ${have}/${cards.length} Karten · ${sk}/${skT} Sondermotive</span>${full?'<span class="done-ck" aria-label="komplett">✓</span>':''}${claim?'<i class="dot" aria-label="Belohnung"></i>':''}<span class="chev" aria-hidden="true">${open?'▴':'▾'}</span></button>
+    h+=`<section class="panelbox${full?' setdone':''}"><button class="album-h fold" data-act="albumFold" data-id="${x}" aria-expanded="${open}"><span class="setchip${full?' on':''}" style="--fc:${SCOL(x)}"><i>${SETS[x].l}</i>${SETS[x].n}</span><span class="count">${setSrc(x)?`<b class="srcic" title="Häufiger in ${SRC_N[setSrc(x)]}-Truhen">${SRC_ICON[setSrc(x)]} ${SRC_N[setSrc(x)]}</b> · `:''}${setCats(x)} · ${have}/${cards.length} Karten · ${sk}/${skT} Sondermotive</span>${full?'<span class="done-ck" aria-label="komplett">✓</span>':''}${claim?'<i class="dot" aria-label="Belohnung"></i>':''}<span class="chev" aria-hidden="true">${open?'▴':'▾'}</span></button>
     <div class="bar"><i style="width:${Math.round(have/cards.length*100)}%;background:${SCOL(x)}"></i></div>
     ${open?`<div class="grid g3">${cards.map(c=>tile(c.id)).join('')}</div>
     <p class="muted"><b>Setbonus</b> ab 3 Karten im Deck: ${SET_BONUS[x][0]}. Mit allen 6: ${SET_BONUS[x][1]}.</p>
@@ -2233,7 +2300,7 @@ function viewShop(){
   const ao=achOpen(), tabs=[['truhen','Truhen'],['tische','Tische'],['ruecken','Kartenrücken'],['helden','Helden'],['erfolge','Erfolge'],['steine','Glutsteine']], co=S.chests.length;
   let h=`<div class="subnav">${tabs.map(([k,n])=>`<button data-act="shopTab" data-id="${k}" aria-pressed="${shopTab===k}">${n}${(k==='erfolge'&&ao)||(k==='truhen'&&co)?'<i class="dot" aria-label="neu"></i>':''}</button>`).join('')}</div>`;
   if(shopTab==='truhen') h+=`${S.chests.length?`<section class="panelbox"><div class="sec-h"><p class="eyebrow">Deine Truhen · gratis</p><span class="count">${S.chests.length}</span></div>
-  <div class="chests">${S.chests.map((x,i)=>`<div class="ch ${x.type}"><img src="bilder/truhe-${x.type}.png" alt=""><b>${CHESTS[x.type].n}</b><button class="btn primary" data-act="openOwned" data-id="${i}">Gratis öffnen</button></div>`).join('')}</div></section>`:''}
+  <div class="chests">${S.chests.map((x,i)=>`<div class="ch ${x.type}"><img src="bilder/truhe-${x.type}.png" alt=""><b>${x.src?SRC_N[x.src]+'-':''}${CHESTS[x.type].n}</b><button class="btn primary" data-act="openOwned" data-id="${i}">Gratis öffnen</button></div>`).join('')}</div></section>`:''}
   <section class="panelbox"><p class="eyebrow">Truhen kaufen · nur für Gold</p>
   <div class="chests">${Object.entries(CHESTS).map(([k,c])=>`<div class="ch ${k}"><img src="bilder/truhe-${k}.png" alt=""><b>${c.n}</b><button class="btn${S.gold>=c.price?' primary':''}" data-act="buyChest" data-id="${k}" ${S.gold>=c.price?'':'disabled'}><span class="coin"></span>${fmt(c.price)}</button></div>`).join('')}</div>
   <p class="muted">Bronze 3 Karten, Silber 4, Gold 5. Jede Karte ist eine Kreatur, ein Gegenstand oder Gold, mindestens eine ist immer eine Kreatur. Bessere Truhen bringen bessere Gegenstände und mehr Gold.</p></section>
@@ -2525,7 +2592,7 @@ function finish(){
         if(all&&!S.foeSets.includes(A.foe)){ S.foeSets.push(A.foe); BASE.filter(c=>c.set===A.foe).forEach(c=>{ if(!S.cards[c.id]) S.cards[c.id]={lvl:1,star:1,dup:0}; }); r.foeSet=SETS[A.foe].n; } }
       if(!H&&!prev){
         if(st.unlock){ if(!S.unlocked.includes(st.unlock)) S.unlocked.push(st.unlock); if(!S.cards[st.unlock]) S.cards[st.unlock]={lvl:1,star:1,dup:0}; r.unlock=st.unlock; }
-        if(st.boss){ if(!S.setsOpen.includes(st.set)) S.setsOpen.push(st.set); r.setOpen=st.set; r.chests.push('gold'); S.gems+=GEM_BOSS; r.gems=GEM_BOSS; }
+        if(st.boss){ if(!S.setsOpen.includes(st.set)) S.setsOpen.push(st.set); r.setOpen=st.set; r.chests.push('gold'); r.src='kampagne'; S.gems+=GEM_BOSS; r.gems=GEM_BOSS; }
       }
       const m={}; r.items.forEach(x=>{ const k=x.cat+x.q; if(m[k]) m[k].n+=x.n; else m[k]=Object.assign({},x); }); r.items=Object.values(m);
     }else{ r.gold=forfeit?0:5; r.xp=forfeit?0:XP.lose; }
@@ -2537,7 +2604,7 @@ function finish(){
   }else if(ctx.mode==='heraus'){
     const ch=chState(), w=ctx.w; r.chal=`${txt(ctx.rule.n,w.p)} · Kampf ${ctx.k+1} von 3`;
     if(win&&(ch.prog[w.rid]||0)===ctx.k){ ch.prog[w.rid]=ctx.k+1; r.gold=20+10*ctx.k; r.xp=XP.win;
-      if(ctx.k+1===3){ r.chests.push('silber'); r.chalDone=1; if(!ch.all&&weekRules().every(x=>(ch.prog[x.rid]||0)>=3)){ ch.all=1; r.chests.push('gold'); r.chalAll=1; } } }
+      if(ctx.k+1===3){ r.chests.push('silber'); r.src='heraus'; r.chalDone=1; if(!ch.all&&weekRules().every(x=>(ch.prog[x.rid]||0)>=3)){ ch.all=1; r.chests.push('gold'); r.chalAll=1; } } }
     else{ r.gold=forfeit?0:5; r.xp=forfeit?0:XP.lose; }
   }else{
     const rv=ctx.rival, lg=S.table.lg, d=trophyDelta(S.tr,rv.t,win), before=S.tr;
@@ -2545,14 +2612,14 @@ function finish(){
     /* Abstieg: Wer unter die Liga fällt, startet in der Mitte der Liga darunter. */
     if(!win&&lg>0&&S.tr<LEAGUES[lg].lo){ const L=LEAGUES[lg-1]; S.tr=Math.round(L.lo+(LEAGUES[lg].lo-L.lo)*.5); r.tr=S.tr-before; r.demo=L.n; S.table=mkTable(lg-1); }
     r.xp=win?XP.arena:forfeit?0:XP.lose; if(!forfeit) track('arenaFight');
-    if(win){ track('arenaWin'); S.aw++; r.gold=20+lg*5; rv.t=Math.max(LEAGUES[lg].lo,rv.t-Math.round(d/2)); if(S.aw%WIN_CHEST_EVERY===0) r.chests.push('holz'); }
+    if(win){ track('arenaWin'); S.aw++; r.gold=20+lg*5; rv.t=Math.max(LEAGUES[lg].lo,rv.t-Math.round(d/2)); if(S.aw%WIN_CHEST_EVERY===0) r.chests.push('holz'); r.src='arena'; }
     else{ S.al++; r.gold=forfeit?0:5; rv.t+=Math.round(-d/2); }
     drift(rv);
     const now=leagueOf(S.tr);
     if(now>lg){ S.table=mkTable(now); r.promo=LEAGUES[now].n; S.seasonBest=Math.max(S.seasonBest,now); if(now>S.league){ S.league=now; S.gems+=GEM_PROMO; r.gems=GEM_PROMO; r.chests.push('gold'); if(now>=4&&!S.backs.includes('champion')){ champCheck(); r.champ=1; } } }
   }
   addXp(r.xp||0); if(S.plvl>xpBefore) r.lvup=S.plvl;
-  giveItems(r.items); r.chests.forEach(t=>S.chests.push({type:t}));
+  if(ctx.mode==='arena') r.src='arena'; giveItems(r.items); r.chests.forEach(t=>S.chests.push(r.src?{type:t,src:r.src}:{type:t}));
   addGold(r.gold); persist(); result=r; skip=false; renderBattle();
   stopMusic(); jingle(r.promo?'aufstieg':win?'sieg':'niederlage',true);
 }
@@ -2582,7 +2649,7 @@ const ACT={
   tipOk(){ if(tipDone){ const f=tipDone; tipDone=null; f(); } },
   tutReset(){ S.tut=true; S.tipSeen={}; persist(); toast('Das Tutorial erscheint im nächsten Kampf.'); },
   claim(){ const d=daily(); if(d.claimed||!dailyDone()) return; d.claimed=true; S.chests.push({type:'silber'}); addXp(XP.daily); persist(); render(); toast(`Die Silbertruhe liegt jetzt im Laden. +${XP.daily} Erfahrung.`); setTimeout(showLvUp,300); },
-  openOwned(id){ const i=+id, x=S.chests[i]; if(!x) return; S.chests.splice(i,1); const res=openChest(x.type); persist(); render(); revealChests([{t:'',res}],()=>render()); },
+  openOwned(id){ const i=+id, x=S.chests[i]; if(!x) return; S.chests.splice(i,1); const res=openChest(x.type,0,{src:x.src}); if(x.src) res.name=SRC_N[x.src]+'-'+CHESTS[x.type].n; persist(); render(); revealChests([{t:'',res}],()=>render()); },
   achClaim(id){ const a=ACH.find(x=>x.id===id); if(!a||S.ach[id]!==1) return; S.ach[id]=2; S.gems+=a.g; persist(); render(); sfx('coin'); },
   albumFold(id){ if(albumOpenSets.has(id)) albumOpenSets.delete(id); else albumOpenSets.add(id); render(); },
   quickWin(id){
@@ -2656,7 +2723,7 @@ const ACT={
    Jeden Tag ein anderes Event-Set. 4 Abschnitte mit je 16 Gefechten: 12 normale (Bronzepunkte), 3 Elite (Silberpunkte), 1 Boss (Goldpunkte).
    Punkte gibt es pro neuem Stern. Eventtruhen kosten Punkte und enthalten immer eine Eventkarte. Um Mitternacht beginnt alles neu. */
 const EV_SETS=Object.keys(SETS).filter(x=>SETS[x].ev), EV_PER=16, EV_ELITE=[4,9,13], EV_TN=['Bronze','Silber','Gold'];
-const EV_MAPS={walgesang:[1,2,3,4],stationnull:[3,0,4,1],roteschlucht:[0,4,2,3],frostmark:[4,1,2,3],sternenkurs:[4,1,3,0],neonstadt:[3,0,1,4],savanne:[2,0,4,1],kirschbluete:[2,4,1,3]};
+const EV_MAPS={riff:[1,2,0,4],maerchen:[2,3,0,1],amazonen:[2,1,4,0],gladiatoren:[0,3,2,4],walgesang:[1,2,3,4],stationnull:[3,0,4,1],roteschlucht:[0,4,2,3],frostmark:[4,1,2,3],sternenkurs:[4,1,3,0],neonstadt:[3,0,1,4],savanne:[2,0,4,1],kirschbluete:[2,4,1,3]};
 const EV_AREAS={
  walgesang:['Die Brandung','Das offene Meer','Das Riff im Mondlicht','Die lichtlose Tiefe'],
  stationnull:['Die Andockschleuse','Die Kälteschlafkammer','Die Labore','Der Reaktorkern'],
@@ -2665,6 +2732,10 @@ const EV_AREAS={
  sternenkurs:['Der Raumhafen','Der Gasnebel','Die Ozeanwelt','Der Sternenstrom'],
  neonstadt:['Die Hinterhöfe','Der Nachtmarkt','Die Hochhausdächer','Der Konzernturm'],
  savanne:['Der Termitenhügel','Das hohe Gras','Die Wasserstelle','Der Affenbrotbaum'],
+ riff:['Die Lagune','Der Seegraswald','Das Korallenriff','Die Riffkante'],
+ maerchen:['Der Waldrand','Das Lebkuchenhaus','Die Dornenhecke','Das Spiegelschloss'],
+ amazonen:['Der Dschungelpfad','Die Wasserfälle','Das Kriegerlager','Der Thron der Königin'],
+ gladiatoren:['Die Kasernen','Der Übungsplatz','Die Tierkäfige','Die große Arena'],
  kirschbluete:['Der Bambuswald','Das Teehaus','Die Tempelstufen','Der Fuchsschrein']};
 const EV_CHEST=[
  {t:'holz',cost:10,n:'Event-Bronzetruhe',ev:[[0,75],[1,25]],bonus:[1,[1,2]]},
