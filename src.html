@@ -638,6 +638,12 @@ img.pt.bi-pt{width:min(46vh,240px);height:min(46vh,240px);filter:drop-shadow(0 0
 .evset{display:grid;grid-template-columns:repeat(6,1fr);gap:4px}
 .evset img{width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:5px;filter:grayscale(1) brightness(.45);border:1px solid var(--linie)}
 .evset img.got{filter:none;border-color:#d6a848}
+/* Diamantkarten: Kampfbewegungen haben Vorrang vor dem Leuchten */
+.card.r3.lunge-up{animation:lungeUp .26s ease}.card.r3.lunge-dn{animation:lungeDn .26s ease}
+.card.r3.swoop-up{animation:swoopUp .7s ease}.card.r3.swoop-dn{animation:swoopDn .7s ease}
+.card.r3.shake{animation:shake .22s linear}.card.r3.dying{animation:dying .35s ease-in forwards}
+.card.r3.flash{animation:flash .3s ease}.card.r3.buff{animation:buff .3s ease}
+.srcic{color:#e8c46a;font-weight:800}
 </style>
 </head>
 <body>

@@ -83,7 +83,7 @@ const ART={}; BASE.forEach(c=>ART[c.id]=`bilder/${c.id}.jpg`);
 /* Sondermotive je Karte: Anzahl der Motive. Motiv 1 = id-s.jpg, Motiv 2 = id-s2.jpg. Jedes Motiv wird einzeln in Truhen gefunden. */
 const SKINS={}; ['funkenwicht','glutwolf','brandbogner','flammenhexe','schlackenriese','aschendrache','tuempelgeist','gezeitenwache','perlentaucherin','nebelheilerin','sturmrufer','leviathan',
  'moosling','dornenhirsch','wurzelhueter','rudelfuehrerin','alteiche','waldkoenigin','nachtfalter','grabkriecher','schattendolch','kraehenschwarm','seelenhaendlerin','irrlicht','sonneneinhorn','sonnenloewe','lichtmagier','seraphin'].forEach(id=>SKINS[id]=1);
-['kryoschlaeferin','sheriff','kopfgeldjaegerin','kutschenraeuberin','runenjaegerin','sternenschmugglerin','strassenhackerin','schattenagentin'].forEach(id=>SKINS[id]=1);
+['speerwerferin','falknerin','schildmaid','pantherreiterin','kriegspriesterin','amazonenkoenigin','kryoschlaeferin','sheriff','kopfgeldjaegerin','kutschenraeuberin','runenjaegerin','sternenschmugglerin','strassenhackerin','schattenagentin'].forEach(id=>SKINS[id]=1);
 SKINS.mitternachtsfuerstin=2; SKINS.lichtritter=2; SKINS.leuchtturmwaerterin=1;
 ['wahrsagerin','pilzhueterin','ghul','netzflickerin','fischerin','zirkusdirektor','fliegerass','totenherrin','dschinn','abgrundkoenigin','messingkoloss','runenschmiedin','messerwerferin','sphinx','geisterschiff','erwachter','schwanenritter','enterkapitaen','eklipsenwaechter','vampirjaegerin','himmelsschiff','mangrovenriese','tiefenkrake'].forEach(id=>SKINS[id]=1);
 const SKIN_NAMES={mitternachtsfuerstin:['Fürstin','Fürst'],lichtritter:['Ritter','Ritterin']};
@@ -200,12 +200,18 @@ function weighted(pool){
 }
 /* Normale Truhen: keine Gegner- und keine Event-Karten. */
 const NORMAL=BASE.filter(c=>!SETS[c.set].foe&&!SETS[c.set].ev);
-function drawCard(odds){
+/* Truhen aus einem Modus ziehen die Sets dieses Modus dreimal so oft. Alles bleibt überall ziehbar. */
+const SRC_SETS={kampagne:['abyss','schmiede','variete','daemmerung','totenwald'],arena:['luft','bruecke','raeder','wueste'],heraus:['kristall','erwachen','mangrove','orkan','perle']};
+const SRC_N={kampagne:'Kampagne',arena:'Arena',heraus:'Herausforderung'}, SRC_ICON={kampagne:'⚑',arena:'⚔',heraus:'✦'}, SRC_BOOST=3;
+function setSrc(set){ return Object.keys(SRC_SETS).find(k=>SRC_SETS[k].includes(set))||null; }
+function srcPick(pool,src){ if(!src||!SRC_SETS[src]) return weighted(pool); const w=pool.map(c=>SRC_SETS[src].includes(c.set)?SRC_BOOST:1), sum=w.reduce((a,b)=>a+b,0); let v=Math.random()*sum;
+  for(let i=0;i<pool.length;i++){ v-=w[i]; if(v<=0) return pool[i]; } return pool[pool.length-1]; }
+function drawCard(odds,src){
   const locked=NORMAL.filter(c=>!isUnlocked(c.id));
-  if(locked.length&&Math.random()<LOCKED_CHANCE){ const r=rollRar(odds); for(let d=0;d<=r;d++){ const pool=locked.filter(c=>c.r===r-d); if(pool.length) return weighted(pool).id; } }
+  if(locked.length&&Math.random()<LOCKED_CHANCE){ const r=rollRar(odds); for(let d=0;d<=r;d++){ const pool=locked.filter(c=>c.r===r-d); if(pool.length) return srcPick(pool,src).id; } }
   let r=rollRar(odds), pool=[];
   for(let d=0;d<4&&!pool.length;d++){ pool=NORMAL.filter(c=>isUnlocked(c.id)&&c.r===r-d); if(!pool.length) pool=NORMAL.filter(c=>isUnlocked(c.id)&&c.r===r+d); }
-  return weighted(pool.length?pool:NORMAL.filter(c=>isUnlocked(c.id))).id;
+  return srcPick(pool.length?pool:NORMAL.filter(c=>isUnlocked(c.id)),src).id;
 }
 function pick(list){ const sum=list.reduce((a,x)=>a+x[1],0); let v=Math.random()*sum; for(const x of list){ v-=x[1]; if(v<=0) return x[0]; } return list[list.length-1][0]; }
 function rnd2(a,b){ return a+Math.floor(Math.random()*(b-a+1)); }
@@ -219,7 +225,7 @@ function openChest(type,slots,opt){
   if(Math.random()<SKIP_CHANCE[type]){ const f=notK(); if(f.length) kinds[f[Math.floor(Math.random()*f.length)]]='rolle'; else if(kinds.filter(k=>k==='kreatur').length>1) kinds[kinds.length-1]='rolle'; }
   if(type==='gold'&&Math.random()<GEM_CHANCE){ const f=kinds.map((k,i)=>k!=='kreatur'&&k!=='rolle'?i:-1).filter(i=>i>=0); if(f.length) kinds[f[0]]='steine'; else if(kinds.filter(k=>k==='kreatur').length>1) kinds[kinds.lastIndexOf('kreatur')]='steine'; }
   const cards=kinds.map(k=>{
-    if(k==='kreatur'){ const id=drawCard(odds); if(!S.stat.best||CARD[id].r>CARD[S.stat.best].r) S.stat.best=id;
+    if(k==='kreatur'){ const id=drawCard(odds,opt.src); if(!S.stat.best||CARD[id].r>CARD[S.stat.best].r) S.stat.best=id;
       let m=1, v=Math.random(); for(const [n,p] of (opt.ev?[]:MULTI[type]||[])){ if(v<p){ m=n; break; } v-=p; }
       const g=Object.assign({t:'kreatur',mult:m},grant(id,!!SKINS[id]&&Math.random()<SKIN_CHANCE)); for(let q=1;q<m;q++){ const x=grant(id,false); if(x.gold) g.gold=(g.gold||0)+x.gold; } return g; }
     if(k==='gegenstand'){ const q=Math.max(0,pick(CHEST_Q[type])-(opt.ev?1:0)), cat=Object.keys(CATS)[Math.floor(Math.random()*5)], n=rnd2(...Q_AMOUNT[q]); S.items[cat][q]+=n; return {t:'gegenstand',cat,q,n}; }
@@ -699,7 +705,7 @@ function viewAlbum(){
   let h=`<section><h2>Sammelbuch</h2><p class="muted">Jedes vollständige Set bringt einmalig ${ALBUM_REWARD.gems} Glutsteine und ${ALBUM_REWARD.gold} Gold. Tippe ein Set an, um es auf- oder zuzuklappen.</p></section>`;
   knownSets().forEach(x=>{
     const cards=BASE.filter(c=>c.set===x), have=cards.filter(c=>S.cards[c.id]).length, sk=cards.reduce((n,c)=>n+ownSkins(c.id).length,0), skT=cards.reduce((n,c)=>n+(SKINS[c.id]||0),0), full=have===cards.length, open=albumOpenSets.has(x), claim=full&&!S.album[x];
-    h+=`<section class="panelbox${full?' setdone':''}"><button class="album-h fold" data-act="albumFold" data-id="${x}" aria-expanded="${open}"><span class="setchip${full?' on':''}" style="--fc:${SCOL(x)}"><i>${SETS[x].l}</i>${SETS[x].n}</span><span class="count">${setCats(x)} · ${have}/${cards.length} Karten · ${sk}/${skT} Sondermotive</span>${full?'<span class="done-ck" aria-label="komplett">✓</span>':''}${claim?'<i class="dot" aria-label="Belohnung"></i>':''}<span class="chev" aria-hidden="true">${open?'▴':'▾'}</span></button>
+    h+=`<section class="panelbox${full?' setdone':''}"><button class="album-h fold" data-act="albumFold" data-id="${x}" aria-expanded="${open}"><span class="setchip${full?' on':''}" style="--fc:${SCOL(x)}"><i>${SETS[x].l}</i>${SETS[x].n}</span><span class="count">${setSrc(x)?`<b class="srcic" title="Häufiger in ${SRC_N[setSrc(x)]}-Truhen">${SRC_ICON[setSrc(x)]} ${SRC_N[setSrc(x)]}</b> · `:''}${setCats(x)} · ${have}/${cards.length} Karten · ${sk}/${skT} Sondermotive</span>${full?'<span class="done-ck" aria-label="komplett">✓</span>':''}${claim?'<i class="dot" aria-label="Belohnung"></i>':''}<span class="chev" aria-hidden="true">${open?'▴':'▾'}</span></button>
     <div class="bar"><i style="width:${Math.round(have/cards.length*100)}%;background:${SCOL(x)}"></i></div>
     ${open?`<div class="grid g3">${cards.map(c=>tile(c.id)).join('')}</div>
     <p class="muted"><b>Setbonus</b> ab 3 Karten im Deck: ${SET_BONUS[x][0]}. Mit allen 6: ${SET_BONUS[x][1]}.</p>
@@ -729,7 +735,7 @@ function viewShop(){
   const ao=achOpen(), tabs=[['truhen','Truhen'],['tische','Tische'],['ruecken','Kartenrücken'],['helden','Helden'],['erfolge','Erfolge'],['steine','Glutsteine']], co=S.chests.length;
   let h=`<div class="subnav">${tabs.map(([k,n])=>`<button data-act="shopTab" data-id="${k}" aria-pressed="${shopTab===k}">${n}${(k==='erfolge'&&ao)||(k==='truhen'&&co)?'<i class="dot" aria-label="neu"></i>':''}</button>`).join('')}</div>`;
   if(shopTab==='truhen') h+=`${S.chests.length?`<section class="panelbox"><div class="sec-h"><p class="eyebrow">Deine Truhen · gratis</p><span class="count">${S.chests.length}</span></div>
-  <div class="chests">${S.chests.map((x,i)=>`<div class="ch ${x.type}"><img src="bilder/truhe-${x.type}.png" alt=""><b>${CHESTS[x.type].n}</b><button class="btn primary" data-act="openOwned" data-id="${i}">Gratis öffnen</button></div>`).join('')}</div></section>`:''}
+  <div class="chests">${S.chests.map((x,i)=>`<div class="ch ${x.type}"><img src="bilder/truhe-${x.type}.png" alt=""><b>${x.src?SRC_N[x.src]+'-':''}${CHESTS[x.type].n}</b><button class="btn primary" data-act="openOwned" data-id="${i}">Gratis öffnen</button></div>`).join('')}</div></section>`:''}
   <section class="panelbox"><p class="eyebrow">Truhen kaufen · nur für Gold</p>
   <div class="chests">${Object.entries(CHESTS).map(([k,c])=>`<div class="ch ${k}"><img src="bilder/truhe-${k}.png" alt=""><b>${c.n}</b><button class="btn${S.gold>=c.price?' primary':''}" data-act="buyChest" data-id="${k}" ${S.gold>=c.price?'':'disabled'}><span class="coin"></span>${fmt(c.price)}</button></div>`).join('')}</div>
   <p class="muted">Bronze 3 Karten, Silber 4, Gold 5. Jede Karte ist eine Kreatur, ein Gegenstand oder Gold, mindestens eine ist immer eine Kreatur. Bessere Truhen bringen bessere Gegenstände und mehr Gold.</p></section>
@@ -1021,7 +1027,7 @@ function finish(){
         if(all&&!S.foeSets.includes(A.foe)){ S.foeSets.push(A.foe); BASE.filter(c=>c.set===A.foe).forEach(c=>{ if(!S.cards[c.id]) S.cards[c.id]={lvl:1,star:1,dup:0}; }); r.foeSet=SETS[A.foe].n; } }
       if(!H&&!prev){
         if(st.unlock){ if(!S.unlocked.includes(st.unlock)) S.unlocked.push(st.unlock); if(!S.cards[st.unlock]) S.cards[st.unlock]={lvl:1,star:1,dup:0}; r.unlock=st.unlock; }
-        if(st.boss){ if(!S.setsOpen.includes(st.set)) S.setsOpen.push(st.set); r.setOpen=st.set; r.chests.push('gold'); S.gems+=GEM_BOSS; r.gems=GEM_BOSS; }
+        if(st.boss){ if(!S.setsOpen.includes(st.set)) S.setsOpen.push(st.set); r.setOpen=st.set; r.chests.push('gold'); r.src='kampagne'; S.gems+=GEM_BOSS; r.gems=GEM_BOSS; }
       }
       const m={}; r.items.forEach(x=>{ const k=x.cat+x.q; if(m[k]) m[k].n+=x.n; else m[k]=Object.assign({},x); }); r.items=Object.values(m);
     }else{ r.gold=forfeit?0:5; r.xp=forfeit?0:XP.lose; }
@@ -1033,7 +1039,7 @@ function finish(){
   }else if(ctx.mode==='heraus'){
     const ch=chState(), w=ctx.w; r.chal=`${txt(ctx.rule.n,w.p)} · Kampf ${ctx.k+1} von 3`;
     if(win&&(ch.prog[w.rid]||0)===ctx.k){ ch.prog[w.rid]=ctx.k+1; r.gold=20+10*ctx.k; r.xp=XP.win;
-      if(ctx.k+1===3){ r.chests.push('silber'); r.chalDone=1; if(!ch.all&&weekRules().every(x=>(ch.prog[x.rid]||0)>=3)){ ch.all=1; r.chests.push('gold'); r.chalAll=1; } } }
+      if(ctx.k+1===3){ r.chests.push('silber'); r.src='heraus'; r.chalDone=1; if(!ch.all&&weekRules().every(x=>(ch.prog[x.rid]||0)>=3)){ ch.all=1; r.chests.push('gold'); r.chalAll=1; } } }
     else{ r.gold=forfeit?0:5; r.xp=forfeit?0:XP.lose; }
   }else{
     const rv=ctx.rival, lg=S.table.lg, d=trophyDelta(S.tr,rv.t,win), before=S.tr;
@@ -1041,14 +1047,14 @@ function finish(){
     /* Abstieg: Wer unter die Liga fällt, startet in der Mitte der Liga darunter. */
     if(!win&&lg>0&&S.tr<LEAGUES[lg].lo){ const L=LEAGUES[lg-1]; S.tr=Math.round(L.lo+(LEAGUES[lg].lo-L.lo)*.5); r.tr=S.tr-before; r.demo=L.n; S.table=mkTable(lg-1); }
     r.xp=win?XP.arena:forfeit?0:XP.lose; if(!forfeit) track('arenaFight');
-    if(win){ track('arenaWin'); S.aw++; r.gold=20+lg*5; rv.t=Math.max(LEAGUES[lg].lo,rv.t-Math.round(d/2)); if(S.aw%WIN_CHEST_EVERY===0) r.chests.push('holz'); }
+    if(win){ track('arenaWin'); S.aw++; r.gold=20+lg*5; rv.t=Math.max(LEAGUES[lg].lo,rv.t-Math.round(d/2)); if(S.aw%WIN_CHEST_EVERY===0) r.chests.push('holz'); r.src='arena'; }
     else{ S.al++; r.gold=forfeit?0:5; rv.t+=Math.round(-d/2); }
     drift(rv);
     const now=leagueOf(S.tr);
     if(now>lg){ S.table=mkTable(now); r.promo=LEAGUES[now].n; S.seasonBest=Math.max(S.seasonBest,now); if(now>S.league){ S.league=now; S.gems+=GEM_PROMO; r.gems=GEM_PROMO; r.chests.push('gold'); if(now>=4&&!S.backs.includes('champion')){ champCheck(); r.champ=1; } } }
   }
   addXp(r.xp||0); if(S.plvl>xpBefore) r.lvup=S.plvl;
-  giveItems(r.items); r.chests.forEach(t=>S.chests.push({type:t}));
+  if(ctx.mode==='arena') r.src='arena'; giveItems(r.items); r.chests.forEach(t=>S.chests.push(r.src?{type:t,src:r.src}:{type:t}));
   addGold(r.gold); persist(); result=r; skip=false; renderBattle();
   stopMusic(); jingle(r.promo?'aufstieg':win?'sieg':'niederlage',true);
 }
@@ -1078,7 +1084,7 @@ const ACT={
   tipOk(){ if(tipDone){ const f=tipDone; tipDone=null; f(); } },
   tutReset(){ S.tut=true; S.tipSeen={}; persist(); toast('Das Tutorial erscheint im nächsten Kampf.'); },
   claim(){ const d=daily(); if(d.claimed||!dailyDone()) return; d.claimed=true; S.chests.push({type:'silber'}); addXp(XP.daily); persist(); render(); toast(`Die Silbertruhe liegt jetzt im Laden. +${XP.daily} Erfahrung.`); setTimeout(showLvUp,300); },
-  openOwned(id){ const i=+id, x=S.chests[i]; if(!x) return; S.chests.splice(i,1); const res=openChest(x.type); persist(); render(); revealChests([{t:'',res}],()=>render()); },
+  openOwned(id){ const i=+id, x=S.chests[i]; if(!x) return; S.chests.splice(i,1); const res=openChest(x.type,0,{src:x.src}); if(x.src) res.name=SRC_N[x.src]+'-'+CHESTS[x.type].n; persist(); render(); revealChests([{t:'',res}],()=>render()); },
   achClaim(id){ const a=ACH.find(x=>x.id===id); if(!a||S.ach[id]!==1) return; S.ach[id]=2; S.gems+=a.g; persist(); render(); sfx('coin'); },
   albumFold(id){ if(albumOpenSets.has(id)) albumOpenSets.delete(id); else albumOpenSets.add(id); render(); },
   quickWin(id){
@@ -1152,7 +1158,7 @@ const ACT={
    Jeden Tag ein anderes Event-Set. 4 Abschnitte mit je 16 Gefechten: 12 normale (Bronzepunkte), 3 Elite (Silberpunkte), 1 Boss (Goldpunkte).
    Punkte gibt es pro neuem Stern. Eventtruhen kosten Punkte und enthalten immer eine Eventkarte. Um Mitternacht beginnt alles neu. */
 const EV_SETS=Object.keys(SETS).filter(x=>SETS[x].ev), EV_PER=16, EV_ELITE=[4,9,13], EV_TN=['Bronze','Silber','Gold'];
-const EV_MAPS={walgesang:[1,2,3,4],stationnull:[3,0,4,1],roteschlucht:[0,4,2,3],frostmark:[4,1,2,3],sternenkurs:[4,1,3,0],neonstadt:[3,0,1,4],savanne:[2,0,4,1],kirschbluete:[2,4,1,3]};
+const EV_MAPS={riff:[1,2,0,4],maerchen:[2,3,0,1],amazonen:[2,1,4,0],gladiatoren:[0,3,2,4],walgesang:[1,2,3,4],stationnull:[3,0,4,1],roteschlucht:[0,4,2,3],frostmark:[4,1,2,3],sternenkurs:[4,1,3,0],neonstadt:[3,0,1,4],savanne:[2,0,4,1],kirschbluete:[2,4,1,3]};
 const EV_AREAS={
  walgesang:['Die Brandung','Das offene Meer','Das Riff im Mondlicht','Die lichtlose Tiefe'],
  stationnull:['Die Andockschleuse','Die Kälteschlafkammer','Die Labore','Der Reaktorkern'],
@@ -1161,6 +1167,10 @@ const EV_AREAS={
  sternenkurs:['Der Raumhafen','Der Gasnebel','Die Ozeanwelt','Der Sternenstrom'],
  neonstadt:['Die Hinterhöfe','Der Nachtmarkt','Die Hochhausdächer','Der Konzernturm'],
  savanne:['Der Termitenhügel','Das hohe Gras','Die Wasserstelle','Der Affenbrotbaum'],
+ riff:['Die Lagune','Der Seegraswald','Das Korallenriff','Die Riffkante'],
+ maerchen:['Der Waldrand','Das Lebkuchenhaus','Die Dornenhecke','Das Spiegelschloss'],
+ amazonen:['Der Dschungelpfad','Die Wasserfälle','Das Kriegerlager','Der Thron der Königin'],
+ gladiatoren:['Die Kasernen','Der Übungsplatz','Die Tierkäfige','Die große Arena'],
  kirschbluete:['Der Bambuswald','Das Teehaus','Die Tempelstufen','Der Fuchsschrein']};
 const EV_CHEST=[
  {t:'holz',cost:10,n:'Event-Bronzetruhe',ev:[[0,75],[1,25]],bonus:[1,[1,2]]},
