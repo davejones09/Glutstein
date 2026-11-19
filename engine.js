@@ -473,7 +473,7 @@ function dmgCard(B,s,l,d,ev,st,by){
   const c=B[s].lanes[l]; if(!c) return {over:0,dead:false};
   if(B.round===1&&c.fx&&c.fx.dr1) d*=1-c.fx.dr1;
   const dmg=Math.max(0,Math.round(d*(1-Math.min(.75,(c.k.schild||0)*KWP.schild/100)))), over=Math.max(0,dmg-Math.max(0,c.h));
-  c.h-=dmg; ev.push({t:'hit',s,l,d:dmg,st:st||0,n:CARD[c.id].n,by});
+  c.h-=dmg; ev.push({t:'hit',s,l,d:dmg,h:Math.max(0,c.h),st:st||0,n:CARD[c.id].n,by});
   return {over,dead:c.h<=0};
 }
 function killDead(B,ev){
@@ -482,7 +482,7 @@ function killDead(B,ev){
     if(S.revive&&!S.revUsed){ S.revUsed=true; c.h=Math.max(1,Math.round(c.mh*S.revive)); ev.push({t:'revive',s,l,n:CARD[c.id].n,h:c.h}); continue; }
     any=true; S.lanes[l]=null; S.lost++; ev.push({t:'die',s,l,n:CARD[c.id].n});
     { const O=B[other(s)]; if(O.nets&&O.hp>0&&O.hp<O.maxHp){ const hb=O.hp; O.hp=Math.min(O.maxHp,O.hp+Math.round(O.maxHp*O.nets)); ev.push({t:'heroheal',s:other(s),d:O.hp-hb}); } } if(c.k.rache) hurtHero(B,other(s),c.a0*c.k.rache*KWP.rache/100,ev,'rache',CARD[c.id].n);
-    const o=B[other(s)].lanes[l]; if(c.fx&&c.fx.scare&&o&&o.h>0){ const d=Math.round(o.mh*c.fx.scare); o.h-=d; ev.push({t:'hit',s:other(s),l,d,st:0,n:CARD[o.id].n,by:'Letzter Schrecken'}); }
+    const o=B[other(s)].lanes[l]; if(c.fx&&c.fx.scare&&o&&o.h>0){ const d=Math.round(o.mh*c.fx.scare); o.h-=d; ev.push({t:'hit',s:other(s),l,d,h:Math.max(0,o.h),st:0,n:CARD[o.id].n,by:'Letzter Schrecken'}); }
   } } });
   if(!any) break; }
   ['p','e'].forEach(s=>{ for(let l=0;l<LANES;l++) refill(B,s,l,ev); });
@@ -491,7 +491,7 @@ function killDead(B,ev){
 function roundStart(B){
   const ev=[]; if(B.over) return ev; B.round++; ev.push({t:'round',r:B.round});
   if(B.round>=FATIGUE_FROM){ const d=(B.round-FATIGUE_FROM+1)*FATIGUE_DMG; hurtHero(B,'p',d,ev,'fatigue'); hurtHero(B,'e',d,ev,'fatigue'); checkOver(B,ev); if(B.over) return ev; }
-  if(B.decay) ['p','e'].forEach(s=>B[s].lanes.forEach((c,l)=>{ if(c&&c.h>0){ const d=Math.max(1,Math.round(c.mh*B.decay)); c.h-=d; ev.push({t:'hit',s,l,d,st:0,n:CARD[c.id].n,by:'Der Zerfall'}); } }));
+  if(B.decay) ['p','e'].forEach(s=>B[s].lanes.forEach((c,l)=>{ if(c&&c.h>0){ const d=Math.max(1,Math.round(c.mh*B.decay)); c.h-=d; ev.push({t:'hit',s,l,d,h:Math.max(0,c.h),st:0,n:CARD[c.id].n,by:'Der Zerfall'}); } }));
   ['p','e'].forEach(s=>{ const S=B[s]; if(S.regen&&S.hp<S.maxHp){ const b=S.hp; S.hp=Math.min(S.maxHp,S.hp+S.regen); ev.push({t:'heroheal',s,d:S.hp-b}); } });
   ['p','e'].forEach(s=>{
     const S=B[s], O=B[other(s)];
@@ -501,15 +501,15 @@ function roundStart(B){
     }
   });
   ['p','e'].forEach(s=>{ const S=B[s], O=B[other(s)];
-    if(S.curse) O.lanes.forEach((o,l)=>{ if(o&&o.h>0){ const d=Math.max(1,Math.round(o.mh*S.curse)); o.h-=d; ev.push({t:'hit',s:other(s),l,d,st:0,n:CARD[o.id].n,by:'Der Fluch des Totenwalds'}); } });
+    if(S.curse) O.lanes.forEach((o,l)=>{ if(o&&o.h>0){ const d=Math.max(1,Math.round(o.mh*S.curse)); o.h-=d; ev.push({t:'hit',s:other(s),l,d,h:Math.max(0,o.h),st:0,n:CARD[o.id].n,by:'Der Fluch des Totenwalds'}); } });
     if(B.round>1) S.lanes.forEach((c,l)=>{ if(c&&c.h>0&&c.fx&&c.fx.grow){ const add=Math.max(1,Math.round(c.a0*c.fx.grow)); c.a+=add; ev.push({t:'buff',s,l,n:CARD[c.id].n,d:add,why:'wachsen'}); } });
-    if(S.mend){ let w=-1, best=1; S.lanes.forEach((c,l)=>{ if(c&&c.h>0&&c.h/c.mh<best){ best=c.h/c.mh; w=l; } }); if(w>=0){ const c=S.lanes[w], b=c.h; c.h=Math.min(c.mh,c.h+Math.round(c.mh*S.mend)); ev.push({t:'heal',s,l:w,d:c.h-b,n:CARD[c.id].n}); } }
+    if(S.mend){ let w=-1, best=1; S.lanes.forEach((c,l)=>{ if(c&&c.h>0&&c.h/c.mh<best){ best=c.h/c.mh; w=l; } }); if(w>=0){ const c=S.lanes[w], b=c.h; c.h=Math.min(c.mh,c.h+Math.round(c.mh*S.mend)); ev.push({t:'heal',s,l:w,d:c.h-b,h:c.h,n:CARD[c.id].n}); } }
   });
   ['p','e'].forEach(s=>{
     const S=B[s];
     S.lanes.forEach((c,l)=>{ if(!c||c.h<=0) return;
-      if(c.k.heilung&&c.h<c.mh){ const b=c.h; c.h=Math.min(c.mh,c.h+Math.round(c.mh*c.k.heilung*KWP.heilung/100)); ev.push({t:'heal',s,l,d:c.h-b,n:CARD[c.id].n}); }
-      if(c.k.segen) S.lanes.forEach((o,j)=>{ if(o&&o.h>0&&o.h<o.mh){ const b=o.h; o.h=Math.min(o.mh,o.h+Math.round(o.mh*c.k.segen*KWP.segen/100)); ev.push({t:'heal',s,l:j,d:o.h-b,n:CARD[o.id].n}); } });
+      if(c.k.heilung&&c.h<c.mh){ const b=c.h; c.h=Math.min(c.mh,c.h+Math.round(c.mh*c.k.heilung*KWP.heilung/100)); ev.push({t:'heal',s,l,d:c.h-b,h:c.h,n:CARD[c.id].n}); }
+      if(c.k.segen) S.lanes.forEach((o,j)=>{ if(o&&o.h>0&&o.h<o.mh){ const b=o.h; o.h=Math.min(o.mh,o.h+Math.round(o.mh*c.k.segen*KWP.segen/100)); ev.push({t:'heal',s,l:j,d:o.h-b,h:o.h,n:CARD[o.id].n}); } });
     });
   });
   killDead(B,ev); checkOver(B,ev);

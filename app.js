@@ -151,6 +151,7 @@ function sane(j){
   s.backs=(Array.isArray(s.backs)?s.backs:[]).filter(b=>BACKS[b]); if(!s.backs.includes('standard')) s.backs.unshift('standard'); if(!s.backs.includes(s.back)) s.back='standard';
   /* Sondermotive: früher 1 = besessen, jetzt Liste der gefundenen Motive. */
   for(const id in s.skins){ const v=s.skins[id]; s.skins[id]=Array.isArray(v)?v.filter(x=>x>=1&&x<=(SKINS[id]||0)):(v&&SKINS[id]?[1]:[]); if(!s.skins[id].length) delete s.skins[id]; }
+  if(!s.skinNew||typeof s.skinNew!=='object') s.skinNew={};
   for(const id in s.skinOn){ const v=s.skinOn[id]|0; s.skinOn[id]=(s.skins[id]||[]).includes(v)?v:0; }
   s.name=(typeof s.name==='string'&&s.name.trim()?s.name.trim():f.name).slice(0,16);
   s.themes=(Array.isArray(s.themes)?s.themes:[]).filter(t=>THEMES[t]); if(!s.themes.includes('tanne')) s.themes.unshift('tanne');
@@ -190,7 +191,7 @@ function grant(id,skin){
   else{ o.dup++; kind='dup'; }
   const r={id,kind}; if(kind==='gold') r.gold=DUP_GOLD[CARD[id].r];
   if(skin){ const own=ownSkins(id), free=[]; for(let v=1;v<=(SKINS[id]||0);v++) if(!own.includes(v)) free.push(v);
-    if(free.length){ const v=free[Math.floor(Math.random()*free.length)]; S.skins[id]=own.concat(v).sort(); S.skinOn[id]=v; r.skin=v; } }
+    if(free.length){ const v=free[Math.floor(Math.random()*free.length)]; S.skins[id]=own.concat(v).sort(); S.skinOn[id]=v; S.skinNew[id]=1; r.skin=v; } }
   return r;
 }
 function rollRar(odds){ const v=Math.random()*100; let a=0; for(let i=0;i<4;i++){ a+=odds[i]; if(v<a) return i; } return 3; }
@@ -673,7 +674,7 @@ function viewMap(){
 function tile(id,inRow){
   const o=S.cards[id];
   if(!o) return `<div class="tile"><span class="back" aria-label="Noch nicht gefunden"></span><span class="q" aria-hidden="true">?</span></div>`;
-  const flag=canUp(id)?'<span class="flag up">aufwertbar</span>':!inRow&&deck().includes(id)?'<span class="flag">im Deck</span>':'';
+  const flag=S.skinNew[id]?'<span class="flag sk">✦ Neues Sondermotiv</span>':canUp(id)?'<span class="flag up">aufwertbar</span>':!inRow&&deck().includes(id)?'<span class="flag">im Deck</span>':'';
   return `<button class="tile" data-act="card" data-id="${id}" aria-label="${CARD[id].n}">${cardHTML({id,lvl:o.lvl,star:o.star})}${flag}</button>`;
 }
 function itemsPanel(){
@@ -705,7 +706,7 @@ function viewAlbum(){
   let h=`<section><h2>Sammelbuch</h2><p class="muted">Jedes vollständige Set bringt einmalig ${ALBUM_REWARD.gems} Glutsteine und ${ALBUM_REWARD.gold} Gold. Tippe ein Set an, um es auf- oder zuzuklappen.</p></section>`;
   knownSets().forEach(x=>{
     const cards=BASE.filter(c=>c.set===x), have=cards.filter(c=>S.cards[c.id]).length, sk=cards.reduce((n,c)=>n+ownSkins(c.id).length,0), skT=cards.reduce((n,c)=>n+(SKINS[c.id]||0),0), full=have===cards.length, open=albumOpenSets.has(x), claim=full&&!S.album[x];
-    h+=`<section class="panelbox${full?' setdone':''}"><button class="album-h fold" data-act="albumFold" data-id="${x}" aria-expanded="${open}"><span class="setchip${full?' on':''}" style="--fc:${SCOL(x)}"><i>${SETS[x].l}</i>${SETS[x].n}</span><span class="count">${setSrc(x)?`<b class="srcic" title="Häufiger in ${SRC_N[setSrc(x)]}-Truhen">${SRC_ICON[setSrc(x)]} ${SRC_N[setSrc(x)]}</b> · `:''}${setCats(x)} · ${have}/${cards.length} Karten · ${sk}/${skT} Sondermotive</span>${full?'<span class="done-ck" aria-label="komplett">✓</span>':''}${claim?'<i class="dot" aria-label="Belohnung"></i>':''}<span class="chev" aria-hidden="true">${open?'▴':'▾'}</span></button>
+    h+=`<section class="panelbox${full?' setdone':''}"><button class="album-h fold" data-act="albumFold" data-id="${x}" aria-expanded="${open}"><span class="setchip${full?' on':''}" style="--fc:${SCOL(x)}"><i>${SETS[x].l}</i>${SETS[x].n}</span><span class="count">${setSrc(x)?`<b class="srcic" title="Häufiger in ${SRC_N[setSrc(x)]}-Truhen">${SRC_ICON[setSrc(x)]} ${SRC_N[setSrc(x)]}</b> · `:''}${setCats(x)} · ${have}/${cards.length} Karten · ${sk}/${skT} Sondermotive</span>${full?'<span class="done-ck" aria-label="komplett">✓</span>':''}${cards.some(c=>S.skinNew[c.id])?'<i class="dot sk" aria-label="Neues Sondermotiv"></i>':''}${claim?'<i class="dot" aria-label="Belohnung"></i>':''}<span class="chev" aria-hidden="true">${open?'▴':'▾'}</span></button>
     <div class="bar"><i style="width:${Math.round(have/cards.length*100)}%;background:${SCOL(x)}"></i></div>
     ${open?`<div class="grid g3">${cards.map(c=>tile(c.id)).join('')}</div>
     <p class="muted"><b>Setbonus</b> ab 3 Karten im Deck: ${SET_BONUS[x][0]}. Mit allen 6: ${SET_BONUS[x][1]}.</p>
@@ -813,6 +814,7 @@ function sheetRival(seed){
   <div class="row-btns"><button class="btn" data-act="close">Zurück</button><button class="btn primary" data-act="duel" data-id="${r.s}">Duell starten</button></div>`);
 }
 function sheetCard(id){
+  if(S.skinNew[id]){ delete S.skinNew[id]; persist(); setTimeout(()=>{ if(tab==='album') render(); },0); }
   const d=CARD[id], o=S.cards[id]; if(!o) return; const kws=kwLong(kwOf(id,o.star)), inD=deck().includes(id), full=deck().length>=DECK_MAX, cap=o.star*5, now=stats(id,o.lvl,o.star), have=S.items[d.cat][d.r], iname=itemName(d.cat,d.r);
   let act='';
   if(o.lvl<cap){ const c=lvlCost(o.lvl), nx=stats(id,o.lvl+1,o.star), mi=Math.max(0,c.n-have), mg=Math.max(0,c.g-S.gold);
@@ -836,7 +838,7 @@ function drawReveal(){
   const it=LQ.items[LQ.ci], res=it.res, C=CHESTS[res.type], head=`<p class="eyebrow">${res.name||C.n}${LQ.items.length>1?` · ${LQ.ci+1} von ${LQ.items.length}`:''}</p>`;
   if(LQ.ki>=res.cards.length){
     const more=LQ.ci<LQ.items.length-1;
-    openSheet(`${head}<h2>${it.t||'Das war drin'}</h2><div class="grid g5">${res.cards.map((x,k)=>x.t==='kreatur'?`<button class="loot-i" data-act="artOpen" data-id="${x.id}">${cardHTML({id:x.id,lvl:S.cards[x.id].lvl,star:S.cards[x.id].star,skin:x.skin||undefined})}${x.mult>1?`<span class="mult">×${x.mult}</span>`:''}<span class="lt ${x.skin?'sp':x.kind}">${x.skin?'Sondermotiv':x.kind==='neu'?'Neu':x.kind==='dup'?'Doppelt':'+'+x.gold+' Gold'}</span></button>`:`<div class="loot-i">${lootCardHTML(x)}<span class="lt">${lootLabel(x)}</span></div>`).join('')}</div>
+    openSheet(`${head}<h2>${it.t||'Das war drin'}</h2><div class="grid g5">${res.cards.map((x,k)=>x.t==='kreatur'?`<button class="loot-i" data-act="artOpen" data-id="${x.id}">${cardHTML({id:x.id,lvl:S.cards[x.id].lvl,star:S.cards[x.id].star,skin:x.skin||undefined})}${x.mult>1?`<span class="mult">×${x.mult}</span>`:''}<span class="lt ${x.skin?'sp':x.kind}">${x.skin?'✦ Sondermotiv':x.kind==='neu'?'Neu':x.kind==='dup'?'Doppelt':'+'+x.gold+' Gold'}</span></button>`:`<div class="loot-i">${lootCardHTML(x)}<span class="lt">${lootLabel(x)}</span></div>`).join('')}</div>
     <button class="btn primary block" data-act="${more?'lootNextChest':'lootDone'}">${more?'Nächste Truhe':'Fertig'}</button>`,true); return;
   }
   const x=res.cards[LQ.ki], rar=lootRar(x);
@@ -844,8 +846,8 @@ function drawReveal(){
   if(x.t!=='kreatur'){ openSheet(`${head}<div class="reveal"><div class="big"><div class="flip"><div class="fi"><div class="ff">${lootCardHTML(x)}</div><div class="fb"><span class="back"></span></div></div></div></div>
     <p class="lt neu">${lootLabel(x)}</p><h2>${lootTitle(x)}</h2><p class="muted">${lootText(x)}</p></div><button class="btn primary block" data-act="lootNext">Weiter</button>`,true); return; }
   const d=CARD[x.id], o=S.cards[x.id], kws=kwLong(kwOf(x.id,o.star));
-  openSheet(`${head}<div class="reveal r${d.r}"><div class="big"><div class="flip"><div class="fi"><div class="ff">${cardHTML({id:x.id,lvl:o.lvl,star:o.star,skin:x.skin||undefined})}${x.mult>1?`<span class="mult big">×${x.mult}</span>`:''}</div><div class="fb"><span class="back"></span></div></div></div></div>
-  <p class="lt ${x.skin?'sp':x.kind}">${kindLabel(x)}${x.skin?' · mit Sondermotiv!':''}</p><h2>${d.n}</h2><p class="meta">${CATS[d.cat]} · Set ${SETS[d.set].n} · ${RAR[d.r]}${!isUnlocked(x.id)?' · noch nicht freigeschaltet':''}</p>
+  openSheet(`${head}<div class="reveal r${d.r}"><div class="big"><div class="flip"><div class="fi"><div class="ff${x.skin?' skinrev':''}">${cardHTML({id:x.id,lvl:o.lvl,star:o.star,skin:x.skin||undefined})}${x.mult>1?`<span class="mult big">×${x.mult}</span>`:''}${x.skin?'<span class="skinband">✦ Sondermotiv ✦</span>':''}</div><div class="fb"><span class="back"></span></div></div></div></div>
+  ${x.skin?'<p class="skinnote">✦ Neues Sondermotiv freigeschaltet! ✦</p>':''}<p class="lt ${x.kind}">${kindLabel(x)}</p><h2>${d.n}</h2><p class="meta">${CATS[d.cat]} · Set ${SETS[d.set].n} · ${RAR[d.r]}${!isUnlocked(x.id)?' · noch nicht freigeschaltet':''}</p>
   <p class="lore">„${LORE[d.id]}“</p>${kws.length?`<ul class="gloss">${kws.map(k=>`<li>${k}</li>`).join('')}</ul>`:''}<p class="meta">${elLine(d.cat)}</p></div>
   <button class="btn primary block" data-act="lootNext">Weiter</button>`,true);
 }
@@ -889,7 +891,7 @@ function resultHTML(){
   if(arena) lines+=`<p class="r-line">${r.tr>=0?'+':'−'}${Math.abs(r.tr)} Pokale <small>jetzt ${S.tr}</small></p>`;
   if(r.chal) lines+=`<p class="r-line">${r.chal}${r.chalDone?' · <b>Herausforderung geschafft!</b>':''}</p>`;
   if(r.chalAll) lines+=`<p class="r-line">Alle drei Herausforderungen der Woche geschafft: Goldtruhe!</p>`;
-  if(r.evPts) lines+=r.evPts.n?`<p class="r-line"><img src="${medal(r.evPts.tier)}" alt="" width="30" height="30">+${r.evPts.n} ${EV_TN[r.evPts.tier]}punkte</p>`:`<p class="muted">Keine neuen Sterne, deshalb keine weiteren Punkte für dieses Gefecht.</p>`;
+  if(r.evPts) lines+=`<p class="r-line"><img src="${medal(r.evPts.tier)}" alt="" width="30" height="30">+${r.evPts.n} ${EV_TN[r.evPts.tier]}punkt${r.evPts.n>1?'e':''}${r.evPts.rep?' (Wiederholung)':''}</p>`;
   if(r.evOld) lines+=`<p class="muted">Das Event ist inzwischen gewechselt.</p>`;
   if(r.gold) lines+=`<p class="r-line"><span class="coin"></span>+${r.gold} Gold${r.bonus?` <small>davon ${r.bonus} für den 3. Stern</small>`:''}</p>`;
   if(r.star2) lines+=`<p class="muted">2. Stern: +${r.star2.n} ${itemName(r.star2.cat,r.star2.q)} extra</p>`;
@@ -958,10 +960,10 @@ async function anim(ev,g){
     else if(e.t==='enter'){ entered.add(e.s+e.l); if(died.has(e.s+e.l)) continue; renderBattle(); const el=cardEl(e.s,e.l); el&&el.classList.add('pop'); sfx('place'); await wait(T()*.7); }
     else if(e.t==='skill'){ const el=cardEl(e.s,e.l); el&&el.classList.add('buff'); await wait(T()*.5); }
     else if(e.t==='clash'){ const a=cardEl('p',e.l), b=cardEl('e',e.l); a&&a.classList.add(e.fly.p?'swoop-up':'lunge-up'); b&&b.classList.add(e.fly.e?'swoop-dn':'lunge-dn'); await wait(T()*(e.fly.p||e.fly.e?.75:.45)); }
-    else if(e.t==='hit'){ const el=ghostIn(e.s,e.l); if(el){ el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); const hp=el.querySelector('.hp'); if(hp){ hp.textContent=Math.max(0,+hp.textContent-e.d); hp.classList.add('hurt'); } } sfx(e.st?'crit':'hit'); burstAt(el||slotEl(e.s,e.l),e.st?1.6:1); floatAt(el||slotEl(e.s,e.l),(e.d>0?'−'+e.d:'0')+(e.st?'!':''),e.st?'crit':'dmg'); await wait(T()*.7); if(e.st&&e.s==='e') await tip('strong'); }
+    else if(e.t==='hit'){ const el=ghostIn(e.s,e.l); if(el){ el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); const hp=el.querySelector('.hp'); if(hp){ hp.textContent=e.h!=null?e.h:Math.max(0,+hp.textContent-e.d); hp.classList.add('hurt'); } } sfx(e.st?'crit':'hit'); burstAt(el||slotEl(e.s,e.l),e.st?1.6:1); floatAt(el||slotEl(e.s,e.l),(e.d>0?'−'+e.d:'0')+(e.st?'!':''),e.st?'crit':'dmg'); await wait(T()*.7); if(e.st&&e.s==='e') await tip('strong'); }
     else if(e.t==='die'){ const el=ghostIn(e.s,e.l); if(el){ el.classList.add('dying'); } sfx('die'); await wait(T()*.6); }
     else if(e.t==='hero'){ const h=$('#hero-'+e.s); if(h){ h.classList.add('flash'); const n=h.querySelector('.hpnum'); n.textContent=B[e.s].hp; h.querySelector('.hpbar i').style.width=Math.max(0,B[e.s].hp/B[e.s].maxHp*100)+'%'; floatAt(n,'−'+e.d,'dmg'); } sfx('hero'); await wait(T()*.7); if(e.why==='leer') await tip('hero'); }
-    else if(e.t==='heal'){ const el=cardEl(e.s,e.l); if(el){ floatAt(el,'+'+e.d,'heal'); const hp=el.querySelector('.hp'); if(hp) hp.textContent=+hp.textContent+e.d; } sfx('heal'); await wait(T()*.45); }
+    else if(e.t==='heal'){ const el=cardEl(e.s,e.l); if(el){ floatAt(el,'+'+e.d,'heal'); const hp=el.querySelector('.hp'); if(hp) hp.textContent=e.h!=null?e.h:+hp.textContent+e.d; } sfx('heal'); await wait(T()*.45); }
     else if(e.t==='revive'){ const el=ghostIn(e.s,e.l); if(el){ el.classList.remove('dying'); floatAt(el,'+'+e.h,'heal'); const hp=el.querySelector('.hp'); if(hp){ hp.textContent=e.h; } } sfx('heal'); await wait(T()*.6); }
     else if(e.t==='heroheal'){ const h=$('#hero-'+e.s); h&&floatAt(h.querySelector('.hpnum'),'+'+e.d,'heal'); sfx('heal'); await wait(T()*.45); }
     else if(e.t==='buff'){ const el=cardEl(e.s,e.l); if(el){ el.classList.add('buff'); floatAt(el,'+'+e.d,'buffn'); const at=el.querySelector('.atk'); if(at){ at.textContent=+at.textContent+e.d; at.classList.add('up'); } } await wait(T()*.45); }
@@ -1034,7 +1036,9 @@ function finish(){
   }else if(ctx.mode==='event'){
     const E=ev(), st=ctx.stage;
     if(win&&E.day===ctx.day){ const prev=E.st[st.k]||0, n=Math.max(0,r.stars-prev); track('evWin'); if(r.stars===3) track('evThree');
-      if(n){ E.pts[st.tier]+=n; E.st[st.k]=r.stars; } r.evPts={tier:st.tier,n}; r.xp=XP.win+XP.star*n; }
+      if(n){ E.pts[st.tier]+=n; E.st[st.k]=r.stars; r.evPts={tier:st.tier,n}; }
+      else{ /* Wiederholung: 1 Bronze, Bosse dreimal am Tag 1 Silber. */ E.rep=E.rep||{}; const k=st.k, used=E.rep[k]||0, t=st.boss&&used<3?1:0; if(st.boss) E.rep[k]=used+1; E.pts[t]++; r.evPts={tier:t,n:1,rep:1}; }
+      r.xp=XP.win+XP.star*n; }
     else{ r.xp=forfeit?0:XP.lose; if(win) r.evOld=1; }
   }else if(ctx.mode==='heraus'){
     const ch=chState(), w=ctx.w; r.chal=`${txt(ctx.rule.n,w.p)} · Kampf ${ctx.k+1} von 3`;
@@ -1104,7 +1108,7 @@ const ACT={
   levelUp(id){ if(!canLevel(id)) return; const o=S.cards[id], d=CARD[id], c=lvlCost(o.lvl); S.items[d.cat][d.r]-=c.n; S.gold-=c.g; o.lvl++; track('lvl:'+d.cat); persist(); render(); sheetCard(id); sfx('coin'); },
   starUp(id){ if(!canStar(id)) return; const o=S.cards[id], u=STAR_UP[o.star+1]; o.dup-=u.d; S.gold-=u.g; o.star++; track('star'); persist(); render(); sheetCard(id); sfx('coin'); toast(`${CARD[id].n} hat jetzt ${'★'.repeat(o.star)}.`); },
   buyChest(id){ const C=CHESTS[id]; if(!C) return; if(S.gold<C.price){ toast(`Dir fehlen ${C.price-S.gold} Gold.`); return; } S.gold-=C.price; const res=openChest(id); persist(); render(); revealChests([{t:'',res}],()=>render()); },
-  lootFlip(){ LQ.flipped=true; const x=LQ.items[LQ.ci].res.cards[LQ.ki], r=lootRar(x); sfx(r>=2||x.kind==='neu'||x.skin?'coin':'flip'); if(r>=1&&x.t==='kreatur') sfx('rare'+r); if(r===3&&x.t==='kreatur'&&!RM){ document.body.classList.remove('quake'); void document.body.offsetWidth; document.body.classList.add('quake'); } drawReveal(); },
+  lootFlip(){ LQ.flipped=true; const x=LQ.items[LQ.ci].res.cards[LQ.ki], r=lootRar(x); sfx(r>=2||x.kind==='neu'||x.skin?'coin':'flip'); if(x.skin) sfx('rare3'); else if(r>=1&&x.t==='kreatur') sfx('rare'+r); if(r===3&&x.t==='kreatur'&&!RM){ document.body.classList.remove('quake'); void document.body.offsetWidth; document.body.classList.add('quake'); } drawReveal(); },
   lootNext(){ LQ.ki++; LQ.flipped=false; drawReveal(); },
   lootNextChest(){ LQ.ci++; LQ.ki=0; LQ.flipped=false; jingle('truhe'); drawReveal(); },
   lootDone(){ const f=LQ&&LQ.onDone; LQ=null; closeSheet(); f&&f(); setTimeout(showLvUp,200); },
