@@ -644,6 +644,14 @@ img.pt.bi-pt{width:min(46vh,240px);height:min(46vh,240px);filter:drop-shadow(0 0
 .card.r3.shake{animation:shake .22s linear}.card.r3.dying{animation:dying .35s ease-in forwards}
 .card.r3.flash{animation:flash .3s ease}.card.r3.buff{animation:buff .3s ease}
 .srcic{color:#e8c46a;font-weight:800}
+/* Sondermotiv beim Aufdecken */
+.ff.skinrev{position:relative}
+.ff.skinrev::after{content:"";position:absolute;inset:-6px;border-radius:14px;pointer-events:none;box-shadow:0 0 0 2px #ffd977,0 0 28px 6px rgba(255,200,90,.75);animation:skglow 1.6s ease-in-out infinite}
+@keyframes skglow{50%{box-shadow:0 0 0 2px #fff0b8,0 0 44px 12px rgba(255,215,120,.95)}}
+.skinband{position:absolute;left:50%;top:-12px;transform:translateX(-50%);z-index:3;white-space:nowrap;padding:4px 12px;border-radius:999px;background:linear-gradient(#ffe7a0,#d6a032);color:#2a1a06;font:900 13px/1 var(--body);letter-spacing:.04em;box-shadow:0 2px 10px rgba(0,0,0,.6),0 0 14px rgba(255,210,110,.8);animation:bipop .6s cubic-bezier(.2,1.6,.4,1) both}
+.skinnote{margin:4px 0 0;text-align:center;font:900 17px/1.2 var(--body);color:#ffd977;text-shadow:0 0 12px rgba(255,200,90,.7)}
+.flag.sk{background:linear-gradient(#ffe7a0,#d6a032);color:#2a1a06}
+.dot.sk{background:#ffd977;box-shadow:0 0 8px #ffd977}
 </style>
 </head>
 <body>
