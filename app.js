@@ -281,7 +281,7 @@ function audioInit(){
   if(AC) return true;
   try{
     AC=new (window.AudioContext||window.webkitAudioContext)();
-    mOut=AC.createGain(); sOut=AC.createGain(); aOut=AC.createGain(); mOut.connect(AC.destination); sOut.connect(AC.destination); aOut.connect(AC.destination); applyVol(); ambStart();
+    mOut=AC.createGain(); sOut=AC.createGain(); aOut=AC.createGain(); mOut.connect(AC.destination); sOut.connect(AC.destination); aOut.connect(AC.destination); applyVol(); ambStart(); sampleLoad();
     LOOPS.concat(JINGLES).forEach(n=>{
       const a=new Audio('musik/'+n+'.mp3'); a.preload='auto'; a.setAttribute('playsinline','');
       const g=AC.createGain(); g.gain.value=0; AC.createMediaElementSource(a).connect(g); g.connect(mOut); AU[n]={a,g};
@@ -318,15 +318,22 @@ function tone(f,d,type,vol,when,slide){
   if(slide) o.frequency.exponentialRampToValueAtTime(Math.max(30,f*slide),t+d);
   g.gain.setValueAtTime(vol,t); g.gain.exponentialRampToValueAtTime(.0001,t+d); o.connect(g); g.connect(sOut); o.start(t); o.stop(t+d+.02);
 }
+/* Echte Geräusche (Ordner sfx/). Fallen auf die erzeugten Töne zurück, solange sie noch laden. */
+const SAMPLES=['schlag','karte','truhe','tod','klick','aufwerten','nein','funkeln','held','heilung','faehigkeit'], SBUF={}, SLAST={};
+function sampleLoad(){ SAMPLES.forEach(n=>fetch('sfx/'+n+'.mp3').then(r=>r.arrayBuffer()).then(b=>AC.decodeAudioData(b)).then(buf=>{ SBUF[n]=buf; }).catch(()=>{})); }
+/* gap: Mindestabstand in Sekunden, damit sich schnelle Wiederholungen nicht stapeln. */
+function sample(n,vol,rate,gap){ if(!AC||!SBUF[n]) return false; const t=AC.currentTime; if(gap&&SLAST[n]&&t-SLAST[n]<gap) return true; SLAST[n]=t;
+  const src=AC.createBufferSource(), g=AC.createGain(); src.buffer=SBUF[n]; src.playbackRate.value=rate||1; g.gain.value=vol==null?1:vol; src.connect(g); g.connect(sOut); src.start(); return true; }
 const SFX={
-  tap:()=>tone(620,.05,'triangle',.05), place:()=>tone(240,.12,'triangle',.12,0,.6), hit:()=>tone(170,.1,'square',.06,0,.5),
-  crit:()=>{ tone(220,.12,'square',.08,0,.4); tone(660,.08,'triangle',.05,.02); },
-  die:()=>tone(120,.25,'sawtooth',.06,0,.3), hero:()=>tone(90,.2,'sawtooth',.09,0,.5), heal:()=>tone(700,.18,'sine',.07,0,1.5),
+  tap:()=>sample('klick',.45,1,.04)||tone(620,.05,'triangle',.05), place:()=>sample('karte',.8,1,.05)||tone(240,.12,'triangle',.12,0,.6), hit:()=>sample('schlag',.6,1.05,.06)||tone(170,.1,'square',.06,0,.5),
+  crit:()=>{ if(!sample('schlag',.9,.85,.06)) tone(220,.12,'square',.08,0,.4); tone(660,.08,'triangle',.04,.02); },
+  die:()=>sample('tod',.7,1,.1)||tone(120,.25,'sawtooth',.06,0,.3), hero:()=>sample('held',.8,1,.15)||tone(90,.2,'sawtooth',.09,0,.5), heal:()=>sample('heilung',.6,1,.25)||tone(700,.18,'sine',.07,0,1.5),
+  skill:()=>sample('faehigkeit',.45,1,.3), chest:()=>sample('truhe',.85)||tone(300,.15,'triangle',.08), up:()=>sample('aufwerten',.6)||SFX.coin(), need:()=>sample('nein',.5,1,.4),
   coin:()=>{ tone(990,.08,'triangle',.07); tone(1480,.14,'triangle',.07,.07); },
-  flip:()=>{ tone(500,.06,'triangle',.06); tone(900,.12,'sine',.05,.05); },
+  flip:()=>sample('karte',.7,1.1,.05)||(tone(500,.06,'triangle',.06),tone(900,.12,'sine',.05,.05)),
   rare1:()=>{ [660,880].forEach((f,i)=>tone(f,.25,'sine',.07,i*.09)); },
-  rare2:()=>{ [523,659,784,1047].forEach((f,i)=>tone(f,.35,'triangle',.07,i*.08)); },
-  rare3:()=>{ [523,659,784,1047,1319,1568].forEach((f,i)=>tone(f,.6,'triangle',.08,i*.07)); tone(80,.8,'sine',.18,0,.5); }
+  rare2:()=>{ if(!sample('funkeln',.55)) [523,659,784,1047].forEach((f,i)=>tone(f,.35,'triangle',.07,i*.08)); },
+  rare3:()=>{ if(!sample('funkeln',.75,.9)) [523,659,784,1047,1319,1568].forEach((f,i)=>tone(f,.6,'triangle',.08,i*.07)); tone(80,.8,'sine',.18,0,.5); }
 };
 function sfx(n){ if(!AC||skip) return; try{ if(AC.state==='suspended') AC.resume(); SFX[n]&&SFX[n](); }catch(e){} }
 document.addEventListener('pointerdown',()=>{ if(audioInit()){ if(AC.state==='suspended') AC.resume(); if(!curLoop&&!B) music(wantLoop); } },{capture:true});
@@ -608,7 +615,7 @@ function kindLabel(x){
   const o=S.cards[x.id], u=STAR_UP[o.star+1]; return u?`Doppelt · ${o.dup} von ${u.d} für ${'★'.repeat(o.star+1)}`:'Doppelt';
 }
 let toastT=0;
-function toast(msg){ const t=$('#toast'); if(!t) return; t.textContent=msg; t.classList.add('on'); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('on'),2800); }
+function toast(msg){ if(/mindestens|nicht leer|nicht genug|zu wenig|gesperrt|fehlt/i.test(msg)) sfx('need'); const t=$('#toast'); if(!t) return; t.textContent=msg; t.classList.add('on'); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('on'),2800); }
 function openSheet(html,modal){ const s=$('#sheet'); s.innerHTML=`<div class="scrim"${modal?'':' data-act="close"'}></div><div class="panel" role="dialog" aria-modal="true">${html}</div>`; s.hidden=false; s.dataset.modal=modal?'1':''; }
 function closeSheet(){ const s=$('#sheet'); s.hidden=true; s.innerHTML=''; s.dataset.modal=''; setTimeout(flushAch,50); }
 
@@ -833,7 +840,8 @@ function sheetCard(id){
 }
 /* ====== Truhe aufdecken: Karte für Karte umdrehen ====== */
 let LQ=null;
-function revealChests(items,onDone){ if(!items.length) return; LQ={items,ci:0,ki:0,flipped:false,onDone}; jingle('truhe'); drawReveal(); }
+function chestSnd(it){ sfx('chest'); const t=it&&it.res&&it.res.type; if(t==='gold'||(it&&it.res&&it.res.name&&/Event/.test(it.res.name))) setTimeout(()=>sfx('rare1'),380); }
+function revealChests(items,onDone){ if(!items.length) return; LQ={items,ci:0,ki:0,flipped:false,onDone}; chestSnd(items[0]); drawReveal(); }
 function drawReveal(){
   const it=LQ.items[LQ.ci], res=it.res, C=CHESTS[res.type], head=`<p class="eyebrow">${res.name||C.n}${LQ.items.length>1?` · ${LQ.ci+1} von ${LQ.items.length}`:''}</p>`;
   if(LQ.ki>=res.cards.length){
@@ -958,7 +966,7 @@ async function anim(ev,g){
     const txt=narrate(e); if(txt) setInfo(txt);
     if(e.t==='round'){ const m=document.querySelector('#b-root .midline'); if(m) m.textContent='Runde '+e.r; await wait(T()*.5); }
     else if(e.t==='enter'){ entered.add(e.s+e.l); if(died.has(e.s+e.l)) continue; renderBattle(); const el=cardEl(e.s,e.l); el&&el.classList.add('pop'); sfx('place'); await wait(T()*.7); }
-    else if(e.t==='skill'){ const el=cardEl(e.s,e.l); el&&el.classList.add('buff'); await wait(T()*.5); }
+    else if(e.t==='skill'){ const el=cardEl(e.s,e.l); el&&el.classList.add('buff'); sfx('skill'); await wait(T()*.5); }
     else if(e.t==='clash'){ const a=cardEl('p',e.l), b=cardEl('e',e.l); a&&a.classList.add(e.fly.p?'swoop-up':'lunge-up'); b&&b.classList.add(e.fly.e?'swoop-dn':'lunge-dn'); await wait(T()*(e.fly.p||e.fly.e?.75:.45)); }
     else if(e.t==='hit'){ const el=ghostIn(e.s,e.l); if(el){ el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); const hp=el.querySelector('.hp'); if(hp){ hp.textContent=e.h!=null?e.h:Math.max(0,+hp.textContent-e.d); hp.classList.add('hurt'); } } sfx(e.st?'crit':'hit'); burstAt(el||slotEl(e.s,e.l),e.st?1.6:1); floatAt(el||slotEl(e.s,e.l),(e.d>0?'−'+e.d:'0')+(e.st?'!':''),e.st?'crit':'dmg'); await wait(T()*.7); if(e.st&&e.s==='e') await tip('strong'); }
     else if(e.t==='die'){ const el=ghostIn(e.s,e.l); if(el){ el.classList.add('dying'); } sfx('die'); await wait(T()*.6); }
@@ -1105,12 +1113,12 @@ const ACT={
   skinSel(x){ const [id,v]=x.split(':'), n=+v; if(n&&!ownSkins(id).includes(n)) return; S.skinOn[id]=n; persist(); render(); sheetCard(id); },
   saveNow(){ sheetSettings(); setTimeout(()=>{ const el=$('#savecode'); if(el) el.scrollIntoView({block:'center'}); ACT.export(); },60); },
   fxToggle(){ S.fxOff=!S.fxOff; persist(); ambApply(); sheetSettings(); },
-  levelUp(id){ if(!canLevel(id)) return; const o=S.cards[id], d=CARD[id], c=lvlCost(o.lvl); S.items[d.cat][d.r]-=c.n; S.gold-=c.g; o.lvl++; track('lvl:'+d.cat); persist(); render(); sheetCard(id); sfx('coin'); },
-  starUp(id){ if(!canStar(id)) return; const o=S.cards[id], u=STAR_UP[o.star+1]; o.dup-=u.d; S.gold-=u.g; o.star++; track('star'); persist(); render(); sheetCard(id); sfx('coin'); toast(`${CARD[id].n} hat jetzt ${'★'.repeat(o.star)}.`); },
+  levelUp(id){ if(!canLevel(id)) return; const o=S.cards[id], d=CARD[id], c=lvlCost(o.lvl); S.items[d.cat][d.r]-=c.n; S.gold-=c.g; o.lvl++; track('lvl:'+d.cat); persist(); render(); sheetCard(id); sfx('up'); },
+  starUp(id){ if(!canStar(id)) return; const o=S.cards[id], u=STAR_UP[o.star+1]; o.dup-=u.d; S.gold-=u.g; o.star++; track('star'); persist(); render(); sheetCard(id); sfx('up'); toast(`${CARD[id].n} hat jetzt ${'★'.repeat(o.star)}.`); },
   buyChest(id){ const C=CHESTS[id]; if(!C) return; if(S.gold<C.price){ toast(`Dir fehlen ${C.price-S.gold} Gold.`); return; } S.gold-=C.price; const res=openChest(id); persist(); render(); revealChests([{t:'',res}],()=>render()); },
   lootFlip(){ LQ.flipped=true; const x=LQ.items[LQ.ci].res.cards[LQ.ki], r=lootRar(x); sfx(r>=2||x.kind==='neu'||x.skin?'coin':'flip'); if(x.skin) sfx('rare3'); else if(r>=1&&x.t==='kreatur') sfx('rare'+r); if(r===3&&x.t==='kreatur'&&!RM){ document.body.classList.remove('quake'); void document.body.offsetWidth; document.body.classList.add('quake'); } drawReveal(); },
   lootNext(){ LQ.ki++; LQ.flipped=false; drawReveal(); },
-  lootNextChest(){ LQ.ci++; LQ.ki=0; LQ.flipped=false; jingle('truhe'); drawReveal(); },
+  lootNextChest(){ LQ.ci++; LQ.ki=0; LQ.flipped=false; chestSnd(LQ.items[LQ.ci]); drawReveal(); },
   lootDone(){ const f=LQ&&LQ.onDone; LQ=null; closeSheet(); f&&f(); setTimeout(showLvUp,200); },
   theme(id){
     const t=THEMES[id]; if(!t) return;

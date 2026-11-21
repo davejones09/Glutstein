@@ -79,3 +79,8 @@ Beim einzelnen Motiv immer das Format dazuschreiben:
 ## Musik (Suno)
 
 Stilfeld auf Englisch, „Instrumental“ an. Pro Bereich liegen Stücke in `musik/` (`menue`, `karte`, `kampf`, `endgegner`, `arena`, jeweils mit `-2` usw.), komprimiert auf 96 kbit/s. Neue Stücke in `POOLS` in app.js eintragen.
+
+## Soundeffekte
+
+Liegen in `sfx/` (Mono, 64 kbit/s, auf gleiche Lautstärke gebracht). Quellen: Pixabay (Lizenz erlaubt Nutzung im Spiel ohne Namensnennung).
+schlag (Treffer), karte (Karte legen/aufdecken), truhe (Truhe öffnen), tod (Karte stirbt), held (Held getroffen), heilung, faehigkeit (Einschlag), aufwerten (Level/Stern), nein (nicht möglich), funkeln (seltene Karte), klick (Knöpfe). Münz-Sound fehlt noch.
