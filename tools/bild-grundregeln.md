@@ -83,4 +83,4 @@ Stilfeld auf Englisch, „Instrumental“ an. Pro Bereich liegen Stücke in `mus
 ## Soundeffekte
 
 Liegen in `sfx/` (Mono, 64 kbit/s, auf gleiche Lautstärke gebracht). Quellen: Pixabay (Lizenz erlaubt Nutzung im Spiel ohne Namensnennung).
-schlag (Treffer), karte (Karte legen/aufdecken), truhe (Truhe öffnen), tod (Karte stirbt), held (Held getroffen), heilung, faehigkeit (Einschlag), aufwerten (Level/Stern), nein (nicht möglich), funkeln (seltene Karte), klick (Knöpfe). Münz-Sound fehlt noch.
+schlag (Treffer), karte (Karte legen/aufdecken), truhe (Truhe öffnen), tod (Karte stirbt), held (Held getroffen), heilung, faehigkeit (Einschlag), aufwerten (Level/Stern), nein (nicht möglich), funkeln (seltene Karte), klick (Knöpfe). muenze (Gold bekommen).

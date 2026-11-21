@@ -103,7 +103,7 @@ const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const fmt=n=>n.toLocaleString('de-DE');
 let S, tab='map', fCat='alle', fSet='alle', shopTab='truhen';
-let B=null, ctx=null, infoCard=null, infoT=0, narr='', result=null, skip=false, forfeit=false, battleId=0, tipDone=null;
+let B=null, ctx=null, infoCard=null, infoT=0, narr='', narrLog=[], result=null, skip=false, forfeit=false, battleId=0, tipDone=null;
 
 function mkTable(lg){
   const L=LEAGUES[lg], hi=LEAGUES[lg+1]?LEAGUES[lg+1].lo+40:L.lo+800, r=rng((Math.random()*2147483647)|0), used=new Set(), rivals=[];
@@ -118,7 +118,7 @@ function okTable(t){ return t&&typeof t==='object'&&LEAGUES[t.lg]&&Array.isArray
 function seasonIdx(){ return Math.floor((Date.now()-SEASON_START)/(SEASON_DAYS*864e5)); }
 function fresh(){
   const decks=[STARTER.slice(),STARTER.slice(),STARTER.slice()];
-  return {v:6,gold:150,gems:0,skips:0,items:Object.fromEntries(Object.keys(CATS).map(c=>[c,[0,0,0,0]])),chests:[],cards:Object.fromEntries(STARTER.map(id=>[id,{lvl:1,star:1,dup:0}])),decks,di:0,unlocked:[],setsOpen:[],stars:{},hstars:{},foeSets:[],campV:2,hero:'sammler',heroes:FREE_HEROES.slice(),sex:'m',skins:{},skinOn:{},album:{},seen:{},stat:{fights:0,kills:0,best:null},lastSave:Date.now(),remind:'',ch:{wk:0,prog:{},all:0},chDecks:{},xp:0,plvl:1,back:'standard',backs:['standard'],
+  return {v:6,gold:150,gems:0,skips:0,items:Object.fromEntries(Object.keys(CATS).map(c=>[c,[0,0,0,0]])),chests:[],cards:Object.fromEntries(STARTER.map(id=>[id,{lvl:1,star:1,dup:0}])),decks,di:0,unlocked:[],setsOpen:[],stars:{},hstars:{},foeSets:[],campV:2,skinNew:{},hero:'sammler',heroes:FREE_HEROES.slice(),sex:'m',skins:{},skinOn:{},album:{},seen:{},stat:{fights:0,kills:0,best:null},lastSave:Date.now(),remind:'',ch:{wk:0,prog:{},all:0},chDecks:{},xp:0,plvl:1,back:'standard',backs:['standard'],
   vol:{m:.6,s:.8,a:.45},fxOff:false,muted:false,speed:1,opened:0,name:'Neuling_'+(100+Math.floor(Math.random()*900)),tr:0,league:0,aw:0,al:0,wins:0,theme:'tanne',themes:['tanne'],
   table:mkTable(0),daily:null,uid:Math.floor(Math.random()*1e9),tut:true,tipSeen:{},ach:{},flags:{},season:seasonIdx(),seasonBest:0,seasonMsg:null};
 }
@@ -191,7 +191,7 @@ function grant(id,skin){
   else{ o.dup++; kind='dup'; }
   const r={id,kind}; if(kind==='gold') r.gold=DUP_GOLD[CARD[id].r];
   if(skin){ const own=ownSkins(id), free=[]; for(let v=1;v<=(SKINS[id]||0);v++) if(!own.includes(v)) free.push(v);
-    if(free.length){ const v=free[Math.floor(Math.random()*free.length)]; S.skins[id]=own.concat(v).sort(); S.skinOn[id]=v; S.skinNew[id]=1; r.skin=v; } }
+    if(free.length){ const v=free[Math.floor(Math.random()*free.length)]; S.skins[id]=own.concat(v).sort(); S.skinOn[id]=v; (S.skinNew=S.skinNew||{})[id]=1; r.skin=v; } }
   return r;
 }
 function rollRar(odds){ const v=Math.random()*100; let a=0; for(let i=0;i<4;i++){ a+=odds[i]; if(v<a) return i; } return 3; }
@@ -319,7 +319,7 @@ function tone(f,d,type,vol,when,slide){
   g.gain.setValueAtTime(vol,t); g.gain.exponentialRampToValueAtTime(.0001,t+d); o.connect(g); g.connect(sOut); o.start(t); o.stop(t+d+.02);
 }
 /* Echte Geräusche (Ordner sfx/). Fallen auf die erzeugten Töne zurück, solange sie noch laden. */
-const SAMPLES=['schlag','karte','truhe','tod','klick','aufwerten','nein','funkeln','held','heilung','faehigkeit'], SBUF={}, SLAST={};
+const SAMPLES=['muenze','schlag','karte','truhe','tod','klick','aufwerten','nein','funkeln','held','heilung','faehigkeit'], SBUF={}, SLAST={};
 function sampleLoad(){ SAMPLES.forEach(n=>fetch('sfx/'+n+'.mp3').then(r=>r.arrayBuffer()).then(b=>AC.decodeAudioData(b)).then(buf=>{ SBUF[n]=buf; }).catch(()=>{})); }
 /* gap: Mindestabstand in Sekunden, damit sich schnelle Wiederholungen nicht stapeln. */
 function sample(n,vol,rate,gap){ if(!AC||!SBUF[n]) return false; const t=AC.currentTime; if(gap&&SLAST[n]&&t-SLAST[n]<gap) return true; SLAST[n]=t;
@@ -329,7 +329,7 @@ const SFX={
   crit:()=>{ if(!sample('schlag',.9,.85,.06)) tone(220,.12,'square',.08,0,.4); tone(660,.08,'triangle',.04,.02); },
   die:()=>sample('tod',.7,1,.1)||tone(120,.25,'sawtooth',.06,0,.3), hero:()=>sample('held',.8,1,.15)||tone(90,.2,'sawtooth',.09,0,.5), heal:()=>sample('heilung',.6,1,.25)||tone(700,.18,'sine',.07,0,1.5),
   skill:()=>sample('faehigkeit',.45,1,.3), chest:()=>sample('truhe',.85)||tone(300,.15,'triangle',.08), up:()=>sample('aufwerten',.6)||SFX.coin(), need:()=>sample('nein',.5,1,.4),
-  coin:()=>{ tone(990,.08,'triangle',.07); tone(1480,.14,'triangle',.07,.07); },
+  coin:()=>sample('muenze',.6,1,.08)||(tone(990,.08,'triangle',.07),tone(1480,.14,'triangle',.07,.07)),
   flip:()=>sample('karte',.7,1.1,.05)||(tone(500,.06,'triangle',.06),tone(900,.12,'sine',.05,.05)),
   rare1:()=>{ [660,880].forEach((f,i)=>tone(f,.25,'sine',.07,i*.09)); },
   rare2:()=>{ if(!sample('funkeln',.55)) [523,659,784,1047].forEach((f,i)=>tone(f,.35,'triangle',.07,i*.08)); },
@@ -681,7 +681,7 @@ function viewMap(){
 function tile(id,inRow){
   const o=S.cards[id];
   if(!o) return `<div class="tile"><span class="back" aria-label="Noch nicht gefunden"></span><span class="q" aria-hidden="true">?</span></div>`;
-  const flag=S.skinNew[id]?'<span class="flag sk">✦ Neues Sondermotiv</span>':canUp(id)?'<span class="flag up">aufwertbar</span>':!inRow&&deck().includes(id)?'<span class="flag">im Deck</span>':'';
+  const flag=S.skinNew&&S.skinNew[id]?'<span class="flag sk">✦ Neues Sondermotiv</span>':canUp(id)?'<span class="flag up">aufwertbar</span>':!inRow&&deck().includes(id)?'<span class="flag">im Deck</span>':'';
   return `<button class="tile" data-act="card" data-id="${id}" aria-label="${CARD[id].n}">${cardHTML({id,lvl:o.lvl,star:o.star})}${flag}</button>`;
 }
 function itemsPanel(){
@@ -713,7 +713,7 @@ function viewAlbum(){
   let h=`<section><h2>Sammelbuch</h2><p class="muted">Jedes vollständige Set bringt einmalig ${ALBUM_REWARD.gems} Glutsteine und ${ALBUM_REWARD.gold} Gold. Tippe ein Set an, um es auf- oder zuzuklappen.</p></section>`;
   knownSets().forEach(x=>{
     const cards=BASE.filter(c=>c.set===x), have=cards.filter(c=>S.cards[c.id]).length, sk=cards.reduce((n,c)=>n+ownSkins(c.id).length,0), skT=cards.reduce((n,c)=>n+(SKINS[c.id]||0),0), full=have===cards.length, open=albumOpenSets.has(x), claim=full&&!S.album[x];
-    h+=`<section class="panelbox${full?' setdone':''}"><button class="album-h fold" data-act="albumFold" data-id="${x}" aria-expanded="${open}"><span class="setchip${full?' on':''}" style="--fc:${SCOL(x)}"><i>${SETS[x].l}</i>${SETS[x].n}</span><span class="count">${setSrc(x)?`<b class="srcic" title="Häufiger in ${SRC_N[setSrc(x)]}-Truhen">${SRC_ICON[setSrc(x)]} ${SRC_N[setSrc(x)]}</b> · `:''}${setCats(x)} · ${have}/${cards.length} Karten · ${sk}/${skT} Sondermotive</span>${full?'<span class="done-ck" aria-label="komplett">✓</span>':''}${cards.some(c=>S.skinNew[c.id])?'<i class="dot sk" aria-label="Neues Sondermotiv"></i>':''}${claim?'<i class="dot" aria-label="Belohnung"></i>':''}<span class="chev" aria-hidden="true">${open?'▴':'▾'}</span></button>
+    h+=`<section class="panelbox${full?' setdone':''}"><button class="album-h fold" data-act="albumFold" data-id="${x}" aria-expanded="${open}"><span class="setchip${full?' on':''}" style="--fc:${SCOL(x)}"><i>${SETS[x].l}</i>${SETS[x].n}</span><span class="count">${setSrc(x)?`<b class="srcic" title="Häufiger in ${SRC_N[setSrc(x)]}-Truhen">${SRC_ICON[setSrc(x)]} ${SRC_N[setSrc(x)]}</b> · `:''}${setCats(x)} · ${have}/${cards.length} Karten · ${sk}/${skT} Sondermotive</span>${full?'<span class="done-ck" aria-label="komplett">✓</span>':''}${cards.some(c=>S.skinNew&&S.skinNew[c.id])?'<i class="dot sk" aria-label="Neues Sondermotiv"></i>':''}${claim?'<i class="dot" aria-label="Belohnung"></i>':''}<span class="chev" aria-hidden="true">${open?'▴':'▾'}</span></button>
     <div class="bar"><i style="width:${Math.round(have/cards.length*100)}%;background:${SCOL(x)}"></i></div>
     ${open?`<div class="grid g3">${cards.map(c=>tile(c.id)).join('')}</div>
     <p class="muted"><b>Setbonus</b> ab 3 Karten im Deck: ${SET_BONUS[x][0]}. Mit allen 6: ${SET_BONUS[x][1]}.</p>
@@ -821,7 +821,7 @@ function sheetRival(seed){
   <div class="row-btns"><button class="btn" data-act="close">Zurück</button><button class="btn primary" data-act="duel" data-id="${r.s}">Duell starten</button></div>`);
 }
 function sheetCard(id){
-  if(S.skinNew[id]){ delete S.skinNew[id]; persist(); setTimeout(()=>{ if(tab==='album') render(); },0); }
+  if(S.skinNew&&S.skinNew[id]){ delete S.skinNew[id]; persist(); setTimeout(()=>{ if(tab==='album') render(); },0); }
   const d=CARD[id], o=S.cards[id]; if(!o) return; const kws=kwLong(kwOf(id,o.star)), inD=deck().includes(id), full=deck().length>=DECK_MAX, cap=o.star*5, now=stats(id,o.lvl,o.star), have=S.items[d.cat][d.r], iname=itemName(d.cat,d.r);
   let act='';
   if(o.lvl<cap){ const c=lvlCost(o.lvl), nx=stats(id,o.lvl+1,o.star), mi=Math.max(0,c.n-have), mg=Math.max(0,c.g-S.gold);
@@ -883,7 +883,7 @@ function narrate(e){
   }
   return '';
 }
-function setInfo(html){ narr=html; if(infoCard) return; const p=$('#b-info'); if(p) p.innerHTML=html; }
+function setInfo(html){ narr=html; if(B&&html&&narrLog[narrLog.length-1]!==html){ narrLog.push(html); if(narrLog.length>400) narrLog.shift(); } if(infoCard) return; const p=$('#b-info'); if(p) p.innerHTML=html; }
 function infoText(){ return infoCard?describe(infoCard):(narr||'Der Kampf läuft automatisch. Tippe eine Karte an, um sie zu lesen.'); }
 function heroHTML(s){
   const H=B[s], pct=Math.max(0,H.hp/H.maxHp*100);
@@ -931,7 +931,7 @@ function renderBattle(){
   $('#b-dyn').innerHTML=`<div class="pilebar">${heroHTML('e')}${pileHTML('e')}</div>
   <div class="board"><div class="row">${[0,1,2].map(l=>slot('e',l)).join('')}</div><div class="midline">Runde ${Math.max(1,B.round)}</div><div class="row">${[0,1,2].map(l=>slot('p',l)).join('')}</div></div>
   <div class="pilebar">${heroHTML('p')}${pileHTML('p')}</div>
-  <p class="info" id="b-info" aria-live="polite">${infoText()}</p>`;
+  <p class="info" id="b-info" aria-live="polite">${infoText()}</p><button class="b-log" data-act="battleLog" title="Kampfprotokoll" aria-label="Kampfprotokoll öffnen">☰</button>`;
   $('#b-result').innerHTML=result?resultHTML():'';
 }
 function cardEl(s,l){ return document.querySelector(`#b-root .slot[data-s="${s}"][data-l="${l}"] .card`); }
@@ -991,7 +991,7 @@ async function runBattle(id){
 }
 function startBattle(c){
   if(c.mode!=='heraus'&&deck().length<DECK_MIN){ toast(`Dein Deck braucht mindestens ${DECK_MIN} Karten.`); tab='deck'; render(); return; }
-  closeSheet(); ctx=c; result=null; infoCard=null; narr=''; skip=false; forfeit=false;
+  closeSheet(); ctx=c; result=null; infoCard=null; narr=''; narrLog=[]; skip=false; forfeit=false;
   B= c.mode==='arena' ? newBattle(deckObjs(),rivalDeck(c.rival)) : c.mode==='heraus' ? newBattle(c.pDeck,c.eDeck) : c.mode==='event' ? newBattle(deckObjs(),evDeck(c.stage),c.stage.hp) : newBattle(deckObjs(),stageDeck(c.stage,c.hero),stageHp(c.stage,c.hero));
   if(c.mode==='heraus'){ const R=c.rule; if(R.noHero){ B.p.hp=B.p.maxHp=1; } if(R.eShield) B.e.pile.concat(B.e.lanes).forEach(x=>{ if(x) x.k.schild=(x.k.schild||0)+1; }); if(R.decay) B.decay=R.decay; }
   $('#battle').hidden=false; if(FXC.cv) fxSize(); battleShell(); renderBattle();
@@ -1093,6 +1093,7 @@ const ACT={
   fset(id){ fSet=id; render(); },
   shopTab(id){ shopTab=id; render(); },
   close(){ closeSheet(); },
+  battleLog(){ openSheet(`<div class="sec-h"><h2>Kampfprotokoll</h2><button class="btn" data-act="close">Schließen</button></div><ol class="blog">${narrLog.length?narrLog.map(t=>`<li>${t}</li>`).join(''):'<li class="muted">Noch nichts passiert.</li>'}</ol>`); const l=document.querySelector('.blog'); if(l) l.scrollTop=l.scrollHeight; },
   tipOk(){ if(tipDone){ const f=tipDone; tipDone=null; f(); } },
   tutReset(){ S.tut=true; S.tipSeen={}; persist(); toast('Das Tutorial erscheint im nächsten Kampf.'); },
   claim(){ const d=daily(); if(d.claimed||!dailyDone()) return; d.claimed=true; S.chests.push({type:'silber'}); addXp(XP.daily); persist(); render(); toast(`Die Silbertruhe liegt jetzt im Laden. +${XP.daily} Erfahrung.`); setTimeout(showLvUp,300); },
@@ -1336,7 +1337,26 @@ document.addEventListener('pointerdown',e=>{
   const [s,i]=el.dataset.info.split(':'), c=i==='pile'?B[s].pile[0]:B[s].lanes[+i];
   if(c){ infoCard=c; const p=$('#b-info'); if(p) p.innerHTML=infoText(); clearTimeout(infoT); infoT=setTimeout(()=>{ infoCard=null; const q=$('#b-info'); if(q) q.innerHTML=infoText(); },3000); }
 });
-document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&!$('#sheet').hidden&&!$('#sheet').dataset.modal) closeSheet(); });
+/* Tastatur am PC: Leertaste/Enter = Weiter, Esc = Schließen oder Überspringen, F11 = Vollbild. */
+function keyTarget(){
+  const vis=sel=>{ const el=document.querySelector(sel); return el&&el.offsetParent!==null&&!el.disabled?el:null; };
+  if(!$('#seq').hidden) return $('#seq');
+  if(!$('#bossin').hidden) return $('#bossin');
+  return vis('#b-tip [data-act=tipOk]')||vis('#sheet [data-act=lootFlip]')||vis('#sheet [data-act=lootNext]')||vis('#sheet [data-act=lootNextChest]')||vis('#sheet [data-act=lootDone]')
+    ||vis('#sheet .panel .btn.primary')||vis('#b-result .btn.primary')||(menuOn?vis('#menu .btn.primary'):null);
+}
+document.addEventListener('keydown',e=>{
+  const typing=/^(INPUT|TEXTAREA)$/.test((e.target&&e.target.tagName)||'');
+  if(e.key==='F11'){ e.preventDefault(); try{ document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen(); }catch(x){} return; }
+  if(e.key==='Escape'){
+    if(!$('#seq').hidden){ ACT.seqSkip(); return; }
+    if(!$('#bossin').hidden){ ACT.bossSkip(); return; }
+    if(!$('#sheet').hidden&&!$('#sheet').dataset.modal) closeSheet();
+    return;
+  }
+  if(typing||e.repeat) return;
+  if(e.key===' '||e.key==='Enter'){ const t=keyTarget(); if(t){ e.preventDefault(); t.click(); } }
+});
 
 function start(data){
   S=data&&data.save?sane(data.save):load(); tab=(data&&data.tab)||'map'; menuOn=!(data&&data.tab); wantLoop=tabMusic();

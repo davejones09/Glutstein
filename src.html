@@ -448,7 +448,7 @@ main.mapmode{padding:8px 10px;overflow:hidden}
 /* Kampf */
 #battle{--cw:clamp(64px,min((100vh - 70px)/2.9,(100vw - 480px)/3.3),172px);--pw:clamp(44px,14vh,78px)}
 @supports (height:1dvh){#battle{--cw:clamp(64px,min((100dvh - 70px)/2.9,(100vw - 480px)/3.3),172px);--pw:clamp(44px,14dvh,78px)}}
-#b-root{max-width:none;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) minmax(0,1fr);grid-template-areas:"gu board tt" "pe board info" "pp board info";gap:8px 16px;padding:8px 14px 10px}
+#b-root{max-width:none;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) minmax(0,1fr);grid-template-areas:"gu board tt" "pe board ." "pp board .";gap:8px 16px;padding:8px 14px 10px}
 .b-top{display:contents}
 #b-giveup{grid-area:gu;justify-self:start;align-self:start}
 .b-top b{grid-area:tt;justify-self:start;align-self:center;max-width:calc(100% - 92px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -459,7 +459,7 @@ main.mapmode{padding:8px 10px;overflow:hidden}
 #b-dyn>.pilebar .hero{flex:none}
 .board{grid-area:board;align-self:center;gap:4px}
 .row{gap:10px}
-#b-info{grid-area:info;height:auto;max-height:100%;align-self:stretch;font-size:14px;line-height:1.35;padding:8px 10px}
+#b-info{position:fixed;z-index:6;right:max(10px,env(safe-area-inset-right));bottom:max(10px,env(safe-area-inset-bottom));width:min(300px,30vw);height:auto;max-height:4.1em;overflow:hidden;font-size:12.5px;line-height:1.3;padding:5px 9px;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.08);border-radius:8px;pointer-events:none;opacity:.9}
 #b-tip,#b-result{display:contents}
 .tip{left:auto;right:14px;bottom:14px;width:min(400px,40vw)}
 .r-box{max-width:520px}
@@ -652,6 +652,10 @@ img.pt.bi-pt{width:min(46vh,240px);height:min(46vh,240px);filter:drop-shadow(0 0
 .skinnote{margin:4px 0 0;text-align:center;font:900 17px/1.2 var(--body);color:#ffd977;text-shadow:0 0 12px rgba(255,200,90,.7)}
 .flag.sk{background:linear-gradient(#ffe7a0,#d6a032);color:#2a1a06}
 .dot.sk{background:#ffd977;box-shadow:0 0 8px #ffd977}
+.b-log{position:fixed;z-index:7;right:calc(max(10px,env(safe-area-inset-right)) + min(300px,30vw) + 6px);bottom:max(10px,env(safe-area-inset-bottom));width:28px;height:28px;border-radius:8px;border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.6);color:var(--bein);font-size:15px;line-height:1;opacity:.85;cursor:pointer}
+.b-log:hover{opacity:1}
+.blog{margin:0;padding:0 0 0 1.6em;max-height:60vh;overflow:auto;font-size:14px;line-height:1.4;display:flex;flex-direction:column;gap:3px}
+.blog li::marker{color:var(--nebel)}
 </style>
 </head>
 <body>
