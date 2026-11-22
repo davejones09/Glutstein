@@ -1238,14 +1238,14 @@ function simulate(B){ let g=0; while(!B.over&&g++<80){ roundStart(B); for(let l=
 /* ====== Texte: Dialoge vor den Gefechten, Kartentexte, Erfolge ====== */
 /* Dialog je Gefecht: g = Gegner, p = du. */
 const DLG_OLD={
- 1:[['g','Hihi! Ein Wanderer mit fünf Karten? Die verbrennen wir schneller als Zunder!'],['p','Dann probier mal, Wasser anzuzünden.']],
+ 1:[['g','Hihi! Jemand mit fünf Karten? Die verbrennen wir schneller als Zunder!'],['p','Dann probier mal, Wasser anzuzünden.']],
  2:[['g','Halt! Diese Hecke glimmt seit hundert Jahren. Niemand geht hindurch.'],['p','Dann gehe ich eben durch dich.']],
  3:[['g','Grrr … der Aschenpfad gehört dem Rudel.'],['p','Ich will nur durch. Ihr könnt mir folgen oder Platz machen.']],
  4:[['g','Zoll für den Pass: eine Karte. Oder alle.'],['p','Ich zahle mit Wasser. Hoffentlich reicht das.']],
  5:[['g','Hier wächst seit Jahren nichts mehr außer Glut.'],['p','Dann wird es Zeit, dass jemand die Felder löscht.']],
  6:[['g','Ormak lässt hier Klingen aus Lava gießen. Du kommst zu spät.'],['p','Zu spät für die Klingen vielleicht. Nicht für den Schmied.']],
  7:[['g','Vom Turm aus sieht man den Fürsten. Und er sieht dich.'],['p','Gut. Dann weiß er, dass ich komme.']],
- 8:[['g','Ein Wanderer mit Tümpelwasser gegen den Schlackenfürsten? Lächerlich.'],['p','Wasser schlägt Feuer, Ormak. Das weiß jedes Kind.'],['g','Dann zeig mir, was Kinder wissen!']],
+ 8:[['g','Du. Ich kenne deinen Geruch. Regen auf heißem Stein.'],['p','Hanne schickt dir ihr Pferdchen. Sie sagt, du hattest fast immer gute Laune.'],['g','Hanne … Nein. Er hört zu. Mit Tümpelwasser gegen den Schlackenfürsten? Lächerlich!'],['p','Wasser schlägt Feuer, Ormak. Das weiß jedes Kind.'],['g','Dann zeig mir, was Kinder wissen!']],
  9:[['g','Blubb! Fremde am Ufer! Fremde am Ufer!'],['p','Ich suche nur den Weg zur Küste. Kein Grund zur Aufregung.']],
  10:[['g','Im Nebel verliert jeder seinen Weg. Du auch.'],['p','Ich finde ihn wieder. Das habe ich bisher immer.']],
  11:[['g','Ysra hat befohlen: Niemand betritt die versunkene Stadt.'],['p','Dann hat Ysra mich nicht gefragt.']],
@@ -1253,7 +1253,7 @@ const DLG_OLD={
  13:[['g','Dieses Wrack war einmal ein stolzes Schiff. Jetzt gehört es uns.'],['p','Ich will es nicht. Nur den Weg daran vorbei.']],
  14:[['g','Hörst du den Donner? Das ist mein Lied.'],['p','Dann singst du heute zum letzten Mal.']],
  15:[['g','Das Licht des Turms lockt jeden Seefahrer in die Klippen.'],['p','Ich komme zu Fuß. Das macht es dir schwerer.']],
- 16:[['g','Du hast meine Wachen besiegt und meine Perlen gezählt. Was willst du?'],['p','Den Weg in den Wurzelwald. Dahinter liegt das Hohle Reich.'],['g','Dann musst du erst an der Flut vorbei.']],
+ 16:[['g','Du hast meine Wachen besiegt und meine Perlen gezählt. Was willst du?'],['p','Den Splitter.'],['g','Oh, Kind. Du bist es. Das Meer vergisst nichts, es hat dich schon einmal getragen.'],['p','Ich weiß nicht, wovon du sprichst.'],['g','Die Gezeitenmutter gibt nichts her, was das Meer genommen hat.']],
  17:[['g','Pssst. Hier schläft alles. Weck den Wald nicht auf.'],['p','Ich bin ganz leise. Versprochen.']],
  18:[['g','Die Dornen halten Fremde fern. Meistens.'],['p','Ich habe dickere Haut, als ich aussehe.']],
  19:[['g','Die Brücke trägt nur, wer dem Wald vertraut.'],['p','Ich vertraue meinem Deck. Das muss reichen.']],
@@ -1261,23 +1261,23 @@ const DLG_OLD={
  21:[['g','Das Rudel jagt gemeinsam. Du bist allein.'],['p','Ich habe acht Karten. Allein bin ich nie.']],
  22:[['g','Im Steinkreis gelten die alten Regeln.'],['p','Dann spiele ich eben nach alten Regeln.']],
  23:[['g','Du stehst im Herz des Waldes. Hörst du es schlagen?'],['p','Ich höre es. Und es klingt müde.']],
- 24:[['g','Tausend Jahre habe ich gewachsen. Was sind schon deine paar Karten?'],['p','Genug, um dich einmal zu fällen, Urborke.'],['g','Dann versuch es, kleiner Holzfäller.']],
+ 24:[['g','Tausend Jahre bin ich gewachsen. Was sind dagegen schon deine paar Karten?'],['p','Genug, um dich einmal zu fällen, Urborke.'],['g','Meine Wurzeln kennen deinen Schritt. Du bist diesen Weg schon einmal gegangen. Andersherum.'],['g','Dann versuch es. Ich habe schon viele Äxte überlebt.']],
  25:[['g','Krah! Krah! Frisches Futter!'],['p','Ich bin zäher, als ich aussehe.']],
  26:[['g','Wer hier gräbt, wird begraben.'],['p','Ich grabe nicht. Ich gehe nur vorbei.']],
- 27:[['g','Eine Seele für eine Karte? Ein faires Geschäft, mein Freund.'],['p','Meine Seele ist unverkäuflich.']],
+ 27:[['g','Eine Seele für eine Karte? Ein faires Geschäft, mein Herz.'],['p','Meine Seele ist unverkäuflich.']],
  28:[['g','Die Falter folgen jedem Licht. Auch deinem.'],['p','Dann sollen sie mir den Weg zeigen.']],
  29:[['g','Du hörst mich nicht kommen. Niemand hört mich kommen.'],['p','Und doch stehst du jetzt vor mir.']],
  30:[['g','Über die Brücke führen nur zwei Wege: hinüber oder hinab.'],['p','Ich nehme hinüber.']],
  31:[['g','Wir dienen dem König seit tausend Nächten.'],['p','Heute ist die letzte.']],
- 32:[['g','Du suchst den Glutstein? Er wärmt mein leeres Herz.'],['p','Er gehört dem Land, nicht dir.'],['g','Dann nimm ihn mir. Wenn du kannst.']],
+ 32:[['g','Du suchst den Glutstein? Er wärmt mein leeres Herz.'],['p','Er gehört dem Land, nicht dir.'],['g','Dem Land? Hat er dir das erzählt? Hat er dir auch erzählt, wer er ist?'],['p','Das Herz der Welt.'],['g','Dann nimm ihn mir. Wenn du kannst.']],
  33:[['g','Folge uns! Folge uns ins Licht!'],['p','Irrlichter führen in den Sumpf. Ich bleibe auf dem Weg.']],
  34:[['g','Der Orden prüft jeden Pilger. Bist du rein genug?'],['p','Ich bin müde genug. Reicht das?']],
  35:[['g','Du hast dem König den Glutstein entrissen. Gib ihn dem Orden.'],['p','Damit ihr ihn genauso wegschließt? Nein.']],
  36:[['g','ROAAAR!'],['p','Das nehme ich als Nein.']],
- 37:[['g','Hier kämpfst du gegen dein eigenes Spiegelbild.'],['p','Dann kenne ich wenigstens alle Tricks.']],
+ 37:[['g','Du hast es schon wieder vergessen.'],['p','Was denn?'],['g','Alles. Hier kämpfst du gegen dein eigenes Spiegelbild.'],['p','Dann kenne ich wenigstens alle deine Tricks.'],['g','Und ich deine.']],
  38:[['g','Jenseits des Tores wartet die Erzseraphin. Kehr um, solange du kannst.'],['p','Ich bin zu weit gegangen, um umzukehren.']],
  39:[['g','Ich bin die letzte Wacht. Nach mir kommt nur noch er.'],['p','Dann bringen wir es hinter uns.']],
- 40:[['g','Licht ohne Schatten, Ordnung ohne Glut. So soll die Welt sein.'],['p','Ohne Glut wird die Welt kalt, Aurel.'],['g','Dann beweise es, Wanderer.']]
+ 40:[['g','Licht ohne Schatten, Ordnung ohne Glut. So soll die Welt sein.'],['p','Ohne Glut wird die Welt kalt, Aurel.'],['g','Kalt, aber heil. Was sich nicht bewegt, kann nicht zerbrechen.'],['p','Und es lebt auch nicht.'],['g','Dann beweise es, {KB}. Beweise mir, dass es einen anderen Weg gibt.']]
 };
 const DLG={};
 /* Alte Gefechte liegen jetzt auf den geraden Plätzen (2, 4, …), neue dazwischen. */
@@ -1315,7 +1315,7 @@ Object.assign(DLG,{
  59:[['g','Die Kapelle betet nicht mehr. Sie hungert.'],['p','Bei mir gibt es nichts zu holen.']],
  61:[['g','Wo der Mond keinen Schatten wirft, wohnt etwas anderes.'],['p','Dann sag ihm, dass ich da bin.']],
  63:[['g','Das Tor öffnet sich nur für die Toten.'],['p','Oder für die Hartnäckigen.']],
- 65:[['g','Ein Fremder auf dem Mühlenweg? Der Orden wird das nicht mögen.'],['p','Der Orden wird sich daran gewöhnen.']],
+ 65:[['g','Jemand Fremdes auf dem Mühlenweg? Der Orden wird das nicht mögen.'],['p','Der Orden wird sich daran gewöhnen.']],
  67:[['g','Der Pass ist gesperrt. Befehl der Erzseraphin.'],['p','Ich habe eine andere Meinung dazu.']],
  69:[['g','Vom Turm aus sehen wir jeden Schritt.'],['p','Dann schaut gut hin.']],
  71:[['g','Unter diesen Bannern ist noch keiner durchgekommen.'],['p','Einer muss der Erste sein.']],
@@ -1324,6 +1324,94 @@ Object.assign(DLG,{
  77:[['g','Zwischen den Säulen hallt jede Lüge zurück.'],['p','Gut, dass ich die Wahrheit sage.']],
  79:[['g','Noch eine Stufe. Aurel erwartet dich. Sie hofft, dass du aufgibst.'],['p','Da muss sie mich schlecht kennen.']]
 });
+
+/* ====== Geschichte: Prolog „Der zerbrochene Stein“ ======
+   intro = Prolog und Erwachen, a0–a4 = Anfang der Gebiete, Story-Momente nach bestimmten Gefechten (BEATS), ende = Finale und Epilog.
+   {KB} wird zu Kartenbinder oder Kartenbinderin. Die ganze Lesefassung liegt in geschichte/prolog.txt. */
+const SEQ={
+ intro:{t:'Prolog · Die Nacht ohne Sterne',music:'menue',slides:[
+  ['seq/intro-1','Einst knieten fünf Wächter am Herd der Welt. Jede Nacht sangen sie, damit der Glutstein hält.'],
+  ['seq/p-gestalt','Dann gingen die Sterne aus. Eine Gestalt mit Kapuze betrat den Tempel und legte die Hand auf den Stein.'],
+  ['seq/intro-2','Der Glutstein zerbrach.'],
+  ['seq/intro-3','Fünf Splitter fielen auf Asche, Meer, Wald, Schatten und Licht. Jeder Wächter hielt seinen fest. Das war ein Fehler.'],
+  ['seq/intro-4','Tausend Nächte später wachst du im Regen auf, ohne Namen und ohne Erinnerung. In deiner Hand liegt ein warmer Splitter.'],
+  ['seq/intro-5','Eine Stimme spricht aus dem Splitter: „Du bist {KB}. Was du besiegst, bannst du in Karten.“'],
+  ['seq/p-funke','Dein erster Gefährte ist Funke, ein Funkenwicht. Eigentlich wollte er dich nur ein bisschen anzünden.'],
+  ['seq/intro-6','„Hol die Splitter und setz mich zusammen. Dann friert diese Welt nie wieder.“ Der erste ruft aus der Asche.']]},
+ a0:{t:'I · Der Aschenpfad',slides:[
+  ['kapitel-1','Am Aschenpfad verdampft der Regen, bevor er den Boden erreicht. Hier brennt die Erde, seit der Splitter fiel.'],
+  ['seq/a1-2','Die Tiere des Feuers jagen alles, was sich bewegt, als hätte jemand befohlen, niemanden durchzulassen.'],
+  ['seq/a1-3','Schlackenfürst Ormak wollte den Splitter schützen. Nun schützt der Splitter ihn.']]},
+ s_bluete:{t:'Die Glutmine',slides:[
+  ['seq/p-bluete','Tief in der Mine liegt ein Blütenblatt auf der glühenden Asche. Es verbrennt nicht.'],
+  ['seq/p-bluete','Dahinter läuft ein feiner Riss durch den Fels. „Nur ein Haarriss“, sagt der Stein. „Komm weiter.“']]},
+ s_hanne:{t:'Rußdorf',slides:[
+  ['seq/p-hanne','Die alte Köhlerin Hanne erzählt von Ormak, dem Schmied. Für die Kinder bog er Pferdchen aus Hufnägeln.'],
+  ['seq/p-hanne','„Er hat keinen Käfig für den Splitter gebaut. Der Splitter hat einen Käfig aus ihm gemacht. Nimm das Pferdchen mit.“']]},
+ b0:{t:'Schlackenfürst Ormak',slides:[
+  ['seq/p-ormak','Ormak erkennt das Pferdchen. „Das Warme in deiner Hand … hör nicht darauf. Es sagt nie etwas Falsches.“'],
+  ['seq/p-seda','Am Kraterrand wartet Seda, Inquisitorin des Lichtordens. Bevor du etwas tun kannst, blendet sie der Splitter.'],
+  ['seq/p-schmiede','Nachts träumst du von Ormak. „Feuer im Herd wärmt ein Haus. Ohne Herd frisst es das Haus. Und du hast keinen Herd.“']]},
+ a1:{t:'II · Die versunkene Küste',slides:[
+  ['kapitel-2','Die Flut kam und ging nicht mehr. Am Strand liegt seltsames Strandgut, sogar eine Uhr, die rückwärts läuft.'],
+  ['seq/p-leuchtturm','Nur ein Leuchtturm brennt noch. Merle lässt ihr Licht jede Nacht brennen. Für die, die noch kommen.'],
+  ['seq/a2-2','In der Gischt singen die Ertrunkenen von Aldermünde. Sie singen gegen den Splitter an.'],
+  ['seq/a2-3','Gezeitenmutter Ysra hat eine ganze Stadt versenkt, damit niemand an den Splitter herankommt.']]},
+ s_alder:{t:'Aldermünde',slides:[
+  ['seq/p-aldermuende','Der Tümpelgeist trägt dich hinab nach Aldermünde, als kenne er den Weg. Unter dem Gesang der Ertrunkenen singt der Splitter.']]},
+ b1:{t:'Gezeitenmutter Ysra',slides:[
+  ['seq/p-ysra','„Er sagt immer dasselbe: Mir ist kalt. Lass mich zu dir.“ Ysra sinkt, und die Ertrunkenen dürfen endlich schlafen.'],
+  ['seq/p-lichter','Du bringst Merle die Laterne der Morgenmöwe, dem Schiff ihres Mannes. Jetzt brennen zwei Lichter.'],
+  ['seq/p-lichter','„Er kommt nicht mehr, Merle.“ – „Nein. Aber irgendwer kommt immer.“']]},
+ a2:{t:'III · Der Wurzelwald',slides:[
+  ['kapitel-4','Der Wald wächst. Jede Nacht ein Stück weiter.'],
+  ['seq/a3-2','Wer stehen bleibt, schlägt Wurzeln.'],
+  ['seq/a3-3','Urborke, die Alteiche, war die gütigste Wächterin. Jetzt will sie, dass alles Wald wird. Damit es endlich still ist.']]},
+ s_lio:{t:'Das Baumhausdorf',slides:[
+  ['seq/p-baumdorf','Im Baumhausdorf zeigt dir Lio seinen Fuß. Er hat zu lange einem blauen Schmetterling zugesehen.']]},
+ s_moor:{t:'Der Moorsteg',slides:[
+  ['seq/p-wurzeln','Am Moorsteg steckt Seda in den Wurzeln fest. Funke brennt sie frei, ohne dass ein einziges Blatt Feuer fängt.'],
+  ['seq/p-wurzeln','„Der Orden sagt: Jede Karte ist eine kleine Tür. Und was hinter einer Tür steckt, drückt dagegen.“']]},
+ s_quelle:{t:'Die Kristallquelle',slides:[
+  ['seq/p-quelle','Die Quelle zeigt dir andere Welten. Das Blütenblatt aus der Mine stammt von dort.'],
+  ['seq/p-quelle','„Es gab schon immer mehr als eine Welt, {KB}. Du durftest nur nie hinsehen.“']]},
+ s_feuer:{t:'Was Feuer weiß',slides:[
+  ['seq/p-feuer','„Ich bin aus Feuer. Ich weiß, wie Feuer klingt, wenn es Hunger hat. Es klingt wie dein Stein.“']]},
+ b2:{t:'Urborke, die Alteiche',slides:[
+  ['seq/a3-3','„Er hat dich schon einmal benutzt. Pass auf, wem du deine Hand leihst.“ Der Wald hört auf zu wachsen.'],
+  ['kapitel-4','Auf dem Rückweg sagt der Stein leise: „Mir ist kalt.“ Genau das hat er tausend Nächte lang zu Ysra gesagt.']]},
+ a3:{t:'IV · Das Hohle Reich',slides:[
+  ['kapitel-3','Hier geht die Sonne nicht mehr auf.'],
+  ['seq/p-dunkel','Funke ist das einzige Licht, und die Dunkelheit macht ihn kleiner. „Ich bin klein, aber ich bin nicht aus.“'],
+  ['seq/a4-3','Der Hohle König hat den Splitter verschluckt, um ihn zu verstecken. Seitdem ist er innen leer.']]},
+ s_markt:{t:'Der Seelenmarkt',slides:[
+  ['seq/a4-2','Im Hohlen Reich bezahlt man mit dem, was man ist.'],
+  ['seq/p-regenglas','Für deine erste Erinnerung schlägt die Seelenhändlerin nach. Dein Name fehlt in ihrem Buch. Du hast ihn verschenkt.']]},
+ b3:{t:'Der Hohle König',slides:[
+  ['seq/p-vael','„Er ist der Ungebundene. Er sprach von dir wie von einem Werkzeug, das man im Regen liegen lässt.“'],
+  ['seq/p-vael','Er reicht dir sein Pergament. „Lies es mir vor.“ – „Vael.“ – „Ja. Das bin ich.“'],
+  ['kapitel-3','„Ich habe dir nie etwas Falsches gesagt“, sagt der Stein. Und du findest nichts, was gelogen war.']]},
+ a4:{t:'V · Die Sonnenwacht',slides:[
+  ['seq/p-muehle','Am Mühlenweg gibt es keine Schatten. Menschen und Vögel stehen still im Licht, als wären sie aus Glas.'],
+  ['seq/a5-1','Die letzte Festung des Lichts. Sie lässt niemanden ein.'],
+  ['seq/a5-3','Erzseraphin Aurel wartet. Sie weiß, was im Stein schläft.']]},
+ s_kuppel:{t:'Die weiße Kuppel',slides:[
+  ['seq/p-kuppel','In der Kuppel steht Sedas Mutter und lächelt. Sie hustet nicht mehr. Sie atmet nicht mehr.'],
+  ['seq/p-kuppel','„Ich habe geschworen, dem Licht zu dienen. Nicht dem hier.“']]},
+ s_spiegel:{t:'Die Spiegelhalle',slides:[
+  ['seq/p-spiegel','In den Spiegeln steht nicht dein Gesicht, sondern eine Gestalt mit Kapuze. „Du hast es wieder vergessen.“']]},
+ ende:{t:'Der Stein ist ganz',music:'endgegner',slides:[
+  ['seq/a5-3','„Ich hatte gehofft, dass du es diesmal nicht tust“, sagt Aurel. „Wenn du singen willst, dann sing richtig.“'],
+  ['seq/p-lied','Du rufst die fünf Wächter aus deinen Karten. Sie knien um den Herd und singen das alte Lied.'],
+  ['seq/ende-1','Der letzte Splitter fügt sich ein. Der Glutstein ist wieder ganz.'],
+  ['seq/ende-2','Doch in seinem Inneren öffnet sich ein Auge. „Ihr singt aus Karten. Und jede Karte, {KB}, ist eine Tür.“'],
+  ['seq/p-risse','Über dem Meer zerreißt der Himmel. Durch die Risse siehst du andere Welten.'],
+  ['seq/ende-3','„Danke, {KB}.“ Eine lange Pause. „Zum zweiten Mal.“'],
+  ['seq/p-stufen','Die Welt friert nicht mehr, aber der Himmel ist zerrissen. „Was jetzt?“ – „Jetzt folgen wir ihm.“'],
+  ['seq/p-merle','In derselben Nacht kommt ein Schiff aus dem Riss. Merle lässt beide Lichter brennen. Für die, die noch kommen.\nFortsetzung folgt …']]}
+};
+/* Story-Momente: nach dem ersten Sieg im genannten Gefecht, in dieser Reihenfolge. */
+const BEATS=[[6,'s_bluete'],[8,'s_hanne'],[16,'b0'],[22,'s_alder'],[32,'b1'],[38,'s_lio'],[42,'s_moor'],[44,'s_quelle'],[45,'s_feuer'],[48,'b2'],[53,'s_markt'],[64,'b3'],[73,'s_kuppel'],[73,'s_spiegel']];
 
 const LORE={
  clownfische:'Ihre Anemone ist ihr Zuhause, ihre Festung und ihr Spielplatz.',
@@ -1735,6 +1823,8 @@ function sane(j){
   if(!s.themes.includes(s.theme)) s.theme='tanne';
   if(!okTable(s.table)||s.table.lg!==leagueOf(s.tr)) s.table=mkTable(leagueOf(s.tr));
   if(!Number.isFinite(s.season)) s.season=seasonIdx();
+  /* Neue Story-Momente: was schon gespielt ist, gilt als gesehen (zum Nachholen gibt es „Geschichte ansehen“). */
+  if(!s.seen.story2){ if(s.seen.intro) BEATS.forEach(([id,k])=>{ if(s.stars[id]) s.seen[k]=1; }); s.seen.story2=1; }
   return s;
 }
 const deck=()=>S.decks[S.di];
@@ -2028,22 +2118,6 @@ function ambTick(){
 function ambStart(){ AMB.kind=''; ambSound(); }
 
 
-/* ====== Geschichte: Intro, Gebietssequenzen und Abspann ====== */
-const SEQ={
- intro:{t:'Der zerbrochene Stein',music:'menue',slides:[
-  ['seq/intro-1','Einst hielt ein Stein die Welt im Gleichgewicht. Fünf Wächter hüteten ihn, einer für jedes Element.'],
-  ['seq/intro-2','In einer Nacht ohne Sterne zerbrach er.'],
-  ['seq/intro-3','Seine Splitter fielen auf Asche, Meer, Wald, Schatten und Licht. Und die Wächter verloren sich in ihnen.'],
-  ['seq/intro-4','Du bist {KB}. Und der Splitter in deiner Hand ist noch warm.'],
-  ['seq/intro-5','Was du besiegst, bannst du in Karten. Was du bannst, kämpft für dich.'],
-  ['seq/intro-6','Der erste Splitter ruft aus der Asche. Geh.']]},
- a0:{t:'I · Der Aschenpfad',slides:[['kapitel-1','Hier brennt die Erde, seit der Splitter fiel.'],['seq/a1-2','Die Tiere des Feuers jagen jetzt alles, was sich bewegt.'],['seq/a1-3','Schlackenfürst Ormak wollte den Splitter schützen. Nun schützt der Splitter ihn.']]},
- a1:{t:'II · Die versunkene Küste',slides:[['kapitel-2','Die Flut kam und ging nicht mehr.'],['seq/a2-2','In der Gischt singen Stimmen, die keinem Menschen gehören.'],['seq/a2-3','Gezeitenmutter Ysra hält den Splitter fest. Und sie will ihn nicht hergeben.']]},
- a2:{t:'III · Der Wurzelwald',slides:[['kapitel-4','Der Wald wächst. Jede Nacht ein Stück weiter.'],['seq/a3-2','Wer stehen bleibt, schlägt Wurzeln.'],['seq/a3-3','Urborke, die Alteiche, war der gütigste Wächter. Jetzt will sie die ganze Welt zu Wald machen.']]},
- a3:{t:'IV · Das Hohle Reich',slides:[['kapitel-3','Hier geht die Sonne nicht mehr auf.'],['seq/a4-2','Im Hohlen Reich bezahlt man mit dem, was man ist.'],['seq/a4-3','Der Hohle König hat den Splitter verschluckt. Seitdem ist er innen leer.']]},
- a4:{t:'V · Die Sonnenwacht',slides:[['seq/a5-1','Die letzte Festung des Lichts. Sie lässt niemanden ein.'],['seq/a5-2','Der Orden sagt, du darfst den Stein nicht zusammensetzen.'],['seq/a5-3','Erzseraphin Aurel wartet. Sie weiß, was im Stein schläft.']]},
- ende:{t:'Der Stein ist ganz',music:'endgegner',slides:[['seq/ende-1','Der letzte Splitter fügt sich ein. Der Glutstein ist wieder ganz.'],['seq/ende-2','Doch in seinem Inneren öffnet sich ein Auge.'],['seq/ende-3','„Danke, {KB}.“ Über dem Meer zerreißt der Himmel.\nFortsetzung folgt …']]}
-};
 let SQ=null;
 function playSeq(key,then){
   const q=SEQ[key]; if(!q||SQ) return; SQ={key,q,i:-1,then,lay:0,t:0}; closeSheet();
@@ -2068,8 +2142,15 @@ function storyCheck(){
   if(menuOn||SQ||B||tab!=='map'||!$('#sheet').hidden) return;
   if(!S.seen.intro) return playSeq('intro',()=>{ render(); if(!S.stars[1]) startStage(1,false); });
   if(S.stars[LAST_ID]&&!S.seen.ende) return playSeq('ende',()=>render());
+  const bt=BEATS.find(([id,k])=>S.stars[id]&&!S.seen[k]); if(bt) return playSeq(bt[1],()=>render());
   if(mapArea!=null&&!S.seen['a'+mapArea]) return playSeq('a'+mapArea,()=>render());
 }
+/* Ganze Geschichte eines Gebiets nacheinander ansehen: Anfang, erreichte Story-Momente, beim ersten Gebiet der Prolog, beim letzten das Finale. */
+function areaStory(a){
+  const k=(a===0?['intro']:[]).concat('a'+a, BEATS.filter(([id])=>STAGES[id-1].area===a&&S.stars[id]).map(b=>b[1]));
+  if(a===AREAS.length-1&&S.stars[LAST_ID]) k.push('ende'); return k;
+}
+function playChain(keys){ const k=keys.shift(); if(!k){ render(); return; } playSeq(k,()=>playChain(keys)); }
 
 /* ====== Bild groß ansehen: Standard und gefundene Sondermotive, wischen zum Wechseln ====== */
 let AV=null;
@@ -2252,7 +2333,7 @@ function viewMap(){
   h+=`</div><aside class="mside"><section class="panelbox">`;
   h+= next?`<p class="eyebrow">Nächstes Gefecht</p><h3>${next.i+1} · ${next.n}</h3><p class="muted">${next.size} ${SETS[next.set].n}-Karten auf Level ${next.lvl}, Held mit ${next.hp} Leben.</p><button class="btn primary block" data-act="fight" data-id="${next.id}">Kämpfen</button>`
           : `<p class="eyebrow">Gebiet geschafft</p><h3>${a===AREAS.length-1?'Die Erzseraphin ist gefallen':A.n.split(' · ')[1]}</h3><p class="muted">Hol dir fehlende Sterne oder versuch dich an den heroischen Gefechten.</p>`;
-  h+=`<button class="link" data-act="replaySeq" data-id="a${a}">Gebietsgeschichte ansehen</button><div class="facts"><div><b>${total}/${STAGES.length*3}</b><span>Sterne</span></div><div><b>${BASE.filter(c=>S.cards[c.id]).length}</b><span>Karten</span></div><div><b>${Object.keys(S.hstars).length}</b><span>heroisch</span></div></div></section>${tasksHTML()}</aside></div>`;
+  h+=`<button class="link" data-act="replayStory" data-id="${a}">Geschichte ansehen</button><div class="facts"><div><b>${total}/${STAGES.length*3}</b><span>Sterne</span></div><div><b>${BASE.filter(c=>S.cards[c.id]).length}</b><span>Karten</span></div><div><b>${Object.keys(S.hstars).length}</b><span>heroisch</span></div></div></section>${tasksHTML()}</aside></div>`;
   return h;
 }
 function tile(id,inRow){
@@ -2658,7 +2739,7 @@ const ACT={
   fight(id){ startStage(+id,false); },
   mapGo(id){ const a=+id; if(!areaKnown(a)) return; if(a>mapArea&&!areaDone(mapArea)) return; mapArea=a; sfx('flip'); render(); },
   seqNext(){ seqNext(); }, seqSkip(){ seqEnd(); },
-  replaySeq(id){ playSeq(id); },
+  replaySeq(id){ playSeq(id); }, replayStory(id){ const a=+id; if(SQ||!areaKnown(a)) return; playChain(areaStory(a)); },
   fightHero(id){ startStage(+id,true); },
   fightGo(id){ const hero=String(id).endsWith('h'), st=STAGES.find(s=>s.id===parseInt(id)); const go=()=>startBattle({mode:'kampagne',stage:st,hero,title:`${st.n}${hero?' · Heroisch':''}`,opp:st.n}); if(st.boss&&deck().length>=DECK_MIN){ closeSheet(); bossIntro(st,hero,go); } else go(); },
   bossSkip(){ if(BI) BI.done(); },
