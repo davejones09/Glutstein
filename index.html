@@ -736,6 +736,7 @@ const SETS={
   hof:{n:'Der Hohle Hof',l:'IV',cat:'schatten',col:'#5a2a7a',foe:1},
   orden:{n:'Der Lichtorden',l:'V',cat:'licht',col:'#c8a040',foe:1},
   schlaefer:{n:'Die Schläfer',l:'VI',cat:'schatten',col:'#4a2a6a',foe:1},
+  teehof:{n:'Bergamotts Hof',l:'VII',cat:'feuer',col:'#8a3a2a',foe:1},
   /* Event-Sets: nie in normalen Truhen, nur aus Eventtruhen des Tages-Events. */
   walgesang:{n:'Walgesang',l:'WG',cat:'wasser',cats:['wasser','schatten'],col:'#1f5f9a',ev:1},
   stationnull:{n:'Station Null',l:'SN',cat:'schatten',cats:['schatten','licht'],col:'#6a3a8a',ev:1},
@@ -748,7 +749,8 @@ const SETS={
   riff:{n:'Im Riff',l:'IR',cat:'licht',cats:['licht','erde'],col:'#2ab0c0',ev:1},
   maerchen:{n:'Dornenmärchen',l:'DM',cat:'schatten',cats:['erde','schatten'],col:'#7a3a7a',ev:1},
   amazonen:{n:'Amazonenreich',l:'AR',cat:'erde',cats:['erde','feuer'],col:'#5a8a2a',ev:1},
-  gladiatoren:{n:'Arena der Gladiatoren',l:'AG',cat:'feuer',cats:['feuer','licht'],col:'#b8442a',ev:1}
+  gladiatoren:{n:'Arena der Gladiatoren',l:'AG',cat:'feuer',cats:['feuer','licht'],col:'#b8442a',ev:1},
+  abteilung:{n:'Die Abteilung',l:'DA',cat:'licht',cats:['licht','wasser'],col:'#3a6a5a',ev:1}
 };
 Object.values(SETS).forEach(x=>{ if(!x.cats) x.cats=[x.cat]; });
 /* Setbonus ab 3 verschiedenen Karten eines Sets im Deck, großer Bonus ab 6. */
@@ -789,7 +791,7 @@ const SET_FX={
   abyss:[{hp:.1,atk:.1},{kw:{heilung:5/8}}], schmiede:[{kw:{schild:1/3},atk:.05},{atk1:.25,atk:.05}], mangrove:[{atk:.1,hp:.1},{grow:.015}],
   daemmerung:[{atk:.2,hp:.2},{elem:1.75}], totenwald:[{curse:.03,atk:.1},{revive:.5}], kristall:[{dr1:.2,hp:.1,atk:.1},{mend:.06}],
   erwachen:[{fear:.15,atk:.1},{scare:.2}], luft:[{flyHero:.3,hp:.15,atk:.1},{hp:.1}], raeder:[{hp:.1,atk:.1},{kw:{heilung:.5}}],
-  bruecke:[{hp:.1},{atk:.1,hp:.1}], horde:[{atk:.1},{kw:{einschlag:1}}], gefolge:[{heroHp:.15},{kw:{schild:1}}], brut:[{hp:.1,atk:.1},{kw:{heilung:1}}], hof:[{kw:{rache:1}},{atk:.1,hp:.1}], orden:[{hp:.15,atk:.2},{heroRegen:.03,atk:.1,hp:.1}], schlaefer:[{hp:.15,atk:.1},{kw:{rache:1}}], perle:[{heroHp:.15,atk:.1,hp:.1},{nets:.05}], variete:[{atk:.05},{curse:.015}], wueste:[{hp:.1,atk:.15},{grow:.025,hp:.1}], orkan:[{atk:.1,hp:.05},{atk1:.15}]
+  bruecke:[{hp:.1},{atk:.1,hp:.1}], horde:[{atk:.1},{kw:{einschlag:1}}], gefolge:[{heroHp:.15},{kw:{schild:1}}], brut:[{hp:.1,atk:.1},{kw:{heilung:1}}], hof:[{kw:{rache:1}},{atk:.1,hp:.1}], orden:[{hp:.15,atk:.2},{heroRegen:.03,atk:.1,hp:.1}], schlaefer:[{hp:.15,atk:.1},{kw:{rache:1}}], teehof:[{hp:.1,atk:.1},{curse:.015}], abteilung:[{atk:.15,hp:.1},{atk1:.2,dr1:.1}], perle:[{heroHp:.15,atk:.1,hp:.1},{nets:.05}], variete:[{atk:.05},{curse:.015}], wueste:[{hp:.1,atk:.15},{grow:.025,hp:.1}], orkan:[{atk:.1,hp:.05},{atk1:.15}]
 };
 /* Setbonus-Texte werden aus den Werten erzeugt, damit Text und Wirkung immer übereinstimmen. */
 const KW_LABEL={schild:'Schild',einschlag:'Einschlag',heilung:'Heilung',segen:'Segen',rache:'Rache'};
@@ -1054,7 +1056,20 @@ const BASE=[
  ['loewenbaendiger','Löwenbändiger','gladiatoren',1,4,4,{wut:1}],
  ['schildbrecher','Schildbrecher','gladiatoren',1,5,5,{durchbruch:1},'licht'],
  ['lanista','Der Lanista','gladiatoren',2,3,6,{anfuehrer:1,segen:1},'licht'],
- ['champion','Der Champion','gladiatoren',3,5,8,{wut:1}]
+ ['champion','Der Champion','gladiatoren',3,5,8,{wut:1}],
+ /* Folge 2: Bergamotts Hof (Gegner) und die Abteilung (Verbündete, kommen aus der Geschichte und dem Event) */
+ ['handlanger','Handlanger mit Melone','teehof',0,4,3,{einschlag:1}],
+ ['teedrohne','Teetassen-Drohne','teehof',0,3,3,{flug:1}],
+ ['giftmischerin','Die Giftmischerin','teehof',1,3,5,{heilung:1}],
+ ['croupier','Der Croupier','teehof',1,5,3,{durchbruch:1}],
+ ['stahlkiefer','Der Stahlkiefer','teehof',2,5,6,{schild:1,wut:1}],
+ ['bergamott','Lord Bergamott','teehof',3,4,8,{anfuehrer:1,segen:1}],
+ ['funkerin','Funkerin Nell','abteilung',0,3,4,{segen:1}],
+ ['fahrer','Fahrer Fitch','abteilung',0,4,4,{durchbruch:1},'wasser'],
+ ['butler','Butler Pembroke','abteilung',1,3,6,{schild:1},'wasser'],
+ ['tueftler','Tüftler Oswin','abteilung',1,5,3,{einschlag:1}],
+ ['chefin','Die Chefin','abteilung',2,3,6,{anfuehrer:1,schild:1}],
+ ['laura','Agentin Laura','abteilung',3,6,6,{einschlag:1,durchbruch:1}]
 ].map(([id,n,set,r,a0,h0,k,cat])=>{
   /* Grundwerte je Seltenheit liegen eng beieinander. Jede Karte hat ihr eigenes Verhältnis von Angriff zu Leben (30–70 %). */
   const x=hashS(id), u=(x%1000)/1000, T=Math.round(RAR_BASE[r]*(1+((x>>10)%7-3)/100)/10)*10;
@@ -1075,7 +1090,9 @@ const AREAS=[
  {set:'sonne',foe:'orden',n:'V · Die Sonnenwacht',s:'Der Orden des Lichts und seine Erzseraphin.',img:'kapitel-5',unl:['sonneneinhorn','lichtritter','sonnenloewe'],fin:'Die Erzseraphin ist gefallen',end:'ende'},
  /* Folge 1 der Kampagne nach dem Prolog. Gegner sind „Die Schläfer“. Wer alles heroisch schafft, bekommt das Set und Linds Sondermotiv (heroSkin).
     Karten gibt es hier nicht über Freischalt-Gefechte, sondern zusammen mit den Sondermotiven aus der Geschichte (STORY_REW). */
- {set:'stationnull',foe:'schlaefer',ep:'Folge 1',heroSkin:[['doktorlind',1]],n:'Folge 1 · Station Null',s:'Kälte, Sporen und das Ding im Reaktor.',img:'kapitel-6',unl:[],fin:'Das Ding ist gebunden',end:'f1ende'}
+ {set:'stationnull',foe:'schlaefer',ep:'Folge 1',heroSkin:[['doktorlind',1]],n:'Folge 1 · Station Null',s:'Kälte, Sporen und das Ding im Reaktor.',img:'kapitel-6',unl:[],fin:'Das Ding ist gebunden',end:'f1ende'},
+ /* Folge 2: Nebelhafen. Die Karten der Abteilung kommen aus der Geschichte (STORY_REW). */
+ {set:'abteilung',foe:'teehof',ep:'Folge 2',n:'Folge 2 · Um Punkt Fünf',s:'Regen, Tee und ein Lord, der nie verliert.',img:'kapitel-7',unl:[],fin:'Bergamott ist verhaftet',end:'f2ende'}
 ];
 /* Kampagne: 16 Gefechte je Gebiet. Die alten 8 Gefechte liegen auf den geraden Plätzen, dazwischen je ein leichteres neues. */
 const STAGES_PER=16;
@@ -1097,11 +1114,14 @@ const STAGE_NAMES=[]; for(let a=0;a<5;a++) for(let k=0;k<8;k++){ STAGE_NAMES.pus
 /* Folge 1: Station Null, je vier Gefechte in Andockschleuse, Kälteschlafkammer, Laboren und Reaktorkern. */
 STAGE_NAMES.push('Die Schleuse','Ring A','Die Namenswand','Schicht sieben','Der Kapselsaal','Kapsel zwölf','Kältenebel','Die Treppenschächte',
  'Die Sammlung','Das Türprotokoll','Die Brutschränke','Der dritte Ring','Die warme Treppe','Laufsteg der Schläfer','Notkühlung','Der Reaktorchor');
+/* Folge 2: Um Punkt Fünf, je vier Gefechte in Teehaus, Casino, Verfolgung und Vulkan. */
+STAGE_NAMES.push('Die Teestube','Der Samowar','Gas im Salon','Der Hinterhof','Am Fluss bei Nacht','Die Garderobe','Der grüne Tisch','Der hohe Einsatz',
+ 'Über die Dächer','Die Gasse','Die Docks','Gleis neun','Die Teeterrassen','Das Gewächshaus','Die Lavabrücke','Lord Bergamott');
 const UNLOCK_SLOTS=[3,8,13]; /* Gefecht 4, 9 und 14 eines Gebiets schalten je eine Karte frei. */
 /* Werte der alten 8 Gefechte; die neuen Zwischengefechte übernehmen die Werte des vorigen alten Gefechts (leichter). */
-const RMAX8=[[0,0,0,0,0,0,0,0],[0,0,0,1,1,1,1,1],[0,0,1,1,1,2,2,1],[0,0,0,1,1,1,1,1],[0,0,1,1,1,2,2,1],[0,0,1,1,1,1,1,1]];
-const AREA_LVL8=[[1,2,2,3,3,3,3,1],[5,5,5,5,4,4,4,4],[9,9,9,7,7,7,6,6],[11,10,9,10,10,9,9,10],[14,14,14,13,13,13,12,11],[18,18,18,18,16,15,16,16]];
-const AREA_SIZE8=[[3,3,4,4,4,5,5,5],[3,4,4,5,5,5,5,6],[5,6,6,7,7,7,7,6],[6,6,7,6,7,8,7,6],[4,5,5,6,6,6,6,7],[5,5,6,6,6,6,6,7]];
+const RMAX8=[[0,0,0,0,0,0,0,0],[0,0,0,1,1,1,1,1],[0,0,1,1,1,2,2,1],[0,0,0,1,1,1,1,1],[0,0,1,1,1,2,2,1],[0,0,1,1,1,1,1,1],[0,1,1,1,1,2,2,1]];
+const AREA_LVL8=[[1,2,2,3,3,3,3,1],[5,5,5,5,4,4,4,4],[9,9,9,7,7,7,6,6],[11,10,9,10,10,9,9,10],[14,14,14,13,13,13,12,11],[18,18,18,18,16,15,16,16],[23,23,23,23,21,22,22,21]];
+const AREA_SIZE8=[[3,3,4,4,4,5,5,5],[3,4,4,5,5,5,5,6],[5,6,6,7,7,7,7,6],[6,6,7,6,7,8,7,6],[4,5,5,6,6,6,6,7],[5,5,6,6,6,6,6,7],[5,6,6,6,7,7,7,7]];
 const x16=(T,first)=>T.map((r,a)=>r.flatMap((v,k)=>[k?Math.min(r[k-1],v):first(v,a),v]));
 const RMAX=x16(RMAX8,v=>v), AREA_LVL=x16(AREA_LVL8,(v,a)=>a?AREA_LVL8[a-1][7]-1:v), AREA_SIZE=x16(AREA_SIZE8,v=>Math.max(3,v-1));
 const STAGES=STAGE_NAMES.map((n,k)=>{
@@ -1119,7 +1139,8 @@ const STAGE_COND={
   44:[{t:'cat',c:'erde',n:2}], 48:[{t:'nor',r:3}],
   60:[{t:'cat',c:'schatten',n:2}], 64:[{t:'nor',r:3}],
   72:[{t:'cat',c:'licht',n:3}], 76:[{t:'set',s:'sonne',n:2}], 80:[{t:'card',id:'funkenwicht'}],
-  84:[{t:'card',id:'wartungsdrohne'}], 88:[{t:'card',id:'androidin'},{t:'cat',c:'licht',n:3}], 92:[{t:'set',s:'stationnull',n:3}], 96:[{t:'card',id:'kryoschlaeferin'},{t:'card',id:'androidin'}]
+  84:[{t:'card',id:'wartungsdrohne'}], 88:[{t:'card',id:'androidin'},{t:'cat',c:'licht',n:3}], 92:[{t:'set',s:'stationnull',n:3}], 96:[{t:'card',id:'kryoschlaeferin'},{t:'card',id:'androidin'}],
+  100:[{t:'card',id:'tueftler'}], 104:[{t:'card',id:'laura'}], 108:[{t:'set',s:'abteilung',n:3}], 112:[{t:'card',id:'laura'},{t:'card',id:'kryoschlaeferin'}]
 };
 function condHard(cs){ const out=cs.map(c=>c.t==='cat'||c.t==='set'?Object.assign({},c,{n:c.n+1}):c.t==='max'?Object.assign({},c,{n:c.n-1}):c.t==='nor'?Object.assign({},c,{r:Math.max(2,c.r-1)}):c);
   if(!cs.some(c=>c.t==='max'||c.t==='nor')) out.push({t:'max',n:7}); return out; }
@@ -1374,6 +1395,25 @@ Object.assign(DLG,{
 /* ====== Geschichte: Prolog „Der zerbrochene Stein“ ======
    intro = Prolog und Erwachen, a0–a4 = Anfang der Gebiete, Story-Momente nach bestimmten Gefechten (BEATS), ende = Finale und Epilog.
    {KB} wird zu Kartenbinder oder Kartenbinderin. Die ganze Lesefassung liegt in geschichte/prolog.txt. */
+/* Folge 2 · Um Punkt Fünf */
+Object.assign(DLG,{
+ 97:[['g','Tisch für einen? Wir haben nur noch Plätze um fünf.'],['p','Ich trinke heute keinen Tee.']],
+ 98:[['g','Hinter dem Samowar ist nichts. Gar nichts. Geh weiter.'],['p','Dann hast du ja nichts zu verlieren.']],
+ 99:[['g','Noch ein Tässchen? Es riecht ein bisschen nach Gras, aber das ist ganz normal.'],['p','Funke sagt was anderes.']],
+ 100:[['g','Im Hinterhof regnet es immer. Hier verschwindet man leise.'],['p','Ich bin aber gar nicht leise.']],
+ 101:[['g','Der Lord erwartet Gäste. Mit Einladung, versteht sich.'],['p','Ich habe eine Karte. Mehrere sogar.']],
+ 102:[['g','So können Sie nicht ins Casino. Wo ist Ihre Fliege?'],['p','Die Kapuze bleibt.']],
+ 103:[['g','Faites vos jeux. Die Karten mischt das Haus.'],['p','Und ich merke, wenn sie lügen.']],
+ 104:[['g','Der Lord setzt eine Erinnerung. Was setzen Sie?'],['p','Nichts, was dir gehört.']],
+ 105:[['g','Über die Dächer? Bei dem Regen? Sie sind ja verrückt.'],['p','Funke sagt das auch.']],
+ 106:[['g','In der Gasse sieht dich niemand. Nicht mal der Mond.'],['p','Mich sieht schon jemand. Mit Kapuze.']],
+ 107:[['g','Achtundvierzig Kisten, alle bezahlt. Du störst die Lieferung.'],['p','Die Lieferung fällt heute aus.']],
+ 108:[['g','Gleis neun. Abfahrt um drei. Fahrgäste schlafen.'],['p','Dann wecke ich sie.']],
+ 109:[['g','Die Terrassen ernten nur das Beste. Bald auch dich.'],['p','Ich schmecke bitter.']],
+ 110:[['g','Probier doch. Danach tut nichts mehr weh.'],['p','Juna sagt, es soll ruhig wehtun.']],
+ 111:[['g','Unter der Brücke kocht der Berg. Spring doch.'],['p','Funke fühlt sich hier richtig wohl.']],
+ 112:[['g','Wissen Sie, was das Schönste am Tee ist? Man kann alles hineintun.'],['p','Und manches muss man wieder herausholen.'],['g','Um Punkt fünf trinkt die ganze Stadt. Aus meinen Tassen.'],['p','Ihr Tee wird kalt, Mylord.']]
+});
 /* Folge 1 · Station Null */
 Object.assign(DLG,{
  81:[['g','Andockring Null. Minus einunddreißig Grad. Willkommen zurück, Besucher Null.'],['p','Ich war noch nie hier.']],
@@ -1394,7 +1434,7 @@ Object.assign(DLG,{
  96:[['g','Du riechst nach Zuhause. Gib mir den Rest von mir.'],['p','Den Stein bekommst du nicht.'],['g','Dann nehme ich dich. Du bist doch so schön warm.'],['p','Jede Karte ist eine Tür. Diese hier schließt sich hinter dir.']]
 });
 /* Folien mit Sprachaufnahme (Ordner ton/, Name: Sequenz-Folie, -w = Fassung für Kartenbinderin). */
-const VOX=new Set(["a0-1", "a0-2", "a0-3", "a1-1", "a1-2", "a1-3", "a1-4", "a2-1", "a2-2", "a2-3", "a3-1", "a3-2", "a3-3", "a4-1", "a4-2", "a4-3", "a5-1", "a5-2", "a5-3", "a5-4", "a5-5", "a5-6", "b0-1", "b0-2", "b0-3", "b1-1", "b1-2", "b1-3", "b2-1", "b2-2", "b3-1", "b3-2", "b3-3", "ende-1", "ende-2", "ende-3", "ende-4", "ende-4-w", "ende-5", "ende-6", "ende-6-w", "ende-7", "ende-8", "f1_aufzeichnung-1", "f1_aufzeichnung-2", "f1_brummer-1", "f1_brummer-2", "f1_brummer2-1", "f1_brummer2-2", "f1_juna-1", "f1_juna-2", "f1_k7-1", "f1_k7-2", "f1_namen-1", "f1_namen-2", "f1_sammlung-1", "f1_sammlung-2", "f1_schlaefer-1", "f1_schlaefer-2", "f1_schlaefer-3", "f1_vision-1", "f1_vision-2", "f1_wal-1", "f1_wal-2", "f1ende-1", "f1ende-2", "f1ende-3", "f1ende-4", "f1ende-5", "f1ende-6", "intro-1", "intro-2", "intro-3", "intro-4", "intro-5", "intro-6", "intro-6-w", "intro-7", "intro-8", "s_alder-1", "s_bluete-1", "s_bluete-2", "s_feuer-1", "s_hanne-1", "s_hanne-2", "s_kuppel-1", "s_kuppel-2", "s_lio-1", "s_markt-1", "s_markt-2", "s_moor-1", "s_moor-2", "s_quelle-1", "s_quelle-2", "s_quelle-2-w", "s_spiegel-1"]);
+const VOX=new Set(["a0-1", "a0-2", "a0-3", "a1-1", "a1-2", "a1-3", "a1-4", "a2-1", "a2-2", "a2-3", "a3-1", "a3-2", "a3-3", "a4-1", "a4-2", "a4-3", "a5-1", "a5-2", "a5-3", "a5-4", "a5-5", "a5-6", "a6-1", "a6-2", "a6-3", "a6-4", "a6-5", "a6-6", "b0-1", "b0-2", "b0-3", "b1-1", "b1-2", "b1-3", "b2-1", "b2-2", "b3-1", "b3-2", "b3-3", "ende-1", "ende-2", "ende-3", "ende-4", "ende-4-w", "ende-5", "ende-6", "ende-6-w", "ende-7", "ende-8", "f1_aufzeichnung-1", "f1_aufzeichnung-2", "f1_brummer-1", "f1_brummer-2", "f1_brummer2-1", "f1_brummer2-2", "f1_juna-1", "f1_juna-2", "f1_k7-1", "f1_k7-2", "f1_namen-1", "f1_namen-2", "f1_sammlung-1", "f1_sammlung-2", "f1_schlaefer-1", "f1_schlaefer-2", "f1_schlaefer-3", "f1_vision-1", "f1_vision-2", "f1_wal-1", "f1_wal-2", "f1ende-1", "f1ende-2", "f1ende-3", "f1ende-4", "f1ende-5", "f1ende-6", "f2_abteilung-1", "f2_abteilung-2", "f2_abteilung-3", "f2_anschlag-1", "f2_anschlag-2", "f2_anschlag-3", "f2_anschlag-4", "f2_casino-1", "f2_casino-2", "f2_casino-3", "f2_daecher-1", "f2_daecher-2", "f2_einsatz-1", "f2_einsatz-2", "f2_einsatz-3", "f2_kessel-1", "f2_kessel-2", "f2_kessel-3", "f2_nachtzug-1", "f2_nachtzug-2", "f2_nachtzug-3", "f2_vulkan-1", "f2_vulkan-2", "f2ende-1", "f2ende-2", "f2ende-3", "f2ende-4", "f2ende-5", "f2ende-6", "intro-1", "intro-2", "intro-3", "intro-4", "intro-5", "intro-6", "intro-6-w", "intro-7", "intro-8", "s_alder-1", "s_bluete-1", "s_bluete-2", "s_feuer-1", "s_hanne-1", "s_hanne-2", "s_kuppel-1", "s_kuppel-2", "s_lio-1", "s_markt-1", "s_markt-2", "s_moor-1", "s_moor-2", "s_quelle-1", "s_quelle-2", "s_quelle-2-w", "s_spiegel-1"]);
 const SEQ={
  intro:{t:'Prolog · Die Nacht ohne Sterne',music:'prolog',slides:[
   ['seq/intro-1','Einst knieten fünf Wächter am Herd der Welt. Jede Nacht sangen sie, damit der Glutstein hält.'],
@@ -1521,14 +1561,61 @@ const SEQ={
   ['seq/f1-boot','Juna springt mit euch durch den Riss, Merles Licht entgegen. „Ich will wissen, wer du bist.“ – „So hab ich auch mal angefangen“, sagt Seda.'],
   ['seq/f1-boot','„Ihr wart keine Stunde weg“, sagt Merle, als sie euch aus dem Wasser zieht.'],
   ['seq/f1-karte','In der Nacht liegt in deinem Stapel eine Karte, die du nie gebunden hast: ein Gang mit rotem Licht, ganz hinten eine Gestalt.'],
-  ['seq/f1-karte','Jede Nacht kommt sie näher. Das rote Licht blinkt: drei kurz, drei lang, drei kurz. „Guckt mal genau hin“, flüstert Funke. „Die hat eine Kapuze.“\nFortsetzung folgt …']]}
+  ['seq/f1-karte','Jede Nacht kommt sie näher. Das rote Licht blinkt: drei kurz, drei lang, drei kurz. „Guckt mal genau hin“, flüstert Funke. „Die hat eine Kapuze.“\nFortsetzung folgt …']]},
+ a6:{t:'Folge 2 · Um Punkt Fünf',music:'menue',slides:[
+  ['seq/f2-teetasse','Eine Woche nach Station Null. Die Karte, die niemand gebunden hat, zeigt keinen Gang mehr. Sie zeigt eine Straße im Regen. Unter der letzten Laterne steht eine Gestalt mit Kapuze.'],
+  ['seq/f2-teetasse','Neben der Karte dampft eine Tasse Tee, die keiner eingeschenkt hat. „Riecht nach Bergamotte“, sagt Juna. „Woher weiß ich das?“'],
+  ['seq/f2-teetasse','Im Schlaf murmelt der Stein: „Fünf Uhr. Da trinkt man.“ Beim fünften Schlag der Standuhr reißt mitten im Leuchtturm die Luft auf.'],
+  ['seq/f2-teetasse','„Bringt mir die Tasse wieder mit“, sagt Merle. „Sie ist hübsch.“'],
+  ['seq/f2-ankunft','Nebelhafen. Regen, Gaslaternen, ein roter Bus. Vor einem Café steht ein leerer Stuhl, noch warm. Daneben eine Tasse, ein Hut und ein Paar Handschuhe.'],
+  ['seq/f2-ankunft','„Mister Finch, Buchhalter. Earl Grey, zwei Stück Zucker. Er war der dreiundvierzigste. Und ihr seid genau um fünf aus der Luft gefallen.“ Sie heißt Laura. Und sie nimmt euch mit. Zum Tee.']]},
+ f2_abteilung:{t:'Die Abteilung',slides:[
+  ['seq/f2-abteilung','Hinter einem Samowar im Teehaus führt eine Treppe nach unten. Auf der Stadtkarte stecken dreiundvierzig kleine Tassen aus Messing. Alle roten Fäden laufen zum Feuerberg.'],
+  ['seq/f2-abteilung','„Lord Bergamott“, sagt die Chefin. „Ihm gehört jede zweite Teekanne dieser Stadt. Agent Ellis war der Letzte, der ihn gefragt hat.“'],
+  ['seq/f2-abteilung','Dann spielt die Funkerin ein Band ab. Eine müde Stimme, die klingt wie deine eigene, nur älter: „Wenn einer kommt, mit einem warmen Stein … lasst ihn nicht trinken.“']]},
+ f2_anschlag:{t:'Gas im Salon',slides:[
+  ['seq/f2-anschlag','Ein Kellner bringt eine neue Kanne. Funke schnuppert: „Die riecht komisch. Nach nassem Gras.“'],
+  ['seq/f2-anschlag','Der Deckel springt auf, und grünes Gas quillt über den Tisch. Der Tüftler Oswin saugt es mit einem Gerät aus Messing einfach weg. „Funktioniert! Das wusste ich vorher gar nicht.“'],
+  ['seq/f2-anschlag','Im Hinterhof hält Pembroke den Kellner mit seinem Schirm am Boden. „In diesem Haus vergiftet man niemanden, junger Mann. Man sagt Bescheid, wenn der Tee zu stark ist.“'],
+  ['seq/f2-anschlag','Der Kellner lächelt nur. Bergamott hat ihm eine Tasse geschenkt, und seitdem hat er vor nichts mehr Angst. In seiner Tasche steckt eine Einladung ins Casino.']]},
+ f2_casino:{t:'Casino Bergamott',slides:[
+  ['seq/f2-casino','Unter Kronleuchtern sitzt Lord Bergamott mit seiner weißen Katze. Vor ihm stehen keine Chips, sondern Tassen. In jeder dampft eine Erinnerung.'],
+  ['seq/f2-casino','„Ich nehme nur, was man nicht braucht. Ich bin, wenn Sie so wollen, ein Wohltäter.“ – „Ein Dieb“, sagt Seda. – „Ein Teehändler, meine Liebe. Das ist dasselbe, nur mit besserem Porzellan.“'],
+  ['seq/f2-casino','Der Croupier mischt falsch. Unter deiner Hand zittert die Karte, und du spürst, dass sie lügt. Seine versteckten Karten fallen klirrend zu Boden.']]},
+ f2_einsatz:{t:'Der hohe Einsatz',slides:[
+  ['seq/f2-einsatz','Bergamott schiebt eine Tasse über den Tisch. Im Dampf: ein Ring aus Stahl, ein Meer, zwei Monde. „Das ist meins“, flüstert Juna.'],
+  ['seq/f2-einsatz','„Und Sie setzen dagegen den warmen Stein. Ich will ihn nur einmal kosten.“ Der Stein sagt im Schlaf: „Nein.“'],
+  ['seq/f2-einsatz','Laura schießt in den Kronleuchter. Im Dunkeln schnappt sich ein Mann mit Melone die Tasse und rennt. „Um Punkt fünf“, sagt Bergamott ruhig. „Ich warte mit dem Tee.“']]},
+ f2_daecher:{t:'Über die Dächer',slides:[
+  ['seq/f2-daecher','Über nasse Dächer jagt ihr den Mann mit der Melone. Laura springt über die Gasse, ohne langsamer zu werden. „Wir springen da nicht“, ruft Funke. „Sag mir, dass wir da nicht springen!“'],
+  ['seq/f2-daecher','Juna rammt den Mann. Die Tasse fliegt über die Dachkante, und unten in der Gasse fängt sie jemand auf. Eine kleine Gestalt mit Kapuze. Dann ist sie fort.']]},
+ f2_nachtzug:{t:'Der Nachtzug',slides:[
+  ['seq/f2-nachtzug','Im Güterwagen stehen achtundvierzig Teekisten. In jeder schläft ein Mensch, eingeschlossen in goldenem Dampf. Alle lächeln.'],
+  ['seq/f2-nachtzug','In der achten Kiste liegt Ellis. „Er hasst Earl Grey“, sagt Laura leise. „Er hat ihn immer getrunken, weil ich ihn mag.“'],
+  ['seq/f2-nachtzug','Der Stein murmelt: „Er braucht Wärme. Für den Kessel. Er hat dem Riss eine Tasse angeboten. Und der Riss hat ja gesagt.“']]},
+ f2_vulkan:{t:'Der Feuerberg',slides:[
+  ['seq/f2-vulkan','Am Feuerberg leuchten Teeterrassen im Morgengrauen. Drohnen aus Porzellan summen darüber. Oben im Krater steht ein Kessel, so groß wie eine Kirche, und der Himmel darüber trinkt. „Das ist Geschirr“, sagt Funke. „Das gehört in den Schrank.“'],
+  ['seq/f2-vulkan','Die Giftmischerin reicht Juna eine Tasse. Danach tut nichts mehr weh, sagt sie. „Dann soll es wehtun“, sagt Juna. „Es ist meins.“']]},
+ f2_kessel:{t:'Der Kessel',slides:[
+  ['seq/f2-kessel','„Meine Frau war seit einem Jahr tot. Ich habe ihr Gesicht in jeder Tasse gesehen. Der Riss hat es mir abgenommen. Es ist herrlich ruhig hier drin.“'],
+  ['seq/f2-kessel','„Der Orden nannte es Frieden“, sagt Seda. Bergamott nennt es Tee. Heute um fünf soll die ganze Stadt trinken. Dafür braucht er den Stein.'],
+  ['seq/f2-kessel','„Versuchen Sie, das nicht zu ruinieren“, sagt Laura. Juna stellt sich neben dich. „Er hat mein Lied.“']]},
+ f2ende:{t:'Um Punkt Fünf',music:'endgegner',slides:[
+  ['seq/f2-finale','Funke klettert auf den Kessel und hört auf, sich klein zu machen. Das Kupfer glüht, die Nieten springen, und der Kessel bricht.'],
+  ['seq/f2-finale','Hunderte goldene Fäden fliegen heim, über den Berg und über die Stadt. Bevor sich der Riss schließt, dreht sich dahinter etwas Großes um. Zu dir.'],
+  ['seq/f2-finale','Juna lacht und weint zugleich. „Meine Mutter hat das gesungen. Wenn es gestürmt hat. Ein Name fehlt noch. Aber das ist da.“'],
+  ['seq/f2-finale','„Sie hieß Margaret“, sagt Bergamott leise. Laura legt ihm die Handschellen an. „Ihr Tee ist kalt, Mylord.“'],
+  ['seq/f2-epilog','Drei Tage später, fünf Uhr, in der Goldenen Kanne. Alle sind aufgewacht. Laura legt ein altes Foto auf den Tisch: ein Dach im Regen, am Rand eine Gestalt mit Kapuze. Drei Wochen alt.'],
+  ['seq/f2-epilog','„Den hab ich schon mal gesehen“, flüstert Funke. „Im Tempel. Als du aufgewacht bist.“ Die Uhr schlägt fünf. In deiner Tasche blinkt die Karte wieder: drei kurz, drei lang, drei kurz.\nFortsetzung folgt …']]}
 };
 /* Story-Momente: nach dem ersten Sieg im genannten Gefecht, in dieser Reihenfolge. */
 const BEATS=[[6,'s_bluete'],[8,'s_hanne'],[16,'b0'],[22,'s_alder'],[32,'b1'],[38,'s_lio'],[42,'s_moor'],[44,'s_quelle'],[45,'s_feuer'],[48,'b2'],[53,'s_markt'],[64,'b3'],[73,'s_kuppel'],[73,'s_spiegel'],
- [81,'f1_wal'],[82,'f1_brummer'],[84,'f1_namen'],[85,'f1_k7'],[86,'f1_juna'],[89,'f1_sammlung'],[90,'f1_aufzeichnung'],[91,'f1_brummer2'],[92,'f1_vision'],[94,'f1_schlaefer']];
+ [81,'f1_wal'],[82,'f1_brummer'],[84,'f1_namen'],[85,'f1_k7'],[86,'f1_juna'],[89,'f1_sammlung'],[90,'f1_aufzeichnung'],[91,'f1_brummer2'],[92,'f1_vision'],[94,'f1_schlaefer'],
+ [97,'f2_abteilung'],[99,'f2_anschlag'],[101,'f2_casino'],[103,'f2_einsatz'],[105,'f2_daecher'],[108,'f2_nachtzug'],[109,'f2_vulkan'],[111,'f2_kessel']];
 /* Belohnungen nach dem ersten Ansehen einer Sequenz: [Karte, Sondermotiv] (0 = nur die Karte). */
 const STORY_REW={f1_brummer:[['wartungsdrohne',1]],f1_k7:[['androidin',0]],f1_juna:[['kryoschlaeferin',1]],f1_sammlung:[['sporenbrut',1]],
- f1_schlaefer:[['androidin',1]],f1ende:[['reaktording',1],['infizierter',1],['kryoschlaeferin',2]]};
+ f1_schlaefer:[['androidin',1]],f1ende:[['reaktording',1],['infizierter',1],['kryoschlaeferin',2]],
+ f2_abteilung:[['butler',0]],f2_anschlag:[['tueftler',0]],f2_casino:[['funkerin',0]],f2_einsatz:[['laura',0]],f2_daecher:[['fahrer',0]],f2ende:[['chefin',0]]};
 
 const LORE={
  clownfische:'Ihre Anemone ist ihr Zuhause, ihre Festung und ihr Spielplatz.',
@@ -1567,6 +1654,18 @@ const LORE={
  infizierter:'Er hat die Wartungsschicht nie beendet.',
  androidin:'Ihr Lächeln ist echt. Glaubt sie zumindest.',
  reaktording:'Es wächst. Und es hört zu.',
+ handlanger:'Die Krempe seiner Melone ist schärfer als sein Verstand.',
+ teedrohne:'Sie bringt den Tee. Ob du willst oder nicht.',
+ giftmischerin:'Ein Schluck, und nichts tut mehr weh. Gar nichts mehr.',
+ croupier:'Das Haus gewinnt immer. Dafür sorgt er.',
+ stahlkiefer:'Er lächelt selten. Das ist auch besser so.',
+ bergamott:'Er hat noch nie verloren. Nicht beim Kartenspiel, nicht beim Tee.',
+ funkerin:'Sie hört, was die Stadt flüstert. Auch auf Frequenzen, die es nicht gibt.',
+ fahrer:'Kein Wagen ist schneller. Kein Fahrer schweigsamer.',
+ butler:'In diesem Haus vergiftet man niemanden.',
+ tueftler:'Es funktioniert. Das wusste er vorher auch nicht.',
+ chefin:'Sie trinkt Tee, als wäre es eine Waffe.',
+ laura:'Sie spricht wenig und meint jedes Wort.',
  goldgraeber:'Vierzig Jahre gegraben, und heute glänzt es endlich.',
  kutschenraeuberin:'Die Postkutsche fährt pünktlich. Sie auch.',
  sheriff:'In dieser Stadt gilt sein Wort. Meistens.',
@@ -1830,11 +1929,19 @@ function lvChest(L){ return LV_MILE.includes(L)?'gold':(L<=20?L%5===0:L%10===0)?
 /* Kartenrücken: rein optisch, für Glutsteine. */
 const BACKS={standard:{n:'Glutstein',p:0},abyss:{n:'Tiefsee',p:40},schmiede:{n:'Zwergenschmiede',p:40},mangrove:{n:'Mangroven',p:40},daemmerung:{n:'Dämmerung',p:40},totenwald:{n:'Totenwald',p:40},erwachen:{n:'Das Erwachen',p:40},kristall:{n:'Kristallsee',p:40},raeder:{n:'Räderwerk',p:40},
   glut:{n:'Glut',p:40},flut:{n:'Flut',p:40},hain:{n:'Hain',p:40},nacht:{n:'Nacht',p:40},sonne:{n:'Sonne',p:40},luft:{n:'Wolkenhimmel',p:40},
-  bruecke:{n:'Brückenstadt',p:40},perle:{n:'Perlhafen',p:40},variete:{n:'Varieté',p:40},wueste:{n:'Wüstensand',p:40},orkan:{n:'Orkanflotte',p:40},
+  bruecke:{n:'Brückenstadt',p:40},perle:{n:'Perlhafen',p:40},variete:{n:'Varieté',p:40},wueste:{n:'Wüstensand',p:40},orkan:{n:'Orkanflotte',p:40},stationnull:{n:'Station Null',p:40},teestunde:{n:'Tee um Fünf',p:40},
   champion:{n:'Champion',p:0,earn:'Erreiche die Glutliga'}};
 /* Der Champion-Rücken ist nicht käuflich: er gehört dir, sobald du einmal die Glutliga erreicht hast. */
 function champCheck(){ if(S.league>=4&&!S.backs.includes('champion')) S.backs.push('champion'); }
 function backSrc(k){ return k==='standard'?'bilder/rueckseite.jpg':`bilder/ruecken-${k}.jpg`; }
+/* Kartenrücken der Gegner: in der Kampagne passend zum Gebiet, Arena-Rivalen haben je einen festen, sonst zufällig. Nie dein eigener. */
+const AREA_BACK=['glut','flut','hain','nacht','sonne','stationnull','teestunde'];
+function foeBack(c){
+  const pool=Object.keys(BACKS).filter(k=>k!==S.back&&k!=='champion');
+  if(c.mode==='kampagne'){ const k=AREA_BACK[c.stage.area]; if(k&&k!==S.back) return k; }
+  const r=c.mode==='arena'&&c.rival?rng(hash('rb'+c.rival.s))():Math.random();
+  return pool[Math.floor(r*pool.length)]||'standard';
+}
 const GEM_PROMO=20, GEM_BOSS=10, WIN_CHEST_EVERY=5, REPLAY_SHARE=.2, THREE_STAR_BONUS=50, HERO_GOLD=1.5, ALBUM_REWARD={gold:300,gems:15};
 const SEASON_START=Date.UTC(2026,10,2), SEASON_DAYS=14;
 /* Spieltische: Grundtisch gratis, weitere Farben günstig mit denselben Effekten, Thementische teurer mit eigenen Effekten und Geräuschen. */
@@ -1892,7 +1999,7 @@ const UNLOCK_AT={}; STAGES.forEach(st=>{ if(st.unlock) UNLOCK_AT[st.unlock]=st.i
 
 const H1=['Kralle','Luna','Moritz','Sturm','Nacht','Eisen','Fuchs','Rabe','Pixel','Brumm','Zwerg','Glut','Mira','Tobi','Hexe','Wolf','Kaktus','Nebel','Rost','Jule','Okan','Finn','Lea','Bjarne','Sina','Dachs','Keks','Wicht','Ritter','Motte'];
 const H2=['','_77','_92','07','_xD','3000','HD','_tv','2k','Lord','chen','_HH','_M','42','_gg','lein','XL','_01','23','Prime'];
-const ROM=['','I','II','III','IV','V','VI'], KEY='glutstein-save-v6';
+const ROM=['','I','II','III','IV','V','VI','VII'], KEY='glutstein-save-v6';
 const RM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -2480,7 +2587,8 @@ const MAP_PATH=[
  [[12,86],[17,84],[23,80],[28,74],[34,71],[42,70],[50,71],[56,68],[59,63],[60,58],[66,56],[73,54],[80,50],[84,46],[78,42],[70,39],[68,34],[75,31],[80,26],[83,20],[85,14]],
  [[12,80],[17,80],[23,75],[30,71],[38,67],[43,62],[41,56],[38,51],[40,46],[46,43],[50,37],[56,31],[64,30],[72,27],[78,21],[84,16],[87,12]],
  [[11,85],[17,82],[22,77],[28,71],[32,65],[31,58],[30,51],[33,45],[39,43],[46,41],[52,37],[58,34],[64,31],[70,27],[76,22],[81,17],[85,12]],
- [[40.5,85.8],[44,85],[52,84],[60,83],[67,81],[73,77],[79,74],[83,70],[84,65],[83,59],[78,56],[72,54],[64,53],[57,52],[49,51],[43,49],[40,45],[41,41],[44,39],[51,37],[60,37],[69,36],[77,35],[82,33],[84,30],[83,27.5],[79,26.5],[75,25],[71.5,23],[69,21],[68.5,19],[71,18.2],[75,17.6],[80,16.5],[86,15],[90,14.2]]];
+ [[40.5,85.8],[44,85],[52,84],[60,83],[67,81],[73,77],[79,74],[83,70],[84,65],[83,59],[78,56],[72,54],[64,53],[57,52],[49,51],[43,49],[40,45],[41,41],[44,39],[51,37],[60,37],[69,36],[77,35],[82,33],[84,30],[83,27.5],[79,26.5],[75,25],[71.5,23],[69,21],[68.5,19],[71,18.2],[75,17.6],[80,16.5],[86,15],[90,14.2]],
+ [[31,83],[35,77],[43,72],[50,67],[54,62],[52,56],[45,52],[35,51],[25,50],[16,48],[13,44],[17,40],[26,38],[36,37],[40,35],[33,32],[31,29],[38,28],[50,29],[62,30],[74,30],[84,28],[86,25],[79,22],[74,20],[77,17],[83,16],[84,12]]];
 const MAP_ST=[[0,3,6,10,14,17,19,23],[0,3,6,9,13,17,22,26],[0,3,6,9,12,15,17,20],[0,2,4,7,9,11,13,16],[0,3,5,7,9,11,13,16],[0,4,8,12,18,24,30,37]];
 /* 16 Stationen gleichmäßig entlang des Wegs verteilen (Karte ist 3:2, deshalb x-Abstände breiter gewichtet). */
 function walk(P){ const L=[0]; for(let i=1;i<P.length;i++) L.push(L[i-1]+Math.hypot((P[i][0]-P[i-1][0])*1.5,P[i][1]-P[i-1][1])); return L; }
@@ -2725,7 +2833,7 @@ function heroHTML(s){
 }
 function pileHTML(s){
   const P=B[s].pile, nx=P[0];
-  return `<div class="pile">${nx?`<span class="mini"><span class="pback"></span></span>`:`<span class="mini"><span class="empty-slot" style="font-size:10px">leer</span></span>`}<span>Ziehstapel<br><b>${P.length}</b> ${P.length===1?'Karte':'Karten'}</span></div>`;
+  return `<div class="pile">${nx?`<span class="mini"><span class="pback"${s==='e'&&ctx&&ctx.back?` style="background-image:url(${backSrc(ctx.back)})"`:''}></span></span>`:`<span class="mini"><span class="empty-slot" style="font-size:10px">leer</span></span>`}<span>Ziehstapel<br><b>${P.length}</b> ${P.length===1?'Karte':'Karten'}</span></div>`;
 }
 function resultHTML(){
   const r=result, arena=ctx.mode==='arena'; let lines='';
@@ -2884,7 +2992,7 @@ function startBattle(c){
     if(!c.okSmall&&deckRoom(cs,res.lend)>0){ pendingFight=c; const n=deck().length+res.lend.length, mx=deckCap(cs);
       openSheet(`<h2>Dein Deck ist nicht voll</h2><p class="muted">Im Deck sind ${n} von ${mx} möglichen Karten${res.lend.length?` (davon ${res.lend.length} geliehen)`:''}. Du hast noch passende Karten, die mitkämpfen könnten.</p>
       <div class="row-btns"><button class="btn" data-act="fightSmall">Trotzdem kämpfen</button><button class="btn" data-act="toDeck">Zum Deck</button><button class="btn primary" data-act="fillDeck">Auffüllen</button></div>`); return; } }
-  closeSheet(); ctx=c; result=null; infoCard=null; narr=''; narrLog=[]; skip=false; forfeit=false;
+  closeSheet(); c.back=foeBack(c); ctx=c; result=null; infoCard=null; narr=''; narrLog=[]; skip=false; forfeit=false;
   B= c.mode==='arena' ? newBattle(deckObjs(),rivalDeck(c.rival)) : c.mode==='heraus' ? newBattle(c.pDeck,c.eDeck) : c.mode==='event' ? newBattle(deckObjs(),evDeck(c.stage),c.stage.hp) : newBattle(deckObjs().concat(lendD),stageDeck(c.stage,c.hero),stageHp(c.stage,c.hero));
   if(c.mode==='heraus'){ const R=c.rule; if(R.noHero){ B.p.hp=B.p.maxHp=1; } if(R.eShield) B.e.pile.concat(B.e.lanes).forEach(x=>{ if(x) x.k.schild=(x.k.schild||0)+1; }); if(R.decay) B.decay=R.decay; }
   $('#battle').hidden=false; if(FXC.cv) fxSize(); battleShell(); renderBattle();
@@ -3070,10 +3178,11 @@ const ACT={
    Jeden Tag ein anderes Event-Set. 4 Abschnitte mit je 16 Gefechten: 12 normale (Bronzepunkte), 3 Elite (Silberpunkte), 1 Boss (Goldpunkte).
    Punkte gibt es pro neuem Stern. Eventtruhen kosten Punkte und enthalten immer eine Eventkarte. Um Mitternacht beginnt alles neu. */
 const EV_SETS=Object.keys(SETS).filter(x=>SETS[x].ev), EV_PER=16, EV_ELITE=[4,9,13], EV_TN=['Bronze','Silber','Gold'];
-const EV_MAPS={riff:[1,2,0,4],maerchen:[2,3,0,1],amazonen:[2,1,4,0],gladiatoren:[0,3,2,4],walgesang:[1,2,3,4],stationnull:[3,0,4,1],roteschlucht:[0,4,2,3],frostmark:[4,1,2,3],sternenkurs:[4,1,3,0],neonstadt:[3,0,1,4],savanne:[2,0,4,1],kirschbluete:[2,4,1,3]};
+const EV_MAPS={riff:[1,2,0,4],maerchen:[2,3,0,1],amazonen:[2,1,4,0],gladiatoren:[0,3,2,4],walgesang:[1,2,3,4],stationnull:[3,0,4,1],abteilung:[6,1,3,4],roteschlucht:[0,4,2,3],frostmark:[4,1,2,3],sternenkurs:[4,1,3,0],neonstadt:[3,0,1,4],savanne:[2,0,4,1],kirschbluete:[2,4,1,3]};
 const EV_AREAS={
  walgesang:['Die Brandung','Das offene Meer','Das Riff im Mondlicht','Die lichtlose Tiefe'],
  stationnull:['Die Andockschleuse','Die Kälteschlafkammer','Die Labore','Der Reaktorkern'],
+ abteilung:['Das Teehaus','Das Casino','Die Docks','Der Feuerberg'],
  roteschlucht:['Die Goldgräberstadt','Der Postkutschenweg','Die Felsschlucht','Die Höllenbrücke'],
  frostmark:['Die Schneefelder','Die Mammutsteppe','Das Polarlichttal','Der Gletscherberg'],
  sternenkurs:['Der Raumhafen','Der Gasnebel','Die Ozeanwelt','Der Sternenstrom'],

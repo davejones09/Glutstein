@@ -1,0 +1,469 @@
+Glutstein – Folge 2 „Um Punkt Fünf“ (Lese- und Sprechfassung)
+
+Aufbau wie bei Folge 1: #K = Kapitel (Kicker|Titel|Bild), ## = Szene, "> = Akteneintrag (Text|Quelle), @pic = Szenenbild, [ … ] = Geräusch/Musik, NAME: = gesprochene Zeile, (…) = Regie.
+
+#V Zum Lesen und Vertonen
+Diese Fassung erzählt die zweite Folge der Kampagne von Glutstein. Sie beginnt eine Woche nach dem Ende von Station Null am Leuchtturm von Merle und führt durch einen neuen Riss nach Nebelhafen, in eine verregnete Großstadt, in der seit Wochen Menschen verschwinden, immer um Punkt fünf Uhr.
+Die Folge ist ein Agentenabenteuer: Casino, Verfolgungsjagd über die Dächer, ein Schurke in einem Vulkan. Sie soll spannend sein und ernst, mit einem kleinen Augenzwinkern, wann immer jemand Tee eingießt. Blut gibt es keines.
+Der Fließtext gehört der Erzählstimme. Sie spricht dich direkt an, denn du bist der Kartenbinder oder die Kartenbinderin.
+Gesprochene Zeilen stehen mit Namen davor. Regieanweisungen stehen in Klammern und kursiv. Geräusche und Musik stehen in eckigen Klammern. Sie sind Vorschläge, keine Pflicht.
+Jedes Kapitel beginnt mit einem Eintrag aus den Akten der Abteilung. Gelesen werden sie von der Chefin, trocken, als diktiere sie einer Sekretärin, die schon lange nicht mehr zuhört.
+Hinweis für die Vertonung: Laura wird deutsch ausgesprochen, „Lau-ra“, mit betontem „au“. Alle anderen Namen in Nebelhafen dürfen englisch klingen.
+#ROLES
+ERZÄHLER|Erzählstimme|Ruhig, warm, ein wenig rau. In dieser Folge mit einem Hauch Spannung, wie in einem alten Agentenfilm.
+DU|Kartenbinder / Kartenbinderin|Wenige, knappe Sätze. Zwei Fassungen.
+FUNKE|Ein Funkenwicht|Schnell, frech, knisternd. Mag Regen überhaupt nicht.
+SEDA|Ehemalige Inquisitorin|Jung, klar, beherrscht. Misstraut allem, was zu freundlich lächelt.
+JUNA|Offizierin Juna Kade|Müde, hart, trocken. Sie sucht etwas, von dem sie nicht weiß, wie es aussieht.
+MERLE|Die Leuchtturmwärterin|Trocken, wettergegerbt, unerschütterlich.
+LAURA|Agentin der Abteilung|Kühl, knapp, selbstsicher. Spricht wenig und meint jedes Wort. Darunter eine Wut, die sie gut verpackt.
+DIE CHEFIN|Leiterin der Abteilung|Älter, streng, sehr britisch. Trinkt Tee, als wäre es eine Waffe.
+PEMBROKE|Der Butler|Würdevoll, ruhig, nie überrascht. Jeder Satz wie frisch gebügelt.
+OSWIN|Der Tüftler|Nervös, schnell, begeistert. Redet, während er bastelt.
+NELL|Die Funkerin|Jung, hellwach, flink.
+LORD BERGAMOTT|Der Tee-Baron|Höflich, gebildet, gelangweilt. Seine Freundlichkeit ist ein Messer, das man nicht kommen sieht.
+DER CROUPIER|Bergamotts Mann am Tisch|Glatt, leise, mit einem Lächeln wie eine Klinge.
+DIE GIFTMISCHERIN|Hüterin der Gewächshäuser|Mütterlich, warm und vollkommen gefährlich.
+DIE STIMME|Der Ungebundene im Stein|Spricht nur im Schlaf. Leise, schläfrig, warm. Lügt nie.
+KLEINE ROLLEN|Ein Kellner, Fitch der Fahrer, der Stahlkiefer, Ellis|Ellis ist Lauras alter Partner. Er spricht erst ganz am Ende.
+#ENDROLES
+
+#K Folge 2|Eine Tasse zu viel|f2-teetasse
+"> Wer um fünf Uhr keinen Tee trinkt, hat einen Grund. Wer um fünf Uhr verschwindet, hat keinen mehr.|Akte Nebelhafen · Die Chefin
+## Das Bild auf der Karte
+[Geräusch: Regen gegen Glas. Die Flamme des Leuchtturms, die stetig faucht. Ganz leise das elektrische Knacken eines roten Lichts.]
+Seit einer Woche liegt die Karte auf Merles Tisch, und seit einer Woche blinkt sie.
+Es ist die Karte, die niemand gebunden hat. Sie ist mit euch von Station Null gekommen, still und kalt, und auf ihr war ein Gang aus Metall gemalt mit runden, vereisten Fenstern. Dreimal kurz, dreimal lang, dreimal kurz, Nacht für Nacht. Merle hat sie zwischen die Teedose und den Kompass gelegt, als wäre sie nur ein weiteres seltsames Strandgut, und jeden Abend hat sie ein wenig länger hingesehen.
+Heute Abend zeigt die Karte keinen Gang mehr.
+Sie zeigt eine Straße bei Nacht, nass und glänzend, mit Gaslaternen, die ihr warmes Licht auf das Pflaster legen. Häuser mit vielen Schornsteinen, ein Uhrturm im Regen. Und unter der letzten Laterne steht eine kleine Gestalt mit Kapuze.
+MERLE: (beugt sich über den Tisch, schiebt die Brille hoch) Die hat sich bewegt.
+SEDA: Karten bewegen sich nicht.
+MERLE: Die da schon. Gestern stand sie unter der vorletzten.
+Funke krabbelt über den Tisch, bis er direkt neben der Karte sitzt. Er schnuppert. Dann schnuppert er noch einmal, aber nicht an der Karte.
+FUNKE: Merle. Hast du Tee gemacht?
+MERLE: Nein.
+FUNKE: Warum steht dann da einer?
+@pic f2-teetasse
+Neben der Karte steht eine Tasse. Feines Porzellan, mit Blüten bemalt, ein Goldrand, der im Kerzenlicht glänzt. Dampf steigt daraus auf, als hätte sie jemand vor einer Minute eingeschenkt.
+Niemand hat sie eingeschenkt. Merle hat keine solche Tasse. Merle hat überhaupt nur Becher, und die haben alle einen Sprung.
+JUNA: (vom Fenster, ohne sich umzudrehen) Riecht nach Bergamotte.
+DU: Nach was?
+JUNA: Bergamotte. Eine Frucht. Man tut sie in Tee. (sie runzelt die Stirn) Woher weiß ich das?
+Niemand antwortet ihr. Seit Station Null passiert das manchmal. Dann weiß Juna etwas, von dem sie nicht weiß, woher sie es weiß, und sie sieht dabei aus wie jemand, der in einem dunklen Zimmer an einen Tisch stößt.
+In deiner Tasche wird der Glutstein warm. Nicht heiß, nur warm, wie eine Hand, die sich im Schlaf bewegt.
+DIE STIMME: (schläfrig, kaum hörbar) Fünf Uhr.
+DU: Was ist um fünf?
+DIE STIMME: (ein langes Atmen) Da trinkt man.
+Unten im Turm beginnt Merles alte Standuhr zu schlagen. Eins. Zwei. Drei. Vier.
+Beim fünften Schlag reißt die Luft mitten im Raum auf.
+[Geräusch: Ein Laut wie zerreißender Stoff. Dann Regen, plötzlich sehr nah, und das Rauschen einer großen Stadt.]
+## Der Riss im Leuchtturm
+Er ist nicht groß, gerade so hoch wie eine Tür. Rot an den Rändern, violett in der Mitte. Durch ihn hindurch siehst du dieselbe Straße wie auf der Karte, nur echt: Regen, der auf Pflaster fällt, das Licht der Laternen, ein roter Bus mit zwei Stockwerken, der vorbeirollt und dessen Fenster beschlagen sind.
+Und unter der letzten Laterne steht niemand mehr.
+MERLE: (ruhig, wie immer) Na. Dann wollen die wohl, dass ihr kommt.
+SEDA: Oder sie wollen, dass wir glauben, dass sie wollen, dass wir kommen.
+MERLE: Das ist dasselbe, Mädchen. Nur mit mehr Wörtern.
+Juna nimmt ihr Gewehr von der Wand. Sie hält es einen Moment lang in den Händen, dann stellt sie es zurück.
+JUNA: Da drüben fällt so was auf. (sie zieht stattdessen den alten grauen Mantel an, den Merle ihr geliehen hat) Ich komme mit.
+DU: Du musst nicht.
+JUNA: Doch. (sie zeigt auf die Tasse) Ich weiß, wie das riecht. Ich weiß nur nicht, warum. Vielleicht weiß es da drüben jemand.
+Merle bleibt. Oben im Bett schläft noch immer, wer aus dem Luftschiff kam, und irgendwer muss das Licht brennen lassen. Sie gibt dir die Hand, rau und warm.
+MERLE: Bringt mir die Tasse wieder mit. Sie ist hübsch.
+## Nebelhafen
+[Geräusch: Regen. Schritte auf nassem Pflaster. Ein Bus, der hupt. Stimmen, erschrocken. Eine große Uhr, die gerade aufhört zu schlagen.]
+@pic f2-ankunft
+Ihr tretet hindurch, und hinter euch schließt sich der Riss wie ein Vorhang.
+Die Stadt ist grau und golden zugleich. Grau sind die Häuser, der Himmel und der Regen, golden ist alles, was leuchtet: die Laternen, die Fenster, die Pfützen, in denen sich beides spiegelt. Es riecht nach Kohle, nach nassem Stein und nach Tee. Überall nach Tee.
+Die Menschen hier tragen Hüte und lange Mäntel und Schirme, und alle, die euch gesehen haben, bleiben stehen. Eine Frau mit roter Handtasche starrt Seda an, ihren weißen Umhang, den goldenen Reif im Haar. Ein Mann lässt seine Zeitung in eine Pfütze fallen.
+FUNKE: (aus deiner Kapuze, empört) Es regnet.
+SEDA: Das sehe ich.
+FUNKE: Auf mich. Es regnet auf mich.
+Über allem ragt ein Uhrturm in den Himmel. Seine Zeiger stehen genau auf fünf.
+Dann siehst du den Tisch.
+Vor einem kleinen Café am Straßenrand stehen zwei runde Tische unter einer gestreiften Markise. An einem sitzt niemand. Am anderen auch nicht. Aber auf dem zweiten Tisch steht eine Tasse, genau so eine wie bei Merle, mit Blüten und Goldrand. Daneben liegen ein Hut, eine aufgeschlagene Zeitung und ein Paar Handschuhe, ordentlich übereinander.
+Der Stuhl davor ist noch warm. Du spürst es, als du die Hand auf die Lehne legst.
+JUNA: (leise) Da hat eben noch jemand gesessen.
+STIMME HINTER EUCH: Vor genau einer Minute. Mister Albert Finch, Buchhalter. Earl Grey, zwei Stück Zucker. Er war der dreiundvierzigste.
+Du drehst dich um.
+Sie steht unter der Markise, gerade außerhalb des Regens, in einem dunklen Trenchcoat mit hochgestelltem Kragen. Blondes Haar, hochgesteckt, ein paar nasse Strähnen im Gesicht. An ihren Unterarmen, wo die Ärmel hochgeschoben sind, ranken sich Tätowierungen, Blüten und Blätter in blassen Farben. In der rechten Hand hält sie eine Pistole. Sie zielt nicht direkt auf dich. Aber sie zielt auch nicht direkt woanders hin.
+LAURA: Und ihr seid vor genau einer Minute aus einem Loch in der Luft gefallen. (sie mustert euch, einen nach dem anderen) Das ist entweder ein sehr großer Zufall. Oder gar keiner.
+SEDA: (die Hand am Schwert) Wer bist du?
+LAURA: Die, die euch fragt. (sie steckt die Pistole weg, aber langsam) Laura. Ihr kommt mit.
+DU: Wohin?
+LAURA: Zum Tee. (zum ersten Mal ein Hauch von einem Lächeln) Hier gibt es keinen anderen Ort, an dem man ernste Gespräche führt.
+
+#K Kapitel I|Das Teehaus|f2-abteilung
+"> Dreiundvierzig Personen in neunzehn Tagen. Keine Zeugen, keine Spuren, keine Leichen. Nur Tassen. Bitte keine Witze über Teesätze mehr in den Berichten.|Akte Nebelhafen · Die Chefin
+## Die Abteilung
+[Geräusch: Eine Ladenglocke. Das Klirren von Porzellan. Dann eine schwere Tür, Stufen nach unten, und das Summen von Röhrengeräten.]
+Das Teehaus heißt „Zur goldenen Kanne“, und von außen ist es genau das: ein Teehaus. Spitzengardinen, ein Tresen voller Dosen, eine ältere Dame, die Scones auf einen Teller legt und euch zunickt, als wärt ihr Stammgäste.
+Hinter dem Tresen führt eine Tür in einen Lagerraum, und hinter dem Lagerraum steht ein großer Samowar aus Messing. Laura dreht an einem der Hähne. Der Samowar schwenkt zur Seite, und dahinter beginnt eine Treppe nach unten.
+FUNKE: (beeindruckt) Das will ich auch haben.
+@pic f2-abteilung
+Unten ist es warm und dämmrig. Holzvertäfelung, Messinglampen mit grünen Schirmen, Regale voller Akten. An der Stirnwand hängt eine große Karte der Stadt, gespickt mit Nadeln, und an jeder Nadel steckt eine winzige Teetasse aus Messing. Rote Fäden verbinden sie miteinander, kreuz und quer, und alle laufen am Ende in dieselbe Richtung: nach Norden, aus der Stadt hinaus, zu einem Berg.
+Hinter einem Schreibtisch aus Mahagoni sitzt eine Frau mit grauen Locken und einer kleinen goldenen Brille an einer Kette. Sie trägt ein Kostüm aus braunem Tweed und hält eine Teetasse in der Hand, als wäre sie ein Zepter.
+Neben ihr steht ein älterer Herr im schwarzen Anzug, makellos, mit einem grauen Schnurrbart, und gießt Tee ein. Er sieht nicht auf, als ihr hereinkommt. Er gießt einfach weiter, ohne einen Tropfen zu verschütten.
+DIE CHEFIN: Agentin Laura. Sie bringen Besuch.
+LAURA: Sie kamen aus der Luft, Ma'am. Genau um fünf.
+DIE CHEFIN: (mustert dich lange über den Brillenrand) Aus der Luft. (sie stellt die Tasse ab) Pembroke, noch vier Tassen. Und eine kleine.
+PEMBROKE: (ohne aufzusehen) Sehr wohl, Ma'am. Für den kleinen brennenden Herrn darf es sicher etwas Kräftigeres sein.
+FUNKE: (strahlt) Ich mag ihn.
+Ihr bekommt Tee. Er ist stark und heiß und schmeckt nach Rauch und Honig, und für einen Moment ist alles fast gemütlich. Dann beginnt die Chefin zu reden, und es wird sehr schnell wieder kalt.
+DIE CHEFIN: Seit neunzehn Tagen verschwinden in Nebelhafen Menschen. Immer um fünf Uhr nachmittags, immer mitten am Tisch, immer bei einer Tasse Tee. Zurück bleiben die Tasse, der Mantel, der Hut. Der Tee ist noch warm. (sie nimmt einen Schluck) Dreiundvierzig bis heute. Ein Buchhalter. Eine Sängerin. Zwei Schulkinder. Ein Polizist. (eine kleine Pause) Ein Agent dieser Abteilung.
+Laura sieht zur Seite, auf die Karte mit den Nadeln.
+DU: Und wer macht das?
+DIE CHEFIN: Wir wissen, wer. Wir können es nur nicht beweisen. (sie zeigt auf den Berg, an dem alle roten Fäden enden) Lord Ambrose Bergamott. Ihm gehören die Teeplantagen im Norden, am Feuerberg, und jede zweite Teekanne in dieser Stadt. Jede einzelne dieser Tassen stammt aus seiner Manufaktur.
+SEDA: Dann geht zu ihm hin und fragt ihn.
+DIE CHEFIN: Das haben wir. Er hat uns zum Tee eingeladen. (trocken) Agent Ellis war der Letzte, der ihn gefragt hat.
+Es wird still im Raum. Nur die Röhrengeräte summen.
+JUNA: (ganz leise) Die Tasse bei uns im Leuchtturm. Mit den Blüten.
+DIE CHEFIN: (scharf) Bei Ihnen? Wo ist bei Ihnen?
+DU: Weit weg. Hinter einem Riss.
+Die Chefin sieht dich an. Lange. Dann wechselt sie einen Blick mit Laura, und in diesem Blick liegt etwas, das du nicht deuten kannst. Erleichterung vielleicht. Oder Angst.
+DIE CHEFIN: Dann sind Sie das, worauf wir gewartet haben. Oder das, wovor wir gewarnt wurden. (sie stellt die Tasse ab, sehr genau in die Mitte der Untertasse) Nell, die Aufnahme.
+## Die Aufnahme
+[Geräusch: Ein Schalter. Das Rauschen eines alten Tonbands. Regen. Und über dem Regen eine Stimme, verzerrt, als käme sie von sehr weit her.]
+In einer Nische voller Funkgeräte sitzt eine junge Frau mit roten Locken und Kopfhörern im Haar. Sie dreht an einem Regler, und aus einem Lautsprecher kommt Rauschen.
+NELL: Das haben wir vor drei Wochen aufgefangen. Auf keiner unserer Frequenzen. Es kam einfach an. Um fünf Uhr nachmittags.
+Dann eine Stimme. Sie ist leise und müde, und sie klingt, als hätte sie seit langer Zeit nicht mehr gesprochen.
+STIMME AUF DEM BAND: (verzerrt) … wenn einer kommt … aus der Luft … mit einem warmen Stein … dann lasst ihn rein. Und lasst ihn nicht trinken.
+Das Band rauscht weiter, dann ist es still.
+Du kennst diese Stimme nicht. Und doch kennst du sie. Sie klingt wie deine eigene, wenn du sehr alt und sehr müde wärst.
+FUNKE: (ganz klein) Das ist unheimlich.
+NELL: (nickt heftig) Das sag ich seit drei Wochen.
+## Gas im Salon
+[Geräusch: Oben im Teehaus. Klavierspiel aus einem Grammophon, Löffel, die in Tassen klirren, leises Gelächter.]
+Die Chefin besteht darauf, dass ihr oben esst. Unten esse man nicht, sagt sie, unten arbeite man, und ein Mensch, der beim Essen arbeitet, ende früher oder später als Engländer ohne Manieren.
+So sitzt ihr im Salon der „Goldenen Kanne“, zwischen Spitzendeckchen und Topfpalmen, und ein schlaksiger Mann mit wirren Locken und runder Brille erklärt euch mit vollem Mund, was er alles in seinem Labor hat. Er heißt Oswin, und er redet, als hätte man ihn tagelang nicht gelassen.
+OSWIN: … und der Regenschirm schießt Haken, aber nur nach links, das muss ich noch beheben, und die Teekanne – die Teekanne ist mein Meisterwerk, sie hört alles mit, was am Tisch gesagt wird, und sie macht dabei trotzdem einen ganz ausgezeichneten Darjeeling –
+LAURA: Oswin.
+OSWIN: Ja?
+LAURA: Atmen.
+Ein Kellner bringt eine neue Kanne. Er stellt sie in die Mitte des Tisches, verbeugt sich und geht.
+Funke schnuppert.
+FUNKE: Die riecht komisch.
+OSWIN: Die riecht nach Assam, das ist –
+FUNKE: Nein. Die riecht nach Gras. Nach nassem, grünem Gras.
+@pic f2-anschlag
+Der Deckel der Kanne springt auf. Eine Wolke quillt heraus, giftig grün und dick wie Nebel, und rollt über den Tisch.
+Laura reagiert, bevor du überhaupt begriffen hast, was passiert. Sie packt dich am Kragen und reißt dich hinter das Sofa, und im selben Moment fliegen Tassen und Kuchen durch die Luft. Seda hat Juna gepackt. Irgendwo kreischt jemand.
+Nur Oswin bleibt sitzen. Er drückt sich ein Taschentuch vor Mund und Nase, und mit der anderen Hand zieht er etwas aus der Westentasche, ein kleines Gerät aus Messing mit einem Rüssel wie bei einer Gießkanne. Er richtet es auf die Wolke und drückt einen Knopf.
+[Geräusch: Ein lautes, gieriges Saugen. Dann ein zufriedenes Glucksen.]
+Die grüne Wolke wird in den Rüssel gezogen wie Wasser in einen Abfluss. Es dauert nur ein paar Herzschläge, dann ist sie fort.
+OSWIN: (durch das Taschentuch, sehr stolz) Funktioniert. Das wusste ich vorher gar nicht.
+LAURA: (steht auf, die Pistole schon in der Hand) Der Kellner.
+Die Tür zur Küche schwingt noch.
+## Der Verräter
+[Geräusch: Hastige Schritte in einem Flur. Eine Hintertür, die aufgerissen wird. Regen.]
+Ihr erwischt ihn nicht. Pembroke erwischt ihn.
+Als ihr auf den Hinterhof stürmt, steht der Butler bereits dort, im Regen, unter seinem schwarzen Schirm. Der Kellner liegt vor ihm auf dem nassen Pflaster und starrt auf die schmale Klinge, die aus dem Griff des Schirms ragt und ruhig auf seine Kehle zeigt.
+PEMBROKE: (ohne die Stimme zu heben) In diesem Haus, junger Mann, vergiftet man niemanden. Man sagt Bescheid, wenn der Tee zu stark ist.
+Der Kellner ist jung, kaum älter als zwanzig. Er zittert, und seine Augen sind seltsam leer und glänzend.
+LAURA: (hockt sich vor ihn) Wer hat dich bezahlt?
+KELLNER: (lächelt verträumt) Niemand hat bezahlt. Er hat mir eine Tasse geschenkt. (er seufzt) Eine Tasse von seinem Besten. Danach hatte ich keine Angst mehr. Vor gar nichts.
+JUNA: (scharf) Wovor hattest du Angst?
+KELLNER: Ich weiß es nicht mehr. (sein Lächeln wird breiter) Ist das nicht wunderbar?
+Juna weicht einen Schritt zurück, als hätte er sie geschlagen.
+Du verstehst, warum. Auf Station Null haben die Menschen auch gelächelt, bevor sie nach unten gegangen sind. Und Seda kennt dieses Lächeln aus der weißen Kuppel. Sie wird ganz bleich.
+SEDA: Er hat ihm etwas weggenommen. Und er nennt es Frieden.
+LAURA: (steht auf) Er nennt es Tee.
+In der Brusttasche des Kellners steckt eine Spielkarte. Laura zieht sie heraus. Es ist keine gewöhnliche Karte. Sie ist schwarz und golden, mit einem Wappen aus Teeblättern, und auf ihrer Rückseite steht in feiner Schrift: Casino Bergamott. Heute Abend. Zwanzig Uhr. Hoher Einsatz.
+LAURA: (dreht die Karte zwischen den Fingern) Er lädt uns ein.
+DU: Oder er lädt mich ein.
+LAURA: (sieht dich an, zum ersten Mal wirklich) Können Sie Karten spielen?
+FUNKE: (empört) Können? Er ist der Kartenbinder!
+
+#K Kapitel II|Das Casino|f2-casino
+"> Lord Bergamott hat noch nie verloren. Nicht beim Kartenspiel, nicht vor Gericht, nicht beim Tee. Agentin Laura hält das für eine Herausforderung. Ich halte es für einen Grund zur Sorge.|Akte Nebelhafen · Die Chefin
+## Abendgarderobe
+[Geräusch: Ein Kleiderschrank, der aufgeht. Rascheln von Stoff. Oswin, der irgendwo flucht, weil ihm etwas heruntergefallen ist.]
+In der Abteilung gibt es einen Raum, der nur aus Kleiderstangen besteht. Smokings, Abendkleider, Uniformen, Mäntel aus jedem Jahrzehnt, Perücken und falsche Bärte in Kisten. Pembroke verwaltet ihn wie andere Leute eine Schatzkammer.
+Für dich findet er einen schwarzen Anzug, der dir überraschend gut passt. Deine Kapuze darfst du behalten. Er betrachtet sie eine Weile und sagt nur: „Exzentrisch ist im Casino gern gesehen.“
+Seda weigert sich, ein Kleid anzuziehen. Sie bleibt in ihrem weißen Umhang und sieht darin aus wie eine Heilige, die sich auf einen Ball verirrt hat. Juna nimmt einen grauen Trenchcoat und sagt, sie gehe als Leibwächterin, und als Pembroke vorsichtig einwendet, Leibwächterinnen trügen im Casino üblicherweise –, sieht sie ihn nur an, und er schweigt.
+Dann kommt Laura herein.
+Sie trägt ein grünes Abendkleid, lang und dunkel wie Flaschenglas, dazu eine helle Stola über den Schultern. Unter der Stola, wenn man genau hinsieht, ein Schulterholster aus braunem Leder. Ihre Tätowierungen hat sie nicht verdeckt. Sie ziehen sich über ihre Schultern und Arme wie ein Garten.
+FUNKE: (bewundernd) Oh.
+LAURA: (zupft an der Stola) Was?
+FUNKE: Nichts. (eine Pause) Darf ich in die Stola? Da drin ist es bestimmt warm.
+LAURA: Wenn du nichts anzündest.
+FUNKE: Ich zünde nie etwas an.
+SEDA, JUNA und DU: (gleichzeitig) Doch.
+## Der grüne Tisch
+[Geräusch: Leises Stimmengewirr. Ein Klavier. Das Klackern von Chips und das Schnurren einer Roulettekugel. Kristall, das klingt.]
+Das Casino Bergamott liegt am Fluss, ein Palast aus hellem Stein unter einer gläsernen Kuppel. Drinnen hängen Kronleuchter wie gefrorene Wasserfälle, und unter ihnen bewegen sich Menschen in Abendgarderobe, langsam und lächelnd, als hätten sie alle Zeit der Welt.
+Viele von ihnen lächeln zu sehr.
+@pic f2-casino
+Lord Bergamott sitzt am größten Tisch, in der Mitte des Saals, und er steht nicht auf, als ihr kommt.
+Er ist ein Mann von vielleicht sechzig Jahren, mit grauen Locken und einem Schnurrbart, der an den Enden zu zwei feinen Spitzen gezwirbelt ist. Vor seinem rechten Auge sitzt ein Monokel an einer goldenen Kette. Er trägt einen Rock aus rotem Samt, über und über mit goldenen Teeblättern bestickt, und auf seinem Schoß liegt eine weiße Perserkatze, die euch aus gelben Augen mustert und dann gähnt.
+Vor ihm auf dem grünen Filz stehen keine Chips. Dort stehen Tassen. Zwanzig, dreißig, vielleicht mehr, aufgereiht wie Spielsteine, und aus jeder steigt ein dünner Faden Dampf.
+LORD BERGAMOTT: (ohne aufzusehen) Agentin Laura. Wie reizend. Ich hatte gehofft, Sie würden das Grüne tragen. (er krault die Katze) Earl, sag Guten Abend.
+Die Katze sagt nichts.
+LORD BERGAMOTT: Er ist schüchtern. (endlich hebt er den Blick und sieht dich an, und hinter dem Monokel liegt etwas, das nicht ganz zu seinem Lächeln passt) Und Sie müssen der Gast sein. Der aus der Luft. Setzen Sie sich doch.
+Du setzt dich. Laura nimmt neben dir Platz, Seda und Juna bleiben hinter euch stehen. Ein Croupier mit glattem schwarzem Haar und dünnem Schnurrbart mischt ein Kartenspiel, so schnell, dass die Karten verschwimmen.
+LORD BERGAMOTT: Wir spielen hier mit einem besonderen Einsatz. (er tippt mit einem beringten Finger gegen eine der Tassen) Jede dieser Tassen enthält etwas, das ein Mensch nicht vermissen wird. Eine Erinnerung. Eine Sorge. Eine Angst. Ich nehme nur, was man nicht braucht. (er lächelt) Ich bin, wenn Sie so wollen, ein Wohltäter.
+SEDA: (eisig) Ein Dieb.
+LORD BERGAMOTT: Ein Teehändler, meine Liebe. Das ist dasselbe, nur mit besserem Porzellan.
+## Falsches Spiel
+[Geräusch: Karten, die über Filz gleiten. Das leise Klirren von Porzellan.]
+Ihr spielt.
+Es ist ein einfaches Spiel, sagt Bergamott, so einfach, dass selbst Kinder es spielen könnten: Wer die stärkere Karte legt, gewinnt die Tasse des anderen. Laura setzt eine Tasse, die Bergamott ihr hinschiebt, und verliert. Sie setzt eine zweite und verliert wieder. Die Karten des Croupiers fallen jedes Mal genau so, wie Bergamott es braucht.
+Dann bist du an der Reihe.
+Als die Karte vor dir landet, spürst du es. Sie ist kalt, kälter als Papier sein sollte, und unter deinen Fingern zittert sie wie ein gefangener Vogel. Du hast tausend Karten gebunden. Du weißt, wie sich eine Karte anfühlt, die lügt.
+DU: (legt die Hand flach auf die Karte) Die gehört nicht Ihnen.
+LORD BERGAMOTT: (hebt eine Augenbraue) Wie bitte?
+DU: Die Karte. Sie wollte gerade etwas anderes sein.
+Du drehst sie um. Es ist ein Bube, aber unter deiner Hand flackert er, und für einen Herzschlag ist er etwas anderes, ein Spiegelbild, ein zweites Gesicht darunter. Dann wird er still und bleibt, was er ist.
+Der Croupier wird bleich. Die Karten in seinen Ärmeln, die er dort versteckt hat, scharfkantig wie kleine Klingen, rutschen ihm heraus und fallen klirrend auf den Boden.
+Bergamott lacht. Es ist ein leises, ehrlich amüsiertes Lachen.
+LORD BERGAMOTT: Wunderbar. Ganz wunderbar. Sie sind tatsächlich echt. (er winkt, und der Croupier tritt zurück) Dann spielen wir ehrlich. Ein einziges Spiel. Ich setze, und Sie setzen.
+## Der hohe Einsatz
+[Geräusch: Stille im Saal. Selbst das Klavier hat aufgehört.]
+@pic f2-einsatz
+Bergamott schiebt eine einzelne Tasse über den Tisch, ganz langsam, mit zwei Fingern.
+Im Dampf darüber, ganz schwach, zeichnet sich ein Bild ab. Ein Ring aus Stahl, der im Dunkeln schwebt. Darunter ein blauer Planet ohne Land, darüber zwei Monde, ein großer silberner und ein kleiner rötlicher.
+Hinter dir macht Juna ein Geräusch, als hätte ihr jemand die Luft aus der Brust gedrückt. Ihre Hand fährt zum Mund.
+JUNA: (fast lautlos) Das ist meins.
+LORD BERGAMOTT: Ganz recht. (er lächelt freundlich) Sie kam vor einer Woche zu mir, ganz von allein. Ein winziger Rest, wie Tee am Boden einer Tasse. Ich nehme an, irgendwer hatte schon vorher davon getrunken. (er neigt den Kopf) Wollen Sie sie zurück?
+JUNA: (heiser) Was ist da drin?
+LORD BERGAMOTT: Ein Lied, glaube ich. Und ein Gesicht. Und ein Name, der nicht Ihrer ist. (er wartet) Das Übliche.
+Juna zittert. Laura legt ihr, ohne sich umzudrehen, eine Hand auf den Arm.
+LORD BERGAMOTT: Und Sie, Kartenbinder, setzen dagegen den warmen Stein in Ihrer Tasche.
+Es wird ganz still in dir. Der Glutstein ist heiß geworden, so heiß wie seit Station Null nicht mehr, und du spürst, wie er im Schlaf zuckt, als träume er schlecht.
+DIE STIMME: (schläfrig, sehr leise) Nein.
+DU: Der ist nicht zu verkaufen.
+LORD BERGAMOTT: Ich will ihn nicht kaufen. Ich will ihn nur einmal kosten. (er lehnt sich vor, und zum ersten Mal ist sein Lächeln weg) Wissen Sie, wonach er riecht? Nach dem besten Tee der Welt. Nach einem Feuer, das nie ausgeht. Ich rieche ihn, seit Sie in meiner Stadt angekommen sind.
+Laura steht auf.
+Sie tut es ohne Eile, wie jemand, der sich zum Tanzen erhebt. Dann zieht sie die Pistole aus dem Holster unter der Stola und schießt, ohne hinzusehen, in den Kronleuchter über dem Tisch.
+[Geräusch: Ein Schuss. Klirrendes Kristall, das herabregnet. Schreie. Eine Katze, die faucht.]
+Der Saal versinkt im Dunkeln. Für einen Augenblick ist alles Glas und Lärm und Durcheinander. Dann ist Funke da, hell wie eine Fackel, mitten in Lauras Stola, und in seinem Licht siehst du die Tasse. Sie steht noch immer auf dem Tisch.
+Juna greift danach. Ihre Finger berühren das Porzellan.
+Dann ist die Tasse fort. Eine Hand mit einer Melone darauf, schwarz und schnell, hat sie gepackt, und ein Mann rennt mit ihr zwischen den Tischen hindurch zum Ausgang.
+LORD BERGAMOTT: (irgendwo im Dunkeln, ganz ruhig) Um Punkt fünf, Kartenbinder. Ich warte mit dem Tee.
+
+#K Kapitel III|Die Verfolgung|f2-daecher
+"> Agentin Laura hat im Casino Bergamott einen Kronleuchter im Wert von vierhundert Pfund zerstört. Ich habe den Betrag von ihrem Gehalt abgezogen und ihr anschließend eine Dose Kekse geschenkt. Beides ist in den Akten zu vermerken.|Akte Nebelhafen · Die Chefin
+## Über die Dächer
+[Geräusch: Regen auf Dachziegeln. Atem. Schritte, die über nasses Blech rennen.]
+Der Mann mit der Melone ist schnell. Er rennt aus dem Casino in eine Gasse, die Gasse hinauf zu einer Feuerleiter, die Feuerleiter hinauf auf die Dächer, und er sieht sich kein einziges Mal um.
+Laura rennt hinterher, noch im Abendkleid. Irgendwo zwischen Casino und Feuerleiter hat sie die Stola abgeworfen und einen Trenchcoat übergezogen, den Fitch, der Fahrer der Abteilung, ihr aus seinem dunkelgrünen Wagen zugeworfen hat. Du weißt nicht, wann. Du weißt nur, dass sie jetzt vor dir über die Dächer läuft, und dass sie nicht langsamer wird.
+@pic f2-daecher
+Zwischen zwei Häusern klafft eine Lücke, drei Schritte breit, und darunter liegt eine Gasse, so tief, dass die Laternen unten wie Kerzen aussehen.
+Der Mann mit der Melone springt.
+Laura springt hinterher.
+Du siehst sie in der Luft, den Mantel ausgebreitet wie Flügel, den Regen um sie herum wie Glas, und für einen Herzschlag ist sie ganz still, als hätte die Welt aufgehört sich zu drehen.
+Dann landet sie, rollt ab, ist wieder auf den Beinen.
+FUNKE: (aus deiner Kapuze, mit hoher Stimme) Wir springen da nicht. Sag mir, dass wir da nicht springen.
+Du springst.
+## Die Melone
+[Geräusch: Wind. Ein Pfeifen, scharf wie eine Klinge, das durch die Luft schneidet.]
+Auf dem nächsten Dach bleibt der Mann stehen und dreht sich um. Er ist breit und grimmig, mit einem buschigen Schnurrbart, und er nimmt seinen Hut ab.
+Die Krempe der Melone glänzt. Sie ist nicht aus Filz. Sie ist aus Stahl, scharf wie ein Rasiermesser.
+Er wirft.
+Die Melone pfeift durch den Regen, und Laura duckt sich so knapp darunter weg, dass sie ihr eine Strähne aus dem Haar schneidet. Seda zieht das Schwert. Juna rennt einfach weiter, geradewegs auf den Mann zu, ohne Waffe, ohne Plan, nur mit diesem Gesicht, das sie im Casino gemacht hat.
+Er hat nicht damit gerechnet, dass jemand so dumm ist. Juna rammt ihn mit der Schulter, und er geht zu Boden, und die Tasse fliegt ihm aus der Manteltasche.
+Sie fliegt in hohem Bogen über die Dachkante, hinunter in die Gasse.
+JUNA: Nein –
+Sie zerspringt nicht. Unten, mitten im Regen, fängt eine Hand sie auf. Eine Hand in einem dunklen Ärmel.
+Du beugst dich über die Kante. Unten in der Gasse, unter der letzten Laterne, steht eine kleine Gestalt mit Kapuze. Sie hält die Tasse in beiden Händen, ganz vorsichtig, als wäre sie aus Eis. Sie hebt den Kopf. Unter der Kapuze ist nur Schatten.
+Dann tritt sie einen Schritt zurück, aus dem Licht der Laterne, und ist fort.
+JUNA: (flüstert) Wer war das?
+Du antwortest nicht. Du weißt es nicht. Aber der Glutstein in deiner Tasche ist ganz still geworden, so still wie nie, als halte er den Atem an.
+## Die Docks
+[Geräusch: Möwen. Ketten. Das Tuten eines Dampfers im Nebel. Ein Kran, der quietscht.]
+Der Mann mit der Melone redet nicht. Er redet auch nicht, als Laura ihn fragt, als Seda ihn fragt oder als Funke ihm sehr nah vor die Nase hält und sehr hell wird. Er lächelt nur, dasselbe glänzende, leere Lächeln wie der Kellner.
+Aber in seiner Westentasche steckt ein Frachtbrief.
+NELL: (über Funk, knisternd) Ladung: Teekisten, achtundvierzig Stück. Abfahrt Docks, Gleis neun, heute Nacht um drei. Ziel: Feuerberg-Plantage. (eine Pause) Achtundvierzig. Wir haben dreiundvierzig Verschwundene. Plus Ellis sind das vierundvierzig.
+LAURA: (sehr leise) Dann wollen sie noch vier.
+Gleis neun liegt ganz am Ende der Docks, zwischen Lagerhallen und Kränen, und es wird bewacht. Nicht von Menschen. Von einem Riesen.
+Er ist doppelt so breit wie Pembroke und einen Kopf größer als alle anderen, kahl, mit einer Narbe über der Stirn, und um seine Fäuste hat er eine Eisenkette gewickelt. Als er euch sieht, grinst er.
+Seine Zähne sind aus Stahl.
+FUNKE: (sehr klein) Ich will nach Hause.
+JUNA: (nimmt eine Eisenstange von einem Stapel) Ich nicht.
+## Der Nachtzug
+[Geräusch: Ein Zug, der anfährt. Dampf. Das Rattern von Rädern auf Schienen, schneller und schneller. Dann, drinnen, ein Brecheisen, das sich in Holz frisst.]
+Ihr schafft es auf den Zug, als er schon rollt. Wie, das wirst du später nicht mehr genau sagen können. Du erinnerst dich an eine Kette, die durch die Luft peitscht, an Sedas Schwert, das Funken schlägt, und an Fitchs grünen Wagen, der mit aufgeblendeten Scheinwerfern zwischen den Lagerhallen hervorschießt und den Riesen lange genug blendet.
+Dann bist du in einem dunklen Güterwagen, und um dich herum stehen Kisten.
+Holzkisten, mannshoch, mit Teeblättern als Brandzeichen. Achtundvierzig. Die meisten sind verschlossen. Vier sind leer.
+@pic f2-nachtzug
+Juna setzt das Brecheisen an die erste Kiste. Das Holz knarrt und gibt nach.
+Darin liegt eine Frau. Sie trägt ein Sommerkleid und eine Strickjacke, und sie schläft. Um sie herum, wie Bernstein um ein Insekt, liegt goldener Dampf, erstarrt und durchsichtig, und er leuchtet von innen. Ihr Gesicht ist ruhig. Sie lächelt.
+LAURA: (leuchtet mit der Taschenlampe hinein) Die Sängerin. Miss Rosalind Hale. Die dritte.
+Sie geht zur nächsten Kiste. Juna bricht sie auf. Ein alter Mann. Die nächste: zwei Kinder, Hand in Hand. Die nächste: ein Polizist, die Mütze noch auf dem Kopf.
+Bei der achten Kiste bleibt Laura stehen.
+Sie sagt nichts. Sie hält nur die Taschenlampe, und der Lichtkegel zittert ein wenig.
+In der Kiste liegt ein Mann um die vierzig, mit kurzem dunklem Haar und einer Narbe am Kinn. Er trägt einen Trenchcoat wie ihrer. Er schläft, wie alle anderen. Er lächelt, wie alle anderen.
+JUNA: (leise) Ellis?
+LAURA: (nach einer langen Pause) Er hat mir mal gesagt, er hasst Earl Grey. (ihre Stimme ist ganz gerade) Er hat ihn immer getrunken, weil ich ihn mag.
+Seda legt die Hand an den goldenen Dampf um Ellis' Gesicht. Er ist warm, sehr warm, und er summt leise unter ihren Fingern wie ein Bienenstock.
+SEDA: Sie leben.
+LAURA: Ich weiß.
+SEDA: Nein. Ich meine, sie sind noch da. Er hat ihnen nicht alles genommen. Noch nicht. (sie sieht dich an) Er braucht etwas, um es zu Ende zu bringen.
+In deiner Tasche wacht der Glutstein auf. Nicht ganz, nur halb, wie jemand, der im Schlaf einen Namen hört.
+DIE STIMME: (schläfrig) Wärme.
+DU: Was?
+DIE STIMME: Er braucht Wärme. Für den Kessel. (ein langes Atmen) Er hat dem Riss eine Tasse angeboten. Und der Riss hat ja gesagt.
+
+#K Kapitel IV|Die Plantage im Vulkan|f2-vulkan
+"> Der Feuerberg ist seit zweihundert Jahren erloschen. Laut Lord Bergamott. Laut unseren Messgeräten ist er es seit neunzehn Tagen nicht mehr.|Akte Nebelhafen · Die Chefin
+## Die Teeterrassen
+[Geräusch: Ein Zug, der bremst. Dann Stille. Dann ein tiefes Grollen, wie ein Magen, der knurrt, nur viel, viel größer.]
+Der Zug hält im Morgengrauen am Fuß des Feuerbergs, und ihr verlasst ihn, bevor die Arbeiter kommen, um die Kisten abzuladen.
+@pic f2-vulkan
+Der Berg ist schön. Das ist das Erste, was dir auffällt, und es ist das, was dich am meisten erschreckt. Terrassen ziehen sich an seinen Hängen hinauf, grün und leuchtend, voller Teesträucher, deren Blätter im Dämmerlicht glimmen wie Glühwürmchen. Dazwischen stehen Gewächshäuser aus Glas und Eisen, elegant wie Ballsäle, und über alldem schwebt Dampf, warm und duftend.
+Und ganz oben, im Krater, steht ein Kessel.
+Er ist aus Kupfer und so groß wie eine Kirche. Rohre führen von allen Terrassen zu ihm hinauf, und aus seiner Öffnung steigt goldener Dampf in den Himmel. Dort, wo der Dampf den Himmel berührt, ist der Himmel offen. Ein Riss, schmal und lang, rot an den Rändern und violett in der Mitte, und er trinkt.
+Laura liegt neben dir flach auf dem Felsen und sieht durch ein Fernglas.
+LAURA: Drohnen. Mindestens zwölf.
+Du siehst sie jetzt auch. Kleine fliegende Dinger aus Porzellan, die aussehen wie Teekannen mit Propellern statt Henkeln. Sie summen über die Terrassen, und an ihrer Vorderseite glüht jeweils ein rotes Auge.
+FUNKE: (missbilligend) Das ist Geschirr. Das gehört in den Schrank.
+## Das Gewächshaus
+[Geräusch: Eine Glastür. Dahinter feuchte Wärme, Tropfen, ein leises Blubbern wie von vielen kleinen Kesseln.]
+Im größten Gewächshaus wachsen keine gewöhnlichen Teepflanzen. Ihre Blätter sind dunkel und glänzend, und zwischen ihnen blühen Blumen, die glühen wie Kohle. Zwischen den Beeten stehen Destillen aus Messing und Glas, in denen rote Flüssigkeit kocht.
+Und zwischen den Destillen steht eine Frau mit hochgestecktem schwarzem Haar und einem freundlichen Lächeln. Sie trägt ein Kleid mit Spitzenkragen und gießt gerade etwas aus einer Phiole in eine Tasse.
+DIE GIFTMISCHERIN: (ohne aufzusehen) Ihr kommt genau richtig. Das ist gerade fertig geworden. (sie hebt die Tasse, aus der es golden dampft) Probiert. Danach tut nichts mehr weh.
+JUNA: (bitter) Das hab ich schon mal gehört.
+DIE GIFTMISCHERIN: Und? War es gelogen?
+Juna antwortet nicht.
+DIE GIFTMISCHERIN: (kommt näher, ganz sanft, wie eine Mutter, die ein Kind tröstet) Ich weiß, wonach du suchst, Liebes. Du suchst ein Lied und ein Gesicht. Aber was, wenn das Gesicht dir wehtut, wenn du es findest? Was, wenn du es vergessen hast, weil es so besser war?
+Juna steht ganz still. Ihre Hände sind zu Fäusten geballt.
+JUNA: (leise) Dann will ich, dass es wehtut. Es ist meins.
+Und dann zertritt sie die Tasse, die ihr die Giftmischerin hinhält, unter dem Stiefel.
+## Die Lavabrücke
+[Geräusch: Das Zischen von Lava. Eisen, das unter Hitze ächzt. Das Surren von Drohnen, viele, sehr nah.]
+Der Weg zum Kessel führt über eine Brücke aus Eisen und Messing, die sich über einen Strom aus Lava spannt. Die Luft flimmert vor Hitze. Funke ist so glücklich wie seit Tagen nicht mehr.
+FUNKE: (rekelt sich auf deiner Schulter) Endlich. Endlich mal ein vernünftiges Klima.
+Am anderen Ende der Brücke wartet der Riese mit den Stahlzähnen. Er hat den Zug wohl genommen wie ihr. Er wickelt die Kette von seinen Fäusten und grinst.
+Diesmal ist Fitch nicht da, um ihn zu blenden. Aber Laura ist da. Und Juna. Und Seda, deren Schwert in der Hitze golden glüht.
+Du legst eine Karte auf deine Hand. Sie wird warm.
+
+#K Kapitel V|Lord Bergamott|f2-kessel
+"> Lord Ambrose Bergamott, geboren in Nebelhafen, Erbe der Feuerberg-Plantagen, Ehrenmitglied in elf Clubs. Witwer. Keine Kinder. Eine Katze namens Earl. Mehr wissen wir nicht. Mehr hat ihn auch nie jemand gefragt.|Akte Nebelhafen · Die Chefin
+## Der Kessel
+[Geräusch: Ein tiefes Blubbern, so groß, dass der Boden bebt. Darüber, ganz fern, viele Stimmen, die leise summen.]
+@pic f2-kessel
+Lord Bergamott steht auf einer Empore aus Messing vor dem großen Kessel, und er hebt seine Tasse zum Himmel, als wolle er dem Riss zuprosten.
+Er hat euch kommen sehen. Natürlich hat er das. Die weiße Katze sitzt neben ihm auf dem Geländer und putzt sich.
+LORD BERGAMOTT: (ohne sich umzudrehen) Wissen Sie, was das Schönste am Tee ist, Kartenbinder? Man kann alles hineintun. Zucker. Milch. Zitrone. Einen Tropfen Rum, wenn der Tag lang war. (er dreht die Tasse in der Hand) Und am Ende ist es immer noch Tee. Es tröstet. Es wärmt. Es macht, dass man für einen Moment vergisst.
+Über dem Kessel treiben Gesichter im goldenen Dampf. Hunderte. Du siehst ein Kind, das lacht. Eine Frau, die singt. Ein Schiff im Sturm. Ein Haus mit blauen Fensterläden. Erinnerungen, aufgestiegen wie Duft, und der Riss am Himmel atmet sie ein.
+LORD BERGAMOTT: Vor neunzehn Tagen bin ich hier oben gestanden und habe in den Kessel gesehen. Meine Frau war seit einem Jahr tot. Ich habe sie nicht mehr ertragen. Ihr Gesicht in jeder Tasse. (er schweigt einen Moment) Und da war dieser Riss, und dahinter war etwas, das Hunger hatte. Und es hat mir einen Handel angeboten. Ich gebe ihm, was die Menschen nicht brauchen. Und es nimmt mir dafür, was ich nicht mehr tragen kann.
+SEDA: (leise, mit belegter Stimme) Und jetzt erinnerst du dich nicht mehr an sie.
+LORD BERGAMOTT: (sieht sie zum ersten Mal an, und sein Lächeln ist sehr müde) Nein, meine Liebe. Ich weiß, dass ich eine Frau hatte. Ich weiß, wie sie hieß. (er tippt sich an die Brust) Aber hier ist nichts mehr. Es ist herrlich ruhig hier drin.
+Du weißt, was Seda denkt. Du siehst es an ihrem Gesicht. Ihre Mutter in der weißen Kuppel, lächelnd, ohne zu atmen. Der Orden des Lichts hat es Frieden genannt. Bergamott nennt es Tee.
+LORD BERGAMOTT: Und heute, Kartenbinder, gebe ich ihm die ganze Stadt. Um Punkt fünf trinkt Nebelhafen Tee, wie jeden Tag. Aus meinen Tassen. (er hebt die Tasse wieder) Und dann wird niemand in dieser Stadt je wieder Angst haben. Vor nichts. Nie mehr.
+JUNA: Und dafür brauchst du den Stein.
+LORD BERGAMOTT: Der Kessel braucht Wärme. Die ganze Stadt auf einmal – dafür reicht kein Vulkan. (er dreht sich zu dir um, und das Monokel blitzt im Lavalicht) Aber ein Feuer, das nie ausgeht, das reicht.
+## Der Tee-Baron
+[Musik: Das Thema von Bergamott, ein Walzer, der langsam schief wird.]
+Er greift nicht selbst an. Lord Bergamott hat noch nie in seinem Leben selbst etwas getan.
+Er hebt nur die Hand, und alles kommt: die Drohnen, die von den Terrassen aufsteigen, die Männer mit den stählernen Melonen, der Croupier mit Karten wie Klingen, die Giftmischerin mit ihren Phiolen. Sie kommen langsam und lächelnd, wie Gäste, die man zu spät zum Tee gebeten hat.
+Und hinter ihnen erhebt sich der Kessel. Der goldene Dampf darüber formt Arme, lang und warm und freundlich, und sie greifen nach dir. Nach der Wärme in deiner Tasche.
+LAURA: (lädt nach, ganz ruhig) Wie viele Karten haben Sie?
+DU: Genug.
+LAURA: Gut. (sie stellt sich neben dich) Ich mag Sie, Kartenbinder. Versuchen Sie, das nicht zu ruinieren.
+Juna stellt sich an deine andere Seite. Sie hat kein Gewehr. Sie hat nur die Eisenstange vom Hafen und dieses Gesicht.
+JUNA: Er hat mein Lied.
+DU: Wir holen es zurück.
+Du legst die erste Karte.
+
+#K Finale|Um Punkt Fünf|f2-finale
+## Der Riss im Kupfer
+[Geräusch: Kampflärm, der verebbt. Dann ein einzelner, hoher Ton, wie ein Finger auf dem Rand eines Glases. Er wird lauter.]
+Es ist Funke, der es schafft. Am Ende ist es immer Funke.
+Während ihr kämpft, während die Drohnen zerspringen und Seda das Schwert gegen die Arme aus Dampf führt, während Laura den Croupier entwaffnet und Juna dem Stahlkiefer seine Kette um die eigenen Füße wickelt, krabbelt Funke ganz allein über die Rohre zum Kessel hinauf.
+Er ist klein. Niemand achtet auf ihn. Er sieht aus wie ein Funke, der aus dem Vulkan gesprungen ist, und genau das ist er.
+FUNKE: (zu sich selbst, ganz leise) Der Kessel braucht Wärme. (er klettert auf den Rand des Kessels) Kann er haben.
+Und dann tut er etwas, das er noch nie getan hat. Er hört auf, sich klein zu machen.
+[Geräusch: Ein Fauchen wie von einem Hochofen, der aufgerissen wird.]
+Funke brennt. Er brennt so hell, dass die Terrassen weiß werden und die Schatten fliehen, so heiß, dass das Kupfer unter ihm erst rot glüht, dann orange, dann gelb. Der Kessel ächzt. Die Nieten springen heraus wie Knöpfe von einer zu engen Weste.
+LORD BERGAMOTT: (zum ersten Mal ohne Lächeln) Nein. Nein, nicht so viel. Nicht so –
+Der Kessel bricht.
+@pic f2-finale
+Er bricht nicht wie Metall bricht, mit Krachen und Splittern. Er bricht wie ein Ei, an hundert Stellen gleichzeitig, und aus jedem Riss im Kupfer strömt goldener Dampf, nicht nach oben in den Himmel, sondern hinaus, in hunderten Fäden, über die Terrassen, über den Berg, über die Stadt in der Ferne.
+Jeder Faden sucht einen Weg. Jeder Faden weiß, wohin.
+Ein Faden schlingt sich um Juna. Sie steht ganz still, mit geschlossenen Augen, eine Hand auf der Brust, und der goldene Dampf zieht in sie hinein wie Atem.
+JUNA: (flüstert) Oh.
+Laura hält sich am Geländer fest. Sie sieht nicht auf die Fäden. Sie sieht hinunter zum Fuß des Berges, wo die Kisten stehen.
+Über euch zieht sich der Riss zusammen. Er wird kürzer, schmaler, blasser. Und kurz bevor er sich schließt, glaubst du, für einen Herzschlag dahinter etwas zu sehen. Etwas Großes, Dunkles, das sehr hungrig ist.
+Und das sich jetzt umdreht. Zu dir.
+Dann ist der Himmel wieder nur Himmel.
+## Ein Lied
+[Geräusch: Stille. Dann, ganz leise, jemand, der summt. Eine einfache Melodie, ein bisschen schief.]
+Funke liegt auf dem Rand des zersprungenen Kessels, klein und dunkel und kaum noch glühend, wie ein Stück Kohle, das jemand aus dem Ofen genommen hat. Du hebst ihn auf. Er ist warm. Nur ein bisschen warm.
+FUNKE: (heiser, kaum hörbar) Hab ich … was angezündet?
+DU: Den ganzen Berg.
+FUNKE: (zufrieden) Gut.
+Er schläft ein, in deiner Hand. Der Glutstein in deiner Tasche wird warm, und von ihm aus fließt etwas in Funke hinüber, langsam, Atemzug für Atemzug, bis er wieder ein klein wenig heller ist.
+Juna sitzt auf den Stufen der Empore und summt.
+Es ist ein Kinderlied. Du kennst es nicht. Sie summt es zweimal, dann bricht sie ab und lacht, und dann weint sie, und dann lacht sie wieder.
+JUNA: Meine Mutter hat das gesungen. Wenn es gestürmt hat. Auf einem Schiff. (sie wischt sich übers Gesicht) Ich hatte eine Mutter. Sie hatte rote Haare und hat schief gesungen. (sie sieht dich an) Es ist nicht alles da. Ein Name fehlt noch. Aber das. Das ist da.
+Seda setzt sich neben sie, ohne etwas zu sagen. Nach einer Weile legt sie den Kopf an Junas Schulter.
+## Ihr Tee ist kalt, Mylord
+[Geräusch: Schritte auf Messing. Eine Katze, die maunzt.]
+Lord Bergamott sitzt auf dem Boden der Empore, den Rücken am Geländer, und hält seine Tasse in den Händen. Sie ist leer. Die weiße Katze liegt auf seinem Schoß und schnurrt.
+Er sieht nicht mehr gelangweilt aus. Er sieht aus wie ein alter Mann, dem gerade etwas Schweres in die Hände gefallen ist.
+LORD BERGAMOTT: (sehr leise) Sie hieß Margaret. (er streicht der Katze über den Kopf) Sie hat Earl Grey gehasst. Sie hat ihn trotzdem immer mit mir getrunken.
+Laura steht vor ihm, die Pistole in der Hand. Sie zielt nicht auf ihn.
+LAURA: Ihr Tee ist kalt, Mylord.
+LORD BERGAMOTT: (nickt langsam) Ja. Das ist er wohl.
+Er wehrt sich nicht, als sie ihm die Handschellen anlegt. Er hält nur die Katze fest, und die Katze lässt es geschehen.
+
+#K Epilog|Ein Foto|f2-epilog
+## Fünf Uhr
+[Geräusch: Regen gegen Fenster. Ein Kaminfeuer. Porzellan, Löffel, Lachen. Eine Standuhr, die gleich schlagen wird.]
+Drei Tage später sitzt ihr wieder in der „Goldenen Kanne“, oben im Salon, und es ist fast fünf.
+In der Stadt sind alle wieder aufgewacht. Achtundvierzig Kisten am Fuß des Feuerbergs, vier davon leer, vierundvierzig Menschen, die blinzelnd im Morgenlicht standen und nicht wussten, wo sie waren und warum sie so durstig waren. Die Sängerin hat am Abend danach im Theater gesungen, und es hieß, sie habe nie besser gesungen.
+Ellis liegt noch im Krankenhaus. Er schläft viel, und wenn er wach ist, fragt er nach Laura und beschwert sich über den Tee. Laura sagt, das sei ein gutes Zeichen.
+Merle ist da. Sie kam gestern durch einen kleinen Riss in ihrem Lampenraum, der genau so lange offen stand, wie sie brauchte, um ihren Mantel anzuziehen, und sie sitzt jetzt am Tisch, als hätte sie nie woanders gesessen.
+MERLE: (hebt die Tasse mit den Blüten) Ich wollte nur sehen, wo die herkommt.
+PEMBROKE: (gießt ihr nach) Aus der Manufaktur Bergamott, Madam. Leider die letzte Lieferung.
+MERLE: Schade. Die ist hübsch.
+@pic f2-epilog
+Funke sitzt auf der Zuckerdose. Er ist wieder fast so hell wie früher, und er hat entschieden, dass Würfelzucker die beste Erfindung dieser Welt ist. Juna summt. Seda trinkt Tee und verzieht dabei jedes Mal das Gesicht, als wäre er zu stark, und trinkt trotzdem weiter.
+Laura kommt als Letzte. Sie trägt wieder den dunklen Trenchcoat, und in der Hand hält sie einen Umschlag.
+LAURA: Die Chefin lässt grüßen. Sie hat Sie als Berater der Abteilung eingetragen. (sie setzt sich) Mit Gehalt. Keine Kekse.
+FUNKE: (enttäuscht) Keine Kekse?
+LAURA: Für Sie schon.
+Dann öffnet sie den Umschlag und legt ein Foto auf den Tisch. Schwarz-weiß, grobkörnig, ein bisschen unscharf. Ein Dach im Regen, ein Schornstein, die Lichter der Stadt darunter. Und am Rand des Dachs, klein und dunkel, eine Gestalt mit Kapuze.
+LAURA: Das hat Nell in den alten Bändern gefunden. Ein Fotograf der Zeitung hat es gemacht, ganz zufällig. (sie tippt auf das Datum am Rand) Vor drei Wochen. Am Abend, bevor der Erste verschwand. Am Abend, bevor die Aufnahme kam.
+Niemand sagt etwas. Die Standuhr an der Wand beginnt zu schlagen.
+JUNA: (leise) Die Gestalt in der Gasse. Die hat meine Tasse gefangen.
+LAURA: Und gestern Morgen stand die Tasse auf unserem Tresen. Leer. Ausgespült. Mit einem Zettel darunter: Für den Kessel. (sie sieht dich an) Jemand hat sie zurück in den Berg getragen, bevor wir dort waren. Damit sie mit allen anderen frei kommt.
+DU: Damit wir sie nicht einzeln zurückholen müssen.
+LAURA: Wer immer das ist, Kartenbinder, er räumt hinter Ihnen her. Oder vor Ihnen.
+Funke krabbelt über den Tisch, bis er direkt neben dem Foto sitzt. Er beugt sich so dicht darüber, dass sich seine kleine Flamme im glänzenden Papier spiegelt.
+FUNKE: (ganz leise) Ich hab den schon mal gesehen.
+DU: Auf der Karte. Bei Merle.
+FUNKE: Nein. (er dreht sich zu dir um, und seine Augen sind sehr groß) Ganz am Anfang. Im Tempel. Als du aufgewacht bist. (eine Pause) Der stand da schon.
+Die Uhr schlägt fünf.
+In deiner Tasche, zwischen dem warmen Stein und der Karte, die niemand gebunden hat, beginnt etwas zu blinken. Dreimal kurz. Dreimal lang. Dreimal kurz.
+[Musik: Das Hauptthema, diesmal als langsamer Walzer. Dann das elektrische Knacken eines roten Lichts.]
+#END
+
+#A Anhang|Fäden für die Kampagne
+Achtung, ab hier wird alles verraten. Diese Seiten sind für dich als Autor, nicht für Spieler.
+## Was Folge 2 festlegt
+- Nebelhafen ist eine Welt ohne Magie, mit Gaslaternen, Doppeldeckerbussen und einem geheimen Dienst unter einem Teehaus. Die Risse sind hier neu. Die Abteilung hält sie für eine Waffe Bergamotts.
+- Der Hunger des Ungebundenen kann sich Menschen als Helfer suchen. Bergamott hat ihm Erinnerungen gegeben und dafür seinen Schmerz verloren. Dasselbe Muster wie beim Orden des Lichts und seiner weißen Kuppel: Frieden, der in Wahrheit Leere ist.
+- Erinnerungen, die der Hunger nimmt, sind nicht sofort fort. Sie treiben eine Weile wie Duft und können zurückfinden. Kälte hält sie auf, Wärme lässt sie wandern.
+- Juna hat einen Teil ihrer Erinnerung zurück: ihre Mutter, ein Lied, ein Schiff im Sturm. Ein Name fehlt noch.
+- Funke kann sehr viel heißer brennen, als er zugibt. Es kostet ihn fast alles. Der Glutstein kann ihm Wärme zurückgeben.
+- Der Kartenbinder spürt, ob eine Karte lügt.
+- Laura und die Abteilung sind jetzt Verbündete. Der Kartenbinder ist als Berater eingetragen. Ellis lebt.
+- Bergamott ist verhaftet. Er hat seine Frau Margaret wieder, also auch seinen Schmerz.
+## Offene Fragen
+- Die Gestalt mit Kapuze war schon im Tempel, als der Kartenbinder erwachte. Sie war vor dem ersten Verschwinden in Nebelhafen. Sie war an Tag eins auf Station Null. Sie fängt Dinge auf, die verloren gehen, und gibt sie nicht selbst zurück.
+- Die Aufnahme auf Nells Band: „Lasst ihn nicht trinken.“ Gemeint war der Kartenbinder. Warum? Und warum klingt die Stimme wie seine eigene, nur älter?
+- Hinter dem Riss über dem Kessel hat sich etwas umgedreht. Zum Kartenbinder. Der Hunger weiß jetzt, wo der Stein ist.
+- Der Name, der Juna noch fehlt.
+- Wer schläft in Merles Bett, und wem gehört das Luftschiff? Merle sagt immer noch: eins nach dem anderen.
+- Die Karte, die niemand gebunden hat, blinkt wieder.
+## Wo es im Spiel hinpasst
+- Folge 2 ist ein Gebiet mit 16 Gefechten in vier Räumen: Teehaus (1–4), Casino (5–8), Verfolgung (9–12), Vulkan (13–16). Endgegner ist Lord Bergamott.
+- Bedingungen: Gefecht 4 mit dem Tüftler, Gefecht 8 mit Laura, Gefecht 12 mit mindestens 3 Karten aus der Abteilung, Endgegner mit Laura und Juna.
+- Die Gegner sind „Bergamotts Hof“: Handlanger mit Melone, Teetassen-Drohne, Giftmischerin, Croupier, Stahlkiefer und Lord Bergamott. Wer Folge 2 heroisch schafft, bekommt das Set.
+- „Die Abteilung“ ist das Set der Verbündeten: Butler Pembroke, Funkerin Nell, Tüftler Oswin, Fahrer Fitch, die Chefin und Laura als Diamantkarte.
+- Sequenzen: Teetasse im Leuchtturm, Ankunft, Abteilung, Anschlag, Casino, Einsatz, Dächer, Nachtzug, Vulkan, Kessel, Finale und Epilog.
+## Die Abteilung
+@gallery abteilung
+## Bergamotts Hof
+@gallery hof
