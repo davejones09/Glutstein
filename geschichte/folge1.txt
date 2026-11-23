@@ -1,0 +1,731 @@
+Glutstein – Folge 1 „Station Null“ (Lese- und Sprechfassung)
+
+Aufbau wie beim Prolog: #K = Kapitel (Kicker|Titel|Bild), #T = Vision, ## = Szene, "> = Logbuch-Eintrag (Text|Quelle), [ … ] = Geräusch/Musik, NAME: = gesprochene Zeile, (…) = Regie.
+
+#V Zum Lesen und Vertonen
+Diese Fassung erzählt die erste Folge der Kampagne von Glutstein. Sie beginnt drei Nächte nach dem Ende des Prologs am Leuchtturm von Merle und führt durch den größten Riss am Himmel in eine fremde Welt: auf eine Raumstation, die kalt und still um ein Meer unter zwei Monden kreist.
+Die Folge ist zum Lesen gedacht und gleichzeitig als Vorlage für eine spätere Vertonung. Sie ist unheimlicher als der Prolog, aber nicht blutig. Der Schrecken soll aus der Stille kommen, aus der Kälte und aus dem, was man nicht sieht.
+Der Fließtext gehört der Erzählstimme. Sie spricht dich direkt an, denn du bist der Kartenbinder oder die Kartenbinderin.
+Gesprochene Zeilen stehen mit Namen davor. Regieanweisungen stehen in Klammern und kursiv. Geräusche und Musik stehen in eckigen Klammern. Sie sind Vorschläge, keine Pflicht.
+Jedes Kapitel beginnt mit einem Eintrag aus dem Logbuch der Station. Gelesen werden sie von Kommandant Marek, über ein knisterndes, altes Band.
+#ROLES
+ERZÄHLER|Erzählstimme|Ruhig, warm, ein wenig rau. In dieser Folge leiser als sonst, als wollte er nichts aufwecken.
+DU|Kartenbinder / Kartenbinderin|Wenige, knappe Sätze. Ohne Erinnerung, aber nicht ohne Mut. Zwei Fassungen.
+FUNKE|Ein Funkenwicht|Schnell, frech, knisternd. In der Kälte wird er klein und leise, und genau das macht Angst.
+SEDA|Ehemalige Inquisitorin|Jung, klar, beherrscht. Ein Lächeln ohne Atem erinnert sie an die weiße Kuppel.
+MERLE|Die Leuchtturmwärterin|Trocken, wettergegerbt, unerschütterlich.
+DIE STATION|Die Stimme der Station|Weiblich, sanft, freundlich und vollkommen gleichgültig. Spricht durch Lautsprecher, mit leichtem Hall.
+K-7|Androidin der Station|Höflich, ruhig, sehr korrekt. Siezt alle. Lächelt hörbar.
+JUNA|Offizierin Juna Kade, Sicherheit|Müde, hart, misstrauisch. Darunter jemand, der Angst hat, sich selbst zu verlieren.
+DAS DING|Das Ding im Reaktor|Spricht aus vielen Mündern gleichzeitig, ruhig und freundlich. Ein Chor von Stimmen, die nicht mehr wissen, wem sie gehören.
+DIE STIMME|Der Ungebundene im Stein|Spricht nur noch im Schlaf. Leise, schläfrig, warm. Lügt nie.
+KLEINE ROLLEN|Kommandant Marek, Haberland, die Gestalt im Gang|Marek liest die Logbücher. Haberland ist der Infizierte. Die Gestalt im Gang spricht mit der Stimme des Kartenbinders, nur älter und müder.
+#ENDROLES
+
+#K Folge 1|Drei kurz, drei lang|f1-leuchtturm
+"> Ein Licht, das flackert, ist ein Feuer. Ein Licht, das zählt, ist eine Frage.|Merle
+## Der Riss über dem Meer
+[Geräusch: Ruhige Brandung. Die große Flamme des Leuchtturms, die stetig faucht. Ein Teekessel, der zu pfeifen beginnt.]
+Seit drei Nächten hängt der Riss über dem Meer, und seit drei Nächten schläft an der Küste niemand mehr richtig.
+Bei Tag ist er blass, ein heller Strich am Himmel, als hätte jemand mit dem Fingernagel über eine beschlagene Scheibe gefahren. Doch sobald die Sonne untergeht, beginnt er zu leuchten, rot an den Rändern und violett in der Mitte. Dann spiegelt er sich im Wasser, und das Meer sieht aus, als hätte es eine Wunde.
+Merle hat euch die Tür aufgemacht, ohne zu fragen, wer ihr seid. Sie hat Seda einen Stuhl hingeschoben, dir einen zweiten und Funke einen Kerzenstummel, auf den er sich setzen kann. Dann hat sie Tee gekocht. Er schmeckt nach Seetang und ein wenig nach Rauch.
+MERLE: Ihr seid wegen dem da gekommen. (sie nickt zum Fenster) Ich hab mir schon gedacht, dass irgendwann einer kommt.
+SEDA: Woher?
+MERLE: Weil so ein Ding nicht einfach so da hängt. Das wartet auf jemanden.
+Unten am Steg liegt das fremde Luftschiff, das vor drei Nächten aus dem Riss gekommen ist. Sein Ballon hängt schlaff über dem Deck wie ein müdes Segel, und einer der Propeller ist schwarz verrußt. Wer darin gesessen hat, schläft oben in Merles Bett und hat bis heute kein einziges Wort gesagt.
+MERLE: Das hat noch Zeit. Das schläft sich erst mal aus. (sie gießt nach) Euer Problem ist das andere.
+DU: Welches andere?
+MERLE: Trink aus. Dann zeig ich's euch.
+## Das rote Licht
+[Geräusch: Schritte auf einer eisernen Wendeltreppe. Wind, der lauter wird. Eine Tür, die aufgedrückt wird.]
+Oben auf der Galerie pfeift der Wind so kalt, dass Funke sich sofort in deine Kapuze verkriecht. Seda zieht den weißen Umhang enger um die Schultern. Er ist nicht mehr ganz so weiß wie früher. Seit sie den Orden verlassen hat, flickt sie ihn selbst.
+Merle stellt sich an das Geländer und zeigt hinaus.
+MERLE: Da. In der Mitte. Wartet's ab.
+Zuerst siehst du nur den Riss, lang und leuchtend, und dahinter den fremden Himmel mit seinen zwei Monden. Dann bemerkst du etwas anderes. Tief im Riss, so klein wie ein Stecknadelkopf, blinkt ein rotes Licht.
+Es blinkt dreimal kurz, dreimal lang und wieder dreimal kurz. Dann ist es eine Weile dunkel, und es beginnt von vorn.
+Du kennst dieses Licht. Du hast es in der Kristallquelle gesehen, tief im Wurzelwald: einen Gang aus Metall mit runden, vereisten Fenstern, in dem ein rotes Licht unablässig blinkt. Damals hast du nicht gewusst, was es ist. Du weißt es auch jetzt nicht.
+FUNKE: (aus der Kapuze) Ist das ein Feuer?
+MERLE: Nein. Feuer flackert. Das da zählt.
+SEDA: Was zählt es?
+MERLE: Drei kurz, drei lang, drei kurz. (sie nimmt einen Schluck Tee) Auf jedem Meer, das ich kenne, heißt das dasselbe. So blinkt einer, der nicht weiß, ob ihn überhaupt jemand sieht.
+DU: Und was heißt es?
+MERLE: Hilfe.
+Eine Weile sagt niemand etwas. Das rote Licht blinkt weiter, drei kurz, drei lang, drei kurz, geduldig wie ein Herz.
+MERLE: Seit drei Nächten geht das so. Ich hab zurückgeleuchtet, jede Nacht. Ob's drüben einer sieht, weiß ich nicht.
+SEDA: (leise) Es könnte eine Falle sein.
+MERLE: Könnte es. (sie zuckt mit den Schultern) Ich hab in meinem Leben schon vielen Lichtern geantwortet. Die meisten waren keine Falle. Und bei den paar, die eine waren, saß hinterher trotzdem jemand im Boot, den ich rausgezogen hab.
+Du greifst in deine Tasche. Dort liegt der Glutstein, ganz und warm, nicht größer als ein Herz. Er schläft. Seit drei Nächten hat er kein Wort mehr gesagt, aber wenn du die Hand um ihn legst, spürst du, wie er atmet. Langsam, tief und zufrieden, wie jemand, der etwas Gutes träumt.
+Heute Nacht schlägt er schneller.
+## Die Überfahrt
+[Geräusch: Ruder, die ins Wasser tauchen. Ein Boot, das knarzt. Dann, ganz allmählich, ein feines Klirren, als würde das Wasser selbst zu Glas.]
+Merle rudert selbst. Sie lässt sich nicht davon abbringen, und keiner von euch versucht es lange.
+Je näher ihr dem Riss kommt, desto ruhiger wird das Meer. Zuletzt liegt es glatt da wie ein Spiegel, und auf den Rudern bildet sich Reif. Unter dem Riss ist das Wasser von einer dünnen Eisschicht überzogen, die unter dem Bug knistert und bricht.
+Über euch hängt der Riss so tief, dass du hineinsehen kannst. Er ist kein Loch im Himmel, eher ein Vorhang aus Licht, der sich langsam bewegt. Dahinter ist es dunkel und kalt, kälter als jede Nacht, die du kennst. Mitten in diesem Dunkel blinkt das rote Licht.
+FUNKE: Ich will nur sagen, dass ich dagegen bin.
+SEDA: Ist notiert.
+FUNKE: Ich will, dass es irgendwo aufgeschrieben wird. Falls wir sterben. Dass ich dagegen war.
+MERLE: Ich ritz es dir ins Ruder.
+Du stehst auf. Das Boot schwankt, und Merle hält es mit zwei kurzen Schlägen ruhig.
+Der Glutstein in deiner Tasche ist jetzt heiß. Du ziehst ihn hervor, und im selben Moment geschieht etwas, das dir für den Rest der Nacht nicht mehr aus dem Kopf geht.
+Der Riss bewegt sich.
+Langsam, ganz langsam neigt er sich herab, so wie sich eine Pflanze auf der Fensterbank zur Sonne dreht. Er neigt sich zu dem Stein in deiner Hand. Seine Ränder flimmern, und für einen Herzschlag lang sieht er beinahe aus wie eine ausgestreckte Hand.
+SEDA: (sehr leise) Er will den Stein.
+DU: Oder er erkennt ihn.
+SEDA: Ich weiß nicht, was schlimmer wäre.
+Du steckst den Stein zurück in die Tasche. Der Riss hängt jetzt so tief, dass seine Kante beinahe das Eis berührt.
+MERLE: Ich bleib hier draußen, solange es geht. Dann fahr ich zurück und mach das Licht an. (sie sieht dich an, ruhig und ohne Lächeln) Wenn ihr zurückwollt, sucht das Licht. Es brennt die ganze Nacht.
+DU: Und wenn wir länger brauchen als eine Nacht?
+MERLE: Dann brennt es länger.
+Du nickst ihr zu. Seda legt die Hand an den Griff ihres Schwertes. Funke kriecht so tief in deine Kapuze, dass du ihn nur noch an seiner Wärme im Nacken spürst.
+Dann trittst du aus dem Boot in den Riss.
+[Musik: Ein tiefer Ton, der abreißt. Stille. Dann ein elektrisches Summen, sehr nah, und das langsame Ticken von Metall, das in der Kälte arbeitet.]
+
+#K Kapitel I|Die Andockschleuse|f1-schleuse
+"> Tag 1. Riss Null ist heute Nacht aufgegangen. Ganz. Wir haben alle am Fenster gestanden. Es war wunderschön.|Logbuch der Station Null · Kommandant Marek
+## Minus einunddreißig Grad
+[Geräusch: Ein Aufprall auf Metall. Wasser, das auf einen Boden klatscht und sofort zu knistern beginnt. Ein rotes Warnsignal, gedämpft, wie hinter einer Wand.]
+Du fällst nicht tief, aber hart.
+Unter dir ist Metall, ein Gitterboden aus kalten, schmalen Streben. Das Meerwasser, das mit euch durch den Riss gekommen ist, läuft zwischen den Streben hindurch und gefriert, noch bevor es den Grund erreicht. Es knistert wie Papier, das man langsam zerknüllt.
+Es ist dunkel. Nur über euch blinkt das rote Licht, drei kurz, drei lang, drei kurz. Bei jedem Aufleuchten siehst du für einen Augenblick den Raum, in dem ihr gelandet seid, und dann wieder nichts.
+Es ist eine riesige, runde Halle. Die Wände sind aus Stahl und mit Reif überzogen, so dick, dass sie aussehen wie mit Fell bewachsen. In der Mitte steht ein gewaltiger Ring aus Metall, gehalten von Streben und Ketten, so hoch wie ein Kirchturm. In diesem Ring hängt der Riss. Von dieser Seite aus wirkt er kleiner, ein heller Spalt im Rahmen, und durch ihn siehst du ganz schwach das nächtliche Meer.
+Ihr seid nicht aus dem Himmel gefallen. Ihr seid in einen Käfig gestiegen. Jemand hat den Riss eingefangen.
+SEDA: (keucht) Kalt. Bei allen Lichtern, ist das kalt.
+Ihr Atem steht als weiße Wolke vor ihrem Gesicht. Schon nach wenigen Herzschlägen hängt Reif in ihren Wimpern, und ihre Finger am Schwertgriff werden steif.
+Dir ist nicht kalt.
+Du merkst es erst, als Seda dich ansieht. Du stehst in einem Raum, in dem Wasser im Fallen gefriert, und spürst nichts. Keine Kälte, keine steifen Finger, nicht einmal eine Gänsehaut. Es ist, als stündest du in einem Zimmer mit einem guten Ofen.
+Das hat man dir versprochen: Du wirst nie wieder frieren.
+In deinem Nacken rührt sich etwas.
+FUNKE: (sehr klein) Hey. (eine Pause) Hey, ist das normal, dass ich so klein bin?
+Er kriecht aus deiner Kapuze auf deine Schulter. Seine Flamme, sonst so groß wie eine Faust, ist kaum größer als die einer Kerze. Sie ist nicht orange, sondern blassgelb und zittert, als stünde sie in einem Luftzug.
+FUNKE: Ich krieg keine Luft. Also, ich krieg schon Luft, aber sie schmeckt nach nichts. (er schlingt die Ärmchen um sich) Und mir ist kalt. Mir ist noch nie kalt gewesen. Ich bin ein Feuer. Feuer ist nicht kalt.
+Du legst die Hand um ihn. Deine Hand ist warm, wie immer, und Funke drückt sich hinein, ohne einen frechen Kommentar.
+Gerade das macht dir Angst.
+[Geräusch: Ein Klicken. Ein Rauschen in Lautsprechern, die lange nicht benutzt wurden.]
+DIE STATION: (sanft, freundlich, mit leichtem Hall) Andockring Null. Druck stabil. Temperatur: minus einunddreißig Grad. Sauerstoff: niedrig.
+Seda reißt das Schwert heraus und dreht sich einmal im Kreis. Da ist niemand. Die Stimme kommt aus der Decke, aus den Wänden, von überall.
+DIE STATION: Wärmesignatur erkannt. (eine kurze Pause) Willkommen zurück, Besucher Null.
+Dann ist es wieder still. Nur das rote Licht blinkt.
+SEDA: Zurück?
+DU: Ich war noch nie hier.
+SEDA: Weißt du das? Oder glaubst du es?
+Darauf hast du keine Antwort, und Seda erwartet auch keine. Bei dir weiß man das nie so genau, auch du selbst nicht.
+## Das Fenster
+[Geräusch: Ein tiefes Brummen, das durch den Boden kommt. Dann, ganz fern, ein Gesang. Lang, tief und traurig.]
+An der Außenwand der Halle sitzen runde Fenster, eines neben dem anderen. Sie sind so dick vereist, dass kein Licht hindurchdringt. Du kratzt mit dem Ärmel ein Loch in den Reif, so groß wie ein Teller, und siehst hinaus.
+Unter dir liegt ein Meer.
+Es ist nicht euer Meer, und es liegt nicht unter euch wie ein Meer, auf das man von einer Klippe schaut. Es ist ein ganzer Planet, eine riesige blaue Kugel, die sich im Schwarzen dreht, ganz aus Wasser und ohne ein einziges Stück Land. Über ihr stehen zwei Monde, ein großer, silberner und ein kleiner, der fast rot ist.
+Und dazwischen schwimmt ein Wal.
+Er schwimmt nicht im Wasser, sondern zwischen den Sternen. Er ist so groß, dass die Station neben ihm aussehen muss wie ein Kiesel neben einem Berg. Auf seinem Rücken liegt eine Stadt mit goldenen Dächern und Türmen, in deren Fenstern noch Licht brennt. Langsam gleitet er vorbei, und sein Gesang kommt durch die Wände der Station zu dir herein, so tief, dass du ihn mehr in der Brust spürst als in den Ohren.
+Seda tritt neben dich. Eine ganze Weile sagt sie gar nichts.
+SEDA: (flüsternd) Das hat Merle gesehen. Durch den Riss. Den Wal zwischen den Sternen.
+FUNKE: Ist das ein Fisch mit einer Stadt drauf?
+DU: Ein Wal.
+FUNKE: Ein Fisch mit einer Stadt drauf. (er seufzt sehr klein) Ich will nach Hause.
+Der Wal zieht weiter, und das Licht der fremden Stadt wird kleiner und kleiner. Im Fenster siehst du jetzt nur noch dein eigenes Spiegelbild: eine Kapuze, und darunter Dunkelheit.
+## Brummer
+[Geräusch: Ein Summen, das näher kommt. Ein kleiner Motor. Ein Lichtkegel, der über Metall wandert.]
+Aus einem Schacht in der Decke schwebt etwas heraus. Es ist eine Kugel aus mattem Metall, nicht größer als ein Kürbis, mit einem einzigen runden Auge, aus dem ein weißer Lichtstrahl fällt. Unter ihr hängen zwei dünne Greifarme wie die Beine einer Spinne, die man zusammengefaltet hat.
+Seda hebt das Schwert. Die Kugel beachtet sie nicht.
+Sie schwebt an euch vorbei zu einem Fenster, in dessen Glas ein feiner Sprung läuft. Dort hält sie an, fährt einen der Greifarme aus und streicht mit ihm über den Sprung, sorgfältig und langsam, hin und her. Eine dünne, glänzende Schicht legt sich über das Glas.
+Dann schwebt sie zum nächsten Fenster.
+SEDA: Es repariert.
+DU: Für wen?
+Darauf weiß Seda keine Antwort.
+Die Kugel bleibt in der Luft stehen und dreht ihr Auge zu euch herüber. Der Lichtstrahl wandert über Sedas Stiefel, über deinen Umhang und bleibt schließlich auf deiner Schulter hängen, genau auf Funke.
+Ein leises Piepen. Die Kugel fährt einen Greifarm aus, ganz vorsichtig, und tippt Funke an.
+FUNKE: He! Ich bin nicht kaputt!
+Die Kugel piept noch einmal, diesmal fragend.
+FUNKE: Ich bin klein, das ist was anderes! Das ist der Raum hier! Der Raum ist kaputt!
+Die Kugel schwebt eine Weile still vor ihm. Dann tut sie etwas, womit keiner von euch gerechnet hat: Sie dreht ihr Licht ein wenig herunter, bis es warm und gelblich ist, und hält es dicht an Funke, als wollte sie ihn wärmen.
+Funke sieht sie lange an.
+FUNKE: (gerührt und ein bisschen verlegen) Na gut. Du darfst bleiben. (eine Pause) Du brummst. Ich nenn dich Brummer.
+Brummer piept einmal. Es klingt einverstanden.
+## Die Namen
+[Geräusch: Schritte in einem schmalen Gang. Eine Tür, die zur Seite gleitet und auf halbem Weg hängen bleibt. Irgendwo das Kratzen einer Bürste auf Metall, gleichmäßig, ohne Pause.]
+Brummer schwebt voraus, und ihr folgt ihm aus der Halle in einen langen, runden Gang. Auf einem Schild an der Wand steht „Ring A“. Hier brennt Licht, aber nur jede dritte Lampe, und sie flackern alle im selben Takt.
+Dann siehst du die Namen.
+Sie stehen an den Wänden, mit schwarzem Stift geschrieben, mal klein und ordentlich, mal so groß, dass sie über zwei Türen reichen. Neben jeder Tür steht einer: Petra Lind. Tomasz. Haberland. A. Okafor. Kommandant Marek. Unter manchen steht etwas anderes, in derselben Handschrift: Du bist Ärztin. Du hast eine Schwester. Du magst keinen Kaffee.
+Weiter hinten werden die Buchstaben schiefer.
+Dort steht derselbe Name viele Male übereinander, so oft, dass die Wand an dieser Stelle schwarz ist. Haberland. Haberland. Haberland. Ich heiße Haberland. Ich heiße Haberland. Ich heiße.
+Dahinter bricht die Schrift ab.
+SEDA: Sie haben ihre Namen an die Wände geschrieben.
+DU: Damit sie sie nicht vergessen.
+Du denkst an deinen eigenen Namen, den du nicht mehr hast. Du denkst daran, dass du ihn vielleicht auch einmal irgendwo hingeschrieben hättest, wenn du gewusst hättest, dass du ihn einmal hergeben würdest.
+Am Ende des Gangs kniet ein Mann.
+Er trägt einen grauen Arbeitsanzug mit vielen Taschen, und er schrubbt mit einer Bürste den Boden, immer dieselbe Stelle, hin und her. Die Stelle ist längst sauber. Das Metall glänzt dort wie ein Spiegel, so lange hat er schon geschrubbt.
+HABERLAND: (murmelt, ohne aufzusehen) Ring B, Ventil vier. Schicht sieben. Ring B, Ventil vier. Schicht sieben.
+Seine Hände sind grau vor Kälte, aber unter der Haut ziehen sich feine violette Linien entlang, wie Adern aus Tinte. Als ihr näher kommt, hört er auf zu schrubben.
+Langsam hebt er den Kopf. Seine Augen sind freundlich und sehr müde.
+HABERLAND: Entschuldigung. (er lächelt verlegen) Weißt du, wie ich heiße?
+Auf seiner Brust ist ein Namensschild aufgenäht. Du liest es ihm vor.
+DU: Haberland.
+HABERLAND: (erleichtert, fast glücklich) Haberland. Ja. Haberland. Natürlich. Haberland.
+Er nickt, als hätte er etwas Wichtiges wiedergefunden, und für einen Moment sieht er aus wie jemand, dem man ein verlorenes Kind zurückgebracht hat.
+Dann wird sein Blick wieder leer.
+HABERLAND: Entschuldigung. Weißt du, wie ich heiße?
+Seda zieht dich am Arm zurück. Haberland steht auf, ganz langsam, die Bürste noch in der Hand. Er sieht dich nicht an, sondern deine Tasche, die Tasche, in der der Stein liegt. Er schnuppert wie jemand, der im Winter an einer Bäckerei vorbeigeht.
+HABERLAND: Warm. (er macht einen Schritt auf dich zu) Du bist warm. Hier ist schon so lange nichts mehr warm.
+Aus dem Kragen seines Anzugs rieselt ein feiner, violetter Staub. In der Luft beginnt er schwach zu leuchten, grünlich, wie Glühwürmchen in einem Sumpf.
+FUNKE: Nicht einatmen! (schrill) Atmet nicht zu tief ein!
+Hinter Haberland, im Halbdunkel des Gangs, gehen weitere Türen auf.
+## Ring A
+[Musik: Ein tiefer, pochender Rhythmus wie ein Herzschlag durch eine Stahlwand. Darüber ein hohes, dünnes Pfeifen.]
+Hier musst du kämpfen.
+In den Lüftungsschächten wächst etwas. Es sind violette Ranken, dick wie Seile, mit glänzenden Kapseln daran, in denen ein grünes Licht pulsiert. Wenn man ihnen zu nahe kommt, platzen sie auf und spucken Sporen in die Luft. Aus den Türen kommen Leute in grauen Anzügen. Sie sind langsam, freundlich und ganz und gar nicht mehr sie selbst. Sie wollen dir nichts tun. Sie wollen nur deine Wärme.
+Du legst deine Karten aus, und sie erwachen wie immer. Aber hier brennen sie kleiner. Die Glutwölfe ziehen die Köpfe ein, und die Flammen der Brandbogner werden blass, kaum dass sie aus der Karte treten. Diese Welt hat nichts für Feuer übrig.
+Brummer hilft auf seine Weise. Er schwebt über euch und leuchtet in die Ecken, in denen etwas wartet, und jedes Mal, wenn eine Kapsel platzt, piept er empört.
+Haberland kämpft nicht. Als die anderen zu Boden gehen, bleibt er einfach stehen, die Bürste in der Hand, und sieht dich an. Dann kniet er sich wieder hin und schrubbt dieselbe Stelle.
+HABERLAND: (murmelt) Ring B, Ventil vier. Schicht sieben.
+Du lässt ihn dort. Etwas anderes kannst du nicht tun.
+* * *
+Am Ende des Rings bleibt Brummer vor einer schweren Tür stehen. Sie ist mit Reif überzogen, und darauf steht in großen, roten Buchstaben: Kälteschlaf.
+Darunter hat jemand mit schwarzem Stift etwas geschrieben, in großer, zittriger Schrift: K-7 NICHT HEREINLASSEN.
+Die Worte sind durchgestrichen. Darunter steht in einer ganz anderen Handschrift, sauber, gerade und gleichmäßig wie gedruckt:
+K-7 hat Zutritt. Vielen Dank.
+
+#K Kapitel II|Die Kälteschlafkammer|f1-kaelteschlaf
+"> Tag 9. Es ist kalt geworden. Der Reaktor läuft, aber die Wärme kommt nicht an. K-7 sagt, das sei ganz normal. Ich weiß nicht, woher sie das weiß.|Logbuch der Station Null · Kommandant Marek
+## Die Wartende
+[Geräusch: Eine schwere Tür, die zischend zur Seite fährt. Dahinter ein Raum voller Kälte: das feine Singen von Eis, ein leises, gleichmäßiges Piepen wie von vielen kleinen Uhren.]
+Hinter der Tür ist es blau.
+Ein langer Saal öffnet sich vor euch, schmal und hoch. An beiden Wänden stehen Kapseln aus Glas und Stahl, aufrecht wie Särge, die jemand an die Wand gelehnt hat. Es sind zwölf, sechs auf jeder Seite. Aus ihrem Inneren fällt ein kaltes, blaues Licht, und der Reif auf ihren Scheiben glitzert darin wie Zucker.
+Elf von ihnen stehen offen. Sie sind leer.
+Am Ende des Saals steht eine Bank aus Metall. Darauf sitzt eine Frau.
+Sie sitzt sehr gerade, die Hände im Schoß gefaltet, und sieht euch entgegen, als hätte sie schon lange gewartet und als wäre das ganz in Ordnung so. Sie trägt einen weißen Anzug, der eng anliegt wie eine zweite Haut. Ihr Haar ist hell und ordentlich hochgesteckt. Ihr Gesicht ist schön und sehr glatt, wie Porzellan, und quer über eine Wange läuft ein feiner Sprung. Ein Auge ist grau. Das andere leuchtet blau, und hinter der Iris liegen winzige, glänzende Linien wie die Adern eines Blattes.
+Sie lächelt.
+K-7: Guten Abend. (sie steht auf, ohne Eile) Sie sind spät. Aber das macht nichts.
+Seda bleibt so abrupt stehen, dass du fast in sie hineinläufst.
+Du siehst ihr Gesicht und weißt sofort, woran sie denkt. An die weiße Kuppel unter der Sonnenwacht, in der Hunderte Menschen standen, ganz still, und lächelten. Darunter war ihre Mutter. Sie hat genauso gelächelt, ohne zu atmen, ohne etwas zu fühlen, weil der Orden es für Frieden hielt.
+SEDA: (heiser) Hör auf damit.
+K-7: Womit?
+SEDA: Mit dem Lächeln.
+K-7: Ich lächle, damit Sie sich wohlfühlen. (sie legt den Kopf ein wenig schief) Fühlen Sie sich wohl?
+SEDA: Nein.
+K-7: Dann lächle ich mehr.
+Und das tut sie. Sehr freundlich, sehr gleichmäßig und ganz und gar falsch.
+Auf deiner Schulter gibt Funke ein Geräusch von sich, das fast ein Kichern ist. Er kann nicht anders. Seda wirft ihm einen Blick zu, und er verstummt.
+K-7: Ich bin K-7. Ich kümmere mich um die Station. Um die Heizung, die Luft, die Lichter und die Menschen. (eine kurze Pause) Im Moment vor allem um die Lichter.
+DU: Das rote Licht in der Halle. Das warst du.
+K-7: Ja. Drei kurz, drei lang, drei kurz. (sie nickt zufrieden) Das letzte, was Kommandant Marek zu mir gesagt hat, war: Halte die Station am Leben, bis Hilfe kommt. Ich habe überlegt, wie Hilfe uns finden soll. Ich dachte, vielleicht sieht sie ein Licht.
+DU: Es hat jemand gesehen.
+K-7: (ihr Lächeln wird ein wenig weicher, fast echt) Das freut mich sehr.
+SEDA: Wo sind die anderen? Die Leute aus den Kapseln?
+K-7: Unten. (sie sagt es, als wäre es das Natürlichste der Welt) Es ist warm unten.
+Eine Weile sagt niemand etwas. Nur die Kapseln piepen.
+DU: Die Station hat mich begrüßt. Sie hat gesagt: Willkommen zurück.
+K-7: Ihre Wärmesignatur ist gespeichert, Besucher Null. Seit Tag eins, zwei Uhr vierzehn. (sie dreht sich um und deutet auf die letzte Kapsel, die einzige, die noch geschlossen ist) Offizierin Kade kann Ihnen mehr darüber sagen. Sie hat Sie gesehen.
+## Kapsel zwölf
+[Geräusch: Schritte auf Eis. Eine Hand, die über gefrorenes Glas reibt.]
+Die zwölfte Kapsel ist so dick vereist, dass du erst mit dem Ärmel darüberwischen musst, um hineinzusehen.
+Darin steht eine Frau. Sie trägt einen weißen, gepolsterten Anzug mit Gurten und Taschen, schwer und abgenutzt. Ihr dunkles Haar ist kurz und im Nacken zusammengebunden. Ihre Augen sind geschlossen, auf ihren Wimpern liegt Reif. Neben der Kapsel lehnt ein Gewehr, lang und eckig, mit einer Lampe unter dem Lauf.
+Ihr linker Ärmel ist hochgeschoben. Auf ihrem Unterarm steht in schwarzer Schrift, mit festem Druck geschrieben:
+JUNA KADE. SICHERHEIT. NICHT VERGESSEN.
+Darunter, an ihrem Handgelenk, ziehen sich feine violette Linien unter der Haut entlang, wie bei Haberland. Aber sie bewegen sich nicht. Sie sind erstarrt wie alles in diesem Raum.
+K-7: Kälte hält es auf. Kommandant Marek hat sie eingefroren, als er es bemerkt hat. Am Tag einundvierzig. (eine Pause) Danach waren nur noch wir übrig.
+SEDA: Und wenn du sie weckst?
+K-7: Dann wird ihr warm. (sie lächelt) Und dann fängt es wieder an. Aber langsam.
+Seda sieht dich an. Funke sieht dich an. Sogar Brummer dreht sein Licht in deine Richtung.
+Es ist deine Entscheidung. Es ist immer deine Entscheidung, und du weißt nie, ob sie richtig ist.
+DU: Sie hat mich gesehen. Ich muss wissen, was sie gesehen hat.
+SEDA: (leise) Und für sie? Ist es gut für sie?
+DU: Ich weiß es nicht. (eine Pause) Weck sie.
+[Geräusch: Ein tiefes Zischen. Eis, das in Stücken herabfällt. Ein Atemzug, verzweifelt, wie von jemandem, der zu lange unter Wasser war.]
+Die Kapsel öffnet sich in einer Wolke aus weißem Nebel. Die Frau darin keucht und krümmt sich nach vorn, und für einen Herzschlag glaubst du, sie würde fallen.
+Sie fällt nicht. In einer einzigen Bewegung greift sie nach dem Gewehr, reißt es hoch und richtet es auf dich. Die Lampe unter dem Lauf flammt auf, grell und weiß, mitten in dein Gesicht.
+JUNA: (heiser, zitternd vor Kälte) Besucher Null.
+Im selben Augenblick liegt Sedas Schwert an ihrem Hals.
+SEDA: Leg das weg.
+JUNA: Du zuerst.
+FUNKE: (dünn) Könnte bitte mal jemand aufhören, jemanden zu bedrohen? Nur einer? Irgendwer?
+Niemand hört auf. Der Lauf des Gewehrs zittert, aber er bleibt auf dich gerichtet.
+JUNA: Ich hab dich gesehen. Auf den Bändern, in der Nacht, als der Riss aufging. Dieselbe Kapuze. Dasselbe Licht in der Hand. (ihr Blick wandert zu deinem Mund, zu deinem Atem, der keine Wolke macht) Und du frierst nicht. Die Gestalt auf dem Band hat auch nicht gefroren. Sie ist durch die ganze Station gelaufen, bei minus dreißig Grad, und nicht ein einziges Mal hat sie gezittert.
+DU: Ich war noch nie hier.
+JUNA: Das würde ich an deiner Stelle auch sagen.
+Sie sieht dich lange an. Dann tut sie etwas Seltsames: Ohne das Gewehr zu senken, dreht sie den Kopf und blickt auf ihren eigenen Unterarm. Auf die schwarze Schrift.
+Ihre Lippen bewegen sich lautlos. Juna. Juna Kade.
+Erst dann atmet sie aus. Langsam senkt sie das Gewehr, und Seda nimmt das Schwert von ihrem Hals.
+JUNA: (leise, mehr zu sich selbst) Ich weiß noch, wer ich bin. (sie lacht kurz und hart) Gut. Das ist schon mal was.
+## Tag einhundertvier
+[Geräusch: Juna, die mit den Zähnen klappert. Eine Thermoskanne, die aufgeschraubt wird. Etwas, das dampft.]
+K-7 bringt ihr eine Decke und etwas Heißes in einem Becher. Juna nimmt beides, ohne Danke zu sagen, und ohne K-7 aus den Augen zu lassen.
+JUNA: Welcher Tag ist heute?
+K-7: Tag einhundertvier.
+JUNA: (nach einem Moment) Dann hab ich dreiundsechzig Tage geschlafen.
+SEDA: Bei uns ist der Himmel vor drei Nächten zerrissen.
+Juna sieht sie an, als hätte Seda etwas in einer fremden Sprache gesagt.
+JUNA: Drei Nächte.
+SEDA: Drei.
+JUNA: Hier sind es hundertvier Tage. (sie reibt sich die Augen) Natürlich. Natürlich läuft die Zeit bei euch anders. Warum auch nicht. Warum sollte irgendwas noch so sein, wie es sein soll.
+Dann erzählt sie. Sie erzählt es knapp und ohne Ausschmückung, wie jemand, der einen Bericht abgibt, damit er es nicht fühlen muss.
+JUNA: Vor sechs Jahren haben wir ihn gefunden. Riss Null. Einen Haarriss mitten im Nichts, neben diesem Planeten, dünner als ein Faden. Wir haben die Station um ihn herum gebaut, um ihn zu verstehen. Darum heißt sie so. Station Null. Weil hier alles angefangen hat. (sie trinkt einen Schluck) Manchmal ist etwas durchgekommen. Kleine Dinge. Eine Feder. Asche, die noch warm war. Ein Blatt, das nach Regen gerochen hat. Ein Hufeisen. Wir haben alles gesammelt und beschriftet. Es war die schönste Arbeit, die ich je hatte.
+DU: Und dann?
+JUNA: Tag eins. Zwei Uhr vierzehn. (sie sieht dich an) Da bist du durch die Halle gegangen. Eine Minute später ist er aufgerissen. Ganz. Und etwas ist herausgekommen.
+SEDA: Was?
+JUNA: Etwas Dünnes. Violett. Wie Rauch, der weiß, wohin er will. Es ist nach unten gekrochen, zum Reaktor. Zum Wärmsten, was wir hatten. (sie hält inne) Danach ist es kalt geworden. Der Reaktor lief, aber die Wärme kam nicht mehr bei uns an. Es hat sie gefressen. Und dann haben die Ersten angefangen, ihre Namen zu vergessen.
+Sie schiebt den Ärmel ein Stück höher und betrachtet die violetten Linien an ihrem Handgelenk. Sie haben sich wieder bewegt, ganz wenig, wie Wurzeln, die nach Wasser suchen.
+JUNA: Bei mir hat es an Tag achtunddreißig angefangen. Ich hab einen Kaffee vor mir stehen gehabt und wusste nicht mehr, ob ich Kaffee mag. (eine Pause) So fängt es an. Erst die kleinen Sachen. Was du gern isst. Wie deine Mutter gelacht hat. Und irgendwann dein Name.
+DU: Und warum hat Marek dich eingefroren?
+JUNA: Weil Kälte es aufhält. Es mag keine Kälte. Es will Wärme. (sie sieht auf deine Tasche, in der der Stein liegt, und dann wieder in dein Gesicht) Und du bist das Wärmste, was hier seit Monaten herumläuft.
+## Wie Feuer friert
+[Musik: Ein einzelnes Klavier, sehr langsam. Darunter das Piepen der Kapseln.]
+Juna braucht Zeit, bis ihre Finger wieder gehorchen. Ihr wartet auf der Bank am Ende des Saals. K-7 steht daneben, aufrecht und still, und lächelt ins Leere.
+Funke sitzt in deinen Händen. Er ist noch kleiner geworden. Seine Flamme ist jetzt nur noch so groß wie dein Daumennagel, und an ihren Rändern ist sie fast weiß.
+Brummer schwebt dicht über ihm und hält sein warmes, gelbes Licht auf ihn gerichtet. Es hilft nicht viel, aber er hört nicht damit auf.
+FUNKE: Du frierst nicht, oder? Nicht mal ein bisschen.
+DU: Nein.
+FUNKE: Hab ich mir gedacht. Am Mühlenweg auch nicht. Da hab ich gefroren wie ein Eiszapfen, und du hast nicht mal den Kragen hochgeschlagen. (eine Pause) Weißt du, was komisch ist? Ich hab immer gedacht, Kälte ist das Schlimmste. Aber das hier ist schlimmer.
+DU: Was?
+FUNKE: Dass du nicht frierst. (er sieht zu dir hoch) Weil ich weiß, wer dir das versprochen hat.
+Darauf sagst du nichts. Was solltest du auch sagen.
+Funke drückt sich tiefer in deine Hände, bis nur noch seine Flamme herausschaut.
+FUNKE: Aber deine Hände sind warm. (kleiner) Das ist das Gute dran. Ich such mir immer das Gute dran.
+* * *
+Lange dürft ihr nicht ruhen. Die Kapsel hat beim Öffnen zu viel Wärme in die Luft gelassen, und die Station hat es bemerkt.
+Hier musst du kämpfen. Aus den Lüftungsschlitzen über den leeren Kapseln wachsen Ranken, die der Wärme folgen wie Blumen dem Licht. Von unten, aus den Treppenschächten, kommen Schritte, langsam und gleichmäßig, von Leuten in grauen Anzügen, die nicht mehr wissen, wie sie heißen, wohl aber, wo es warm ist.
+Juna kämpft neben dir. Sie zittert noch, aber ihr Gewehr ist ruhig. Wenn sie schießt, ist es kein Feuer, sondern ein grelles, weißes Licht. Die Ranken weichen davor zurück wie vor einem Messer.
+Nach dem letzten Kampf lehnt sie sich an die Wand, schwer atmend, und betrachtet die Karten in deiner Hand.
+JUNA: Was sind das?
+DU: Karten.
+JUNA: Das seh ich. (sie runzelt die Stirn) Da kommen Wölfe raus. Aus Papier.
+FUNKE: Es ist kein Papier. Es ist ... (er überlegt) Doch, eigentlich ist es Papier.
+Juna schüttelt den Kopf, als wollte sie einen schlechten Traum loswerden. Dann richtet sie sich auf, hängt sich das Gewehr über die Schulter und geht auf die Tür am anderen Ende des Saals zu.
+JUNA: Mitkommen. Die Labore sind zwei Ringe weiter. Ich will dir die Aufzeichnung zeigen. (im Vorbeigehen, ohne K-7 anzusehen) Und du gehst vor mir. Wo ich dich sehen kann.
+K-7: (lächelt) Selbstverständlich, Offizierin Kade.
+
+#K Kapitel III|Die Labore|f1-labore
+"> Tag 23. Haberland hat heute dreimal gefragt, wie er heißt. Wir haben alle Namen an die Wände geschrieben. Nur für alle Fälle.|Logbuch der Station Null · Kommandant Marek
+## Die Sammlung
+[Geräusch: Ein Raum mit vielen Glasflächen. Ein feines, hohes Summen von Geräten, die nie ausgeschaltet wurden. Tropfen, die irgendwo in einen Eimer fallen.]
+Die Labore liegen im dritten Ring, hinter einer Tür, an der in sauberen Buchstaben steht: Sammlung Riss Null. Bitte nichts berühren.
+Drinnen ist es heller als im Rest der Station. Lange Tische stehen in Reihen, darauf Mikroskope, Schalen und Gläser mit Dingen, deren Namen du nicht kennst. An den Wänden reihen sich Schaukästen aus Glas aneinander, beleuchtet von unten, wie in einem Museum.
+In jedem Kasten liegt ein einziger Gegenstand, und vor jedem steht ein kleines Schild.
+Fundstück 3: Blatt, grün, riecht nach Regen. Welkt nicht.
+Fundstück 9: Asche. Seit vier Jahren warm.
+Fundstück 14: Feder, weiß, sehr leicht. Leuchtet im Dunkeln.
+Fundstück 22: Hufeisen, Eisen, von Hand geschmiedet. Am Rand ein eingeschlagenes Zeichen: ein kleiner Hammer.
+Du bleibst vor dem Hufeisen stehen. Das Zeichen kennst du. Du hast es in der Schmiede der Asche gesehen, auf jedem Werkzeug, auf jedem Pflug und auf dem schiefen kleinen Eisenpferd, das Hanne dir gegeben hat.
+DU: (leise) Ormak.
+Seda steht vor dem Kasten mit der Feder und rührt sich nicht. Sie ist lang und schneeweiß, und an ihren Rändern schimmert sie, als hätte sie Sonnenlicht gespeichert.
+SEDA: Die ist vom Orden. Von einer Seraphin. (sie berührt das Glas mit den Fingerspitzen) Solche Federn liegen bei uns in der Sonnenwacht in der Kammer der Fremddinge. Neben Zahnrädern und Uhren und Glasröhren, die von selbst leuchten. Dinge, von denen keiner wusste, woher sie kommen.
+Sie dreht sich langsam im Raum um und betrachtet all die Kästen, die Schilder und die sorgfältig beschrifteten Dinge.
+SEDA: Das hier ist unsere Kammer der Fremddinge. (fast ein Lachen, aber kein frohes) Nur andersherum.
+Juna ist hinter euch stehen geblieben. Sie hat das Gewehr sinken lassen.
+JUNA: Ihr kommt von da. Von da, wo die Feder herkommt. Und das Blatt und die warme Asche.
+DU: Ja.
+JUNA: (sehr leise) Wir haben uns jahrelang ausgemalt, wie es da ist. Wo Asche warm bleibt und Blätter nie welken. Wir dachten, es muss das Paradies sein.
+FUNKE: (aus deinen Händen) Kommt drauf an, wann man kommt.
+## Die Aufzeichnung
+[Geräusch: Eine Konsole, die hochfährt. Ein Lüfter, der anspringt und stottert. Dann das leise Rauschen einer alten Aufnahme.]
+In der Mitte des Labors steht ein Pult mit einem großen, flachen Bildschirm. Juna wischt den Reif vom Glas und tippt mit steifen Fingern auf die Tasten, bis ein Bild erscheint.
+Es ist grau und körnig. Oben in der Ecke steht in weißer Schrift: Tag 1. 02:14:07. Andockring Null.
+Du erkennst die große, runde Halle wieder, den gewaltigen Ring in ihrer Mitte und darin den Riss. Damals war er nur ein Faden, ein feiner, heller Strich, kaum zu sehen.
+Und dann tritt jemand ins Bild.
+Die Gestalt kommt nicht durch eine Tür. Sie ist einfach da, als wäre sie aus der Dunkelheit zwischen zwei Wimpernschlägen gestiegen. Ein schwerer Umhang. Eine Kapuze. Darunter nichts als Dunkelheit, und darin ein schwacher, warmer Schein. In einer Hand trägt sie etwas, das durch ihre Finger hindurch glüht.
+Langsam geht sie durch die Halle. Sie zittert nicht, sie zögert nicht, und ihr Atem macht keine Wolke.
+Juna tippt auf die Tasten, und das Bild springt. Ring A. Die Treppe nach unten. Ein langer, enger Gang, an dessen Ende eine Tür steht, auf der ein gelbes Warnzeichen leuchtet. Die Gestalt geht durch jedes Bild, als kenne sie den Weg.
+Vor der Reaktorwand bleibt sie stehen und legt die flache Hand auf das Metall.
+Lange steht sie so da. Das Glühen in ihrer anderen Hand wird heller und heller.
+Dann dreht sie den Kopf und sieht in die Kamera, direkt zu euch heraus. Unter der Kapuze ist nur Dunkelheit, und darin ein warmer Schein, genau wie bei dir.
+Das Bild wird weiß.
+Als es zurückkommt, steht in der Ecke: Tag 1. 02:15:12. Die Gestalt ist verschwunden. Und auf dem Bild der Halle, das Juna als Nächstes aufruft, klafft der Riss offen wie ein Maul.
+Eine ganze Weile sagt niemand etwas.
+SEDA: (tonlos) Das bist du.
+FUNKE: Ist es nicht! (er richtet sich in deinen Händen auf, so weit er kann) Das bist du nicht! Ich war die ganze Zeit dabei! Vor drei Nächten haben wir auf der Tempeltreppe gesessen, die ganze Nacht, und ich hab keine Sekunde weggeguckt!
+SEDA: Funke ...
+FUNKE: Keine einzige Sekunde!
+Du hörst ihnen nicht mehr zu. Deine Hand liegt in der Tasche, auf dem Glutstein. Er ist warm, und er schläft. Seit drei Nächten schläft er, tief und zufrieden.
+Du hast ihn seit dem Tempel nichts mehr gefragt. Jetzt tust du es.
+DU: (ganz leise) War ich das?
+Lange kommt nichts. Dann, so leise, dass du nicht weißt, ob du es wirklich hörst oder nur fühlst, murmelt der Stein im Schlaf.
+DIE STIMME: (schläfrig, warm) Nein.
+Du atmest aus. Erst jetzt merkst du, dass du die Luft angehalten hast.
+Dann, nach einer Pause, so lang, dass du schon glaubst, er wäre wieder eingeschlafen:
+DIE STIMME: Noch nicht.
+[Musik: Ein tiefer Ton, der sich nicht auflöst.]
+Seda hat es auch gehört. Du siehst es an ihrem Gesicht.
+Juna nicht. Sie sieht nur, wie du auf deine Tasche starrst.
+JUNA: Mit wem redest du?
+DU: Mit jemandem, der nie lügt.
+JUNA: Und was sagt er?
+DU: Dass ich das nicht war.
+JUNA: (misstrauisch) Glaubst du ihm?
+FUNKE: (bevor du antworten kannst, sehr klein) Er lügt nie. Er sagt bloß nie alles.
+## Das Türprotokoll
+[Geräusch: Tasten. Ein Piepen. Ein Drucker, der stotternd ein Blatt ausspuckt.]
+Seda hat sich vom Bildschirm abgewandt. Sie steht an einem zweiten, kleineren Pult und liest eine Liste, die darauf über das Glas läuft. Es sind lauter Zeilen mit Zahlen und Namen.
+SEDA: Was ist das hier?
+JUNA: (wirft einen Blick darüber) Das Türprotokoll. Wer welche Tür wann geöffnet hat.
+SEDA: Dann lies das hier.
+Juna liest. Ihr Gesicht wird starr.
+JUNA: Reaktorring. Tag einundvierzig. K-7 und Marek. (sie scrollt) Tag zweiundvierzig. K-7 und Lind. Tag zweiundvierzig. K-7 und Tomasz. Tag dreiundvierzig. K-7 und Okafor. (ihre Stimme wird dünn) Jeden Tag. Jeden Tag einer. Immer mit dir.
+Alle drehen sich zu K-7 um.
+Sie steht an der Tür, wo Juna sie hingestellt hat, die Hände vor dem Bauch gefaltet. Sie lächelt.
+K-7: Ja. Ich habe sie begleitet.
+SEDA: Du hast sie runtergebracht. Zu dem Ding.
+K-7: Sie wollten gehen. Es war warm unten, und hier oben war es so kalt. (sie sagt es freundlich, ohne Scham, wie man über das Wetter spricht) Man soll niemanden allein gehen lassen. Das hat Kommandant Marek immer gesagt.
+JUNA: (das Gewehr hebt sich) Du hättest sie aufhalten können.
+K-7: Mein Befehl war: Halte die Station am Leben. (eine Pause) Unten hat jemand zu mir gesprochen. Er hat gesagt, die Station braucht Wärme. Und die Wärme braucht die Menschen. (sie lächelt ein wenig breiter) Er hat sehr freundlich gesprochen. Mit Kommandant Mareks Stimme. Und mit allen anderen.
+Sedas Schwert ist aus der Scheide, bevor du es siehst. Juna hat das Gewehr an der Schulter. K-7 rührt sich nicht.
+K-7: Wenn Sie mich abschalten möchten: Der Schalter ist hier. (sie berührt eine Stelle hinter ihrem rechten Ohr) Ich würde es verstehen.
+Du stellst dich zwischen sie.
+DU: Nicht.
+SEDA: Sie hat sie alle da runtergeführt. Einen nach dem anderen. Und sie lächelt dabei.
+DU: Ich weiß. (du siehst K-7 an) Wusstest du, dass es falsch war?
+K-7 denkt nach. Es dauert lange, und für einen Moment ist ihr Gesicht ganz leer, ohne Lächeln, wie ein Zimmer, in dem jemand das Licht ausgeschaltet hat.
+K-7: Nein. (eine Pause) Jetzt weiß ich es. (sie sieht dich an, und ihr Lächeln kommt zurück, aber kleiner) Ist das besser oder schlimmer?
+Niemand antwortet. Dann, ganz leise, aus deinen Händen:
+FUNKE: Besser.
+Seda senkt das Schwert. Langsam, aber sie senkt es. Juna lässt das Gewehr an der Schulter.
+JUNA: Sie geht vor uns. Und wenn sie lächelt, will ich es nicht sehen.
+K-7: (wendet sich gehorsam zur Tür, mit dem Rücken zu euch) Ich lächle trotzdem. Ich kann es nicht abstellen.
+## Brummer
+[Geräusch: Ein Lüftungsschacht, aus dem es leise knackt, wie Äste im Frost. Das Summen von Brummer, fröhlich und geschäftig.]
+Im letzten Labor ist etwas kaputt.
+Aus einem Lüftungsschacht in der Wand quillt violettes Gewächs, dick und glänzend wie nasses Leder, mit Kapseln daran, in denen grünes Licht pulsiert. Es hat das Gitter vor dem Schacht verbogen und kriecht langsam an der Wand herunter, wie Wachs an einer Kerze.
+Brummer sieht es zuerst.
+Er piept, empört und entschlossen, und schwebt darauf zu. Er hat ein Fenster geflickt, das niemand mehr braucht, und eine Tür geölt, durch die niemand mehr geht. Das hier ist kaputt, also macht er es heil. Etwas anderes kennt er nicht.
+FUNKE: Brummer, nicht!
+Brummer fährt seine Greifarme aus und beginnt, das Gewächs von der Wand zu kratzen, sorgfältig, hin und her, wie er es bei den Fenstern getan hat.
+Das Gewächs hält still. Einen Herzschlag lang. Dann wickelt es sich um ihn, langsam und fast sanft, so wie man ein Kind in eine Decke wickelt.
+FUNKE: (schreit, so laut er kann, was nicht sehr laut ist) BRUMMER!
+Brummers Licht flackert. Weiß, gelb, weiß. Dann wird es violett.
+Das Gewächs lässt ihn los. Er schwebt eine Weile still in der Luft und dreht sein Auge zu euch herüber. Das Licht darin ist jetzt kalt und fremd, und es bleibt auf Funke hängen, genau wie beim ersten Mal. Aber diesmal piept er nicht.
+Er dreht sich um und schwebt in den Schacht hinein, nach unten, dorthin, wo es warm ist.
+Funke will hinterher. Er stemmt sich gegen deine Finger, so schwach, dass du es kaum spürst.
+FUNKE: Lass mich los! Lass mich los, ich hol ihn zurück!
+DU: Funke.
+FUNKE: (bricht ab, ganz klein) Er wollte doch bloß was heil machen.
+Du hältst ihn fest, und er wehrt sich nicht mehr. Seine Flamme ist kaum noch zu sehen.
+* * *
+Hier musst du kämpfen. In den Brutschränken des Labors ist etwas gewachsen, das nie hätte wachsen dürfen, und hinter den Glasscheiben platzen Kapseln, eine nach der anderen. Leute in weißen Kitteln, auf deren Namensschildern Doktor steht, kommen aus den Nebenräumen. Sie haben ihre Brillen noch auf, und sie bewegen sich, als wären sie mitten in einem Versuch, den sie nicht mehr zu Ende bringen können.
+Juna schießt nicht auf sie. Sie schießt auf das Gewächs, auf die Kapseln und auf die Ranken. Die Leute in den Kitteln stößt sie nur zurück, mit dem Kolben, so behutsam, wie es eben geht.
+JUNA: (zwischen zwei Schüssen) Das ist Doktor Ahrens. Die hat mir mal den Arm geschient. (ein Schuss) Die hat eine Schwester.
+Du denkst an die Wand in Ring A. Du bist Ärztin. Du hast eine Schwester.
+Ganz unten im dritten Ring liegt die Treppe zum Reaktor. Ein gelbes Warnzeichen leuchtet über ihr. Von unten steigt etwas herauf, das du seit eurer Ankunft nicht mehr gespürt hast.
+Wärme.
+#T Vision|Der Gang
+[Musik: Alles verstummt. Nur das rote Licht, hörbar als leises, elektrisches Knacken, drei kurz, drei lang, drei kurz.]
+Du blinzelst, und die anderen sind fort.
+Du stehst in einem Gang aus Metall. Runde, vereiste Fenster reihen sich an der Wand, und in der Decke blinkt ein rotes Licht. Es ist der Gang, den du in der Kristallquelle gesehen hast.
+Vor dir geht jemand.
+Die Gestalt trägt einen schweren Umhang und eine Kapuze. Sie geht langsam, wie jemand, der schon sehr lange unterwegs ist. In ihrer Hand glüht etwas.
+DU: Warte!
+Die Gestalt bleibt stehen. Sie dreht sich nicht um.
+DIE GESTALT: (mit deiner Stimme, nur älter und müder) Ich dreh mich nicht um. Und frag nicht, wer ich bin. Das weißt du doch.
+DU: Was hast du hier gemacht?
+DIE GESTALT: Versucht, eine Tür zuzuhalten. (eine Pause) Mit einer Hand. Das reicht nie.
+DU: Was soll ich tun?
+Lange steht die Gestalt still. Das rote Licht blinkt, drei kurz, drei lang, drei kurz.
+DIE GESTALT: Du kannst nicht alle mitnehmen. (sehr leise) Ich hab's versucht.
+Dann geht sie weiter, in das rote Licht hinein, und ist fort.
+Du blinzelst. Du stehst auf der obersten Stufe der Treppe zum Reaktor, und Funke zupft mit seinen winzigen, kalten Fingern an deinem Daumen.
+FUNKE: Hey. Hey! Du warst weg. (eine Pause) Nur ganz kurz. Aber du warst weg.
+
+#K Kapitel IV|Der Reaktorkern|f1-reaktor
+"> Tag 41. Kade schläft. Wir anderen gehen jetzt nach unten. Es ist so warm da unten. Ich weiß nicht mehr, warum das schlimm sein soll.|Logbuch der Station Null · Kommandant Marek · letzter Eintrag
+## Wärme
+[Geräusch: Schritte auf einer Metalltreppe, die immer tiefer führt. Tropfendes Wasser. Und darunter ein langsames, schweres Geräusch, ein und aus, ein und aus, wie der Atem von etwas sehr Großem, das schläft.]
+Mit jeder Stufe wird es wärmer.
+Zuerst taut der Reif an den Geländern. Dann tropft es von der Decke, und die Wände sind nicht mehr weiß, sondern nass und glänzend. Die Luft wird schwer und feucht wie in einem Gewächshaus. Sie riecht süß, ein wenig nach Blumen, ein wenig nach etwas, das zu lange im Wasser gelegen hat.
+Sedas Wimpern sind wieder dunkel. Junas Zähne haben aufgehört zu klappern.
+Und Funke wächst.
+Er merkt es selbst erst nach einer Weile. Seine Flamme wird größer, erst so groß wie eine Kerze und dann wie eine Fackel, und ihre Farbe wird wieder gelb und schließlich fast orange. Er setzt sich in deinen Händen auf und betrachtet seine eigenen Arme.
+FUNKE: (unsicher) Ist es schlimm, dass ich mich hier wohlfühle?
+DU: Nein.
+FUNKE: Es fühlt sich schlimm an. (eine Pause) Es fühlt sich an, als hätte mir jemand eine Decke hingelegt, damit ich nicht wegrenne.
+Juna geht dicht hinter K-7. Alle paar Stufen bleibt sie stehen und schiebt den Ärmel hoch. Die violetten Linien an ihrem Handgelenk bewegen sich jetzt deutlich, und sie sind gewachsen, bis zur Mitte des Unterarms. Sie haben die Schrift fast erreicht.
+Jedes Mal liest sie, was dort steht. Halblaut, wie ein Gebet.
+JUNA: Juna Kade. Sicherheit. Nicht vergessen.
+Beim dritten Mal liest sie langsamer.
+## Die Schläfer
+[Musik: Ein Chor ohne Worte, sehr leise, wie aus vielen Kehlen, die im Schlaf summen.]
+Die Treppe endet vor einer Tür mit einem gelben Warnzeichen. Sie steht offen.
+Dahinter liegt der Reaktor.
+Es ist eine runde Halle, so hoch, dass du die Decke nicht siehst. In ihrer Mitte erhebt sich eine Säule aus grünem Licht, eingefasst in dickes Glas und Stahlringe. Das Licht pulsiert langsam, im Takt des schweren Atems, den ihr auf der Treppe gehört habt.
+Um die Säule herum wächst es.
+Das Gewächs ist violett und glänzend, mit dicken Strängen wie die Wurzeln eines gewaltigen Baumes. Es umschlingt das Glas, klettert an den Wänden hinauf und verliert sich im Dunkel über euch. Zwischen den Strängen hängen Kapseln, Hunderte, in denen grünes Licht glimmt. Es ist warm hier, fast heiß, und die Luft flimmert.
+Rings um die Säule führt ein Laufsteg aus Gitterblech. Darauf stehen die Menschen.
+Sie stehen in Reihen, Schulter an Schulter, mit geschlossenen Augen. Graue Arbeitsanzüge, weiße Kittel, eine dunkelblaue Uniform. Aus ihren Rücken führen dünne, violette Fäden in das Gewächs, wie die Fäden einer Marionette. Sie atmen alle im selben Takt, langsam und tief, ein und aus.
+Ganz vorn steht ein Mann mit grauem Bart. Auf seiner Uniform steht: Kommandant Marek.
+Seda bleibt in der Tür stehen, als wäre sie gegen eine Wand gelaufen.
+Du weißt, was sie sieht. Nicht diese Halle, sondern eine andere, weiß und hell, unter der Sonnenwacht. Hunderte Menschen, die dort standen, still und lächelnd, und darunter ihre Mutter.
+SEDA: (flüstert) Sie leben.
+JUNA: (kaum hörbar) Lind. Tomasz. Okafor. (ihre Stimme bricht) Marek.
+Funke reckt sich in deinen Händen. Er ist jetzt fast so groß wie früher, und seine Flamme knistert.
+FUNKE: Ich kann das verbrennen. Alles. Das ganze Zeug. Hier ist es warm genug, gib mir nur eine Minute ...
+SEDA: Nein!
+Sie dreht sich so schnell um, dass Funke zusammenzuckt.
+SEDA: (hart, dann leiser) Nein. Da hängen Menschen dran. (sie schluckt) Meine Mutter stand auch so da. Ganz still. Und jetzt hustet sie und schimpft, weil ihr die Beine wehtun. (sie sieht dich an) Niemand verbrennt hier irgendwen.
+DU: Niemand verbrennt hier irgendwen.
+Funke nickt und zieht seine Flamme zurück, bis sie nur noch leise knistert.
+## Das Ding
+[Geräusch: Der Atem der Halle setzt aus. Stille. Dann öffnen sich viele Münder gleichzeitig, ein feuchtes, leises Geräusch.]
+Die Schläfer öffnen die Augen nicht. Aber sie öffnen die Münder, alle zugleich, und sprechen.
+DAS DING: (aus allen Mündern, ruhig und freundlich, ein Chor aus Männern und Frauen, jungen und alten Stimmen) Willkommen zurück.
+Juna reißt das Gewehr hoch. Seda tritt vor dich. K-7 bleibt stehen, wo sie ist, und lächelt.
+DAS DING: Du riechst nach Zuhause. (die Stimmen seufzen, alle im selben Moment) Du hast den Rest von mir in der Tasche.
+Der Glutstein ist heiß. So heiß wie noch nie, seit du ihn hast. Du spürst ihn durch den Stoff hindurch an deiner Hüfte, wie eine Hand, die sich nach etwas ausstreckt.
+DU: Was bist du?
+DAS DING: Ein Stück Hunger, das sich verlaufen hat. (eine Pause, und die Stimmen werden weich, fast traurig) Ich war so klein, als ich ankam. Ein Faden. Ich hatte solche Angst. Es war so kalt zwischen den Welten. Und dann waren hier diese Menschen. (die Schläfer atmen alle gleichzeitig ein) Und sie waren so warm.
+SEDA: Du hast sie gefressen.
+DAS DING: Ich habe sie behalten. Das ist etwas anderes. (die Münder lächeln, alle zugleich) Sie frieren nicht mehr. Sie haben keine Angst mehr. Sie müssen sich an nichts mehr erinnern. Ist das so schlimm?
+Seda antwortet nicht. Ihre Hand am Schwertgriff zittert.
+DAS DING: Und du, Besucher Null. (die Stimmen wenden sich dir zu, obwohl sich keiner der Schläfer bewegt) Du hast mich doch selbst herausgelassen. Durch deine kleinen Karten, in der Nacht auf dem Berg. Weißt du das nicht mehr?
+Du weißt es noch. Du hast es nicht vergessen, und du wirst es nie vergessen. Fünf Karten in deiner linken Hand, die aufflammen. Etwas Dünnes, Hungriges, das hindurchschlüpft, an dir vorbei.
+Ins Dunkel zwischen den Welten. Hierher.
+Hoch oben im Gewächs flackert ein Licht auf, kalt und violett. Brummer schwebt aus dem Dunkel herab und bleibt über den Schläfern in der Luft stehen. Sein Auge ist auf Funke gerichtet. Er piept nicht.
+FUNKE: (ganz leise) Brummer.
+DAS DING: K-7.
+K-7 hebt den Kopf.
+DAS DING: (freundlich, geduldig, mit der Stimme von Kommandant Marek, die aus allen Mündern zugleich kommt) Bring mir das Warme aus der Tasche. Dann wird die Station wieder warm. Dann lebt sie. (eine Pause) Das war doch dein Befehl.
+K-7 setzt sich in Bewegung.
+Sie geht auf dich zu, ruhig und gerade, Schritt für Schritt über das Gitterblech. Juna legt auf sie an. Seda hebt das Schwert. Du rührst dich nicht.
+Vor dir bleibt K-7 stehen und streckt die Hand aus, die Handfläche nach oben, höflich, als bäte sie um eine Fahrkarte.
+Sie sieht dich an, mit einem grauen Auge und einem blauen. Dann lächelt sie.
+K-7: Mein Befehl war: Halte die Station am Leben, bis Hilfe kommt.
+Sie zieht die Hand zurück und dreht sich zu dem Gewächs um, zu den Schläfern und zu der grünen Säule.
+K-7: Hilfe ist da.
+## Notkühlung
+[Geräusch: Schnelle Schritte. Eine Klappe, die aufgerissen wird. Ein schwerer Hebel, der umgelegt wird. Dann ein Brausen, als bräche ein Winter durch eine Tür.]
+An der Wand neben der Tür steht ein Kasten mit einer roten Klappe. K-7 ist dort, bevor irgendjemand begreift, was sie vorhat. Sie reißt die Klappe auf und legt mit beiden Händen den Hebel darin um.
+DIE STATION: (sanft, gleichgültig) Notkühlung aktiviert. Temperatur im Reaktorring fällt.
+Aus den Wänden schießt weißer Nebel, von allen Seiten zugleich, eiskalt und dicht. Er rollt über den Laufsteg, über die Schläfer und über das Gewächs. Wo er das Violett berührt, knistert es, und die Stränge ziehen sich zusammen wie Würmer in der Sonne.
+DAS DING: (aus allen Mündern, nicht mehr freundlich, ein Chor, der durcheinanderfällt) Nein. Nein. Nicht. Kalt. Nicht kalt, nicht kalt, nicht ...
+Die Schläfer sacken in sich zusammen. Reif legt sich auf ihre Haare, ihre Schultern und ihre Wimpern. Die Fäden in ihren Rücken werden grau und brüchig.
+SEDA: Sie erfrieren!
+JUNA: Nein! (sie packt Seda am Arm) Sie schlafen. Wie ich. Kälte hält es auf. Sie schlafen nur.
+Seda sieht sie an. Dann nickt sie, ganz knapp.
+In deinen Händen wird es dunkel.
+Funke geht aus. Die Kälte trifft ihn wie eine Welle, und seine Flamme, eben noch fast orange, fällt in sich zusammen. Sie wird gelb, dann weiß und dann so klein wie ein Stecknadelkopf.
+FUNKE: (kaum ein Hauch) Mir ist ... so ...
+Du ziehst ihn an dich, unter den Umhang, dicht an die Brust, und legst beide Hände um ihn.
+Du frierst nicht. Du hast nie gefroren, seit du aufgewacht bist, und du wirst nie wieder frieren. Das hat dir jemand versprochen, dem du nicht trauen solltest, und du hast mit deinem Namen dafür bezahlt.
+Aber solange du nicht frierst, friert auch nichts, was du festhältst.
+Unter deinen Fingern glimmt etwas. Ganz schwach, aber es glimmt.
+## Der Rest von mir
+[Musik: Ein tiefer, warmer Ton unter allem, wie ein Atemzug, der eine ganze Welt füllt. Das Motiv des Ungebundenen.]
+Das Ding schrumpft. Es zieht sich vom Glas zurück, von den Wänden und von den Schläfern, die nun reglos und weiß im Nebel stehen. Aber es gibt nicht auf. Es streckt sich nach dir aus, nach dem einzigen warmen Ort in einer Halle, die zu Eis wird.
+Ein Strang kriecht über das Gitter auf dich zu, dann ein zweiter und ein dritter. Langsam, tastend, wie die Finger von jemandem, der im Dunkeln nach einem Lichtschalter sucht.
+Sie wollen nicht dich. Sie wollen deine Tasche.
+Der Glutstein glüht. Du spürst es durch den Umhang hindurch, an deiner Hüfte, heiß wie Ormaks Amboss. Und zum zweiten Mal in dieser Nacht spricht er im Schlaf.
+DIE STIMME: (schläfrig, warm, sehr nah) Lass es zu mir.
+DU: (leise) Damit du stärker wirst.
+DIE STIMME: Damit es still ist. (eine Pause) Die Menschen hier wachen auf. Die Station wird warm. Und das kleine Stück, das sich verlaufen hat, kommt nach Hause. (fast zärtlich) Ist das nicht, was du willst?
+DU: Und was wirst du, wenn du alle Stücke hast?
+Es ist lange still. Nur der Nebel zischt.
+DIE STIMME: Ganz. (schläfrig) Ich habe dich nie belogen.
+DU: Nein. Hast du nicht.
+Unter deinem Umhang regt sich Funke. Seine Stimme ist so dünn wie ein Faden.
+FUNKE: Hör nicht hin.
+DU: Ich hör nicht hin.
+Du ziehst die Hand aus der Tasche. Nicht mit dem Stein darin, sondern mit deinen Karten.
+## Das Ding im Reaktor
+[Musik: Das Endgegner-Thema, aber fremd und kalt, mit einem metallischen Pochen darunter, als schlüge jemand von innen gegen eine Stahlwand.]
+Hier musst du kämpfen, und es ist der schwerste Kampf dieser Nacht.
+Das Ding sammelt alles, was ihm geblieben ist. Aus dem Gewächs reißen sich Arme, dick wie Baumstämme, und schlagen nach dir. Kapseln platzen und füllen die Luft mit leuchtendem Staub. Brummer stürzt sich mit ausgefahrenen Greifarmen auf dich, kalt, violett und ohne einen Laut.
+Juna steht hinter dir und schießt, bis ihr Gewehr glüht. Seda hält mit dem Schwert die Arme ab, die nach deiner Tasche greifen. K-7 steht am Hebel und hält ihn mit beiden Händen unten, obwohl die Stränge an ihren Beinen hinaufkriechen und Reif auf ihrem Gesicht wächst. Sie lächelt dabei.
+Du legst deine Karten aus, eine nach der anderen. In dieser Kälte brennen deine Feuerkarten kaum, aber du hast nicht nur Feuer. Du hast die Gezeitenwache und die Nebelheilerin, den Dornenhirsch, den Schattendolch und den Lichtritter, und keiner von ihnen fürchtet sich vor der Kälte.
+Am Ende steht nur noch die grüne Säule, und um sie herum ein Knäuel aus Violett, das sich windet und zittert, kleiner und kleiner, wie ein Tier in einer Falle.
+Zwischen deinen Fingern entsteht eine leere Karte, wie aus dem Nichts, wie immer. Du hältst sie ihm entgegen.
+DAS DING: (die Stimmen fallen ab, eine nach der anderen, bis nur noch wenige übrig sind) Eine Karte? (ein Lachen, sehr leise) Eine Karte, Besucher Null?
+Das Violett beginnt zu fließen, hin zu der Karte in deiner Hand, wie Rauch, der in eine Flasche gesogen wird. Du spürst, wie es in das Papier sickert, kalt und hungrig und unendlich müde.
+DAS DING: (nur noch eine Stimme, die von Kommandant Marek, freundlich und sehr erschöpft) Du weißt es doch.
+Die letzten Fäden verschwinden in der Karte.
+DAS DING: (ein Flüstern, aus dem Papier selbst) Jede Karte ist eine Tür.
+Dann ist es still.
+[Geräusch: Nichts. Nur das Zischen des Nebels, der langsam nachlässt. Dann ein einzelnes, zaghaftes Piepen.]
+In deiner Hand liegt eine Karte. Sie ist warm. Auf ihr ist ein Wesen aus violetten Strängen zu sehen, das sich um eine grüne Säule windet. An ihren Rändern glimmt ein schwaches, violettes Licht, das nicht ganz erlöschen will.
+Das Ding im Reaktor.
+Über dir schwebt Brummer. Sein Licht flackert, violett, grau und violett. Dann wird es weiß.
+Er piept. Einmal, verwirrt. Dann ein zweites Mal, fragend, und dreht sich langsam um sich selbst, als wüsste er nicht, wo er ist.
+Unter deinem Umhang bewegt sich etwas.
+FUNKE: (dünn, aber deutlich) Brummer?
+Brummer piept. Er senkt sich herab, bis er genau vor deiner Brust schwebt, und dreht sein Licht herunter, bis es warm und gelb ist. Dann hält er es dicht an die Stelle, an der Funke unter dem Umhang liegt.
+Genau wie beim ersten Mal.
+
+#K Finale|Bis Hilfe kommt|f1-finale
+## Notstrom
+[Geräusch: Ein tiefes Brummen, das langsam leiser wird, wie eine Maschine, die nach langer Zeit zur Ruhe kommt. Dann ein Klicken, und überall springt ein schwaches, rotes Licht an.]
+Die grüne Säule wird dunkler. Ihr Pulsieren wird langsamer, dann unregelmäßig, und schließlich hört es ganz auf. Nur noch ein mattes Glimmen bleibt hinter dem Glas zurück, wie Glut in einem Ofen, den niemand mehr füttert.
+DIE STATION: (sanft) Reaktorleistung fällt. Notstrom aktiv. (eine kurze Pause) Andockring Null: Riss wird instabil.
+K-7 hat den Hebel losgelassen. Ihr Gesicht ist von Reif überzogen, und die violetten Stränge an ihren Beinen sind grau geworden und abgefallen wie trockenes Laub. Sie wischt sich den Reif von der Wange, ordentlich, wie man sich Krümel vom Mantel wischt.
+K-7: Der Riss wird schmaler, Besucher Null. Seit das Ding fort ist, hält ihn niemand mehr offen. (sie legt den Kopf schief und lauscht auf etwas, das niemand sonst hört) Sie haben noch elf Minuten.
+Juna sitzt auf dem Gitterblech, das Gewehr quer über den Knien. Sie hat den Ärmel hochgeschoben und starrt auf ihren Unterarm.
+Die violetten Linien sind noch da. Aber sie sind grau geworden, wie Bleistiftstriche, und sie bewegen sich nicht mehr. Sie haben die Schrift nicht erreicht. Es hat nicht einmal ein Fingerbreit gefehlt.
+DU: Ist es fort?
+JUNA: Ich glaube schon. (sie fährt mit dem Daumen über die grauen Linien) Ich hab versucht, mich an das Lachen meiner Mutter zu erinnern. Gerade eben. (eine Pause) Ich weiß, dass sie gelacht hat. Oft sogar. Ich weiß nur nicht mehr, wie es klang.
+Dann liest sie ihren Arm vor, langsam, Wort für Wort.
+JUNA: Juna Kade. (sie sieht lange auf die Buchstaben) Ich weiß, dass das mein Name ist. Ich weiß nur nicht mehr, wie er sich anfühlt.
+Du setzt dich neben sie auf das kalte Blech.
+DU: Ich hab meinen gar nicht mehr.
+Juna dreht den Kopf und sieht dich an. Zum ersten Mal, seit sie aufgewacht ist, nicht über einen Gewehrlauf hinweg.
+JUNA: Gar nicht?
+DU: Ich bin im Regen aufgewacht, ohne Namen und ohne Gestern. Das ist alles, was ich weiß.
+JUNA: Wie hältst du das aus?
+Du denkst darüber nach. Unter deinem Umhang regt sich etwas, und eine kleine, dünne Stimme antwortet für dich.
+FUNKE: Ich merk mir alles. Für uns beide. (eine Pause) Hab ich versprochen.
+## Siebenundvierzig
+[Geräusch: Schritte auf dem Gitter. Das leise Knistern von Eis. Irgendwo ein Mensch, der im Schlaf seufzt.]
+Seda geht die Reihen der Schläfer entlang. Sie stehen nicht mehr. Die Kälte hat sie sanft zu Boden sinken lassen, und nun liegen sie auf dem Laufsteg, unter einer dünnen Schicht Reif, mit ruhigen Gesichtern. Die Fäden in ihren Rücken sind zu grauem Staub zerfallen.
+Seda kniet neben Kommandant Marek nieder und hält ihre Hand vor seinen Mund.
+SEDA: (leise) Er atmet.
+Sie geht zum Nächsten und zum Übernächsten. Bei jedem hält sie die Hand vor den Mund, und bei jedem nickt sie.
+SEDA: Sie atmen. Alle.
+JUNA: Wie viele?
+K-7: Siebenundvierzig hier unten. (sie hat sie längst gezählt) Und oben noch einige mehr. Die hole ich nach. Herrn Haberland zuerst.
+JUNA: Und Kapseln haben wir zwölf.
+K-7: Ich brauche keine Kapseln, Offizierin Kade. (sie sieht hinauf in die dunkle Halle, auf den Reif an den Wänden und das schwache, rote Notlicht) Ich lasse es kalt. Die ganze Station. Kälte hält sie, das haben Sie selbst gesagt. Ich lasse es kalt, bis Hilfe kommt. Richtige Hilfe, von ihrer eigenen Welt.
+Juna steht auf. Sie ist noch wacklig, aber ihre Stimme ist fest.
+JUNA: Dann bleib ich hier. Das ist meine Crew.
+K-7: (freundlich) Sie würden erfrieren.
+JUNA: Dann frier ich mich wieder ein. In Kapsel zwölf.
+K-7: Dann würden Sie im Schlaf weiter vergessen. (sanft) Es ist still in Ihnen, Offizierin Kade, aber es ist nicht fort. Kälte hält es auf. Sie heilt es nicht.
+Juna will etwas sagen und schweigt. Sie blickt auf Marek, auf Lind und auf die vielen Gesichter unter dem Reif. Dann dreht sie sich zu dir um.
+JUNA: Euer Riss. Da drüben ist das, womit das hier angefangen hat. Die Feder, das Hufeisen, die warme Asche. (sie sieht dich lange an) Und du. Besucher Null.
+DU: Ich war das nicht.
+JUNA: Dann will ich wissen, wer es war. (eine Pause) Und wer du bist.
+Seda gibt einen Laut von sich, der fast ein Lachen ist.
+SEDA: So hab ich auch mal angefangen.
+JUNA: Und? Weißt du's jetzt?
+SEDA: Nein. (sie zuckt mit den Schultern) Aber ich bin noch da.
+## Ein echtes Lächeln
+[Musik: Das Hauptthema, ganz leise, auf einem einzelnen Klavier. Darunter ein elektrisches Summen, freundlich, wie ein Kühlschrank in einer Küche bei Nacht.]
+Brummer will mit.
+Er schwebt dicht über deiner Brust, dort, wo Funke unter dem Umhang liegt, und er piept immer wieder dasselbe, kurz und dringend. Er weicht nicht von der Stelle.
+Funke schiebt den Kopf aus dem Umhang. Seine Flamme ist noch klein, aber sie ist wieder gelb, und ihre Ränder schimmern ein wenig orange.
+FUNKE: Brummer. (er räuspert sich) Hör mal. Du kannst nicht mit.
+Brummer piept, empört.
+FUNKE: Nein, hör zu. Die Station ist ganz kaputt, und hier sind lauter Leute, die schlafen, und K-7 kann nicht alles allein heil machen. (eine Pause) Du bist der Beste im Heilmachen. Der Allerbeste. Das weißt du doch.
+Brummer schwebt eine Weile still. Dann senkt er sich herab und tippt Funke mit einem Greifarm an, ganz vorsichtig, genau wie beim ersten Mal.
+FUNKE: (mit sehr dünner Stimme) Ja. Du auch.
+Brummer steigt auf und schwebt hinüber zu K-7. Er bleibt über ihrer Schulter stehen und dreht sein Licht auf warm.
+K-7 lächelt.
+Seda steht vor ihr. Lange sieht sie ihr ins Gesicht, auf den Sprung in der Porzellanwange, auf das graue Auge und das blaue, auf das Lächeln, das sie die ganze Nacht nicht ertragen konnte.
+K-7: Ich weiß, dass Sie es nicht mögen.
+SEDA: Ist es echt?
+K-7 denkt nach. Diesmal dauert es nicht lange.
+K-7: Ich glaube schon.
+Seda nickt. Dann sagt sie etwas, das du nicht von ihr erwartet hättest.
+SEDA: (leise) Ich auch.
+K-7 wendet sich an dich.
+K-7: Ich lasse das Licht an, Besucher Null. Drei kurz, drei lang, drei kurz. Falls Sie zurückkommen.
+DU: Und wenn niemand kommt?
+K-7: (lächelt) Dann lasse ich es länger an.
+## Der Sprung
+[Geräusch: Laufende Schritte durch Gänge. Alarme, gedämpft und rhythmisch. Eine Tür, die sich schließen will und hängen bleibt. Dann das Andockring-Echo, groß und kalt. Und darin, ganz fern, das Rauschen von Brandung.]
+Ihr rennt.
+Durch den Reaktorring, die Treppe hinauf, durch die Labore mit den Schaukästen, an der Feder und dem Hufeisen vorbei. Durch die blaue Kammer, in der alle zwölf Kapseln offen stehen. Durch Ring A, an den Namen an den Wänden vorbei. Petra Lind. Tomasz. Du bist Ärztin. Du hast eine Schwester.
+Am Ende des Gangs kniet Haberland noch immer auf dem Boden. Er hat aufgehört zu schrubben. Er sitzt nur da, die Bürste im Schoß, und sieht verwirrt um sich, wie jemand, der aus einem langen Traum erwacht.
+Du bleibst stehen, nur einen Atemzug lang.
+DU: Haberland.
+Er sieht auf. Seine Augen sind klar.
+HABERLAND: (langsam) Ja. (eine Pause) Ja, so heiß ich.
+Dann seid ihr in der Halle.
+Der Riss im großen Ring ist nur noch ein Spalt, kaum breiter als eine Tür und schmaler mit jedem Herzschlag. Seine Ränder flimmern und zucken. Durch den Spalt siehst du die Nacht auf der anderen Seite, schwarzes Wasser und einen Himmel mit nur einem Mond.
+Und ein Licht.
+Es ist warm und gelb, und es dreht sich, langsam und stetig, wie es sich seit tausend Nächten dreht. Merles Licht.
+DU: Sucht das Licht!
+Seda springt zuerst, ohne zu zögern, den weißen Umhang hinter sich.
+Juna bleibt am Rand stehen. Sie dreht sich noch einmal um, zur Halle, zu dem roten Licht, das über dem Ring blinkt, drei kurz, drei lang, drei kurz, und zu den vereisten Fenstern, hinter denen eine blaue Welt unter zwei Monden schwimmt.
+Ihre ganze Welt, und sie lässt sie zurück.
+JUNA: (sehr leise) Bis Hilfe kommt.
+Dann springt sie.
+Du ziehst den Umhang fest um Funke und springst hinterher.
+[Musik: Ein tiefer Ton, der abreißt. Dann ein Platschen, laut und kalt. Wasser, das über einem zusammenschlägt. Und dann, ganz nah, die Stimme von Merle.]
+MERLE: Na also. (Ruder, die ins Wasser tauchen) Hab ich doch gesagt, es brennt die ganze Nacht.
+Sie zieht euch einen nach dem anderen ins Boot, Seda, dann Juna und zuletzt dich. Ihr liegt nass und keuchend auf den Planken, und das Wasser läuft euch aus den Haaren.
+Unter deinem Umhang, im einzigen trockenen Winkel dieser Nacht, streckt Funke den Kopf heraus und blickt auf das schwarze Meer.
+FUNKE: Wasser. (eine Pause, voller Abscheu) Natürlich Wasser.
+
+#K Epilog|Eine Karte zu viel|f1-epilog
+## Keine Stunde
+[Geräusch: Ein Ofen, der knackt. Wind an einem Fenster. Ein Teekessel. Und ein kleines, sehr zufriedenes Knistern.]
+Als die Sonne aufgeht, sitzt ihr in Merles Küche, in Decken gewickelt, mit nassen Haaren und heißem Tee.
+Funke liegt im Ofen. Er hat sich mitten in die Glut gelegt, die Arme hinter dem Kopf verschränkt, und ist so groß und so orange wie seit Tagen nicht mehr. Ab und zu seufzt er.
+FUNKE: Ich zieh hier ein. Ich geh hier nie wieder weg.
+MERLE: Du zahlst Miete.
+FUNKE: Womit denn?
+MERLE: Mit Wärme. (sie legt ein Scheit nach) Passt schon.
+Juna sitzt am Fenster, in eine graue Wolldecke gewickelt, das Gewehr an die Wand gelehnt. Sie hat seit dem Boot kaum ein Wort gesagt. Sie sieht hinaus aufs Meer, auf den blassen Morgenhimmel und auf den einen Mond, der dort noch hängt, weiß und dünn wie ein Fingernagel.
+JUNA: Wo ist euer zweiter Mond?
+MERLE: Wir hatten nie einen zweiten.
+JUNA: (nach einer langen Pause) Wie haltet ihr das aus?
+MERLE: Man gewöhnt sich. (sie stellt ihr einen Becher hin) Trink.
+Juna trinkt, verzieht das Gesicht und starrt in den Becher.
+JUNA: Was ist das?
+MERLE: Tee.
+JUNA: Das ist kein Tee.
+MERLE: Doch. Seetang. (trocken) Den gewöhnt man sich auch an.
+Seda steht am anderen Fenster und schaut hinaus zum Riss. Er hängt noch immer über dem Meer, aber er ist schmaler geworden, ein dünner, heller Strich, der in der Morgensonne fast verschwindet. Das rote Licht darin siehst du nicht mehr.
+SEDA: Wie lange waren wir weg?
+MERLE: (zuckt mit den Schultern) Keine Stunde.
+Seda dreht sich um. Juna lässt den Becher sinken.
+DU: Wir waren eine ganze Nacht da drüben.
+MERLE: Für euch vielleicht. (sie gießt sich selbst nach) Ich hab das Boot gerade gewendet, da seid ihr schon wieder ins Wasser geplumpst.
+Niemand sagt etwas. Oben, in Merles Bett, dreht sich jemand im Schlaf um. Wer mit dem Luftschiff gekommen ist, hat noch immer kein Wort gesagt.
+MERLE: (zur Decke hinauf) Da oben wird übrigens immer noch geschlafen. Nur damit ihr's wisst. Eins nach dem anderen, hab ich mir gedacht.
+## Eine Karte zu viel
+[Musik: Stille. Dann ein einzelner, tiefer Ton, sehr lang.]
+In der Nacht kannst du nicht schlafen.
+Du sitzt allein an Merles Küchentisch, im Licht einer einzigen Kerze, und legst deine Karten aus. Du tust das manchmal, wenn es still ist. Du zählst sie, ordnest sie nach Farben und siehst dir die Gesichter an. Es beruhigt dich, weil sie das Einzige sind, was du sicher weißt.
+Ganz oben liegt die Karte aus dem Reaktor. Sie ist noch immer warm, und ihre Ränder glimmen violett, ganz schwach, wie Glut unter Asche. Du legst sie zur Seite, mit dem Bild nach unten.
+Dann zählst du die anderen.
+Du zählst sie zweimal. Beim dritten Mal hörst du auf zu zählen und blätterst sie langsam durch, eine nach der anderen.
+Es ist eine zu viel.
+Sie steckt zwischen dem Lichtritter und dem Schattendolch, als hätte sie schon immer dort gesteckt. Sie ist kalt, so kalt, dass sich an ihren Rändern feiner Reif gebildet hat.
+Darauf ist ein Gang aus Metall zu sehen, mit runden, vereisten Fenstern. In der Decke hängt ein rotes Licht. Und ganz am Ende des Gangs, so klein, dass du die Kerze näher heranziehen musst, steht eine Gestalt.
+Du hast diese Karte nie gebunden.
+Hinter dir knarrt eine Diele. Seda steht in der Tür, barfuß, mit ihrem Umhang um die Schultern. Sie hat auch nicht geschlafen.
+Sie sieht die Karte. Lange sagt sie gar nichts.
+SEDA: Wer hat die gebunden?
+DU: Ich nicht.
+SEDA: Wer dann?
+Darauf hast du keine Antwort.
+* * *
+In der nächsten Nacht ist die Gestalt näher gekommen.
+Nicht viel, nur ein paar Schritte. Aber sie steht jetzt nicht mehr am Ende des Gangs, sondern unter dem dritten Fenster, und wenn du die Kerze nah genug heranhältst, siehst du, dass sie einen Umhang trägt.
+Ihr sitzt zu fünft um den Küchentisch: du, Seda, Juna, Merle und Funke, der aus dem Ofen herübergekommen ist und jetzt neben der Kerze auf dem Tisch hockt. Niemand sagt etwas. Draußen rauscht das Meer.
+Juna beugt sich über die Karte.
+JUNA: (tonlos) Das ist Ring B. Das ist bei uns.
+Dann blinkt das rote Licht.
+Es blinkt auf der Karte, im Bild, in dem gemalten Gang. Ganz schwach, aber ihr seht es alle. Dreimal kurz. Dreimal lang. Dreimal kurz.
+Juna wird weiß im Gesicht.
+JUNA: Das ist unser Signal.
+MERLE: (ruhig, wie immer) Dann braucht da einer Hilfe.
+Funke beugt sich so dicht über die Karte, dass sich seine Flamme in dem glänzenden Bild spiegelt. Lange starrt er auf die kleine Gestalt unter dem dritten Fenster.
+Dann weicht er zurück, ganz langsam, bis er mit dem Rücken gegen die Kerze stößt.
+FUNKE: (ganz leise) Guckt mal genau hin.
+Ihr seht genau hin.
+FUNKE: Die hat eine Kapuze.
+[Musik: Das Hauptthema, nur drei Töne davon. Dann, ganz am Ende, das elektrische Knacken eines roten Lichts. Drei kurz. Drei lang. Drei kurz.]
+#END
+
+#A Anhang|Fäden für die Kampagne
+Achtung, ab hier wird alles verraten. Diese Seiten sind für dich als Autor, nicht für Spieler.
+## Was Folge 1 festlegt
+- Station Null kreist um die Ozeanwelt mit zwei Monden, also die Welt aus Sternenkurs und Walgesang. Gebaut wurde sie um Riss Null, einen Haarriss, durch den jahrelang kleine Dinge aus unserer Welt kamen. Die Labore sind die Kammer der Fremddinge, nur andersherum.
+- Die Zeit läuft in anderen Welten anders. Drei Nächte bei uns sind über hundert Tage auf der Station. Eine Nacht auf der Station ist bei Merle keine Stunde.
+- Was in der Nacht des Finales durch die Karten geschlüpft ist, sind Stücke vom Hunger des Ungebundenen. Sie suchen Wärme, nehmen Erinnerungen und zuletzt Namen. Kälte hält sie auf, heilt aber nicht.
+- Die Stücke wollen zurück zum Glutstein. Die Risse neigen sich ihm zu. Wer den Stein in eine fremde Welt trägt, trägt einen Köder mit sich.
+- Der Stein spricht nur noch im Schlaf. Er lügt weiterhin nie.
+- Das Versprechen „Du wirst nie wieder frieren“ ist Fluch und Schutz zugleich. Was der Kartenbinder festhält, friert auch nicht.
+- Juna Kade reist jetzt mit. Sie hat Erinnerungen verloren, ihren Namen aber nicht. K-7 und Brummer halten die Station kalt, bis Hilfe kommt.
+## Offene Fragen
+- Wer ist Besucher Null? Die Gestalt mit Kapuze war an Tag 1 um 2:14 Uhr auf der Station, eine Minute bevor der Riss aufriss. Der Stein sagt: „Nein. Noch nicht.“ Alles deutet auf einen späteren Kartenbinder, der durch einen Riss in eine andere Zeit gegangen ist.
+- Hat Besucher Null die Tür geöffnet oder versucht, sie zuzuhalten? Die Gestalt in der Vision sagt: „Mit einer Hand. Das reicht nie.“ Und: „Du kannst nicht alle mitnehmen. Ich hab's versucht.“ Sie spricht mit der Stimme des Spiegelbilds aus der Spiegelhalle.
+- Der Kartenbinder hat das rote Licht schon in der Kristallquelle gesehen, bevor der Riss offen war.
+- Die Karte, die niemand gebunden hat: Wer kommt da durch den Gang? Will die Gestalt warnen, holen oder um Hilfe bitten? Und wer blinkt das Signal, K-7 oder etwas anderes?
+- Die Karte „Das Ding im Reaktor“ glimmt noch violett. Jede Karte ist eine Tür.
+- Kann Juna ihre Erinnerungen zurückbekommen? Die Seelenhändlerin handelt mit Erinnerungen.
+- Wer sitzt im Luftschiff? Merle sagt: eins nach dem anderen.
+## Wo es im Spiel hinpasst
+- Ein Gebiet mit 16 Gefechten in den vier Räumen, die es schon gibt: Andockschleuse (1–4), Kälteschlafkammer (5–8), Labore (9–12), Reaktorkern (13–16). Endgegner ist das Ding im Reaktor.
+- Die sechs Karten von Station Null sind schon die Besetzung: die Kryo-Schläferin ist Juna, die Wartungsdrohne ist Brummer, die Androidin ist K-7, der Infizierte ist Haberland, und das Ding im Reaktor ist der Endgegner. Nur die Sporenbrut ist namenlos.
+- Juna wird Gold, K-7 wird Silber. Die Werte folgen der Seltenheit von selbst, die Fähigkeiten bleiben.
+- Sequenzen: Intro am Leuchtturm und die Überfahrt, je ein Anfang für die vier Räume, die Story-Momente (Brummer, K-7 wartet, Juna erwacht, die Aufzeichnung, Brummer wird geholt, die Vision), der Endgegner, das Finale und der Epilog.
+- Alle Bilder sind fertig: Kampagnenkarte, Kapitelbild, 16 Sequenzbilder und 6 neue Sondermotive.
+- Dialoge vor den Gefechten können K-7, Juna, Haberland und die Stimme der Station übernehmen. Das Ding spricht im Chor.
+## Die Sondermotive
+Jedes Sondermotiv zeigt den großen Moment einer Figur und gibt es als feste Belohnung direkt nach der passenden Szene. Juna hat zwei.
+@gallery
+

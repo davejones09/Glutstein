@@ -86,6 +86,13 @@ Für Story-Bilder nicht die Karten-Grundregeln benutzen, sonst sehen alle Szenen
 - Figuren immer beschreiben, nicht nur benennen. Der Kartenbinder trägt einen schlichten, dunkelbraunen Kapuzenumhang ohne Verzierungen, das Gesicht ist nie zu sehen. Funke ist ein Wesen ganz aus Glut und Flammen, ohne Hut und Kleidung (Vorlage: `bilder/seq/p-funke.jpg`).
 - Ablage: `bilder/seq/`, 1200 × 800, JPG.
 
+## Folge 1 · Station Null
+
+Alle Prompts für Folge 1 liegen in `tools/folge1-bildprompts.md` (Kampagnenkarte, Kapitelbild, 16 Sequenzbilder, 6 Sondermotive).
+- Neue Kampagnenkarte als Stilvorlage eine bisherige Karte mitschicken. Den goldenen Weg danach in `MAP_PATH` (app.js) nachzeichnen, Angaben in Prozent.
+- Sondermotive aus der Geschichte stehen in `STORY_REW` (content.js) und in `STORY_ONLY` (app.js). Sie kommen nicht aus Truhen.
+- Endgegner-Porträt `bilder/helden/reaktording.png` ist aus Ysras Rahmen und dem Sondermotiv „Der Chor“ zusammengesetzt. Ein eigenes Porträt nach den Regeln für Heldenporträts kann es ersetzen.
+
 ## Musik (Suno)
 
 Stilfeld auf Englisch, „Instrumental“ an. Pro Bereich liegen Stücke in `musik/` (`menue`, `karte`, `kampf`, `endgegner`, `arena`, jeweils mit `-2` usw.), komprimiert auf 96 kbit/s. Neue Stücke in `POOLS` in app.js eintragen.

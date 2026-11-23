@@ -287,9 +287,9 @@ const BASE=[
  ['pottwal','Der Mächtige Pottwal','walgesang',3,4,9,{schild:1,heilung:1}],
  ['wartungsdrohne','Wartungsdrohne','stationnull',0,2,4,{flug:1},'licht'],
  ['sporenbrut','Sporenbrut','stationnull',0,4,3,{rache:1}],
- ['kryoschlaeferin','Kryo-Schläferin','stationnull',1,5,4,{einschlag:1},'licht'],
+ ['kryoschlaeferin','Kryo-Schläferin','stationnull',2,5,4,{einschlag:1},'licht'],
  ['infizierter','Der Infizierte','stationnull',1,4,5,{wut:1}],
- ['androidin','Androidin K-7','stationnull',2,4,6,{schild:1},'licht'],
+ ['androidin','Androidin K-7','stationnull',1,4,6,{schild:1},'licht'],
  ['reaktording','Das Ding im Reaktor','stationnull',3,5,8,{heilung:1,rache:1}],
  ['goldgraeber','Goldgräber','roteschlucht',0,3,5,{schild:1},'erde'],
  ['kutschenraeuberin','Postkutschenräuberin','roteschlucht',0,4,3,{durchbruch:1}],
@@ -368,7 +368,10 @@ const AREAS=[
  {set:'flut',foe:'gefolge',n:'II · Die versunkene Küste',s:'Nebel, Gischt und die Gezeitenmutter.',img:'kapitel-2',unl:['gezeitenwache','perlentaucherin','nebelheilerin']},
  {set:'hain',foe:'brut',n:'III · Der Wurzelwald',s:'Moos, Dornen und die älteste Eiche.',img:'kapitel-4',unl:['dornenhirsch','wurzelhueter','rudelfuehrerin']},
  {set:'nacht',foe:'hof',n:'IV · Das Hohle Reich',s:'Krähen, Gräber und der Hohle König.',img:'kapitel-3',unl:['grabkriecher','schattendolch','kraehenschwarm']},
- {set:'sonne',foe:'orden',n:'V · Die Sonnenwacht',s:'Der Orden des Lichts und seine Erzseraphin.',img:'kapitel-5',unl:['sonneneinhorn','lichtritter','sonnenloewe']}
+ {set:'sonne',foe:'orden',n:'V · Die Sonnenwacht',s:'Der Orden des Lichts und seine Erzseraphin.',img:'kapitel-5',unl:['sonneneinhorn','lichtritter','sonnenloewe'],fin:'Die Erzseraphin ist gefallen',end:'ende'},
+ /* Folge 1 der Kampagne nach dem Prolog. Gegner kommen aus Station Null selbst, ohne Juna und K-7 (die sind auf deiner Seite).
+    Karten gibt es hier nicht über Freischalt-Gefechte, sondern zusammen mit den Sondermotiven aus der Geschichte (STORY_REW). */
+ {set:'stationnull',foe:'stationnull',ex:['kryoschlaeferin','androidin'],ep:'Folge 1',n:'Folge 1 · Station Null',s:'Kälte, Sporen und das Ding im Reaktor.',img:'kapitel-6',unl:[],fin:'Das Ding ist gebunden',end:'f1ende'}
 ];
 /* Kampagne: 16 Gefechte je Gebiet. Die alten 8 Gefechte liegen auf den geraden Plätzen, dazwischen je ein leichteres neues. */
 const STAGES_PER=16;
@@ -387,16 +390,19 @@ const STAGE_NAMES_NEW=[
  'Mühlenweg','Der Bergpass','Der Wachturm','Brücke der Banner','Die weiße Kuppel','Brunnen des Lichts','Der Säulengang','Die Tempelstufen'
 ];
 const STAGE_NAMES=[]; for(let a=0;a<5;a++) for(let k=0;k<8;k++){ STAGE_NAMES.push(STAGE_NAMES_NEW[a*8+k],STAGE_NAMES_OLD[a*8+k]); }
+/* Folge 1: Station Null, je vier Gefechte in Andockschleuse, Kälteschlafkammer, Laboren und Reaktorkern. */
+STAGE_NAMES.push('Die Schleuse','Ring A','Die Namenswand','Schicht sieben','Der Kapselsaal','Kapsel zwölf','Kältenebel','Die Treppenschächte',
+ 'Die Sammlung','Das Türprotokoll','Die Brutschränke','Der dritte Ring','Die warme Treppe','Laufsteg der Schläfer','Notkühlung','Das Ding im Reaktor');
 const UNLOCK_SLOTS=[3,8,13]; /* Gefecht 4, 9 und 14 eines Gebiets schalten je eine Karte frei. */
 /* Werte der alten 8 Gefechte; die neuen Zwischengefechte übernehmen die Werte des vorigen alten Gefechts (leichter). */
-const RMAX8=[[0,0,0,0,0,0,0,0],[0,0,0,1,1,1,1,1],[0,0,1,1,1,2,2,1],[0,0,0,1,1,1,1,1],[0,0,1,1,1,2,2,1]];
-const AREA_LVL8=[[1,2,2,3,3,3,3,1],[5,5,5,5,4,4,4,4],[9,9,9,7,7,7,6,6],[11,10,9,10,10,9,9,10],[16,16,16,15,14,14,13,11]];
-const AREA_SIZE8=[[3,3,4,4,4,5,5,5],[3,4,4,5,5,5,5,6],[5,6,6,7,7,7,7,6],[6,6,7,6,7,8,7,6],[4,5,5,6,6,6,6,7]];
+const RMAX8=[[0,0,0,0,0,0,0,0],[0,0,0,1,1,1,1,1],[0,0,1,1,1,2,2,1],[0,0,0,1,1,1,1,1],[0,0,1,1,1,2,2,1],[0,0,1,1,1,1,1,1]];
+const AREA_LVL8=[[1,2,2,3,3,3,3,1],[5,5,5,5,4,4,4,4],[9,9,9,7,7,7,6,6],[11,10,9,10,10,9,9,10],[16,16,16,15,14,14,13,11],[19,20,21,22,22,22,23,20]];
+const AREA_SIZE8=[[3,3,4,4,4,5,5,5],[3,4,4,5,5,5,5,6],[5,6,6,7,7,7,7,6],[6,6,7,6,7,8,7,6],[4,5,5,6,6,6,6,7],[5,5,6,6,7,6,7,7]];
 const x16=(T,first)=>T.map((r,a)=>r.flatMap((v,k)=>[k?Math.min(r[k-1],v):first(v,a),v]));
 const RMAX=x16(RMAX8,v=>v), AREA_LVL=x16(AREA_LVL8,(v,a)=>a?AREA_LVL8[a-1][7]-1:v), AREA_SIZE=x16(AREA_SIZE8,v=>Math.max(3,v-1));
 const STAGES=STAGE_NAMES.map((n,k)=>{
   const a=Math.floor(k/STAGES_PER), i=k%STAGES_PER, boss=i===STAGES_PER-1, A=AREAS[a], u=UNLOCK_SLOTS.indexOf(i), lvl=AREA_LVL[a][i];
-  return {id:k+1,area:a,i,n,boss,set:A.foe,cat:SETS[A.foe].cat,unlock:u>=0?A.unl[u]:'',weak:k<2,
+  return {id:k+1,area:a,i,n,boss,set:A.foe,ex:A.ex||[],cat:SETS[A.foe].cat,unlock:u>=0&&A.unl[u]||'',weak:k<2,
     size:AREA_SIZE[a][i], rmax:RMAX[a][i], top:boss?3:-1,
     lvl, star:Math.min(MAXSTAR,Math.ceil(lvl/5)), hp:Math.round((800+i*30+(boss?400:0))*mult(Math.min(MAXSTAR,Math.ceil(lvl/5)),lvl)/10)*10,
     gold:boss?150+a*75:40+a*20+Math.round(i*2.5)};
@@ -408,7 +414,9 @@ function hash(s){ let h=2166136261; for(let i=0;i<s.length;i++){ h^=s.charCodeAt
 /* Gegnerdeck als Mix: Gefechte 1–3 nur Bronze, 4–8 Bronze und Silber mit gelegentlichem Gold,
    ab 9 in jedem Kampf mindestens ein Silber und ein Gold, Gefecht 16 der Endgegner mit Gefolge aus allen Stufen. */
 function stageDeck(st,hero){
-  const r=rng(hash('g'+st.id)), set=BASE.filter(c=>c.set===st.set), of=x=>set.filter(c=>c.r===x), pick=a=>a[Math.floor(r()*a.length)].id, ids=[];
+  const r=rng(hash('g'+st.id)), set=BASE.filter(c=>c.set===st.set&&!(st.ex||[]).includes(c.id)), pick=a=>a[Math.floor(r()*a.length)].id, ids=[];
+  /* Fehlt eine Stufe (weil Karten ausgenommen sind), springt die nächstniedrigere ein. */
+  const of=x=>{ for(let y=x;y>=0;y--){ const a=set.filter(c=>c.r===y); if(a.length) return a; } return set; };
   let w;
   if(st.boss){ ids.push(of(3)[0].id); ids.push(pick(of(2))); ids.push(pick(of(1))); w=[2,2,1]; }
   else if(st.i<3) w=[1,0,0];

@@ -975,9 +975,9 @@ const BASE=[
  ['pottwal','Der Mächtige Pottwal','walgesang',3,4,9,{schild:1,heilung:1}],
  ['wartungsdrohne','Wartungsdrohne','stationnull',0,2,4,{flug:1},'licht'],
  ['sporenbrut','Sporenbrut','stationnull',0,4,3,{rache:1}],
- ['kryoschlaeferin','Kryo-Schläferin','stationnull',1,5,4,{einschlag:1},'licht'],
+ ['kryoschlaeferin','Kryo-Schläferin','stationnull',2,5,4,{einschlag:1},'licht'],
  ['infizierter','Der Infizierte','stationnull',1,4,5,{wut:1}],
- ['androidin','Androidin K-7','stationnull',2,4,6,{schild:1},'licht'],
+ ['androidin','Androidin K-7','stationnull',1,4,6,{schild:1},'licht'],
  ['reaktording','Das Ding im Reaktor','stationnull',3,5,8,{heilung:1,rache:1}],
  ['goldgraeber','Goldgräber','roteschlucht',0,3,5,{schild:1},'erde'],
  ['kutschenraeuberin','Postkutschenräuberin','roteschlucht',0,4,3,{durchbruch:1}],
@@ -1056,7 +1056,10 @@ const AREAS=[
  {set:'flut',foe:'gefolge',n:'II · Die versunkene Küste',s:'Nebel, Gischt und die Gezeitenmutter.',img:'kapitel-2',unl:['gezeitenwache','perlentaucherin','nebelheilerin']},
  {set:'hain',foe:'brut',n:'III · Der Wurzelwald',s:'Moos, Dornen und die älteste Eiche.',img:'kapitel-4',unl:['dornenhirsch','wurzelhueter','rudelfuehrerin']},
  {set:'nacht',foe:'hof',n:'IV · Das Hohle Reich',s:'Krähen, Gräber und der Hohle König.',img:'kapitel-3',unl:['grabkriecher','schattendolch','kraehenschwarm']},
- {set:'sonne',foe:'orden',n:'V · Die Sonnenwacht',s:'Der Orden des Lichts und seine Erzseraphin.',img:'kapitel-5',unl:['sonneneinhorn','lichtritter','sonnenloewe']}
+ {set:'sonne',foe:'orden',n:'V · Die Sonnenwacht',s:'Der Orden des Lichts und seine Erzseraphin.',img:'kapitel-5',unl:['sonneneinhorn','lichtritter','sonnenloewe'],fin:'Die Erzseraphin ist gefallen',end:'ende'},
+ /* Folge 1 der Kampagne nach dem Prolog. Gegner kommen aus Station Null selbst, ohne Juna und K-7 (die sind auf deiner Seite).
+    Karten gibt es hier nicht über Freischalt-Gefechte, sondern zusammen mit den Sondermotiven aus der Geschichte (STORY_REW). */
+ {set:'stationnull',foe:'stationnull',ex:['kryoschlaeferin','androidin'],ep:'Folge 1',n:'Folge 1 · Station Null',s:'Kälte, Sporen und das Ding im Reaktor.',img:'kapitel-6',unl:[],fin:'Das Ding ist gebunden',end:'f1ende'}
 ];
 /* Kampagne: 16 Gefechte je Gebiet. Die alten 8 Gefechte liegen auf den geraden Plätzen, dazwischen je ein leichteres neues. */
 const STAGES_PER=16;
@@ -1075,16 +1078,19 @@ const STAGE_NAMES_NEW=[
  'Mühlenweg','Der Bergpass','Der Wachturm','Brücke der Banner','Die weiße Kuppel','Brunnen des Lichts','Der Säulengang','Die Tempelstufen'
 ];
 const STAGE_NAMES=[]; for(let a=0;a<5;a++) for(let k=0;k<8;k++){ STAGE_NAMES.push(STAGE_NAMES_NEW[a*8+k],STAGE_NAMES_OLD[a*8+k]); }
+/* Folge 1: Station Null, je vier Gefechte in Andockschleuse, Kälteschlafkammer, Laboren und Reaktorkern. */
+STAGE_NAMES.push('Die Schleuse','Ring A','Die Namenswand','Schicht sieben','Der Kapselsaal','Kapsel zwölf','Kältenebel','Die Treppenschächte',
+ 'Die Sammlung','Das Türprotokoll','Die Brutschränke','Der dritte Ring','Die warme Treppe','Laufsteg der Schläfer','Notkühlung','Das Ding im Reaktor');
 const UNLOCK_SLOTS=[3,8,13]; /* Gefecht 4, 9 und 14 eines Gebiets schalten je eine Karte frei. */
 /* Werte der alten 8 Gefechte; die neuen Zwischengefechte übernehmen die Werte des vorigen alten Gefechts (leichter). */
-const RMAX8=[[0,0,0,0,0,0,0,0],[0,0,0,1,1,1,1,1],[0,0,1,1,1,2,2,1],[0,0,0,1,1,1,1,1],[0,0,1,1,1,2,2,1]];
-const AREA_LVL8=[[1,2,2,3,3,3,3,1],[5,5,5,5,4,4,4,4],[9,9,9,7,7,7,6,6],[11,10,9,10,10,9,9,10],[16,16,16,15,14,14,13,11]];
-const AREA_SIZE8=[[3,3,4,4,4,5,5,5],[3,4,4,5,5,5,5,6],[5,6,6,7,7,7,7,6],[6,6,7,6,7,8,7,6],[4,5,5,6,6,6,6,7]];
+const RMAX8=[[0,0,0,0,0,0,0,0],[0,0,0,1,1,1,1,1],[0,0,1,1,1,2,2,1],[0,0,0,1,1,1,1,1],[0,0,1,1,1,2,2,1],[0,0,1,1,1,1,1,1]];
+const AREA_LVL8=[[1,2,2,3,3,3,3,1],[5,5,5,5,4,4,4,4],[9,9,9,7,7,7,6,6],[11,10,9,10,10,9,9,10],[16,16,16,15,14,14,13,11],[19,20,21,22,22,22,23,20]];
+const AREA_SIZE8=[[3,3,4,4,4,5,5,5],[3,4,4,5,5,5,5,6],[5,6,6,7,7,7,7,6],[6,6,7,6,7,8,7,6],[4,5,5,6,6,6,6,7],[5,5,6,6,7,6,7,7]];
 const x16=(T,first)=>T.map((r,a)=>r.flatMap((v,k)=>[k?Math.min(r[k-1],v):first(v,a),v]));
 const RMAX=x16(RMAX8,v=>v), AREA_LVL=x16(AREA_LVL8,(v,a)=>a?AREA_LVL8[a-1][7]-1:v), AREA_SIZE=x16(AREA_SIZE8,v=>Math.max(3,v-1));
 const STAGES=STAGE_NAMES.map((n,k)=>{
   const a=Math.floor(k/STAGES_PER), i=k%STAGES_PER, boss=i===STAGES_PER-1, A=AREAS[a], u=UNLOCK_SLOTS.indexOf(i), lvl=AREA_LVL[a][i];
-  return {id:k+1,area:a,i,n,boss,set:A.foe,cat:SETS[A.foe].cat,unlock:u>=0?A.unl[u]:'',weak:k<2,
+  return {id:k+1,area:a,i,n,boss,set:A.foe,ex:A.ex||[],cat:SETS[A.foe].cat,unlock:u>=0&&A.unl[u]||'',weak:k<2,
     size:AREA_SIZE[a][i], rmax:RMAX[a][i], top:boss?3:-1,
     lvl, star:Math.min(MAXSTAR,Math.ceil(lvl/5)), hp:Math.round((800+i*30+(boss?400:0))*mult(Math.min(MAXSTAR,Math.ceil(lvl/5)),lvl)/10)*10,
     gold:boss?150+a*75:40+a*20+Math.round(i*2.5)};
@@ -1096,7 +1102,9 @@ function hash(s){ let h=2166136261; for(let i=0;i<s.length;i++){ h^=s.charCodeAt
 /* Gegnerdeck als Mix: Gefechte 1–3 nur Bronze, 4–8 Bronze und Silber mit gelegentlichem Gold,
    ab 9 in jedem Kampf mindestens ein Silber und ein Gold, Gefecht 16 der Endgegner mit Gefolge aus allen Stufen. */
 function stageDeck(st,hero){
-  const r=rng(hash('g'+st.id)), set=BASE.filter(c=>c.set===st.set), of=x=>set.filter(c=>c.r===x), pick=a=>a[Math.floor(r()*a.length)].id, ids=[];
+  const r=rng(hash('g'+st.id)), set=BASE.filter(c=>c.set===st.set&&!(st.ex||[]).includes(c.id)), pick=a=>a[Math.floor(r()*a.length)].id, ids=[];
+  /* Fehlt eine Stufe (weil Karten ausgenommen sind), springt die nächstniedrigere ein. */
+  const of=x=>{ for(let y=x;y>=0;y--){ const a=set.filter(c=>c.r===y); if(a.length) return a; } return set; };
   let w;
   if(st.boss){ ids.push(of(3)[0].id); ids.push(pick(of(2))); ids.push(pick(of(1))); w=[2,2,1]; }
   else if(st.i<3) w=[1,0,0];
@@ -1328,6 +1336,25 @@ Object.assign(DLG,{
 /* ====== Geschichte: Prolog „Der zerbrochene Stein“ ======
    intro = Prolog und Erwachen, a0–a4 = Anfang der Gebiete, Story-Momente nach bestimmten Gefechten (BEATS), ende = Finale und Epilog.
    {KB} wird zu Kartenbinder oder Kartenbinderin. Die ganze Lesefassung liegt in geschichte/prolog.txt. */
+/* Folge 1 · Station Null */
+Object.assign(DLG,{
+ 81:[['g','Andockring Null. Minus einunddreißig Grad. Willkommen zurück, Besucher Null.'],['p','Ich war noch nie hier.']],
+ 82:[['g','Atme nicht zu tief ein. Die Luft hier hat Hunger.'],['p','Dann atme ich flach und kämpfe schnell.']],
+ 83:[['g','Entschuldigung … weißt du, wie ich heiße?'],['p','Haberland. Es steht auf deiner Brust.']],
+ 84:[['g','Ring B, Ventil vier. Schicht sieben. Du störst die Schicht.'],['p','Deine Schicht ist längst vorbei.']],
+ 85:[['g','Wärme erkannt. Die Kapseln öffnen sich.'],['p','Nicht alle. Nur die zwölfte.']],
+ 86:[['g','Wer aufwacht, wird warm. Wer warm wird, gehört uns.'],['p','Sie gehört nur sich selbst.']],
+ 87:[['g','Hier oben ist es so kalt. Komm mit nach unten.'],['p','Ich komme. Aber nicht so, wie du denkst.']],
+ 88:[['g','Wir kommen die Treppen hoch. Langsam. Wir haben Zeit.'],['p','Ich nicht. Also los.']],
+ 89:[['g','Fundstück dreiundzwanzig: ein Kartenbinder. Bitte nichts berühren.'],['p','Dann fass du mich auch nicht an.']],
+ 90:[['g','Zutritt Reaktorring: K-7 und Besucher Null.'],['p','Ich war noch nie da unten.'],['g','Noch nicht.']],
+ 91:[['g','Hier wächst, was nie wachsen durfte. Und es wächst gern.'],['p','Funke, halt dich fest.']],
+ 92:[['g','Ganz unten ist es warm. Ganz unten ist Zuhause.'],['p','Mein Zuhause hat einen Leuchtturm.']],
+ 93:[['g','Mit jeder Stufe wird es wärmer. Bleib doch stehen.'],['p','Gerade deshalb gehe ich weiter.']],
+ 94:[['g','Wir frieren nicht mehr. Wir müssen uns an nichts mehr erinnern.'],['p','Ihr werdet aufwachen. Versprochen.']],
+ 95:[['g','Notkühlung gesperrt. Zutritt nur für K-7.'],['p','Dann hoffe ich, sie weiß, auf welcher Seite sie steht.']],
+ 96:[['g','Du riechst nach Zuhause. Gib mir den Rest von mir.'],['p','Den Stein bekommst du nicht.'],['g','Dann nehme ich dich. Du bist doch so schön warm.'],['p','Jede Karte ist eine Tür. Diese hier schließt sich hinter dir.']]
+});
 const SEQ={
  intro:{t:'Prolog · Die Nacht ohne Sterne',music:'menue',slides:[
   ['seq/intro-1','Einst knieten fünf Wächter am Herd der Welt. Jede Nacht sangen sie, damit der Glutstein hält.'],
@@ -1408,10 +1435,60 @@ const SEQ={
   ['seq/p-risse','Über dem Meer zerreißt der Himmel. Durch die Risse siehst du andere Welten.'],
   ['seq/ende-3','„Danke, {KB}.“ Eine lange Pause. „Zum zweiten Mal.“'],
   ['seq/p-stufen','Die Welt friert nicht mehr, aber der Himmel ist zerrissen. „Was jetzt?“ – „Jetzt folgen wir ihm.“'],
-  ['seq/p-merle','In derselben Nacht kommt ein Schiff aus dem Riss. Merle lässt beide Lichter brennen. Für die, die noch kommen.\nFortsetzung folgt …']]}
+  ['seq/p-merle','In derselben Nacht kommt ein Schiff aus dem Riss. Merle lässt beide Lichter brennen. Für die, die noch kommen.\nWeiter geht es in Folge 1: Station Null.']]},
+ /* ====== Folge 1 · Station Null ====== */
+ a5:{t:'Folge 1 · Station Null',music:'menue',slides:[
+  ['seq/f1-rotes-licht','Drei Nächte nach dem Finale. Tief im Riss über dem Meer blinkt ein rotes Licht: dreimal kurz, dreimal lang, dreimal kurz.'],
+  ['seq/f1-rotes-licht','„Feuer flackert. Das da zählt“, sagt Merle. „Auf jedem Meer, das ich kenne, heißt das: Hilfe.“'],
+  ['seq/f1-ueberfahrt','Merle rudert euch hinaus. Als du den Glutstein hochhältst, neigt sich der Riss zu ihm herab wie eine ausgestreckte Hand.'],
+  ['seq/f1-ueberfahrt','„Wenn ihr zurückwollt, sucht das Licht. Es brennt die ganze Nacht.“ Dann trittst du aus dem Boot in den Riss.'],
+  ['seq/f1-andockring','Minus einunddreißig Grad. Jemand hat den Riss in einem Ring aus Stahl eingefangen. Funke wird klein wie eine Kerzenflamme.'],
+  ['seq/f1-andockring','Dir ist nicht kalt. Dir ist nie kalt. Eine Stimme aus der Decke sagt: „Wärmesignatur erkannt. Willkommen zurück, Besucher Null.“']]},
+ f1_wal:{t:'Das Fenster',slides:[
+  ['seq/f1-wal','Durch ein vereistes Fenster siehst du ein Meer ohne Land unter zwei Monden. Dazwischen schwimmt ein Wal mit einer Stadt auf dem Rücken.'],
+  ['seq/f1-wal','„Das hat Merle gesehen“, flüstert Seda. Funke seufzt sehr klein: „Ein Fisch mit einer Stadt drauf. Ich will nach Hause.“']]},
+ f1_brummer:{t:'Brummer',slides:[
+  ['seq/f1-brummer','Eine kleine Wartungsdrohne flickt Fenster, die niemand mehr braucht. Dann dreht sie ihr Licht auf warm und hält es an Funke.'],
+  ['seq/f1-brummer','„Na gut. Du darfst bleiben“, sagt Funke. „Du brummst. Ich nenn dich Brummer.“']]},
+ f1_namen:{t:'Die Namen',slides:[
+  ['seq/f1-haberland','An den Wänden stehen Namen, immer wieder dieselben. Haberland. Haberland. Ich heiße Haberland. Ich heiße.'],
+  ['seq/f1-haberland','Ein Mann schrubbt seit Wochen dieselbe Stelle. „Entschuldigung“, fragt er freundlich, „weißt du, wie ich heiße?“']]},
+ f1_k7:{t:'Die Kälteschlafkammer',slides:[
+  ['seq/f1-k7','Elf Kapseln stehen offen und leer. Am Ende des Saals sitzt eine Androidin und lächelt. „Sie sind spät. Aber das macht nichts.“'],
+  ['seq/f1-k7','„Ich bin K-7. Das rote Licht war ich. Mein letzter Befehl lautet: Halte die Station am Leben, bis Hilfe kommt.“']]},
+ f1_juna:{t:'Kapsel zwölf',slides:[
+  ['seq/f1-juna','In der letzten Kapsel schläft Juna Kade. Auf ihrem Arm steht: Nicht vergessen. Kaum ist sie wach, zielt sie auf dich. „Besucher Null.“'],
+  ['seq/f1-juna','„Ich hab dich auf den Bändern gesehen. Dieselbe Kapuze. Und du frierst nicht.“ Erst als sie ihren Namen auf dem Arm liest, senkt sie das Gewehr.']]},
+ f1_sammlung:{t:'Die Labore',slides:[
+  ['seq/f1-sammlung','In den Schaukästen liegen Dinge aus deiner Welt: eine Feder vom Orden, warme Asche, ein Hufeisen mit Ormaks Hammerzeichen.'],
+  ['seq/f1-sammlung','„Das ist unsere Kammer der Fremddinge“, sagt Seda leise. „Nur andersherum.“']]},
+ f1_aufzeichnung:{t:'Besucher Null',slides:[
+  ['seq/f1-aufzeichnung','Tag 1, 2:14 Uhr: Eine Gestalt mit Kapuze legt die Hand an den Reaktor. Eine Minute später reißt der Riss auf.'],
+  ['seq/f1-aufzeichnung','„War ich das?“, fragst du den Stein. Im Schlaf murmelt er: „Nein.“ Eine lange Pause. „Noch nicht.“']]},
+ f1_brummer2:{t:'Er wollte nur was heil machen',slides:[
+  ['seq/f1-brummer-violett','Brummer will das Gewächs von der Wand kratzen. Es wickelt sich um ihn, sanft wie eine Decke, und sein Licht wird violett.'],
+  ['seq/f1-brummer-violett','„Lass mich los, ich hol ihn zurück!“ Aber Funke ist zu schwach. Brummer schwebt hinab, dorthin, wo es warm ist.']]},
+ f1_vision:{t:'Der Gang',slides:[
+  ['seq/f1-vision','Du blinzelst und stehst allein in einem Gang mit rotem Licht. Vor dir geht jemand mit Kapuze, müde und abgetragen.'],
+  ['seq/f1-vision','„Ich hab versucht, eine Tür zuzuhalten. Mit einer Hand. Das reicht nie.“ Leiser: „Du kannst nicht alle mitnehmen. Ich hab’s versucht.“']]},
+ f1_schlaefer:{t:'Die Schläfer',slides:[
+  ['seq/f1-schlaefer','Im Reaktor ist es warm. Die Besatzung steht in Reihen, violette Fäden im Rücken, und alle atmen im selben Takt.'],
+  ['seq/f1-schlaefer','„Niemand verbrennt hier irgendwen“, sagt Seda. „Meine Mutter stand auch so da. Und jetzt hustet sie.“'],
+  ['seq/f1-schlaefer','Die Schläfer sprechen aus einem Mund: „K-7. Bring mir das Warme aus der Tasche.“ K-7 lächelt. „Mein Befehl war: bis Hilfe kommt. Hilfe ist da.“']]},
+ f1ende:{t:'Bis Hilfe kommt',music:'endgegner',slides:[
+  ['seq/f1-binden','K-7 hat die Notkühlung gezogen. Das Ding fließt in deine leere Karte. „Eine Karte, Besucher Null? Jede Karte ist eine Tür.“'],
+  ['seq/f1-binden','Brummers Licht wird wieder weiß. Die Schläfer atmen. K-7 bleibt bei ihnen und hält die Station kalt, bis Hilfe kommt.'],
+  ['seq/f1-boot','Juna springt mit euch durch den Riss, Merles Licht entgegen. „Ich will wissen, wer du bist.“ – „So hab ich auch mal angefangen“, sagt Seda.'],
+  ['seq/f1-boot','„Ihr wart keine Stunde weg“, sagt Merle, als sie euch aus dem Wasser zieht.'],
+  ['seq/f1-karte','In der Nacht liegt in deinem Stapel eine Karte, die du nie gebunden hast: ein Gang mit rotem Licht, ganz hinten eine Gestalt.'],
+  ['seq/f1-karte','Jede Nacht kommt sie näher. Das rote Licht blinkt: drei kurz, drei lang, drei kurz. „Guckt mal genau hin“, flüstert Funke. „Die hat eine Kapuze.“\nFortsetzung folgt …']]}
 };
 /* Story-Momente: nach dem ersten Sieg im genannten Gefecht, in dieser Reihenfolge. */
-const BEATS=[[6,'s_bluete'],[8,'s_hanne'],[16,'b0'],[22,'s_alder'],[32,'b1'],[38,'s_lio'],[42,'s_moor'],[44,'s_quelle'],[45,'s_feuer'],[48,'b2'],[53,'s_markt'],[64,'b3'],[73,'s_kuppel'],[73,'s_spiegel']];
+const BEATS=[[6,'s_bluete'],[8,'s_hanne'],[16,'b0'],[22,'s_alder'],[32,'b1'],[38,'s_lio'],[42,'s_moor'],[44,'s_quelle'],[45,'s_feuer'],[48,'b2'],[53,'s_markt'],[64,'b3'],[73,'s_kuppel'],[73,'s_spiegel'],
+ [81,'f1_wal'],[82,'f1_brummer'],[84,'f1_namen'],[85,'f1_k7'],[86,'f1_juna'],[89,'f1_sammlung'],[90,'f1_aufzeichnung'],[91,'f1_brummer2'],[92,'f1_vision'],[94,'f1_schlaefer']];
+/* Belohnungen nach dem ersten Ansehen einer Sequenz: [Karte, Sondermotiv] (0 = nur die Karte). */
+const STORY_REW={f1_brummer:[['wartungsdrohne',1]],f1_k7:[['androidin',0]],f1_juna:[['kryoschlaeferin',1]],f1_sammlung:[['sporenbrut',1]],
+ f1_schlaefer:[['androidin',1]],f1ende:[['reaktording',1],['infizierter',1],['kryoschlaeferin',2]]};
 
 const LORE={
  clownfische:'Ihre Anemone ist ihr Zuhause, ihre Festung und ihr Spielplatz.',
@@ -1645,6 +1722,7 @@ const ACH=[
  {id:'kap3',t:'Der Wurzelwald',d:'Besiege Urborke.',g:15,ok:()=>!!S.stars[BOSS_ID(2)]},
  {id:'kap4',t:'Das Hohle Reich',d:'Besiege den Hohlen König.',g:20,ok:()=>!!S.stars[BOSS_ID(3)]},
  {id:'kap5',t:'Die Sonnenwacht',d:'Besiege die Erzseraphin.',g:30,ok:()=>!!S.stars[BOSS_ID(4)]},
+ {id:'kap6',t:'Station Null',d:'Binde das Ding im Reaktor.',g:30,ok:()=>!!S.stars[BOSS_ID(5)]},
  {id:'hero1',t:'Heroisch',d:'Gewinne ein heroisches Gefecht.',g:10,ok:()=>Object.keys(S.hstars).length>0},
  {id:'setb',t:'Setbonus',d:'Gewinne mit 3 Karten eines Sets im Deck.',g:10,ok:()=>!!S.flags.set3},
  {id:'setv',t:'Volles Set',d:'Gewinne mit allen 6 Karten eines Sets im Deck.',g:20,ok:()=>!!S.flags.set6},
@@ -1750,8 +1828,11 @@ const SKINS={}; ['funkenwicht','glutwolf','brandbogner','flammenhexe','schlacken
  'moosling','dornenhirsch','wurzelhueter','rudelfuehrerin','alteiche','waldkoenigin','nachtfalter','grabkriecher','schattendolch','kraehenschwarm','seelenhaendlerin','irrlicht','sonneneinhorn','sonnenloewe','lichtmagier','seraphin'].forEach(id=>SKINS[id]=1);
 ['speerwerferin','falknerin','schildmaid','pantherreiterin','kriegspriesterin','amazonenkoenigin','kryoschlaeferin','sheriff','kopfgeldjaegerin','kutschenraeuberin','runenjaegerin','sternenschmugglerin','strassenhackerin','schattenagentin'].forEach(id=>SKINS[id]=1);
 SKINS.mitternachtsfuerstin=2; SKINS.lichtritter=2; SKINS.leuchtturmwaerterin=1;
+/* Station Null: Sondermotive aus Folge 1. Sie gibt es nur in der Geschichte (STORY_REW), nicht in Truhen. */
+['wartungsdrohne','sporenbrut','infizierter','androidin','reaktording'].forEach(id=>SKINS[id]=1); SKINS.kryoschlaeferin=2;
+const STORY_ONLY={wartungsdrohne:[1],sporenbrut:[1],infizierter:[1],androidin:[1],reaktording:[1],kryoschlaeferin:[2]};
 ['wahrsagerin','pilzhueterin','ghul','netzflickerin','fischerin','zirkusdirektor','fliegerass','totenherrin','dschinn','abgrundkoenigin','messingkoloss','runenschmiedin','messerwerferin','sphinx','geisterschiff','erwachter','schwanenritter','enterkapitaen','eklipsenwaechter','vampirjaegerin','himmelsschiff','mangrovenriese','tiefenkrake'].forEach(id=>SKINS[id]=1);
-const SKIN_NAMES={mitternachtsfuerstin:['Fürstin','Fürst'],lichtritter:['Ritter','Ritterin']};
+const SKIN_NAMES={mitternachtsfuerstin:['Fürstin','Fürst'],lichtritter:['Ritter','Ritterin'],kryoschlaeferin:['Ansteckung','Der Sprung']};
 for(const id in SKINS) for(let v=1;v<=SKINS[id];v++) ART[id+'-s'+(v>1?v:'')]=`bilder/${id}-s${v>1?v:''}.jpg`;
 function skinSrc(id,v){ return v&&ART[id+'-s'+(v>1?v:'')]||ART[id]; }
 function skinName(id,v){ return (SKIN_NAMES[id]&&SKIN_NAMES[id][v-1])||'Motiv '+v; }
@@ -1762,7 +1843,7 @@ const UNLOCK_AT={}; STAGES.forEach(st=>{ if(st.unlock) UNLOCK_AT[st.unlock]=st.i
 
 const H1=['Kralle','Luna','Moritz','Sturm','Nacht','Eisen','Fuchs','Rabe','Pixel','Brumm','Zwerg','Glut','Mira','Tobi','Hexe','Wolf','Kaktus','Nebel','Rost','Jule','Okan','Finn','Lea','Bjarne','Sina','Dachs','Keks','Wicht','Ritter','Motte'];
 const H2=['','_77','_92','07','_xD','3000','HD','_tv','2k','Lord','chen','_HH','_M','42','_gg','lein','XL','_01','23','Prime'];
-const ROM=['','I','II','III','IV','V'], KEY='glutstein-save-v6';
+const ROM=['','I','II','III','IV','V','VI'], KEY='glutstein-save-v6';
 const RM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -1857,7 +1938,7 @@ function grant(id,skin){
   else if(o.dup>=needLeft(o)){ const g=DUP_GOLD[CARD[id].r]; addGold(g); kind='gold'; }
   else{ o.dup++; kind='dup'; }
   const r={id,kind}; if(kind==='gold') r.gold=DUP_GOLD[CARD[id].r];
-  if(skin){ const own=ownSkins(id), free=[]; for(let v=1;v<=(SKINS[id]||0);v++) if(!own.includes(v)) free.push(v);
+  if(skin){ const own=ownSkins(id), free=[]; for(let v=1;v<=(SKINS[id]||0);v++) if(!own.includes(v)&&!(STORY_ONLY[id]||[]).includes(v)) free.push(v);
     if(free.length){ const v=free[Math.floor(Math.random()*free.length)]; S.skins[id]=own.concat(v).sort(); S.skinOn[id]=v; (S.skinNew=S.skinNew||{})[id]=1; r.skin=v; } }
   return r;
 }
@@ -2141,14 +2222,28 @@ function seqEnd(){ const q=SQ; if(!q) return; clearTimeout(q.t); SQ=null; const 
 function storyCheck(){
   if(menuOn||SQ||B||tab!=='map'||!$('#sheet').hidden) return;
   if(!S.seen.intro) return playSeq('intro',()=>{ render(); if(!S.stars[1]) startStage(1,false); });
-  if(S.stars[LAST_ID]&&!S.seen.ende) return playSeq('ende',()=>render());
-  const bt=BEATS.find(([id,k])=>S.stars[id]&&!S.seen[k]); if(bt) return playSeq(bt[1],()=>render());
+  const fa=AREAS.findIndex((A,a)=>A.end&&S.stars[BOSS_ID(a)]&&!S.seen[A.end]); if(fa>=0) return playSeq(AREAS[fa].end,()=>storyReward(AREAS[fa].end));
+  const bt=BEATS.find(([id,k])=>S.stars[id]&&!S.seen[k]); if(bt) return playSeq(bt[1],()=>storyReward(bt[1]));
   if(mapArea!=null&&!S.seen['a'+mapArea]) return playSeq('a'+mapArea,()=>render());
 }
 /* Ganze Geschichte eines Gebiets nacheinander ansehen: Anfang, erreichte Story-Momente, beim ersten Gebiet der Prolog, beim letzten das Finale. */
 function areaStory(a){
   const k=(a===0?['intro']:[]).concat('a'+a, BEATS.filter(([id])=>STAGES[id-1].area===a&&S.stars[id]).map(b=>b[1]));
-  if(a===AREAS.length-1&&S.stars[LAST_ID]) k.push('ende'); return k;
+  if(AREAS[a].end&&S.stars[BOSS_ID(a)]) k.push(AREAS[a].end); return k;
+}
+/* Belohnungen aus der Geschichte: Karte (falls noch nicht da) und festes Sondermotiv. Nur beim ersten Ansehen. */
+function storyReward(key){
+  const got=[];
+  (STORY_REW[key]||[]).forEach(([id,v])=>{ const neu=!S.cards[id];
+    if(neu){ S.cards[id]={lvl:1,star:1,dup:0}; if(!S.unlocked.includes(id)) S.unlocked.push(id); }
+    if(v&&!ownSkins(id).includes(v)){ S.skins[id]=ownSkins(id).concat(v).sort(); S.skinOn[id]=v; (S.skinNew=S.skinNew||{})[id]=1; }
+    else if(!neu) return;
+    got.push([id,v]); });
+  persist(); render(); if(!got.length) return;
+  sfx('rare2');
+  openSheet(`<p class="eyebrow">Aus der Geschichte</p><h2>${got.some(g=>g[1])?'Neues Sondermotiv':'Neue Karte'}</h2><div class="grid g3">${got.map(([id,v])=>{ const o=S.cards[id];
+    return `<button class="loot-i" data-act="artOpen" data-id="${id}">${cardHTML({id,lvl:o.lvl,star:o.star,skin:v||undefined})}<span class="lt ${v?'sp':'neu'}">${v?'✦ '+(SKINS[id]>1?skinName(id,v):'Sondermotiv'):'Neue Karte'}</span></button>`; }).join('')}</div>
+  <div class="row-btns"><button class="btn primary" data-act="close">Weiter</button></div>`);
 }
 function playChain(keys){ const k=keys.shift(); if(!k){ render(); return; } playSeq(k,()=>playChain(keys)); }
 
@@ -2307,8 +2402,9 @@ const MAP_PATH=[
  [[13,86],[19,80],[24,73],[28,68],[36,68],[45,71],[54,71],[62,68],[70,65],[77,61],[78,56],[72,53],[64,54],[56,53],[46,50],[40,49],[34,46],[31,41],[36,39],[44,38],[50,35],[53,29],[58,24],[66,22],[74,20],[82,17],[87,14]],
  [[12,86],[17,84],[23,80],[28,74],[34,71],[42,70],[50,71],[56,68],[59,63],[60,58],[66,56],[73,54],[80,50],[84,46],[78,42],[70,39],[68,34],[75,31],[80,26],[83,20],[85,14]],
  [[12,80],[17,80],[23,75],[30,71],[38,67],[43,62],[41,56],[38,51],[40,46],[46,43],[50,37],[56,31],[64,30],[72,27],[78,21],[84,16],[87,12]],
- [[11,85],[17,82],[22,77],[28,71],[32,65],[31,58],[30,51],[33,45],[39,43],[46,41],[52,37],[58,34],[64,31],[70,27],[76,22],[81,17],[85,12]]];
-const MAP_ST=[[0,3,6,10,14,17,19,23],[0,3,6,9,13,17,22,26],[0,3,6,9,12,15,17,20],[0,2,4,7,9,11,13,16],[0,3,5,7,9,11,13,16]];
+ [[11,85],[17,82],[22,77],[28,71],[32,65],[31,58],[30,51],[33,45],[39,43],[46,41],[52,37],[58,34],[64,31],[70,27],[76,22],[81,17],[85,12]],
+ [[40.5,85.8],[44,85],[52,84],[60,83],[67,81],[73,77],[79,74],[83,70],[84,65],[83,59],[78,56],[72,54],[64,53],[57,52],[49,51],[43,49],[40,45],[41,41],[44,39],[51,37],[60,37],[69,36],[77,35],[82,33],[84,30],[83,27.5],[79,26.5],[75,25],[71.5,23],[69,21],[68.5,19],[71,18.2],[75,17.6],[80,16.5],[86,15],[90,14.2]]];
+const MAP_ST=[[0,3,6,10,14,17,19,23],[0,3,6,9,13,17,22,26],[0,3,6,9,12,15,17,20],[0,2,4,7,9,11,13,16],[0,3,5,7,9,11,13,16],[0,4,8,12,18,24,30,37]];
 /* 16 Stationen gleichmäßig entlang des Wegs verteilen (Karte ist 3:2, deshalb x-Abstände breiter gewichtet). */
 function walk(P){ const L=[0]; for(let i=1;i<P.length;i++) L.push(L[i-1]+Math.hypot((P[i][0]-P[i-1][0])*1.5,P[i][1]-P[i-1][1])); return L; }
 function atLen(P,L,d){ let i=1; while(i<P.length-1&&L[i]<d) i++; const t=Math.max(0,Math.min(1,(d-L[i-1])/(L[i]-L[i-1]||1))); return [+(P[i-1][0]+(P[i][0]-P[i-1][0])*t).toFixed(1),+(P[i-1][1]+(P[i][1]-P[i-1][1])*t).toFixed(1),i]; }
@@ -2327,12 +2423,12 @@ function viewMap(){
   let h=`<div class="mapwrap"><div class="mapbox" style="--map:url(bilder/karte-${a+1}.jpg)"><svg class="mpath" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path class="pl-all" d="${smoothPath(W)}"/>${reach>1?`<path class="pl-done" d="${smoothPath(pathTo(a,reach-1))}"/>`:''}</svg>`;
   list.forEach((st,k)=>{ const got=S.stars[st.id]||0, hg=S.hstars[st.id]||0, open=isOpen(st), cls=got?'done':open?'open':'locked';
     h+=`<button class="mnode ${cls}${st.boss?' boss':''}${hg?' hero':''}" style="left:${P[k][0]}%;top:${P[k][1]}%" data-act="stage" data-id="${st.id}" ${open?'':'disabled'} aria-label="${open?st.n+(hg?', heroisch geschafft':''):'Noch unbekannt'}"><span class="mn"><b>${open?k+1:'?'}</b>${hg?'<i class="crown">♛</i>':''}</span>${got?`<span class="mst">${starsHTML(got,'mini')}${hg?starsHTML(hg,'mini hs'):''}</span>`:''}${cls==='open'?`<span class="mtag">${st.n}</span>`:''}</button>`; });
-  h+=`<div class="mtitle"><p class="eyebrow">Gebiet ${ROM[a+1]}</p><h2>${A.n.split(' · ')[1]}</h2></div>`;
+  h+=`<div class="mtitle"><p class="eyebrow">${A.ep||'Gebiet '+ROM[a+1]}</p><h2>${A.n.split(' · ')[1]}</h2></div>`;
   if(a>0) h+=`<button class="marrow l" data-act="mapGo" data-id="${a-1}" aria-label="Voriges Gebiet">‹ ${AREAS[a-1].n.split(' · ')[1]}</button>`;
   if(done&&a<AREAS.length-1) h+=`<button class="marrow r" data-act="mapGo" data-id="${a+1}" aria-label="Nächstes Gebiet">${AREAS[a+1].n.split(' · ')[1]} ›</button>`;
   h+=`</div><aside class="mside"><section class="panelbox">`;
   h+= next?`<p class="eyebrow">Nächstes Gefecht</p><h3>${next.i+1} · ${next.n}</h3><p class="muted">${next.size} ${SETS[next.set].n}-Karten auf Level ${next.lvl}, Held mit ${next.hp} Leben.</p><button class="btn primary block" data-act="fight" data-id="${next.id}">Kämpfen</button>`
-          : `<p class="eyebrow">Gebiet geschafft</p><h3>${a===AREAS.length-1?'Die Erzseraphin ist gefallen':A.n.split(' · ')[1]}</h3><p class="muted">Hol dir fehlende Sterne oder versuch dich an den heroischen Gefechten.</p>`;
+          : `<p class="eyebrow">Gebiet geschafft</p><h3>${A.fin||A.n.split(' · ')[1]}</h3><p class="muted">Hol dir fehlende Sterne oder versuch dich an den heroischen Gefechten.</p>`;
   h+=`<button class="link" data-act="replayStory" data-id="${a}">Geschichte ansehen</button><div class="facts"><div><b>${total}/${STAGES.length*3}</b><span>Sterne</span></div><div><b>${BASE.filter(c=>S.cards[c.id]).length}</b><span>Karten</span></div><div><b>${Object.keys(S.hstars).length}</b><span>heroisch</span></div></div></section>${tasksHTML()}</aside></div>`;
   return h;
 }

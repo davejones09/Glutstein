@@ -85,8 +85,11 @@ const SKINS={}; ['funkenwicht','glutwolf','brandbogner','flammenhexe','schlacken
  'moosling','dornenhirsch','wurzelhueter','rudelfuehrerin','alteiche','waldkoenigin','nachtfalter','grabkriecher','schattendolch','kraehenschwarm','seelenhaendlerin','irrlicht','sonneneinhorn','sonnenloewe','lichtmagier','seraphin'].forEach(id=>SKINS[id]=1);
 ['speerwerferin','falknerin','schildmaid','pantherreiterin','kriegspriesterin','amazonenkoenigin','kryoschlaeferin','sheriff','kopfgeldjaegerin','kutschenraeuberin','runenjaegerin','sternenschmugglerin','strassenhackerin','schattenagentin'].forEach(id=>SKINS[id]=1);
 SKINS.mitternachtsfuerstin=2; SKINS.lichtritter=2; SKINS.leuchtturmwaerterin=1;
+/* Station Null: Sondermotive aus Folge 1. Sie gibt es nur in der Geschichte (STORY_REW), nicht in Truhen. */
+['wartungsdrohne','sporenbrut','infizierter','androidin','reaktording'].forEach(id=>SKINS[id]=1); SKINS.kryoschlaeferin=2;
+const STORY_ONLY={wartungsdrohne:[1],sporenbrut:[1],infizierter:[1],androidin:[1],reaktording:[1],kryoschlaeferin:[2]};
 ['wahrsagerin','pilzhueterin','ghul','netzflickerin','fischerin','zirkusdirektor','fliegerass','totenherrin','dschinn','abgrundkoenigin','messingkoloss','runenschmiedin','messerwerferin','sphinx','geisterschiff','erwachter','schwanenritter','enterkapitaen','eklipsenwaechter','vampirjaegerin','himmelsschiff','mangrovenriese','tiefenkrake'].forEach(id=>SKINS[id]=1);
-const SKIN_NAMES={mitternachtsfuerstin:['Fürstin','Fürst'],lichtritter:['Ritter','Ritterin']};
+const SKIN_NAMES={mitternachtsfuerstin:['Fürstin','Fürst'],lichtritter:['Ritter','Ritterin'],kryoschlaeferin:['Ansteckung','Der Sprung']};
 for(const id in SKINS) for(let v=1;v<=SKINS[id];v++) ART[id+'-s'+(v>1?v:'')]=`bilder/${id}-s${v>1?v:''}.jpg`;
 function skinSrc(id,v){ return v&&ART[id+'-s'+(v>1?v:'')]||ART[id]; }
 function skinName(id,v){ return (SKIN_NAMES[id]&&SKIN_NAMES[id][v-1])||'Motiv '+v; }
@@ -97,7 +100,7 @@ const UNLOCK_AT={}; STAGES.forEach(st=>{ if(st.unlock) UNLOCK_AT[st.unlock]=st.i
 
 const H1=['Kralle','Luna','Moritz','Sturm','Nacht','Eisen','Fuchs','Rabe','Pixel','Brumm','Zwerg','Glut','Mira','Tobi','Hexe','Wolf','Kaktus','Nebel','Rost','Jule','Okan','Finn','Lea','Bjarne','Sina','Dachs','Keks','Wicht','Ritter','Motte'];
 const H2=['','_77','_92','07','_xD','3000','HD','_tv','2k','Lord','chen','_HH','_M','42','_gg','lein','XL','_01','23','Prime'];
-const ROM=['','I','II','III','IV','V'], KEY='glutstein-save-v6';
+const ROM=['','I','II','III','IV','V','VI'], KEY='glutstein-save-v6';
 const RM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -192,7 +195,7 @@ function grant(id,skin){
   else if(o.dup>=needLeft(o)){ const g=DUP_GOLD[CARD[id].r]; addGold(g); kind='gold'; }
   else{ o.dup++; kind='dup'; }
   const r={id,kind}; if(kind==='gold') r.gold=DUP_GOLD[CARD[id].r];
-  if(skin){ const own=ownSkins(id), free=[]; for(let v=1;v<=(SKINS[id]||0);v++) if(!own.includes(v)) free.push(v);
+  if(skin){ const own=ownSkins(id), free=[]; for(let v=1;v<=(SKINS[id]||0);v++) if(!own.includes(v)&&!(STORY_ONLY[id]||[]).includes(v)) free.push(v);
     if(free.length){ const v=free[Math.floor(Math.random()*free.length)]; S.skins[id]=own.concat(v).sort(); S.skinOn[id]=v; (S.skinNew=S.skinNew||{})[id]=1; r.skin=v; } }
   return r;
 }
@@ -476,14 +479,28 @@ function seqEnd(){ const q=SQ; if(!q) return; clearTimeout(q.t); SQ=null; const 
 function storyCheck(){
   if(menuOn||SQ||B||tab!=='map'||!$('#sheet').hidden) return;
   if(!S.seen.intro) return playSeq('intro',()=>{ render(); if(!S.stars[1]) startStage(1,false); });
-  if(S.stars[LAST_ID]&&!S.seen.ende) return playSeq('ende',()=>render());
-  const bt=BEATS.find(([id,k])=>S.stars[id]&&!S.seen[k]); if(bt) return playSeq(bt[1],()=>render());
+  const fa=AREAS.findIndex((A,a)=>A.end&&S.stars[BOSS_ID(a)]&&!S.seen[A.end]); if(fa>=0) return playSeq(AREAS[fa].end,()=>storyReward(AREAS[fa].end));
+  const bt=BEATS.find(([id,k])=>S.stars[id]&&!S.seen[k]); if(bt) return playSeq(bt[1],()=>storyReward(bt[1]));
   if(mapArea!=null&&!S.seen['a'+mapArea]) return playSeq('a'+mapArea,()=>render());
 }
 /* Ganze Geschichte eines Gebiets nacheinander ansehen: Anfang, erreichte Story-Momente, beim ersten Gebiet der Prolog, beim letzten das Finale. */
 function areaStory(a){
   const k=(a===0?['intro']:[]).concat('a'+a, BEATS.filter(([id])=>STAGES[id-1].area===a&&S.stars[id]).map(b=>b[1]));
-  if(a===AREAS.length-1&&S.stars[LAST_ID]) k.push('ende'); return k;
+  if(AREAS[a].end&&S.stars[BOSS_ID(a)]) k.push(AREAS[a].end); return k;
+}
+/* Belohnungen aus der Geschichte: Karte (falls noch nicht da) und festes Sondermotiv. Nur beim ersten Ansehen. */
+function storyReward(key){
+  const got=[];
+  (STORY_REW[key]||[]).forEach(([id,v])=>{ const neu=!S.cards[id];
+    if(neu){ S.cards[id]={lvl:1,star:1,dup:0}; if(!S.unlocked.includes(id)) S.unlocked.push(id); }
+    if(v&&!ownSkins(id).includes(v)){ S.skins[id]=ownSkins(id).concat(v).sort(); S.skinOn[id]=v; (S.skinNew=S.skinNew||{})[id]=1; }
+    else if(!neu) return;
+    got.push([id,v]); });
+  persist(); render(); if(!got.length) return;
+  sfx('rare2');
+  openSheet(`<p class="eyebrow">Aus der Geschichte</p><h2>${got.some(g=>g[1])?'Neues Sondermotiv':'Neue Karte'}</h2><div class="grid g3">${got.map(([id,v])=>{ const o=S.cards[id];
+    return `<button class="loot-i" data-act="artOpen" data-id="${id}">${cardHTML({id,lvl:o.lvl,star:o.star,skin:v||undefined})}<span class="lt ${v?'sp':'neu'}">${v?'✦ '+(SKINS[id]>1?skinName(id,v):'Sondermotiv'):'Neue Karte'}</span></button>`; }).join('')}</div>
+  <div class="row-btns"><button class="btn primary" data-act="close">Weiter</button></div>`);
 }
 function playChain(keys){ const k=keys.shift(); if(!k){ render(); return; } playSeq(k,()=>playChain(keys)); }
 
@@ -642,8 +659,9 @@ const MAP_PATH=[
  [[13,86],[19,80],[24,73],[28,68],[36,68],[45,71],[54,71],[62,68],[70,65],[77,61],[78,56],[72,53],[64,54],[56,53],[46,50],[40,49],[34,46],[31,41],[36,39],[44,38],[50,35],[53,29],[58,24],[66,22],[74,20],[82,17],[87,14]],
  [[12,86],[17,84],[23,80],[28,74],[34,71],[42,70],[50,71],[56,68],[59,63],[60,58],[66,56],[73,54],[80,50],[84,46],[78,42],[70,39],[68,34],[75,31],[80,26],[83,20],[85,14]],
  [[12,80],[17,80],[23,75],[30,71],[38,67],[43,62],[41,56],[38,51],[40,46],[46,43],[50,37],[56,31],[64,30],[72,27],[78,21],[84,16],[87,12]],
- [[11,85],[17,82],[22,77],[28,71],[32,65],[31,58],[30,51],[33,45],[39,43],[46,41],[52,37],[58,34],[64,31],[70,27],[76,22],[81,17],[85,12]]];
-const MAP_ST=[[0,3,6,10,14,17,19,23],[0,3,6,9,13,17,22,26],[0,3,6,9,12,15,17,20],[0,2,4,7,9,11,13,16],[0,3,5,7,9,11,13,16]];
+ [[11,85],[17,82],[22,77],[28,71],[32,65],[31,58],[30,51],[33,45],[39,43],[46,41],[52,37],[58,34],[64,31],[70,27],[76,22],[81,17],[85,12]],
+ [[40.5,85.8],[44,85],[52,84],[60,83],[67,81],[73,77],[79,74],[83,70],[84,65],[83,59],[78,56],[72,54],[64,53],[57,52],[49,51],[43,49],[40,45],[41,41],[44,39],[51,37],[60,37],[69,36],[77,35],[82,33],[84,30],[83,27.5],[79,26.5],[75,25],[71.5,23],[69,21],[68.5,19],[71,18.2],[75,17.6],[80,16.5],[86,15],[90,14.2]]];
+const MAP_ST=[[0,3,6,10,14,17,19,23],[0,3,6,9,13,17,22,26],[0,3,6,9,12,15,17,20],[0,2,4,7,9,11,13,16],[0,3,5,7,9,11,13,16],[0,4,8,12,18,24,30,37]];
 /* 16 Stationen gleichmäßig entlang des Wegs verteilen (Karte ist 3:2, deshalb x-Abstände breiter gewichtet). */
 function walk(P){ const L=[0]; for(let i=1;i<P.length;i++) L.push(L[i-1]+Math.hypot((P[i][0]-P[i-1][0])*1.5,P[i][1]-P[i-1][1])); return L; }
 function atLen(P,L,d){ let i=1; while(i<P.length-1&&L[i]<d) i++; const t=Math.max(0,Math.min(1,(d-L[i-1])/(L[i]-L[i-1]||1))); return [+(P[i-1][0]+(P[i][0]-P[i-1][0])*t).toFixed(1),+(P[i-1][1]+(P[i][1]-P[i-1][1])*t).toFixed(1),i]; }
@@ -662,12 +680,12 @@ function viewMap(){
   let h=`<div class="mapwrap"><div class="mapbox" style="--map:url(bilder/karte-${a+1}.jpg)"><svg class="mpath" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path class="pl-all" d="${smoothPath(W)}"/>${reach>1?`<path class="pl-done" d="${smoothPath(pathTo(a,reach-1))}"/>`:''}</svg>`;
   list.forEach((st,k)=>{ const got=S.stars[st.id]||0, hg=S.hstars[st.id]||0, open=isOpen(st), cls=got?'done':open?'open':'locked';
     h+=`<button class="mnode ${cls}${st.boss?' boss':''}${hg?' hero':''}" style="left:${P[k][0]}%;top:${P[k][1]}%" data-act="stage" data-id="${st.id}" ${open?'':'disabled'} aria-label="${open?st.n+(hg?', heroisch geschafft':''):'Noch unbekannt'}"><span class="mn"><b>${open?k+1:'?'}</b>${hg?'<i class="crown">♛</i>':''}</span>${got?`<span class="mst">${starsHTML(got,'mini')}${hg?starsHTML(hg,'mini hs'):''}</span>`:''}${cls==='open'?`<span class="mtag">${st.n}</span>`:''}</button>`; });
-  h+=`<div class="mtitle"><p class="eyebrow">Gebiet ${ROM[a+1]}</p><h2>${A.n.split(' · ')[1]}</h2></div>`;
+  h+=`<div class="mtitle"><p class="eyebrow">${A.ep||'Gebiet '+ROM[a+1]}</p><h2>${A.n.split(' · ')[1]}</h2></div>`;
   if(a>0) h+=`<button class="marrow l" data-act="mapGo" data-id="${a-1}" aria-label="Voriges Gebiet">‹ ${AREAS[a-1].n.split(' · ')[1]}</button>`;
   if(done&&a<AREAS.length-1) h+=`<button class="marrow r" data-act="mapGo" data-id="${a+1}" aria-label="Nächstes Gebiet">${AREAS[a+1].n.split(' · ')[1]} ›</button>`;
   h+=`</div><aside class="mside"><section class="panelbox">`;
   h+= next?`<p class="eyebrow">Nächstes Gefecht</p><h3>${next.i+1} · ${next.n}</h3><p class="muted">${next.size} ${SETS[next.set].n}-Karten auf Level ${next.lvl}, Held mit ${next.hp} Leben.</p><button class="btn primary block" data-act="fight" data-id="${next.id}">Kämpfen</button>`
-          : `<p class="eyebrow">Gebiet geschafft</p><h3>${a===AREAS.length-1?'Die Erzseraphin ist gefallen':A.n.split(' · ')[1]}</h3><p class="muted">Hol dir fehlende Sterne oder versuch dich an den heroischen Gefechten.</p>`;
+          : `<p class="eyebrow">Gebiet geschafft</p><h3>${A.fin||A.n.split(' · ')[1]}</h3><p class="muted">Hol dir fehlende Sterne oder versuch dich an den heroischen Gefechten.</p>`;
   h+=`<button class="link" data-act="replayStory" data-id="${a}">Geschichte ansehen</button><div class="facts"><div><b>${total}/${STAGES.length*3}</b><span>Sterne</span></div><div><b>${BASE.filter(c=>S.cards[c.id]).length}</b><span>Karten</span></div><div><b>${Object.keys(S.hstars).length}</b><span>heroisch</span></div></div></section>${tasksHTML()}</aside></div>`;
   return h;
 }
