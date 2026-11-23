@@ -318,3 +318,40 @@ Es sind Sonderkarten: dieselbe Figur wie auf der angehängten Vorlage, aber in e
 5. Sporenbrut „Die Sammlung": violettes Gewächs mit grün glühenden Sporenkapseln bricht durch gläserne Museumsvitrinen in einem dunklen Labor, Glassplitter schweben in der Luft. In den Ranken hängen eine leuchtende weiße Feder und ein altes Hufeisen.
 6. Das Ding im Reaktor „Der Chor": das Ding als gewaltige Masse aus violetten Wurzeln um eine Säule aus giftgrünem Licht, so groß, dass es das Bild ausfüllt. Davor stehen auf einem Laufsteg in der Bildmitte Menschen in Reihen, mit geschlossenen Augen und offenen Mündern, als würden sie alle gleichzeitig singen. Violette Fäden führen aus ihren Rücken in die Masse. Das untere Drittel bleibt ein dunkler Abgrund mit Nebel.
 ```
+
+## Teil 5 · Gegner-Set „Die Schläfer“
+
+Vorlagen: Nr. 3 Wartungsdrohne (nur Stil), Nr. 5 Ausschnitt Marek aus f1-schlaefer, Nr. 6 Das Ding im Reaktor. Porträt: ein bisheriges Endgegner-Porträt als Rahmenvorlage.
+
+```
+Set „DIE SCHLÄFER", Sci-Fi-Horror, das Gegner-Set von Station Null: Besatzung und Maschinen einer vereisten Raumstation, die der violette Hunger aus dem Reaktor übernommen hat, Hochformat 2:3, kein Rahmen.
+Farbwelt: kaltes Stahlblau, Reifweiß, rote Warnlichter, glänzendes Violett, giftgrünes Glimmen.
+Alle sechs Karten sind Schatten-Karten mit violettem Leuchten, dazu kaltes Blau vom Eis.
+Stimmung: unheimlich und still, freundliche Gesichter mit leeren Augen, Menschen, die noch nicht ganz verloren sind. Kein Blut, kein Gore.
+Alle Menschen in diesem Set sehen unterschiedlich aus: anderes Gesicht, andere Frisur, anderes Alter.
+
+1. Sporenschwarm: eine Wolke aus Hunderten violetter Sporen mit giftgrün glühenden Kernen treibt durch einen vereisten Metallgang, unter einer roten Warnleuchte. Die Sporen formen grob ein Gesicht mit offenem Mund, als würde die Wolke flüstern.
+2. Vereister Techniker: ein glatzköpfiger, kräftiger Techniker um die sechzig im grauen Arbeitsanzug, halb von Eis überzogen, Reif im grauen Vollbart, feine violette Linien wie Tinte unter der Haut. Er schlurft mit ausgestreckter Hand und einem Schraubenschlüssel durch weißen Nebel auf den Betrachter zu, die Augen freundlich und leer.
+3. Übernommene Drohne: eine große Wartungsdrohne, länglich und kantig, mit roten Warnstreifen und drei Greifarmen, hängt kopfüber von der Decke eines dunklen Gangs. Aus ihren Gelenken wachsen glänzende violette Ranken, ihr einziges Auge leuchtet violett, die Klauen sind gespreizt. Sie ist ein anderes Modell als die runde Drohne auf der Vorlage, die nur den Stil zeigt.
+4. Doktor Lind: eine Ärztin um die vierzig mit rotbraunem, kinnlangem Haar und runder Brille im offenen weißen Laborkittel. Sie schlafwandelt mit geschlossenen Augen durch ein dunkles Labor und hält ein Glasröhrchen mit glimmenden violetten Sporen hoch, als wollte sie es jemandem anbieten. Aus ihrem Rücken führen dünne violette Fäden nach oben ins Dunkel wie Marionettenfäden.
+5. Kommandant Marek: ein Kommandant um die sechzig mit kurzem grauem Haar, grauem Vollbart und dunkelblauer Uniform mit goldenen Schulterstücken. Er steht aufrecht vor einer Säule aus giftgrünem Licht, die Augen geschlossen, den Mund geöffnet, als spräche er. Aus seinem Rücken führen violette Fäden nach oben, und um ihn herum schweben blasse, durchscheinende Gesichter in der Luft, die alle gleichzeitig sprechen.
+6. Der Reaktorchor: eine riesige Gestalt aus glänzenden violetten Wurzeln, die sich aus einem Reaktorschacht erhebt. In ihrem Kopf öffnet sich ein einziges schmales Katzenauge, das gelbgrün leuchtet, und in ihrer Brust pulsiert eine Säule aus giftgrünem Licht wie ein Herz. Ihre Arme bestehen aus Ranken und greifen nach dem Betrachter. Ganz klein unter ihr stehen auf einem Laufsteg in der Bildmitte Menschen in Reihen, mit offenen Mündern, als würden sie für sie singen. Das untere Drittel bleibt ein dunkler Schacht.
+```
+
+**Endgegner-Porträt**
+
+```
+Quadratisches Heldenporträt, 1024 × 1024 Pixel, im selben Stil wie die angehängte Vorlage: gemalt, mit verziertem Goldrahmen und kleinen Edelsteinen oben und unten in der Mitte. Außerhalb des Rahmens reines Grün (#00FF00) zum Freistellen. Im Motiv kein Grün.
+Im Rahmen: der Kopf des Reaktorchors, eine Gestalt aus glänzenden violetten Wurzeln, in der Mitte ein einziges schmales Katzenauge, das bernsteingelb leuchtet. Dahinter Dunkelheit mit violettem Schimmer und kaltem blauem Reif an den Rändern.
+Kein Text, keine Schrift.
+```
+
+**Sonderkarte Doktor Lind**
+
+```
+Sonderkarte zu Nr. 4 „Doktor Lind" aus dem Set „DIE SCHLÄFER", Hochformat 2:3, kein Rahmen, das Bild geht bis an den Rand.
+Dieselbe Ärztin wie auf der angehängten Karte: rotbraunes, kinnlanges Haar, runde Brille, offener weißer Laborkittel. Von der Vorlage nur das Aussehen übernehmen.
+Moment: Sie steht vor einer vereisten Wand voller schwarzem, handgeschriebenem Gekritzel und schreibt mit einem dicken Stift eine letzte Zeile, als wollte sie sich selbst etwas merken. Das Gekritzel ist unleserlich, keine echten Buchstaben. Aus ihrem Rücken spannen sich straffe violette Fäden nach oben ins Dunkel und ziehen sie schon weg, ihre Füße heben gerade vom Boden ab. Ihr Blick ist noch wach und klar, über ihre Wange läuft eine einzelne Träne. Um sie herum treiben violette Sporen mit grün glühenden Kernen, im Hintergrund blinkt eine rote Warnleuchte.
+Licht: kaltes Blauweiß von oben, violettes Leuchten der Fäden, ihr Gesicht hebt sich hell und klar vom dunklen Hintergrund ab.
+Kein Blut, kein Gore. Das untere Drittel bleibt dunkel und ruhig.
+```

@@ -461,7 +461,13 @@ const LORE={
  sonnenwaechter:'Er steht seit vierzig Jahren vor demselben Tor. Gefallen ist es nie.',
  inquisitorin:'Sie sucht die Wahrheit mit dem Schwert. Seit der weißen Kuppel auch mit Fragen.',
  strahlende:'Wenn der Orden ruft, reißen die Wolken auf. Dann kommt er, und es wird sehr still.',
- aurel:'Licht ohne Schatten, Ordnung ohne Glut. Tausend Nächte hat sie gebetet, sich zu irren.'
+ aurel:'Licht ohne Schatten, Ordnung ohne Glut. Tausend Nächte hat sie gebetet, sich zu irren.',
+ sporenschwarm:'Aus der Nähe sind es Hunderte Sporen. Aus der Ferne ein Gesicht, das flüstert.',
+ vereistertechniker:'Er wollte nur kurz das Ventil prüfen. Das war vor neunzig Tagen.',
+ uebernommenedrohne:'Sie repariert noch immer. Sie hat nur vergessen, was heil heißt.',
+ doktorlind:'Du bist Ärztin. Du hast eine Schwester. So steht es an der Wand, in ihrer Schrift.',
+ kommandantmarek:'Er hat befohlen, die Station am Leben zu halten. Jetzt spricht er mit siebenundvierzig Stimmen.',
+ reaktorchor:'Siebenundvierzig Stimmen, ein einziger Hunger.'
 };
 const ACH=[
  {id:'sieg1',t:'Erster Sieg',d:'Gewinne einen Kampf.',g:5,ok:()=>S.wins>=1},

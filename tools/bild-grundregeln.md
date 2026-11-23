@@ -91,7 +91,8 @@ Für Story-Bilder nicht die Karten-Grundregeln benutzen, sonst sehen alle Szenen
 Alle Prompts für Folge 1 liegen in `tools/folge1-bildprompts.md` (Kampagnenkarte, Kapitelbild, 16 Sequenzbilder, 6 Sondermotive).
 - Neue Kampagnenkarte als Stilvorlage eine bisherige Karte mitschicken. Den goldenen Weg danach in `MAP_PATH` (app.js) nachzeichnen, Angaben in Prozent.
 - Sondermotive aus der Geschichte stehen in `STORY_REW` (content.js) und in `STORY_ONLY` (app.js). Sie kommen nicht aus Truhen.
-- Endgegner-Porträt `bilder/helden/reaktording.png` ist aus Ysras Rahmen und dem Sondermotiv „Der Chor“ zusammengesetzt. Ein eigenes Porträt nach den Regeln für Heldenporträts kann es ersetzen.
+- Gegner-Set „Die Schläfer“ (Set-ID `schlaefer`), Endgegner „Der Reaktorchor“ mit Porträt `bilder/helden/reaktorchor.png` (grüner Hintergrund freigestellt, Auge bernsteingelb, damit nichts mit weggeschnitten wird).
+- Linds Sondermotiv gibt es fürs heroisch geschaffte Station Null (`heroSkin` in AREAS).
 
 ## Musik (Suno)
 

@@ -727,6 +727,7 @@ const SETS={
   brut:{n:'Urborkes Wurzelbrut',l:'III',cat:'erde',col:'#4f6a2a',foe:1},
   hof:{n:'Der Hohle Hof',l:'IV',cat:'schatten',col:'#5a2a7a',foe:1},
   orden:{n:'Der Lichtorden',l:'V',cat:'licht',col:'#c8a040',foe:1},
+  schlaefer:{n:'Die Schläfer',l:'VI',cat:'schatten',col:'#4a2a6a',foe:1},
   /* Event-Sets: nie in normalen Truhen, nur aus Eventtruhen des Tages-Events. */
   walgesang:{n:'Walgesang',l:'WG',cat:'wasser',cats:['wasser','schatten'],col:'#1f5f9a',ev:1},
   stationnull:{n:'Station Null',l:'SN',cat:'schatten',cats:['schatten','licht'],col:'#6a3a8a',ev:1},
@@ -780,7 +781,7 @@ const SET_FX={
   abyss:[{hp:.1,atk:.1},{kw:{heilung:5/8}}], schmiede:[{kw:{schild:1/3},atk:.05},{atk1:.25,atk:.05}], mangrove:[{atk:.1,hp:.1},{grow:.015}],
   daemmerung:[{atk:.2,hp:.2},{elem:1.75}], totenwald:[{curse:.03,atk:.1},{revive:.5}], kristall:[{dr1:.2,hp:.1,atk:.1},{mend:.06}],
   erwachen:[{fear:.15,atk:.1},{scare:.2}], luft:[{flyHero:.3,hp:.15,atk:.1},{hp:.1}], raeder:[{hp:.1,atk:.1},{kw:{heilung:.5}}],
-  bruecke:[{hp:.1},{atk:.1,hp:.1}], horde:[{atk:.1},{kw:{einschlag:1}}], gefolge:[{heroHp:.15},{kw:{schild:1}}], brut:[{hp:.1,atk:.1},{kw:{heilung:1}}], hof:[{kw:{rache:1}},{atk:.1,hp:.1}], orden:[{hp:.15,atk:.2},{heroRegen:.03,atk:.1,hp:.1}], perle:[{heroHp:.15,atk:.1,hp:.1},{nets:.05}], variete:[{atk:.05},{curse:.015}], wueste:[{hp:.1,atk:.15},{grow:.025,hp:.1}], orkan:[{atk:.1,hp:.05},{atk1:.15}]
+  bruecke:[{hp:.1},{atk:.1,hp:.1}], horde:[{atk:.1},{kw:{einschlag:1}}], gefolge:[{heroHp:.15},{kw:{schild:1}}], brut:[{hp:.1,atk:.1},{kw:{heilung:1}}], hof:[{kw:{rache:1}},{atk:.1,hp:.1}], orden:[{hp:.15,atk:.2},{heroRegen:.03,atk:.1,hp:.1}], schlaefer:[{hp:.15,atk:.1},{kw:{rache:1}}], perle:[{heroHp:.15,atk:.1,hp:.1},{nets:.05}], variete:[{atk:.05},{curse:.015}], wueste:[{hp:.1,atk:.15},{grow:.025,hp:.1}], orkan:[{atk:.1,hp:.05},{atk1:.15}]
 };
 /* Setbonus-Texte werden aus den Werten erzeugt, damit Text und Wirkung immer übereinstimmen. */
 const KW_LABEL={schild:'Schild',einschlag:'Einschlag',heilung:'Heilung',segen:'Segen',rache:'Rache'};
@@ -967,6 +968,13 @@ const BASE=[
  ['inquisitorin','Inquisitorin','orden',1,5,4,{durchbruch:1}],
  ['strahlende','Der Strahlende','orden',2,5,5,{flug:1}],
  ['aurel','Erzseraphin Aurel','orden',3,5,7,{flug:1,einschlag:1,segen:1}],
+ /* Folge 1: die Gegner von Station Null */
+ ['sporenschwarm','Sporenschwarm','schlaefer',0,3,3,{flug:1}],
+ ['vereistertechniker','Vereister Techniker','schlaefer',0,4,4,{schild:1}],
+ ['uebernommenedrohne','Übernommene Drohne','schlaefer',1,5,4,{durchbruch:1}],
+ ['doktorlind','Doktor Lind','schlaefer',1,3,5,{heilung:1}],
+ ['kommandantmarek','Kommandant Marek','schlaefer',2,4,6,{anfuehrer:1}],
+ ['reaktorchor','Der Reaktorchor','schlaefer',3,5,8,{heilung:2,rache:1}],
  ['fliegendefische','Fliegende Fische','walgesang',0,3,3,{flug:1}],
  ['schattenrochen','Schattenrochen','walgesang',0,3,5,{schild:1},'schatten'],
  ['grindwalschule','Grindwalschule','walgesang',1,3,6,{segen:1}],
@@ -1057,9 +1065,9 @@ const AREAS=[
  {set:'hain',foe:'brut',n:'III · Der Wurzelwald',s:'Moos, Dornen und die älteste Eiche.',img:'kapitel-4',unl:['dornenhirsch','wurzelhueter','rudelfuehrerin']},
  {set:'nacht',foe:'hof',n:'IV · Das Hohle Reich',s:'Krähen, Gräber und der Hohle König.',img:'kapitel-3',unl:['grabkriecher','schattendolch','kraehenschwarm']},
  {set:'sonne',foe:'orden',n:'V · Die Sonnenwacht',s:'Der Orden des Lichts und seine Erzseraphin.',img:'kapitel-5',unl:['sonneneinhorn','lichtritter','sonnenloewe'],fin:'Die Erzseraphin ist gefallen',end:'ende'},
- /* Folge 1 der Kampagne nach dem Prolog. Gegner kommen aus Station Null selbst, ohne Juna und K-7 (die sind auf deiner Seite).
+ /* Folge 1 der Kampagne nach dem Prolog. Gegner sind „Die Schläfer“. Wer alles heroisch schafft, bekommt das Set und Linds Sondermotiv (heroSkin).
     Karten gibt es hier nicht über Freischalt-Gefechte, sondern zusammen mit den Sondermotiven aus der Geschichte (STORY_REW). */
- {set:'stationnull',foe:'stationnull',ex:['kryoschlaeferin','androidin'],ep:'Folge 1',n:'Folge 1 · Station Null',s:'Kälte, Sporen und das Ding im Reaktor.',img:'kapitel-6',unl:[],fin:'Das Ding ist gebunden',end:'f1ende'}
+ {set:'stationnull',foe:'schlaefer',ep:'Folge 1',heroSkin:[['doktorlind',1]],n:'Folge 1 · Station Null',s:'Kälte, Sporen und das Ding im Reaktor.',img:'kapitel-6',unl:[],fin:'Das Ding ist gebunden',end:'f1ende'}
 ];
 /* Kampagne: 16 Gefechte je Gebiet. Die alten 8 Gefechte liegen auf den geraden Plätzen, dazwischen je ein leichteres neues. */
 const STAGES_PER=16;
@@ -1080,12 +1088,12 @@ const STAGE_NAMES_NEW=[
 const STAGE_NAMES=[]; for(let a=0;a<5;a++) for(let k=0;k<8;k++){ STAGE_NAMES.push(STAGE_NAMES_NEW[a*8+k],STAGE_NAMES_OLD[a*8+k]); }
 /* Folge 1: Station Null, je vier Gefechte in Andockschleuse, Kälteschlafkammer, Laboren und Reaktorkern. */
 STAGE_NAMES.push('Die Schleuse','Ring A','Die Namenswand','Schicht sieben','Der Kapselsaal','Kapsel zwölf','Kältenebel','Die Treppenschächte',
- 'Die Sammlung','Das Türprotokoll','Die Brutschränke','Der dritte Ring','Die warme Treppe','Laufsteg der Schläfer','Notkühlung','Das Ding im Reaktor');
+ 'Die Sammlung','Das Türprotokoll','Die Brutschränke','Der dritte Ring','Die warme Treppe','Laufsteg der Schläfer','Notkühlung','Der Reaktorchor');
 const UNLOCK_SLOTS=[3,8,13]; /* Gefecht 4, 9 und 14 eines Gebiets schalten je eine Karte frei. */
 /* Werte der alten 8 Gefechte; die neuen Zwischengefechte übernehmen die Werte des vorigen alten Gefechts (leichter). */
 const RMAX8=[[0,0,0,0,0,0,0,0],[0,0,0,1,1,1,1,1],[0,0,1,1,1,2,2,1],[0,0,0,1,1,1,1,1],[0,0,1,1,1,2,2,1],[0,0,1,1,1,1,1,1]];
-const AREA_LVL8=[[1,2,2,3,3,3,3,1],[5,5,5,5,4,4,4,4],[9,9,9,7,7,7,6,6],[11,10,9,10,10,9,9,10],[16,16,16,15,14,14,13,11],[19,20,21,22,22,22,23,20]];
-const AREA_SIZE8=[[3,3,4,4,4,5,5,5],[3,4,4,5,5,5,5,6],[5,6,6,7,7,7,7,6],[6,6,7,6,7,8,7,6],[4,5,5,6,6,6,6,7],[5,5,6,6,7,6,7,7]];
+const AREA_LVL8=[[1,2,2,3,3,3,3,1],[5,5,5,5,4,4,4,4],[9,9,9,7,7,7,6,6],[11,10,9,10,10,9,9,10],[16,16,16,15,14,14,13,11],[19,20,20,20,19,19,20,17]];
+const AREA_SIZE8=[[3,3,4,4,4,5,5,5],[3,4,4,5,5,5,5,6],[5,6,6,7,7,7,7,6],[6,6,7,6,7,8,7,6],[4,5,5,6,6,6,6,7],[5,5,6,6,6,6,6,7]];
 const x16=(T,first)=>T.map((r,a)=>r.flatMap((v,k)=>[k?Math.min(r[k-1],v):first(v,a),v]));
 const RMAX=x16(RMAX8,v=>v), AREA_LVL=x16(AREA_LVL8,(v,a)=>a?AREA_LVL8[a-1][7]-1:v), AREA_SIZE=x16(AREA_SIZE8,v=>Math.max(3,v-1));
 const STAGES=STAGE_NAMES.map((n,k)=>{
@@ -1706,7 +1714,13 @@ const LORE={
  sonnenwaechter:'Er steht seit vierzig Jahren vor demselben Tor. Gefallen ist es nie.',
  inquisitorin:'Sie sucht die Wahrheit mit dem Schwert. Seit der weißen Kuppel auch mit Fragen.',
  strahlende:'Wenn der Orden ruft, reißen die Wolken auf. Dann kommt er, und es wird sehr still.',
- aurel:'Licht ohne Schatten, Ordnung ohne Glut. Tausend Nächte hat sie gebetet, sich zu irren.'
+ aurel:'Licht ohne Schatten, Ordnung ohne Glut. Tausend Nächte hat sie gebetet, sich zu irren.',
+ sporenschwarm:'Aus der Nähe sind es Hunderte Sporen. Aus der Ferne ein Gesicht, das flüstert.',
+ vereistertechniker:'Er wollte nur kurz das Ventil prüfen. Das war vor neunzig Tagen.',
+ uebernommenedrohne:'Sie repariert noch immer. Sie hat nur vergessen, was heil heißt.',
+ doktorlind:'Du bist Ärztin. Du hast eine Schwester. So steht es an der Wand, in ihrer Schrift.',
+ kommandantmarek:'Er hat befohlen, die Station am Leben zu halten. Jetzt spricht er mit siebenundvierzig Stimmen.',
+ reaktorchor:'Siebenundvierzig Stimmen, ein einziger Hunger.'
 };
 const ACH=[
  {id:'sieg1',t:'Erster Sieg',d:'Gewinne einen Kampf.',g:5,ok:()=>S.wins>=1},
@@ -1830,7 +1844,8 @@ const SKINS={}; ['funkenwicht','glutwolf','brandbogner','flammenhexe','schlacken
 SKINS.mitternachtsfuerstin=2; SKINS.lichtritter=2; SKINS.leuchtturmwaerterin=1;
 /* Station Null: Sondermotive aus Folge 1. Sie gibt es nur in der Geschichte (STORY_REW), nicht in Truhen. */
 ['wartungsdrohne','sporenbrut','infizierter','androidin','reaktording'].forEach(id=>SKINS[id]=1); SKINS.kryoschlaeferin=2;
-const STORY_ONLY={wartungsdrohne:[1],sporenbrut:[1],infizierter:[1],androidin:[1],reaktording:[1],kryoschlaeferin:[2]};
+SKINS.doktorlind=1; /* Gegner-Karte: Motiv kommt mit dem heroisch geschafften Gebiet (heroSkin in AREAS). */
+const STORY_ONLY={wartungsdrohne:[1],sporenbrut:[1],infizierter:[1],androidin:[1],reaktording:[1],kryoschlaeferin:[2],doktorlind:[1]};
 ['wahrsagerin','pilzhueterin','ghul','netzflickerin','fischerin','zirkusdirektor','fliegerass','totenherrin','dschinn','abgrundkoenigin','messingkoloss','runenschmiedin','messerwerferin','sphinx','geisterschiff','erwachter','schwanenritter','enterkapitaen','eklipsenwaechter','vampirjaegerin','himmelsschiff','mangrovenriese','tiefenkrake'].forEach(id=>SKINS[id]=1);
 const SKIN_NAMES={mitternachtsfuerstin:['Fürstin','Fürst'],lichtritter:['Ritter','Ritterin'],kryoschlaeferin:['Ansteckung','Der Sprung']};
 for(const id in SKINS) for(let v=1;v<=SKINS[id];v++) ART[id+'-s'+(v>1?v:'')]=`bilder/${id}-s${v>1?v:''}.jpg`;
@@ -2661,6 +2676,7 @@ function resultHTML(){
   if(r.items&&r.items.length) lines+=`<div class="ichips">${itemsLine(r.items)}</div>`;
   if(r.promo) lines+=`<p class="r-line">Aufstieg in die ${r.promo}</p>`;
   if(r.foeSet) lines+=`<p class="r-line">👑 Gebiet heroisch bezwungen: das Set „${r.foeSet}“ gehört jetzt dir!</p>`;
+  if(r.foeSkin) lines+=`<p class="r-line">✦ Dazu ein Sondermotiv für ${r.foeSkin}.</p>`;
   if(r.champ) lines+=`<p class="r-line">🏆 Kartenrücken „Champion“ freigeschaltet!</p>`;
   if(r.demo) lines+=`<p class="r-line">Abstieg in die ${r.demo}</p><p class="muted">Du startest in der Mitte der Liga.</p>`;
   if(r.xp) lines+=`<p class="r-line"><span class="xpi">EP</span>+${r.xp} Erfahrung${r.lvup?` <small>Level ${r.lvup} erreicht!</small>`:''}</p>`;
@@ -2788,7 +2804,8 @@ function finish(){
       if(r.stars>prev) store[st.id]=r.stars;
       /* Alle 16 Gefechte eines Gebiets heroisch mit 3 Sternen: das Gegner-Set gehört dir. */
       if(H){ const A=AREAS[st.area], all=STAGES.filter(x=>x.area===st.area).every(x=>S.hstars[x.id]===3);
-        if(all&&!S.foeSets.includes(A.foe)){ S.foeSets.push(A.foe); BASE.filter(c=>c.set===A.foe).forEach(c=>{ if(!S.cards[c.id]) S.cards[c.id]={lvl:1,star:1,dup:0}; }); r.foeSet=SETS[A.foe].n; } }
+        if(all&&!S.foeSets.includes(A.foe)){ S.foeSets.push(A.foe); BASE.filter(c=>c.set===A.foe).forEach(c=>{ if(!S.cards[c.id]) S.cards[c.id]={lvl:1,star:1,dup:0}; }); r.foeSet=SETS[A.foe].n;
+          (A.heroSkin||[]).forEach(([id,v])=>{ if(!ownSkins(id).includes(v)){ S.skins[id]=ownSkins(id).concat(v).sort(); S.skinOn[id]=v; (S.skinNew=S.skinNew||{})[id]=1; r.foeSkin=CARD[id].n; } }); } }
       if(!H&&!prev){
         if(st.unlock){ if(!S.unlocked.includes(st.unlock)) S.unlocked.push(st.unlock); if(!S.cards[st.unlock]) S.cards[st.unlock]={lvl:1,star:1,dup:0}; r.unlock=st.unlock; }
         if(st.boss){ if(!S.setsOpen.includes(st.set)) S.setsOpen.push(st.set); r.setOpen=st.set; r.chests.push('gold'); r.src='kampagne'; S.gems+=GEM_BOSS; r.gems=GEM_BOSS; }
@@ -3120,7 +3137,7 @@ function start(data){
 if('serviceWorker' in navigator&&window.top===window&&/^https?:$/.test(location.protocol)&&!/claude/.test(location.hostname)){
   const had=!!navigator.serviceWorker.controller;
   navigator.serviceWorker.register('sw.js').catch(()=>{});
-  navigator.serviceWorker.addEventListener('controllerchange',()=>{ if(!had||document.querySelector('.newver')) return; const b=document.createElement('button'); b.className='newver'; b.textContent='Neue Version da · Tippen zum Laden'; b.onclick=()=>location.reload(); document.body.appendChild(b); });
+  navigator.serviceWorker.addEventListener('controllerchange',()=>{ if(!had||document.querySelector('.newver')) return; const b=document.createElement('button'); b.className='newver'; b.textContent='Neue Version vorhanden · Tippen zum Laden'; b.onclick=()=>location.reload(); document.body.appendChild(b); });
 }
 window.claude?.hot?.snapshot?.(()=>({save:S,tab}));
 if(window.claude?.hot?.ready) window.claude.hot.ready(start); else start(window.claude?.hot?.data??{});
