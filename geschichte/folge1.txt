@@ -171,7 +171,7 @@ Hinter Haberland, im Halbdunkel des Gangs, gehen weitere Türen auf.
 ## Ring A
 [Musik: Ein tiefer, pochender Rhythmus wie ein Herzschlag durch eine Stahlwand. Darüber ein hohes, dünnes Pfeifen.]
 Hier musst du kämpfen.
-In den Lüftungsschächten wächst etwas. Es sind violette Ranken, dick wie Seile, mit glänzenden Kapseln daran, in denen ein grünes Licht pulsiert. Wenn man ihnen zu nahe kommt, platzen sie auf und spucken Sporen in die Luft. Aus den Türen kommen Leute in grauen Anzügen. Sie sind langsam, freundlich und ganz und gar nicht mehr sie selbst. Sie wollen dir nichts tun. Sie wollen nur deine Wärme.
+In den Lüftungsschächten wächst etwas. Es sind violette Ranken, dick wie Seile, mit glänzenden Kapseln daran, in denen ein grünes Licht pulsiert. Wenn man ihnen zu nahe kommt, platzen sie auf und spucken Sporen in die Luft. Manchmal ballen sich die Sporen zu einer Wolke, die aussieht wie ein Gesicht mit offenem Mund, und dann hörst du sie flüstern. Aus den Türen kommen Leute in grauen Anzügen. Sie sind langsam, freundlich und ganz und gar nicht mehr sie selbst. Sie wollen dir nichts tun. Sie wollen nur deine Wärme.
 Du legst deine Karten aus, und sie erwachen wie immer. Aber hier brennen sie kleiner. Die Glutwölfe ziehen die Köpfe ein, und die Flammen der Brandbogner werden blass, kaum dass sie aus der Karte treten. Diese Welt hat nichts für Feuer übrig.
 Brummer hilft auf seine Weise. Er schwebt über euch und leuchtet in die Ecken, in denen etwas wartet, und jedes Mal, wenn eine Kapsel platzt, piept er empört.
 Haberland kämpft nicht. Als die anderen zu Boden gehen, bleibt er einfach stehen, die Bürste in der Hand, und sieht dich an. Dann kniet er sich wieder hin und schrubbt dieselbe Stelle.
@@ -281,7 +281,8 @@ Funke drückt sich tiefer in deine Hände, bis nur noch seine Flamme herausschau
 FUNKE: Aber deine Hände sind warm. (kleiner) Das ist das Gute dran. Ich such mir immer das Gute dran.
 * * *
 Lange dürft ihr nicht ruhen. Die Kapsel hat beim Öffnen zu viel Wärme in die Luft gelassen, und die Station hat es bemerkt.
-Hier musst du kämpfen. Aus den Lüftungsschlitzen über den leeren Kapseln wachsen Ranken, die der Wärme folgen wie Blumen dem Licht. Von unten, aus den Treppenschächten, kommen Schritte, langsam und gleichmäßig, von Leuten in grauen Anzügen, die nicht mehr wissen, wie sie heißen, wohl aber, wo es warm ist.
+Hier musst du kämpfen. Aus den Lüftungsschlitzen über den leeren Kapseln wachsen Ranken, die der Wärme folgen wie Blumen dem Licht. Von unten, aus den Treppenschächten, kommen Schritte, langsam und gleichmäßig, von Leuten in grauen Anzügen, die nicht mehr wissen, wie sie heißen, wohl aber, wo es warm ist. Der Erste ist ein kräftiger Techniker mit Glatze, halb von Eis überzogen, mit Reif im grauen Bart. Er lächelt freundlich, streckt dir die Hand entgegen und hält in der anderen noch immer seinen Schraubenschlüssel.
+Von der Decke lassen sich Drohnen herab, länger und kantiger als Brummer, mit roten Warnstreifen und drei Greifarmen. Aus ihren Gelenken wachsen violette Ranken, und ihre Augen leuchten violett. Brummer piept sie an, empört und ein bisschen ängstlich. Sie antworten nicht.
 Juna kämpft neben dir. Sie zittert noch, aber ihr Gewehr ist ruhig. Wenn sie schießt, ist es kein Feuer, sondern ein grelles, weißes Licht. Die Ranken weichen davor zurück wie vor einem Messer.
 Nach dem letzten Kampf lehnt sie sich an die Wand, schwer atmend, und betrachtet die Karten in deiner Hand.
 JUNA: Was sind das?
@@ -398,9 +399,10 @@ FUNKE: (bricht ab, ganz klein) Er wollte doch bloß was heil machen.
 Du hältst ihn fest, und er wehrt sich nicht mehr. Seine Flamme ist kaum noch zu sehen.
 * * *
 Hier musst du kämpfen. In den Brutschränken des Labors ist etwas gewachsen, das nie hätte wachsen dürfen, und hinter den Glasscheiben platzen Kapseln, eine nach der anderen. Leute in weißen Kitteln, auf deren Namensschildern Doktor steht, kommen aus den Nebenräumen. Sie haben ihre Brillen noch auf, und sie bewegen sich, als wären sie mitten in einem Versuch, den sie nicht mehr zu Ende bringen können.
+Eine von ihnen geht mit geschlossenen Augen. Sie hat rotbraunes Haar und eine runde Brille, und sie hält dir ein Glasröhrchen mit glimmenden Sporen hin, freundlich, wie man einem Kranken seine Arznei reicht. Aus ihrem Rücken laufen dünne violette Fäden nach oben ins Dunkel.
 Juna schießt nicht auf sie. Sie schießt auf das Gewächs, auf die Kapseln und auf die Ranken. Die Leute in den Kitteln stößt sie nur zurück, mit dem Kolben, so behutsam, wie es eben geht.
-JUNA: (zwischen zwei Schüssen) Das ist Doktor Ahrens. Die hat mir mal den Arm geschient. (ein Schuss) Die hat eine Schwester.
-Du denkst an die Wand in Ring A. Du bist Ärztin. Du hast eine Schwester.
+JUNA: (zwischen zwei Schüssen) Das ist Doktor Lind. Die hat mir mal den Arm geschient. (ein Schuss) Sie war doch unten. K-7 hat sie selbst runtergebracht. (leiser) Manche kommen wieder herauf.
+Du denkst an die Wand in Ring A. Petra Lind. Du bist Ärztin. Du hast eine Schwester.
 Ganz unten im dritten Ring liegt die Treppe zum Reaktor. Ein gelbes Warnzeichen leuchtet über ihr. Von unten steigt etwas herauf, das du seit eurer Ankunft nicht mehr gespürt hast.
 Wärme.
 #T Vision|Der Gang
@@ -450,7 +452,7 @@ Ganz vorn steht ein Mann mit grauem Bart. Auf seiner Uniform steht: Kommandant M
 Seda bleibt in der Tür stehen, als wäre sie gegen eine Wand gelaufen.
 Du weißt, was sie sieht. Nicht diese Halle, sondern eine andere, weiß und hell, unter der Sonnenwacht. Hunderte Menschen, die dort standen, still und lächelnd, und darunter ihre Mutter.
 SEDA: (flüstert) Sie leben.
-JUNA: (kaum hörbar) Lind. Tomasz. Okafor. (ihre Stimme bricht) Marek.
+JUNA: (kaum hörbar) Tomasz. Okafor. Die halbe Schicht B. (ihre Stimme bricht) Marek.
 Funke reckt sich in deinen Händen. Er ist jetzt fast so groß wie früher, und seine Flamme knistert.
 FUNKE: Ich kann das verbrennen. Alles. Das ganze Zeug. Hier ist es warm genug, gib mir nur eine Minute ...
 SEDA: Nein!
@@ -462,6 +464,7 @@ Funke nickt und zieht seine Flamme zurück, bis sie nur noch leise knistert.
 [Geräusch: Der Atem der Halle setzt aus. Stille. Dann öffnen sich viele Münder gleichzeitig, ein feuchtes, leises Geräusch.]
 Die Schläfer öffnen die Augen nicht. Aber sie öffnen die Münder, alle zugleich, und sprechen.
 DAS DING: (aus allen Mündern, ruhig und freundlich, ein Chor aus Männern und Frauen, jungen und alten Stimmen) Willkommen zurück.
+JUNA: (heiser) Der Reaktorchor. So hat Marek es in seinen letzten Einträgen genannt. (eine Pause) Ich dachte, das wäre ein Witz.
 Juna reißt das Gewehr hoch. Seda tritt vor dich. K-7 bleibt stehen, wo sie ist, und lächelt.
 DAS DING: Du riechst nach Zuhause. (die Stimmen seufzen, alle im selben Moment) Du hast den Rest von mir in der Tasche.
 Der Glutstein ist heiß. So heiß wie noch nie, seit du ihn hast. Du spürst ihn durch den Stoff hindurch an deiner Hüfte, wie eine Hand, die sich nach etwas ausstreckt.
@@ -519,10 +522,11 @@ Unter deinem Umhang regt sich Funke. Seine Stimme ist so dünn wie ein Faden.
 FUNKE: Hör nicht hin.
 DU: Ich hör nicht hin.
 Du ziehst die Hand aus der Tasche. Nicht mit dem Stein darin, sondern mit deinen Karten.
-## Das Ding im Reaktor
+## Der Reaktorchor
 [Musik: Das Endgegner-Thema, aber fremd und kalt, mit einem metallischen Pochen darunter, als schlüge jemand von innen gegen eine Stahlwand.]
 Hier musst du kämpfen, und es ist der schwerste Kampf dieser Nacht.
 Das Ding sammelt alles, was ihm geblieben ist. Aus dem Gewächs reißen sich Arme, dick wie Baumstämme, und schlagen nach dir. Kapseln platzen und füllen die Luft mit leuchtendem Staub. Brummer stürzt sich mit ausgefahrenen Greifarmen auf dich, kalt, violett und ohne einen Laut.
+Noch einmal reißt das Ding die Schläfer hoch. Kommandant Marek richtet sich im Reif auf, die Arme ausgebreitet, die Augen geschlossen, und aus seinem Mund kommen alle Stimmen zugleich. Um ihn herum schweben blasse Gesichter in der Luft und singen. Über allem erhebt sich das Ding selbst, eine Gestalt aus Wurzeln mit Armen aus Ranken und einem einzigen schmalen Katzenauge. In seiner Brust pulsiert die grüne Säule wie ein Herz.
 Juna steht hinter dir und schießt, bis ihr Gewehr glüht. Seda hält mit dem Schwert die Arme ab, die nach deiner Tasche greifen. K-7 steht am Hebel und hält ihn mit beiden Händen unten, obwohl die Stränge an ihren Beinen hinaufkriechen und Reif auf ihrem Gesicht wächst. Sie lächelt dabei.
 Du legst deine Karten aus, eine nach der anderen. In dieser Kälte brennen deine Feuerkarten kaum, aber du hast nicht nur Feuer. Du hast die Gezeitenwache und die Nebelheilerin, den Dornenhirsch, den Schattendolch und den Lichtritter, und keiner von ihnen fürchtet sich vor der Kälte.
 Am Ende steht nur noch die grüne Säule, und um sie herum ein Knäuel aus Violett, das sich windet und zittert, kleiner und kleiner, wie ein Tier in einer Falle.
@@ -572,7 +576,7 @@ SEDA: (leise) Er atmet.
 Sie geht zum Nächsten und zum Übernächsten. Bei jedem hält sie die Hand vor den Mund, und bei jedem nickt sie.
 SEDA: Sie atmen. Alle.
 JUNA: Wie viele?
-K-7: Siebenundvierzig hier unten. (sie hat sie längst gezählt) Und oben noch einige mehr. Die hole ich nach. Herrn Haberland zuerst.
+K-7: Siebenundvierzig hier unten. (sie hat sie längst gezählt) Und oben noch einige mehr. Die hole ich nach. Herrn Haberland zuerst, dann Doktor Lind.
 JUNA: Und Kapseln haben wir zwölf.
 K-7: Ich brauche keine Kapseln, Offizierin Kade. (sie sieht hinauf in die dunkle Halle, auf den Reif an den Wänden und das schwache, rote Notlicht) Ich lasse es kalt. Die ganze Station. Kälte hält sie, das haben Sie selbst gesagt. Ich lasse es kalt, bis Hilfe kommt. Richtige Hilfe, von ihrer eigenen Welt.
 Juna steht auf. Sie ist noch wacklig, aber ihre Stimme ist fest.
@@ -580,7 +584,7 @@ JUNA: Dann bleib ich hier. Das ist meine Crew.
 K-7: (freundlich) Sie würden erfrieren.
 JUNA: Dann frier ich mich wieder ein. In Kapsel zwölf.
 K-7: Dann würden Sie im Schlaf weiter vergessen. (sanft) Es ist still in Ihnen, Offizierin Kade, aber es ist nicht fort. Kälte hält es auf. Sie heilt es nicht.
-Juna will etwas sagen und schweigt. Sie blickt auf Marek, auf Lind und auf die vielen Gesichter unter dem Reif. Dann dreht sie sich zu dir um.
+Juna will etwas sagen und schweigt. Sie blickt auf Marek, auf Tomasz und Okafor und auf die vielen Gesichter unter dem Reif. Dann dreht sie sich zu dir um.
 JUNA: Euer Riss. Da drüben ist das, womit das hier angefangen hat. Die Feder, das Hufeisen, die warme Asche. (sie sieht dich lange an) Und du. Besucher Null.
 DU: Ich war das nicht.
 JUNA: Dann will ich wissen, wer es war. (eine Pause) Und wer du bist.
@@ -719,13 +723,17 @@ Achtung, ab hier wird alles verraten. Diese Seiten sind für dich als Autor, nic
 - Kann Juna ihre Erinnerungen zurückbekommen? Die Seelenhändlerin handelt mit Erinnerungen.
 - Wer sitzt im Luftschiff? Merle sagt: eins nach dem anderen.
 ## Wo es im Spiel hinpasst
-- Ein Gebiet mit 16 Gefechten in den vier Räumen, die es schon gibt: Andockschleuse (1–4), Kälteschlafkammer (5–8), Labore (9–12), Reaktorkern (13–16). Endgegner ist das Ding im Reaktor.
-- Die sechs Karten von Station Null sind schon die Besetzung: die Kryo-Schläferin ist Juna, die Wartungsdrohne ist Brummer, die Androidin ist K-7, der Infizierte ist Haberland, und das Ding im Reaktor ist der Endgegner. Nur die Sporenbrut ist namenlos.
+- Ein Gebiet mit 16 Gefechten in den vier Räumen, die es schon gibt: Andockschleuse (1–4), Kälteschlafkammer (5–8), Labore (9–12), Reaktorkern (13–16). Endgegner ist der Reaktorchor.
+- Die sechs Karten von Station Null sind schon die Besetzung: die Kryo-Schläferin ist Juna, die Wartungsdrohne ist Brummer, die Androidin ist K-7, der Infizierte ist Haberland, und das Ding im Reaktor bekommst du, wenn du es bindest. Nur die Sporenbrut ist namenlos.
+- Die Gegner sind „Die Schläfer“, ein eigenes Set wie Ormaks Horde: Sporenschwarm, Vereister Techniker, Übernommene Drohne, Doktor Lind, Kommandant Marek und der Reaktorchor. Juna, K-7 und Brummer kämpfen nie gegen dich. Wer Station Null heroisch schafft, bekommt das Set und dazu Linds Sondermotiv.
 - Juna wird Gold, K-7 wird Silber. Die Werte folgen der Seltenheit von selbst, die Fähigkeiten bleiben.
 - Sequenzen: Intro am Leuchtturm und die Überfahrt, je ein Anfang für die vier Räume, die Story-Momente (Brummer, K-7 wartet, Juna erwacht, die Aufzeichnung, Brummer wird geholt, die Vision), der Endgegner, das Finale und der Epilog.
-- Alle Bilder sind fertig: Kampagnenkarte, Kapitelbild, 16 Sequenzbilder und 6 neue Sondermotive.
+- Alle Bilder sind fertig: Kampagnenkarte, Kapitelbild, 16 Sequenzbilder, das Gegner-Set mit Endgegner-Porträt und 7 neue Sondermotive.
 - Dialoge vor den Gefechten können K-7, Juna, Haberland und die Stimme der Station übernehmen. Das Ding spricht im Chor.
 ## Die Sondermotive
-Jedes Sondermotiv zeigt den großen Moment einer Figur und gibt es als feste Belohnung direkt nach der passenden Szene. Juna hat zwei.
+Jedes Sondermotiv zeigt den großen Moment einer Figur und gibt es als feste Belohnung direkt nach der passenden Szene. Juna hat zwei. Linds Motiv gibt es, wenn du Station Null heroisch schaffst.
 @gallery
+## Die Schläfer
+Das Gegner-Set von Station Null: die Besatzung und die Maschinen, die der Hunger übernommen hat. Dazu das Porträt des Reaktorchors für seinen Auftritt vor dem Endkampf.
+@gallery schlaefer
 
