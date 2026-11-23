@@ -1,3 +1,6 @@
 shots/
 __pycache__/
 .DS_Store
+tools/sprache/schnittliste.json
+tools/sprache/vox.json
+tools/sprache/__pycache__/
