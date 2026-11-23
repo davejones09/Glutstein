@@ -663,6 +663,7 @@ img.pt.bi-pt{width:min(46vh,240px);height:min(46vh,240px);filter:drop-shadow(0 0
 .conds li{padding:6px 10px;border-radius:8px;background:rgba(214,168,72,.12);border:1px solid rgba(214,168,72,.4);font-weight:700}
 .conds li::before{content:"⚑ ";color:#e8c46a}
 .lendb{position:absolute;left:50%;top:38%;transform:translateX(-50%) rotate(-8deg);z-index:4;padding:2px 7px;border-radius:5px;background:rgba(40,90,160,.92);color:#fff;font:800 10px/1.2 var(--body);letter-spacing:.03em;box-shadow:0 1px 4px rgba(0,0,0,.6)}
+.pback{display:block;width:100%;height:100%;aspect-ratio:2/3;border-radius:6px;background:var(--ruecken) center/cover no-repeat;box-shadow:0 2px 6px rgba(0,0,0,.6)}
 </style>
 </head>
 <body>
@@ -1799,9 +1800,9 @@ const CHESTS={
 };
 /* Seltenheit der Kreaturen nach Spielerlevel: Stützpunkte bei Level 1, 10, 20 und 30, dazwischen gleichmäßig. Ab 30 fest. */
 const CHEST_ODDS={
-  holz:[[1,[95,5,0,0]],[10,[85,13,2,0]],[20,[77,18,4,1]],[30,[70,22,7,1]]],
-  silber:[[1,[85,15,0,0]],[10,[68,26,6,0]],[20,[55,31,11,3]],[30,[45,35,15,5]]],
-  gold:[[1,[65,30,5,0]],[10,[45,38,15,2]],[20,[30,41,23,6]],[30,[20,40,28,12]]]
+  holz:[[1,[95,5,0,0]],[10,[85,13,2,0]],[25,[77,18,4,1]],[50,[74,20,5,1]],[100,[70,22,7,1]]],
+  silber:[[1,[85,15,0,0]],[10,[68,26,6,0]],[25,[55,31,11,3]],[50,[50,33,13,4]],[100,[45,35,15,5]]],
+  gold:[[1,[65,30,5,0]],[10,[45,38,15,2]],[25,[30,41,23,6]],[50,[25,41,25,9]],[100,[20,40,28,12]]]
 };
 function chestOdds(type,lv){
   const P=CHEST_ODDS[type]; lv=lv||S.plvl; if(lv<=P[0][0]) return P[0][1].slice(); if(lv>=P[P.length-1][0]) return P[P.length-1][1].slice();
@@ -1822,8 +1823,10 @@ const ITEM_PRE={feuer:'Glut',wasser:'Gischt',erde:'Wurzel',schatten:'Nacht',lich
 function itemName(cat,q){ return ITEM_PRE[cat]+ITEM_Q[q]; }
 const SKIP_CHANCE={holz:.05,silber:.1,gold:.2};
 /* Spielerlevel: Erfahrung aus Kämpfen und Tagesaufgaben. Höheres Level, bessere Kreaturen in Truhen. */
-const PMAX=40, XP={win:15,star:5,arena:10,lose:2,daily:30};
-function xpNeed(L){ return 80+40*(L-1); }
+/* Kartenbinder-Level bis 100: am Anfang schnell (Level 10 nach gut 1000 XP), ab etwa 40 deutlich langsamer. */
+const PMAX=100, XP={win:15,star:5,arena:10,lose:2,daily:30}, LV_MILE=[25,50,75,100], LV_GEMS=25;
+function xpNeed(L){ return Math.round(60+4*Math.pow(L-1,1.75)); }
+function lvChest(L){ return LV_MILE.includes(L)?'gold':(L<=20?L%5===0:L%10===0)?'silber':null; }
 /* Kartenrücken: rein optisch, für Glutsteine. */
 const BACKS={standard:{n:'Glutstein',p:0},abyss:{n:'Tiefsee',p:40},schmiede:{n:'Zwergenschmiede',p:40},mangrove:{n:'Mangroven',p:40},daemmerung:{n:'Dämmerung',p:40},totenwald:{n:'Totenwald',p:40},erwachen:{n:'Das Erwachen',p:40},kristall:{n:'Kristallsee',p:40},raeder:{n:'Räderwerk',p:40},
   glut:{n:'Glut',p:40},flut:{n:'Flut',p:40},hain:{n:'Hain',p:40},nacht:{n:'Nacht',p:40},sonne:{n:'Sonne',p:40},luft:{n:'Wolkenhimmel',p:40},
@@ -1963,12 +1966,12 @@ function addGold(n){ if(n<=0) return; S.gold+=n; track('gold',n); }
 let LVUP=[];
 function addXp(n){
   if(S.plvl>=PMAX||n<=0) return; S.xp+=n;
-  while(S.plvl<PMAX&&S.xp>=xpNeed(S.plvl)){ S.xp-=xpNeed(S.plvl); S.plvl++; const g=50*S.plvl, chest=S.plvl%5===0; addGold(g); if(chest) S.chests.push({type:'silber'}); LVUP.push({lv:S.plvl,g,chest}); }
+  while(S.plvl<PMAX&&S.xp>=xpNeed(S.plvl)){ S.xp-=xpNeed(S.plvl); S.plvl++; const g=100+20*S.plvl, chest=lvChest(S.plvl), gems=LV_MILE.includes(S.plvl)?LV_GEMS:0; addGold(g); if(chest) S.chests.push({type:chest}); if(gems) S.gems+=gems; LVUP.push({lv:S.plvl,g,chest,gems}); }
   if(S.plvl>=PMAX) S.xp=0;
 }
 function showLvUp(){
   if(!LVUP.length||B||SQ||!$('#sheet').hidden) return; const u=LVUP.shift();
-  openSheet(`<div class="lvup"><p class="eyebrow">Aufstieg</p><b class="lvnum">${u.lv}</b><h2>Kartenbinder-Level ${u.lv}</h2><p class="r-line"><span class="coin"></span>+${u.g} Gold</p>${u.chest?'<p class="r-line"><img src="bilder/truhe-silber.png" alt="" width="34" height="34">Silbertruhe <small>liegt im Laden</small></p>':''}<p class="muted">In Truhen stecken jetzt öfter bessere Kreaturen.</p><button class="btn primary" data-act="close">Weiter</button></div>`);
+  openSheet(`<div class="lvup"><p class="eyebrow">Aufstieg</p><b class="lvnum">${u.lv}</b><h2>Kartenbinder-Level ${u.lv}</h2><p class="r-line"><span class="coin"></span>+${u.g} Gold</p>${u.chest?`<p class="r-line"><img src="bilder/truhe-${u.chest}.png" alt="" width="34" height="34">${CHESTS[u.chest].n} <small>liegt im Laden</small></p>`:''}${u.gems?`<p class="r-line"><span class="gem"></span>+${u.gems} Glutsteine <small>Meilenstein!</small></p>`:''}<p class="muted">In Truhen stecken jetzt öfter bessere Kreaturen.</p><button class="btn primary" data-act="close">Weiter</button></div>`);
   sfx('coin'); jingle('aufstieg');
 }
 
@@ -2365,7 +2368,7 @@ function chValid(w){ const d=chDeck(w), R=RULE[w.rid]; return d.length>=DECK_MIN
 function chObjs(w){ return chDeck(w).map(id=>({id,lvl:S.cards[id].lvl,star:S.cards[id].star,skin:skinOn(id)})); }
 /* Gegner: Stärke nach Kartenbinder-Level, jeder der drei Kämpfe etwas härter. */
 function chEnemy(w,k,pd){
-  const R=RULE[w.rid], q=Math.min(1,S.plvl/40+k*.07), seed=weekNo()*101+RULES.indexOf(R)*17+k, base=botDeck(seed,q), lvl=Math.round(base.reduce((x,c)=>x+c.lvl,0)/base.length);
+  const R=RULE[w.rid], q=Math.min(1,S.plvl/60+k*.07), seed=weekNo()*101+RULES.indexOf(R)*17+k, base=botDeck(seed,q), lvl=Math.round(base.reduce((x,c)=>x+c.lvl,0)/base.length);
   const mk=ids=>capRar(ids,r=>{ const p=BASE.filter(c=>c.r===r&&!SETS[c.set].foe&&!ids.includes(c.id)); return p.length?p[0].id:null; }).map(id=>({id,lvl,star:Math.min(MAXSTAR,Math.ceil(lvl/5))}));
   if(R.enemy==='mirror') return pd.map(d=>Object.assign({},d,{skin:0}));
   if(R.enemy==='freeset') return mk(BASE.filter(c=>c.set===w.p).map(c=>c.id));
@@ -2455,7 +2458,7 @@ function render(){
   sn.innerHTML=`<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/>${!S.muted?'<path d="M16.5 8.5a5 5 0 0 1 0 7"/>':'<path d="M17 9l5 6M22 9l-5 6"/>'}</svg>`;
   document.querySelectorAll('#tabs button').forEach(b=>{
     if(b.dataset.tab===tab) b.setAttribute('aria-current','page'); else b.removeAttribute('aria-current');
-    const dot=(b.dataset.tab==='event'&&evDot())||(b.dataset.tab==='shop'&&(achOpen()||S.chests.length))||(b.dataset.tab==='album'&&albumOpen()); b.querySelector('.dot')?.remove(); if(dot) b.insertAdjacentHTML('beforeend','<i class="dot" aria-label="neu"></i>');
+    const dot=(b.dataset.tab==='event'&&evDot())||(b.dataset.tab==='shop'&&(achOpen()||S.chests.length))||(b.dataset.tab==='album'&&albumOpen())||(b.dataset.tab==='deck'&&deckRoom([],[])>0); b.querySelector('.dot')?.remove(); if(dot) b.insertAdjacentHTML('beforeend','<i class="dot" aria-label="neu"></i>');
   });
   $('#view').className=tab==='map'||tab==='event'?'mapmode':''; $('#view').innerHTML=({map:viewMap,event:viewEvent,deck:viewDeck,album:viewAlbum,arena:viewArena,shop:viewShop})[tab]();
   setTimeout(storyCheck,0); setTimeout(saveReminder,50);
@@ -2722,7 +2725,7 @@ function heroHTML(s){
 }
 function pileHTML(s){
   const P=B[s].pile, nx=P[0];
-  return `<div class="pile">${nx?`<span class="mini" data-info="${s}:pile">${cardHTML(nx)}</span>`:`<span class="mini"><span class="empty-slot" style="font-size:10px">leer</span></span>`}<span>Als Nächstes<br><b>${P.length}</b> im Stapel</span></div>`;
+  return `<div class="pile">${nx?`<span class="mini"><span class="pback"></span></span>`:`<span class="mini"><span class="empty-slot" style="font-size:10px">leer</span></span>`}<span>Ziehstapel<br><b>${P.length}</b> ${P.length===1?'Karte':'Karten'}</span></div>`;
 }
 function resultHTML(){
   const r=result, arena=ctx.mode==='arena'; let lines='';
@@ -2864,6 +2867,10 @@ function autoFit(cs){
 }
 function lendObjs(ids){ const l=deckLim().l; return ids.map(id=>{ const lvl=l, star=Math.min(MAXSTAR,Math.ceil(lvl/5)); return {id,lvl,star,lend:1}; }); }
 let pendingFight=null;
+function deckCap(cs){ return Math.min(DECK_MAX,...(cs||[]).filter(c=>c.t==='max').map(c=>c.n)); }
+/* Wie viele eigene Karten passen noch ins Deck (Platz, Seltenheitsregel, Bedingungen)? */
+function deckRoom(cs,lend){ const d=deck(), all=d.concat(lend||[]), free=deckCap(cs)-all.length; if(free<=0) return 0;
+  return Math.min(free,Object.keys(S.cards).filter(id=>CARD[id]&&!d.includes(id)&&rarRoom(all,CARD[id].r)&&!(cs||[]).some(c=>c.t==='nor'&&CARD[id].r>=c.r)).length); }
 function sheetBlock(c,cs,res){ pendingFight=c;
   openSheet(`<p class="eyebrow">${c.mode==='kampagne'?'Bedingungen für dieses Gefecht':'Deck passt nicht'}</p><h2>Dein Deck passt noch nicht</h2>
   ${cs.length?`<ul class="conds">${cs.map(x=>`<li>${condText(x)}</li>`).join('')}</ul>`:''}
@@ -2873,7 +2880,10 @@ function startBattle(c){
   if(c.mode!=='heraus'&&deck().length<DECK_MIN){ toast(`Dein Deck braucht mindestens ${DECK_MIN} Karten.`); tab='deck'; render(); return; }
   let lendD=[];
   if(c.mode!=='heraus'){ const cs=c.mode==='kampagne'?stageCond(c.stage,c.hero):[], res=condCheck(cs,deck());
-    if(res.block.length){ sheetBlock(c,cs,res); return; } lendD=lendObjs(res.lend); }
+    if(res.block.length){ sheetBlock(c,cs,res); return; } lendD=lendObjs(res.lend);
+    if(!c.okSmall&&deckRoom(cs,res.lend)>0){ pendingFight=c; const n=deck().length+res.lend.length, mx=deckCap(cs);
+      openSheet(`<h2>Dein Deck ist nicht voll</h2><p class="muted">Im Deck sind ${n} von ${mx} möglichen Karten${res.lend.length?` (davon ${res.lend.length} geliehen)`:''}. Du hast noch passende Karten, die mitkämpfen könnten.</p>
+      <div class="row-btns"><button class="btn" data-act="fightSmall">Trotzdem kämpfen</button><button class="btn" data-act="toDeck">Zum Deck</button><button class="btn primary" data-act="fillDeck">Auffüllen</button></div>`); return; } }
   closeSheet(); ctx=c; result=null; infoCard=null; narr=''; narrLog=[]; skip=false; forfeit=false;
   B= c.mode==='arena' ? newBattle(deckObjs(),rivalDeck(c.rival)) : c.mode==='heraus' ? newBattle(c.pDeck,c.eDeck) : c.mode==='event' ? newBattle(deckObjs(),evDeck(c.stage),c.stage.hp) : newBattle(deckObjs().concat(lendD),stageDeck(c.stage,c.hero),stageHp(c.stage,c.hero));
   if(c.mode==='heraus'){ const R=c.rule; if(R.noHero){ B.p.hp=B.p.maxHp=1; } if(R.eShield) B.e.pile.concat(B.e.lanes).forEach(x=>{ if(x) x.k.schild=(x.k.schild||0)+1; }); if(R.decay) B.decay=R.decay; }
@@ -2996,6 +3006,8 @@ const ACT={
   deckSlot(id){ S.di=+id; persist(); render(); },
   deckToggle(id){ const d=deck(), i=d.indexOf(id); if(i>=0){ if(d.length<=DECK_MIN){ toast(`Ein Deck braucht mindestens ${DECK_MIN} Karten.`); return; } d.splice(i,1); } else{ if(!S.cards[id]||d.length>=DECK_MAX) return; if(!rarRoom(d,CARD[id].r)){ toast(`Kein Platz mehr für ${RAR[CARD[id].r]}karten: höchstens 1 Diamant, 3 Gold oder Diamant, 6 ab Silber.`); return; } d.push(id); } persist(); render(); sheetCard(id); sfx('place'); },
   autoFit(){ const c=pendingFight, cs=c&&c.mode==='kampagne'?stageCond(c.stage,c.hero):[]; autoFit(cs); render(); const res=condCheck(cs,deck()); if(c&&!res.block.length){ pendingFight=null; startBattle(c); } else if(c) sheetBlock(c,cs,res); },
+  fightSmall(){ const c=pendingFight; if(!c) return; pendingFight=null; c.okSmall=1; startBattle(c); },
+  fillDeck(){ const c=pendingFight, cs=c&&c.mode==='kampagne'?stageCond(c.stage,c.hero):[]; autoFit(cs); render(); if(c){ pendingFight=null; c.okSmall=1; startBattle(c); } },
   autoFitDeck(){ autoFit([]); render(); sfx('place'); },
   toDeck(){ closeSheet(); tab='deck'; render(); },
   skinSel(x){ const [id,v]=x.split(':'), n=+v; if(n&&!ownSkins(id).includes(n)) return; S.skinOn[id]=n; persist(); render(); sheetCard(id); },
