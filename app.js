@@ -158,6 +158,8 @@ function sane(j){
   if(!s.themes.includes(s.theme)) s.theme='tanne';
   if(!okTable(s.table)||s.table.lg!==leagueOf(s.tr)) s.table=mkTable(leagueOf(s.tr));
   if(!Number.isFinite(s.season)) s.season=seasonIdx();
+  /* Neue Story-Momente: was schon gespielt ist, gilt als gesehen (zum Nachholen gibt es „Geschichte ansehen“). */
+  if(!s.seen.story2){ if(s.seen.intro) BEATS.forEach(([id,k])=>{ if(s.stars[id]) s.seen[k]=1; }); s.seen.story2=1; }
   return s;
 }
 const deck=()=>S.decks[S.di];
@@ -451,22 +453,6 @@ function ambTick(){
 function ambStart(){ AMB.kind=''; ambSound(); }
 
 
-/* ====== Geschichte: Intro, Gebietssequenzen und Abspann ====== */
-const SEQ={
- intro:{t:'Der zerbrochene Stein',music:'menue',slides:[
-  ['seq/intro-1','Einst hielt ein Stein die Welt im Gleichgewicht. Fünf Wächter hüteten ihn, einer für jedes Element.'],
-  ['seq/intro-2','In einer Nacht ohne Sterne zerbrach er.'],
-  ['seq/intro-3','Seine Splitter fielen auf Asche, Meer, Wald, Schatten und Licht. Und die Wächter verloren sich in ihnen.'],
-  ['seq/intro-4','Du bist {KB}. Und der Splitter in deiner Hand ist noch warm.'],
-  ['seq/intro-5','Was du besiegst, bannst du in Karten. Was du bannst, kämpft für dich.'],
-  ['seq/intro-6','Der erste Splitter ruft aus der Asche. Geh.']]},
- a0:{t:'I · Der Aschenpfad',slides:[['kapitel-1','Hier brennt die Erde, seit der Splitter fiel.'],['seq/a1-2','Die Tiere des Feuers jagen jetzt alles, was sich bewegt.'],['seq/a1-3','Schlackenfürst Ormak wollte den Splitter schützen. Nun schützt der Splitter ihn.']]},
- a1:{t:'II · Die versunkene Küste',slides:[['kapitel-2','Die Flut kam und ging nicht mehr.'],['seq/a2-2','In der Gischt singen Stimmen, die keinem Menschen gehören.'],['seq/a2-3','Gezeitenmutter Ysra hält den Splitter fest. Und sie will ihn nicht hergeben.']]},
- a2:{t:'III · Der Wurzelwald',slides:[['kapitel-4','Der Wald wächst. Jede Nacht ein Stück weiter.'],['seq/a3-2','Wer stehen bleibt, schlägt Wurzeln.'],['seq/a3-3','Urborke, die Alteiche, war der gütigste Wächter. Jetzt will sie die ganze Welt zu Wald machen.']]},
- a3:{t:'IV · Das Hohle Reich',slides:[['kapitel-3','Hier geht die Sonne nicht mehr auf.'],['seq/a4-2','Im Hohlen Reich bezahlt man mit dem, was man ist.'],['seq/a4-3','Der Hohle König hat den Splitter verschluckt. Seitdem ist er innen leer.']]},
- a4:{t:'V · Die Sonnenwacht',slides:[['seq/a5-1','Die letzte Festung des Lichts. Sie lässt niemanden ein.'],['seq/a5-2','Der Orden sagt, du darfst den Stein nicht zusammensetzen.'],['seq/a5-3','Erzseraphin Aurel wartet. Sie weiß, was im Stein schläft.']]},
- ende:{t:'Der Stein ist ganz',music:'endgegner',slides:[['seq/ende-1','Der letzte Splitter fügt sich ein. Der Glutstein ist wieder ganz.'],['seq/ende-2','Doch in seinem Inneren öffnet sich ein Auge.'],['seq/ende-3','„Danke, {KB}.“ Über dem Meer zerreißt der Himmel.\nFortsetzung folgt …']]}
-};
 let SQ=null;
 function playSeq(key,then){
   const q=SEQ[key]; if(!q||SQ) return; SQ={key,q,i:-1,then,lay:0,t:0}; closeSheet();
@@ -491,8 +477,15 @@ function storyCheck(){
   if(menuOn||SQ||B||tab!=='map'||!$('#sheet').hidden) return;
   if(!S.seen.intro) return playSeq('intro',()=>{ render(); if(!S.stars[1]) startStage(1,false); });
   if(S.stars[LAST_ID]&&!S.seen.ende) return playSeq('ende',()=>render());
+  const bt=BEATS.find(([id,k])=>S.stars[id]&&!S.seen[k]); if(bt) return playSeq(bt[1],()=>render());
   if(mapArea!=null&&!S.seen['a'+mapArea]) return playSeq('a'+mapArea,()=>render());
 }
+/* Ganze Geschichte eines Gebiets nacheinander ansehen: Anfang, erreichte Story-Momente, beim ersten Gebiet der Prolog, beim letzten das Finale. */
+function areaStory(a){
+  const k=(a===0?['intro']:[]).concat('a'+a, BEATS.filter(([id])=>STAGES[id-1].area===a&&S.stars[id]).map(b=>b[1]));
+  if(a===AREAS.length-1&&S.stars[LAST_ID]) k.push('ende'); return k;
+}
+function playChain(keys){ const k=keys.shift(); if(!k){ render(); return; } playSeq(k,()=>playChain(keys)); }
 
 /* ====== Bild groß ansehen: Standard und gefundene Sondermotive, wischen zum Wechseln ====== */
 let AV=null;
@@ -675,7 +668,7 @@ function viewMap(){
   h+=`</div><aside class="mside"><section class="panelbox">`;
   h+= next?`<p class="eyebrow">Nächstes Gefecht</p><h3>${next.i+1} · ${next.n}</h3><p class="muted">${next.size} ${SETS[next.set].n}-Karten auf Level ${next.lvl}, Held mit ${next.hp} Leben.</p><button class="btn primary block" data-act="fight" data-id="${next.id}">Kämpfen</button>`
           : `<p class="eyebrow">Gebiet geschafft</p><h3>${a===AREAS.length-1?'Die Erzseraphin ist gefallen':A.n.split(' · ')[1]}</h3><p class="muted">Hol dir fehlende Sterne oder versuch dich an den heroischen Gefechten.</p>`;
-  h+=`<button class="link" data-act="replaySeq" data-id="a${a}">Gebietsgeschichte ansehen</button><div class="facts"><div><b>${total}/${STAGES.length*3}</b><span>Sterne</span></div><div><b>${BASE.filter(c=>S.cards[c.id]).length}</b><span>Karten</span></div><div><b>${Object.keys(S.hstars).length}</b><span>heroisch</span></div></div></section>${tasksHTML()}</aside></div>`;
+  h+=`<button class="link" data-act="replayStory" data-id="${a}">Geschichte ansehen</button><div class="facts"><div><b>${total}/${STAGES.length*3}</b><span>Sterne</span></div><div><b>${BASE.filter(c=>S.cards[c.id]).length}</b><span>Karten</span></div><div><b>${Object.keys(S.hstars).length}</b><span>heroisch</span></div></div></section>${tasksHTML()}</aside></div>`;
   return h;
 }
 function tile(id,inRow){
@@ -1081,7 +1074,7 @@ const ACT={
   fight(id){ startStage(+id,false); },
   mapGo(id){ const a=+id; if(!areaKnown(a)) return; if(a>mapArea&&!areaDone(mapArea)) return; mapArea=a; sfx('flip'); render(); },
   seqNext(){ seqNext(); }, seqSkip(){ seqEnd(); },
-  replaySeq(id){ playSeq(id); },
+  replaySeq(id){ playSeq(id); }, replayStory(id){ const a=+id; if(SQ||!areaKnown(a)) return; playChain(areaStory(a)); },
   fightHero(id){ startStage(+id,true); },
   fightGo(id){ const hero=String(id).endsWith('h'), st=STAGES.find(s=>s.id===parseInt(id)); const go=()=>startBattle({mode:'kampagne',stage:st,hero,title:`${st.n}${hero?' · Heroisch':''}`,opp:st.n}); if(st.boss&&deck().length>=DECK_MIN){ closeSheet(); bossIntro(st,hero,go); } else go(); },
   bossSkip(){ if(BI) BI.done(); },

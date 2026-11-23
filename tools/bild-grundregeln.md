@@ -76,6 +76,16 @@ Beim einzelnen Motiv immer das Format dazuschreiben:
 - Logo, Symbole, Gegenstände: grüner Hintergrund (#00FF00), kein Grün im Motiv.
 - Tische, Menü, Sequenzen: Querformat 3:2.
 
+## Sequenzbilder (Story)
+
+Für Story-Bilder nicht die Karten-Grundregeln benutzen, sonst sehen alle Szenen gleich aus. Was beim Prolog funktioniert hat:
+- Jedes Motiv als eigener, vollständiger Prompt in einem neuen GPT-Chat, keine nummerierte Liste.
+- Kopfzeile: „Querformat 3:2, 1536 × 1024 Pixel. Gemalte Dark-Fantasy-Illustration mit breiten, glatten Pinselstrichen, wie ein Standbild aus einem düster-märchenhaften Animationsfilm. Eine erzählende Szene, kein Kartenmotiv. Kein Text, keine Schrift, kein Rahmen.“
+- Dann Szene, Kamera (jedes Bild eine andere: Totale, Nahaufnahme, Vogelperspektive, über die Schulter …) und Licht.
+- Vorlagenbild nur fürs Aussehen: „Übernimm Aussehen und Kleidung, aber nicht Pose, Bildaufbau oder Hintergrund.“
+- Figuren immer beschreiben, nicht nur benennen. Der Kartenbinder trägt einen schlichten, dunkelbraunen Kapuzenumhang ohne Verzierungen, das Gesicht ist nie zu sehen. Funke ist ein Wesen ganz aus Glut und Flammen, ohne Hut und Kleidung (Vorlage: `bilder/seq/p-funke.jpg`).
+- Ablage: `bilder/seq/`, 1200 × 800, JPG.
+
 ## Musik (Suno)
 
 Stilfeld auf Englisch, „Instrumental“ an. Pro Bereich liegen Stücke in `musik/` (`menue`, `karte`, `kampf`, `endgegner`, `arena`, jeweils mit `-2` usw.), komprimiert auf 96 kbit/s. Neue Stücke in `POOLS` in app.js eintragen.
