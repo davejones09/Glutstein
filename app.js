@@ -123,7 +123,7 @@ function seasonIdx(){ return Math.floor((Date.now()-SEASON_START)/(SEASON_DAYS*8
 function fresh(){
   const decks=[STARTER.slice(),STARTER.slice(),STARTER.slice()];
   return {v:6,gold:150,gems:0,skips:0,items:Object.fromEntries(Object.keys(CATS).map(c=>[c,[0,0,0,0]])),chests:[],cards:Object.fromEntries(STARTER.map(id=>[id,{lvl:1,star:1,dup:0}])),decks,di:0,unlocked:[],setsOpen:[],stars:{},hstars:{},foeSets:[],campV:2,skinNew:{},hero:'sammler',heroes:FREE_HEROES.slice(),sex:'m',skins:{},skinOn:{},album:{},seen:{},stat:{fights:0,kills:0,best:null},lastSave:Date.now(),remind:'',ch:{wk:0,prog:{},all:0},chDecks:{},xp:0,plvl:1,back:'standard',backs:['standard'],
-  vol:{m:.6,s:.8,a:.45},fxOff:false,muted:false,speed:1,opened:0,name:'Neuling_'+(100+Math.floor(Math.random()*900)),tr:0,league:0,aw:0,al:0,wins:0,theme:'tanne',themes:['tanne'],
+  vol:{m:.6,s:.8,a:.45,v:1},fxOff:false,muted:false,speed:1,opened:0,name:'Neuling_'+(100+Math.floor(Math.random()*900)),tr:0,league:0,aw:0,al:0,wins:0,theme:'tanne',themes:['tanne'],
   table:mkTable(0),daily:null,uid:Math.floor(Math.random()*1e9),tut:true,tipSeen:{},ach:{},flags:{},season:seasonIdx(),seasonBest:0,seasonMsg:null};
 }
 function cleanDeck(d,cards){ return [...new Set(Array.isArray(d)?d:[])].filter(id=>cards[id]).slice(0,DECK_MAX); }
@@ -143,7 +143,7 @@ function sane(j){
   s.league=Math.min(LEAGUES.length-1,Math.max(leagueOf(s.tr),s.league|0));
   s.speed=[1,2,4].includes(s.speed)?s.speed:1;
   const cl=v=>Math.min(1,Math.max(0,+v||0));
-  s.vol=s.vol&&typeof s.vol==='object'?{m:cl(s.vol.m),s:cl(s.vol.s),a:s.vol.a==null?f.vol.a:cl(s.vol.a)}:f.vol;
+  s.vol=s.vol&&typeof s.vol==='object'?{m:cl(s.vol.m),s:cl(s.vol.s),a:s.vol.a==null?f.vol.a:cl(s.vol.a),v:s.vol.v==null?f.vol.v:cl(s.vol.v)}:f.vol;
   s.fxOff=!!s.fxOff; if(s.ev&&(!SETS[s.ev.set]||!Array.isArray(s.ev.pts)||!Array.isArray(s.ev.tasks))) s.ev=null; if(!Array.isArray(s.foeSets)) s.foeSets=[];
   if(s.league>=4&&Array.isArray(s.backs)&&!s.backs.includes('champion')) s.backs.push('champion');
   s.heroes=(Array.isArray(s.heroes)?s.heroes:[]).filter(k=>HEROES[k]); FREE_HEROES.slice().reverse().forEach(k=>{ if(!s.heroes.includes(k)) s.heroes.unshift(k); }); if(!s.heroes.includes(s.hero)) s.hero='sammler'; if(s.sex!=='w') s.sex=s.hero==='sammlerin'?'w':'m';
@@ -281,13 +281,13 @@ function seasonDaysLeft(){ const end=SEASON_START+(seasonIdx()+1)*SEASON_DAYS*86
 
 /* ====== Musik und Töne ====== */
 /* Musik: pro Bereich mehrere Stücke. Beim Betreten wird zufällig eins gewählt, danach wechseln sie sich ab. */
-const POOLS={menue:['menue-2','menue'],karte:['karte','karte-2'],kampf:['kampf','kampf-2'],endgegner:['endgegner','endgegner-2'],arena:['arena','arena-2']}, LOOPS=[].concat(...Object.values(POOLS)), JINGLES=['sieg','niederlage','truhe','aufstieg'];
-let AC=null, mOut=null, sOut=null, aOut=null, AU={}, curLoop=null, curCat=null, wantLoop='karte', duckT=0, menuFirst=true;
+const POOLS={prolog:['prolog'],menue:['menue-2','menue'],karte:['karte','karte-2'],kampf:['kampf','kampf-2'],endgegner:['endgegner','endgegner-2'],arena:['arena','arena-2']}, LOOPS=[].concat(...Object.values(POOLS)), JINGLES=['sieg','niederlage','truhe','aufstieg'];
+let AC=null, mOut=null, sOut=null, aOut=null, vOut=null, mDuck=null, AU={}, curLoop=null, curCat=null, wantLoop='karte', duckT=0, menuFirst=true;
 function audioInit(){
   if(AC) return true;
   try{
     AC=new (window.AudioContext||window.webkitAudioContext)();
-    mOut=AC.createGain(); sOut=AC.createGain(); aOut=AC.createGain(); mOut.connect(AC.destination); sOut.connect(AC.destination); aOut.connect(AC.destination); applyVol(); ambStart(); sampleLoad();
+    mOut=AC.createGain(); sOut=AC.createGain(); aOut=AC.createGain(); vOut=AC.createGain(); mDuck=AC.createGain(); mOut.connect(mDuck); mDuck.connect(AC.destination); vOut.connect(AC.destination); sOut.connect(AC.destination); aOut.connect(AC.destination); applyVol(); ambStart(); sampleLoad();
     LOOPS.concat(JINGLES).forEach(n=>{
       const a=new Audio('musik/'+n+'.mp3'); a.preload='auto'; a.setAttribute('playsinline','');
       const g=AC.createGain(); g.gain.value=0; AC.createMediaElementSource(a).connect(g); g.connect(mOut); AU[n]={a,g};
@@ -297,7 +297,7 @@ function audioInit(){
     return true;
   }catch(e){ AC=null; return false; }
 }
-function applyVol(){ if(!AC) return; const t=AC.currentTime; mOut.gain.setTargetAtTime(S.muted?0:S.vol.m,t,.05); sOut.gain.setTargetAtTime(S.muted?0:S.vol.s,t,.05); aOut.gain.setTargetAtTime(S.muted?0:S.vol.a*.6,t,.3); }
+function applyVol(){ if(!AC) return; const t=AC.currentTime; mOut.gain.setTargetAtTime(S.muted?0:S.vol.m,t,.05); sOut.gain.setTargetAtTime(S.muted?0:S.vol.s,t,.05); aOut.gain.setTargetAtTime(S.muted?0:S.vol.a*.6,t,.3); vOut.gain.setTargetAtTime(S.muted?0:S.vol.v,t,.05); }
 function fade(g,to,dur){ const t=AC.currentTime; g.gain.cancelScheduledValues(t); g.gain.setValueAtTime(g.gain.value,t); g.gain.linearRampToValueAtTime(to,t+dur); }
 function nextTrack(cat,cur){ const p=POOLS[cat]||[cat]; if(p.length<2) return p[0]; const o=p.filter(x=>x!==cur); return o[Math.floor(Math.random()*o.length)]; }
 function playTrack(n){
@@ -465,6 +465,30 @@ function playSeq(key,then){
   if(q.music) music(q.music,true);
   seqNext();
 }
+/* ====== Sprache in den Zwischensequenzen: ein Clip pro Folie im Ordner ton/, die Musik wird darunter leiser ====== */
+const VX={buf:{},src:null,tok:0,guard:0};
+/* Clipname für Folie n (ab 1). Wer Kartenbinderin gewählt hat, bekommt die passende Fassung, falls es eine gibt. */
+function voxName(key,n){ const b=key+'-'+n; return S.sex==='w'&&VOX.has(b+'-w')?b+'-w':VOX.has(b)?b:null; }
+function voxLoad(n){
+  return VX.buf[n]||(VX.buf[n]=fetch('ton/'+n+'.mp3').then(r=>{ if(!r.ok) throw new Error(r.status); return r.arrayBuffer(); })
+    .then(b=>new Promise((ok,no)=>AC.decodeAudioData(b,ok,no))).catch(e=>{ delete VX.buf[n]; throw e; }));
+}
+function voxDuck(on){ if(!mDuck) return; const t=AC.currentTime; mDuck.gain.cancelScheduledValues(t); mDuck.gain.setTargetAtTime(on?.3:1,t,on?.15:.6); }
+function voxStop(){ VX.tok++; clearTimeout(VX.guard); const s=VX.src; VX.src=null; if(s){ try{ s.onended=null; s.stop(); }catch(e){} } }
+/* Spielt einen Clip. done(true) wenn er zu Ende ist, done(false) wenn es keinen Ton gibt (aus, stumm, fehlt, lädt zu lange). */
+function voxPlay(n,delay,done){
+  voxStop(); const tok=VX.tok;
+  if(!n||!AC||S.muted||!(S.vol.v>0)) return done(false);
+  if(AC.state==='suspended') AC.resume();
+  let late=false; const fb=setTimeout(()=>{ late=true; if(tok===VX.tok) done(false); },2500);
+  voxLoad(n).then(buf=>{
+    if(late||tok!==VX.tok) return; clearTimeout(fb);
+    const src=AC.createBufferSource(); src.buffer=buf; src.connect(vOut); VX.src=src; voxDuck(true);
+    const fin=()=>{ if(tok!==VX.tok) return; clearTimeout(VX.guard); VX.src=null; done(true); };
+    src.onended=fin; src.start(AC.currentTime+delay);
+    VX.guard=setTimeout(fin,(buf.duration+delay)*1000+4000);
+  }).catch(()=>{ if(late||tok!==VX.tok) return; clearTimeout(fb); done(false); });
+}
 function seqNext(){
   if(!SQ) return; clearTimeout(SQ.t); SQ.i++;
   if(SQ.i>=SQ.q.slides.length) return seqEnd();
@@ -472,10 +496,14 @@ function seqNext(){
   a.style.backgroundImage=`url(bilder/${img}.jpg)`; a.classList.remove('on'); void a.offsetWidth; a.classList.add('on'); b.classList.remove('on'); SQ.lay=1-SQ.lay;
   const t=$('#seq .sq-t'); t.classList.remove('on'); t.innerHTML=esc(kb(txt)).replace(/\n/g,'<br>'); void t.offsetWidth; t.classList.add('on');
   document.querySelectorAll('#seq .sq-dots i').forEach((d,k)=>d.classList.toggle('on',k<=SQ.i));
-  const nx=SQ.q.slides[SQ.i+1]; if(nx){ const pre=new Image(); pre.src=`bilder/${nx[0]}.jpg`; }
-  SQ.t=setTimeout(seqNext,Math.max(5500,txt.length*85));
+  const nx=SQ.q.slides[SQ.i+1]; if(nx){ const pre=new Image(); pre.src=`bilder/${nx[0]}.jpg`; const nv=AC&&voxName(SQ.key,SQ.i+2); if(nv) voxLoad(nv).catch(()=>{}); }
+  /* Mit Ton: weiter, sobald der Clip zu Ende ist (mindestens 4 s pro Folie). Ohne Ton: nach Lesezeit. */
+  const sq=SQ, t0=Date.now(), read=Math.max(5500,txt.length*85), first=SQ.i===0&&SQ.q.music;
+  voxPlay(voxName(SQ.key,SQ.i+1),first?2:.35,ok=>{ if(SQ!==sq) return;
+    if(!ok) voxDuck(false);
+    SQ.t=setTimeout(seqNext,ok?Math.max(1200,4000-(Date.now()-t0)):Math.max(0,read-(Date.now()-t0))); });
 }
-function seqEnd(){ const q=SQ; if(!q) return; clearTimeout(q.t); SQ=null; const el=$('#seq'); el.hidden=true; el.innerHTML=''; S.seen[q.key]=1; persist(); if(q.q.music) music(tabMusic()); if(q.then) q.then(); }
+function seqEnd(){ const q=SQ; if(!q) return; clearTimeout(q.t); voxStop(); voxDuck(false); SQ=null; const el=$('#seq'); el.hidden=true; el.innerHTML=''; S.seen[q.key]=1; persist(); if(q.q.music) music(tabMusic()); if(q.then) q.then(); }
 /* Prüft nach jedem Neuzeichnen der Kampagne, ob eine Sequenz fällig ist. */
 function storyCheck(){
   if(menuOn||SQ||B||tab!=='map'||!$('#sheet').hidden) return;
@@ -795,7 +823,8 @@ function sheetSettings(){
   <section><h3>Ton</h3>
   <label class="slider" for="volm">Musik<input type="range" id="volm" min="0" max="100" value="${Math.round(S.vol.m*100)}" data-vol="m"><span id="volm-v">${Math.round(S.vol.m*100)}</span></label>
   <label class="slider" for="vols">Effekte<input type="range" id="vols" min="0" max="100" value="${Math.round(S.vol.s*100)}" data-vol="s"><span id="vols-v">${Math.round(S.vol.s*100)}</span></label>
-  <label class="slider" for="vola">Umgebung<input type="range" id="vola" min="0" max="100" value="${Math.round(S.vol.a*100)}" data-vol="a"><span id="vola-v">${Math.round(S.vol.a*100)}</span></label></section>
+  <label class="slider" for="vola">Umgebung<input type="range" id="vola" min="0" max="100" value="${Math.round(S.vol.a*100)}" data-vol="a"><span id="vola-v">${Math.round(S.vol.a*100)}</span></label>
+  <label class="slider" for="volv">Sprache<input type="range" id="volv" min="0" max="100" value="${Math.round(S.vol.v*100)}" data-vol="v"><span id="volv-v">${Math.round(S.vol.v*100)}</span></label></section>
   <section><h3>Tischeffekte</h3><div class="decknum"><span>Bewegte Effekte am Tisch und bei Treffern<br><small class="muted">Für ältere Handys ausschalten.</small></span><button class="btn${S.fxOff?'':' primary'}" data-act="fxToggle">${S.fxOff?'Aus':'An'}</button></div></section>
   ${statsHTML()}
   <section><h3>So wird gespielt</h3><ol class="steps">

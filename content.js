@@ -110,8 +110,10 @@ Object.assign(DLG,{
  95:[['g','Notkühlung gesperrt. Zutritt nur für K-7.'],['p','Dann hoffe ich, sie weiß, auf welcher Seite sie steht.']],
  96:[['g','Du riechst nach Zuhause. Gib mir den Rest von mir.'],['p','Den Stein bekommst du nicht.'],['g','Dann nehme ich dich. Du bist doch so schön warm.'],['p','Jede Karte ist eine Tür. Diese hier schließt sich hinter dir.']]
 });
+/* Folien mit Sprachaufnahme (Ordner ton/, Name: Sequenz-Folie, -w = Fassung für Kartenbinderin). */
+const VOX=new Set(["a0-1", "a0-2", "a0-3", "a1-1", "a1-2", "a1-3", "a1-4", "a2-1", "a2-2", "a2-3", "a3-1", "a3-2", "a3-3", "a4-1", "a4-2", "a4-3", "b0-1", "b0-2", "b0-3", "b1-1", "b1-2", "b1-3", "b2-1", "b2-2", "b3-1", "b3-2", "b3-3", "ende-1", "ende-2", "ende-3", "ende-4", "ende-4-w", "ende-5", "ende-6", "ende-6-w", "ende-7", "ende-8", "intro-1", "intro-2", "intro-3", "intro-4", "intro-5", "intro-6", "intro-6-w", "intro-7", "intro-8", "s_alder-1", "s_bluete-1", "s_bluete-2", "s_feuer-1", "s_hanne-1", "s_hanne-2", "s_kuppel-1", "s_kuppel-2", "s_lio-1", "s_markt-1", "s_markt-2", "s_moor-1", "s_moor-2", "s_quelle-1", "s_quelle-2", "s_quelle-2-w", "s_spiegel-1"]);
 const SEQ={
- intro:{t:'Prolog · Die Nacht ohne Sterne',music:'menue',slides:[
+ intro:{t:'Prolog · Die Nacht ohne Sterne',music:'prolog',slides:[
   ['seq/intro-1','Einst knieten fünf Wächter am Herd der Welt. Jede Nacht sangen sie, damit der Glutstein hält.'],
   ['seq/p-gestalt','Dann gingen die Sterne aus. Eine Gestalt mit Kapuze betrat den Tempel und legte die Hand auf den Stein.'],
   ['seq/intro-2','Der Glutstein zerbrach.'],

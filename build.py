@@ -8,7 +8,7 @@ open('index.html','w',encoding='utf8').write(html)
 # Offline-Speicher für die Web-App: alle Dateien des Spiels, Version aus ihrem Inhalt.
 files=['./','index.html','manifest.webmanifest']
 h=hashlib.sha1(html.encode())
-for d in ['bilder','musik','sfx']:
+for d in ['bilder','musik','sfx','ton']:
     for root,_,fs in os.walk(d):
         for f in sorted(fs):
             p=os.path.join(root,f).replace(os.sep,'/'); files.append(p); h.update(p.encode()); h.update(str(os.path.getsize(p)).encode())
