@@ -91,6 +91,25 @@ Object.assign(DLG,{
 /* ====== Geschichte: Prolog „Der zerbrochene Stein“ ======
    intro = Prolog und Erwachen, a0–a4 = Anfang der Gebiete, Story-Momente nach bestimmten Gefechten (BEATS), ende = Finale und Epilog.
    {KB} wird zu Kartenbinder oder Kartenbinderin. Die ganze Lesefassung liegt in geschichte/prolog.txt. */
+/* Folge 1 · Station Null */
+Object.assign(DLG,{
+ 81:[['g','Andockring Null. Minus einunddreißig Grad. Willkommen zurück, Besucher Null.'],['p','Ich war noch nie hier.']],
+ 82:[['g','Atme nicht zu tief ein. Die Luft hier hat Hunger.'],['p','Dann atme ich flach und kämpfe schnell.']],
+ 83:[['g','Entschuldigung … weißt du, wie ich heiße?'],['p','Haberland. Es steht auf deiner Brust.']],
+ 84:[['g','Ring B, Ventil vier. Schicht sieben. Du störst die Schicht.'],['p','Deine Schicht ist längst vorbei.']],
+ 85:[['g','Wärme erkannt. Die Kapseln öffnen sich.'],['p','Nicht alle. Nur die zwölfte.']],
+ 86:[['g','Wer aufwacht, wird warm. Wer warm wird, gehört uns.'],['p','Sie gehört nur sich selbst.']],
+ 87:[['g','Hier oben ist es so kalt. Komm mit nach unten.'],['p','Ich komme. Aber nicht so, wie du denkst.']],
+ 88:[['g','Wir kommen die Treppen hoch. Langsam. Wir haben Zeit.'],['p','Ich nicht. Also los.']],
+ 89:[['g','Fundstück dreiundzwanzig: ein Kartenbinder. Bitte nichts berühren.'],['p','Dann fass du mich auch nicht an.']],
+ 90:[['g','Zutritt Reaktorring: K-7 und Besucher Null.'],['p','Ich war noch nie da unten.'],['g','Noch nicht.']],
+ 91:[['g','Hier wächst, was nie wachsen durfte. Und es wächst gern.'],['p','Funke, halt dich fest.']],
+ 92:[['g','Ganz unten ist es warm. Ganz unten ist Zuhause.'],['p','Mein Zuhause hat einen Leuchtturm.']],
+ 93:[['g','Mit jeder Stufe wird es wärmer. Bleib doch stehen.'],['p','Gerade deshalb gehe ich weiter.']],
+ 94:[['g','Wir frieren nicht mehr. Wir müssen uns an nichts mehr erinnern.'],['p','Ihr werdet aufwachen. Versprochen.']],
+ 95:[['g','Notkühlung gesperrt. Zutritt nur für K-7.'],['p','Dann hoffe ich, sie weiß, auf welcher Seite sie steht.']],
+ 96:[['g','Du riechst nach Zuhause. Gib mir den Rest von mir.'],['p','Den Stein bekommst du nicht.'],['g','Dann nehme ich dich. Du bist doch so schön warm.'],['p','Jede Karte ist eine Tür. Diese hier schließt sich hinter dir.']]
+});
 const SEQ={
  intro:{t:'Prolog · Die Nacht ohne Sterne',music:'menue',slides:[
   ['seq/intro-1','Einst knieten fünf Wächter am Herd der Welt. Jede Nacht sangen sie, damit der Glutstein hält.'],
@@ -171,10 +190,60 @@ const SEQ={
   ['seq/p-risse','Über dem Meer zerreißt der Himmel. Durch die Risse siehst du andere Welten.'],
   ['seq/ende-3','„Danke, {KB}.“ Eine lange Pause. „Zum zweiten Mal.“'],
   ['seq/p-stufen','Die Welt friert nicht mehr, aber der Himmel ist zerrissen. „Was jetzt?“ – „Jetzt folgen wir ihm.“'],
-  ['seq/p-merle','In derselben Nacht kommt ein Schiff aus dem Riss. Merle lässt beide Lichter brennen. Für die, die noch kommen.\nFortsetzung folgt …']]}
+  ['seq/p-merle','In derselben Nacht kommt ein Schiff aus dem Riss. Merle lässt beide Lichter brennen. Für die, die noch kommen.\nWeiter geht es in Folge 1: Station Null.']]},
+ /* ====== Folge 1 · Station Null ====== */
+ a5:{t:'Folge 1 · Station Null',music:'menue',slides:[
+  ['seq/f1-rotes-licht','Drei Nächte nach dem Finale. Tief im Riss über dem Meer blinkt ein rotes Licht: dreimal kurz, dreimal lang, dreimal kurz.'],
+  ['seq/f1-rotes-licht','„Feuer flackert. Das da zählt“, sagt Merle. „Auf jedem Meer, das ich kenne, heißt das: Hilfe.“'],
+  ['seq/f1-ueberfahrt','Merle rudert euch hinaus. Als du den Glutstein hochhältst, neigt sich der Riss zu ihm herab wie eine ausgestreckte Hand.'],
+  ['seq/f1-ueberfahrt','„Wenn ihr zurückwollt, sucht das Licht. Es brennt die ganze Nacht.“ Dann trittst du aus dem Boot in den Riss.'],
+  ['seq/f1-andockring','Minus einunddreißig Grad. Jemand hat den Riss in einem Ring aus Stahl eingefangen. Funke wird klein wie eine Kerzenflamme.'],
+  ['seq/f1-andockring','Dir ist nicht kalt. Dir ist nie kalt. Eine Stimme aus der Decke sagt: „Wärmesignatur erkannt. Willkommen zurück, Besucher Null.“']]},
+ f1_wal:{t:'Das Fenster',slides:[
+  ['seq/f1-wal','Durch ein vereistes Fenster siehst du ein Meer ohne Land unter zwei Monden. Dazwischen schwimmt ein Wal mit einer Stadt auf dem Rücken.'],
+  ['seq/f1-wal','„Das hat Merle gesehen“, flüstert Seda. Funke seufzt sehr klein: „Ein Fisch mit einer Stadt drauf. Ich will nach Hause.“']]},
+ f1_brummer:{t:'Brummer',slides:[
+  ['seq/f1-brummer','Eine kleine Wartungsdrohne flickt Fenster, die niemand mehr braucht. Dann dreht sie ihr Licht auf warm und hält es an Funke.'],
+  ['seq/f1-brummer','„Na gut. Du darfst bleiben“, sagt Funke. „Du brummst. Ich nenn dich Brummer.“']]},
+ f1_namen:{t:'Die Namen',slides:[
+  ['seq/f1-haberland','An den Wänden stehen Namen, immer wieder dieselben. Haberland. Haberland. Ich heiße Haberland. Ich heiße.'],
+  ['seq/f1-haberland','Ein Mann schrubbt seit Wochen dieselbe Stelle. „Entschuldigung“, fragt er freundlich, „weißt du, wie ich heiße?“']]},
+ f1_k7:{t:'Die Kälteschlafkammer',slides:[
+  ['seq/f1-k7','Elf Kapseln stehen offen und leer. Am Ende des Saals sitzt eine Androidin und lächelt. „Sie sind spät. Aber das macht nichts.“'],
+  ['seq/f1-k7','„Ich bin K-7. Das rote Licht war ich. Mein letzter Befehl lautet: Halte die Station am Leben, bis Hilfe kommt.“']]},
+ f1_juna:{t:'Kapsel zwölf',slides:[
+  ['seq/f1-juna','In der letzten Kapsel schläft Juna Kade. Auf ihrem Arm steht: Nicht vergessen. Kaum ist sie wach, zielt sie auf dich. „Besucher Null.“'],
+  ['seq/f1-juna','„Ich hab dich auf den Bändern gesehen. Dieselbe Kapuze. Und du frierst nicht.“ Erst als sie ihren Namen auf dem Arm liest, senkt sie das Gewehr.']]},
+ f1_sammlung:{t:'Die Labore',slides:[
+  ['seq/f1-sammlung','In den Schaukästen liegen Dinge aus deiner Welt: eine Feder vom Orden, warme Asche, ein Hufeisen mit Ormaks Hammerzeichen.'],
+  ['seq/f1-sammlung','„Das ist unsere Kammer der Fremddinge“, sagt Seda leise. „Nur andersherum.“']]},
+ f1_aufzeichnung:{t:'Besucher Null',slides:[
+  ['seq/f1-aufzeichnung','Tag 1, 2:14 Uhr: Eine Gestalt mit Kapuze legt die Hand an den Reaktor. Eine Minute später reißt der Riss auf.'],
+  ['seq/f1-aufzeichnung','„War ich das?“, fragst du den Stein. Im Schlaf murmelt er: „Nein.“ Eine lange Pause. „Noch nicht.“']]},
+ f1_brummer2:{t:'Er wollte nur was heil machen',slides:[
+  ['seq/f1-brummer-violett','Brummer will das Gewächs von der Wand kratzen. Es wickelt sich um ihn, sanft wie eine Decke, und sein Licht wird violett.'],
+  ['seq/f1-brummer-violett','„Lass mich los, ich hol ihn zurück!“ Aber Funke ist zu schwach. Brummer schwebt hinab, dorthin, wo es warm ist.']]},
+ f1_vision:{t:'Der Gang',slides:[
+  ['seq/f1-vision','Du blinzelst und stehst allein in einem Gang mit rotem Licht. Vor dir geht jemand mit Kapuze, müde und abgetragen.'],
+  ['seq/f1-vision','„Ich hab versucht, eine Tür zuzuhalten. Mit einer Hand. Das reicht nie.“ Leiser: „Du kannst nicht alle mitnehmen. Ich hab’s versucht.“']]},
+ f1_schlaefer:{t:'Die Schläfer',slides:[
+  ['seq/f1-schlaefer','Im Reaktor ist es warm. Die Besatzung steht in Reihen, violette Fäden im Rücken, und alle atmen im selben Takt.'],
+  ['seq/f1-schlaefer','„Niemand verbrennt hier irgendwen“, sagt Seda. „Meine Mutter stand auch so da. Und jetzt hustet sie.“'],
+  ['seq/f1-schlaefer','Die Schläfer sprechen aus einem Mund: „K-7. Bring mir das Warme aus der Tasche.“ K-7 lächelt. „Mein Befehl war: bis Hilfe kommt. Hilfe ist da.“']]},
+ f1ende:{t:'Bis Hilfe kommt',music:'endgegner',slides:[
+  ['seq/f1-binden','K-7 hat die Notkühlung gezogen. Das Ding fließt in deine leere Karte. „Eine Karte, Besucher Null? Jede Karte ist eine Tür.“'],
+  ['seq/f1-binden','Brummers Licht wird wieder weiß. Die Schläfer atmen. K-7 bleibt bei ihnen und hält die Station kalt, bis Hilfe kommt.'],
+  ['seq/f1-boot','Juna springt mit euch durch den Riss, Merles Licht entgegen. „Ich will wissen, wer du bist.“ – „So hab ich auch mal angefangen“, sagt Seda.'],
+  ['seq/f1-boot','„Ihr wart keine Stunde weg“, sagt Merle, als sie euch aus dem Wasser zieht.'],
+  ['seq/f1-karte','In der Nacht liegt in deinem Stapel eine Karte, die du nie gebunden hast: ein Gang mit rotem Licht, ganz hinten eine Gestalt.'],
+  ['seq/f1-karte','Jede Nacht kommt sie näher. Das rote Licht blinkt: drei kurz, drei lang, drei kurz. „Guckt mal genau hin“, flüstert Funke. „Die hat eine Kapuze.“\nFortsetzung folgt …']]}
 };
 /* Story-Momente: nach dem ersten Sieg im genannten Gefecht, in dieser Reihenfolge. */
-const BEATS=[[6,'s_bluete'],[8,'s_hanne'],[16,'b0'],[22,'s_alder'],[32,'b1'],[38,'s_lio'],[42,'s_moor'],[44,'s_quelle'],[45,'s_feuer'],[48,'b2'],[53,'s_markt'],[64,'b3'],[73,'s_kuppel'],[73,'s_spiegel']];
+const BEATS=[[6,'s_bluete'],[8,'s_hanne'],[16,'b0'],[22,'s_alder'],[32,'b1'],[38,'s_lio'],[42,'s_moor'],[44,'s_quelle'],[45,'s_feuer'],[48,'b2'],[53,'s_markt'],[64,'b3'],[73,'s_kuppel'],[73,'s_spiegel'],
+ [81,'f1_wal'],[82,'f1_brummer'],[84,'f1_namen'],[85,'f1_k7'],[86,'f1_juna'],[89,'f1_sammlung'],[90,'f1_aufzeichnung'],[91,'f1_brummer2'],[92,'f1_vision'],[94,'f1_schlaefer']];
+/* Belohnungen nach dem ersten Ansehen einer Sequenz: [Karte, Sondermotiv] (0 = nur die Karte). */
+const STORY_REW={f1_brummer:[['wartungsdrohne',1]],f1_k7:[['androidin',0]],f1_juna:[['kryoschlaeferin',1]],f1_sammlung:[['sporenbrut',1]],
+ f1_schlaefer:[['androidin',1]],f1ende:[['reaktording',1],['infizierter',1],['kryoschlaeferin',2]]};
 
 const LORE={
  clownfische:'Ihre Anemone ist ihr Zuhause, ihre Festung und ihr Spielplatz.',
@@ -408,6 +477,7 @@ const ACH=[
  {id:'kap3',t:'Der Wurzelwald',d:'Besiege Urborke.',g:15,ok:()=>!!S.stars[BOSS_ID(2)]},
  {id:'kap4',t:'Das Hohle Reich',d:'Besiege den Hohlen König.',g:20,ok:()=>!!S.stars[BOSS_ID(3)]},
  {id:'kap5',t:'Die Sonnenwacht',d:'Besiege die Erzseraphin.',g:30,ok:()=>!!S.stars[BOSS_ID(4)]},
+ {id:'kap6',t:'Station Null',d:'Binde das Ding im Reaktor.',g:30,ok:()=>!!S.stars[BOSS_ID(5)]},
  {id:'hero1',t:'Heroisch',d:'Gewinne ein heroisches Gefecht.',g:10,ok:()=>Object.keys(S.hstars).length>0},
  {id:'setb',t:'Setbonus',d:'Gewinne mit 3 Karten eines Sets im Deck.',g:10,ok:()=>!!S.flags.set3},
  {id:'setv',t:'Volles Set',d:'Gewinne mit allen 6 Karten eines Sets im Deck.',g:20,ok:()=>!!S.flags.set6},
