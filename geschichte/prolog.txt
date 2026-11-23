@@ -1,0 +1,1012 @@
+Glutstein – Prolog „Der zerbrochene Stein“ (Lese- und Sprechfassung)
+
+Aufbau: #K = Kapitel (Kicker|Titel|Bild), #T = Traum, ## = Szene, [ … ] = Geräusch/Musik, NAME: = gesprochene Zeile, ~NAME: = gesungen, (…) = Regie. {KB}-Stellen sind als „Kartenbinder“ geschrieben.
+
+#V Zum Lesen und Vertonen
+Diese Fassung ist zum Lesen gedacht und gleichzeitig als Vorlage für eine spätere Vertonung. Sie erzählt den Prolog von Glutstein, also die bisherige Kampagne vom Aschenpfad bis zur Sonnenwacht, und endet dort, wo die nächste Geschichte beginnt: bei den Rissen.
+Der Fließtext gehört der Erzählstimme. Sie spricht dich direkt an, denn du bist der Kartenbinder oder die Kartenbinderin.
+Gesprochene Zeilen stehen mit Namen davor. Regieanweisungen stehen in Klammern und kursiv.
+Geräusche und Musik stehen in eckigen Klammern. Sie sind Vorschläge, keine Pflicht.
+Im Spiel wird „Kartenbinder“ automatisch zu „Kartenbinderin“, wenn du als Kartenbinderin spielst. Für die Vertonung braucht es deine Zeilen deshalb in zwei Fassungen.
+#ROLES
+ERZÄHLER|Erzählstimme|Ruhig, warm, ein wenig rau. Weiß, wie die Geschichte ausgeht, und lässt es manchmal durchblicken.
+DU|Kartenbinder / Kartenbinderin|Wenige, knappe Sätze. Ohne Erinnerung, aber nicht ohne Mut. Zwei Fassungen.
+DIE STIMME|Die Stimme im Splitter|Warm, nah, freundlich. Wie jemand, der neben dir am Feuer sitzt. Wird von Kapitel zu Kapitel ein wenig voller.
+FUNKE|Ein Funkenwicht|Schnell, frech, knisternd. Kichert gern. Hat ein größeres Herz, als er zugibt.
+SEDA|Inquisitorin des Lichtordens|Jung, klar, beherrscht. Unter der Rüstung zweifelt sie.
+ORMAK|Der Schlackenfürst|Tief und rau wie ein Ofen. Darunter ein müder, gutmütiger Schmied.
+YSRA|Die Gezeitenmutter|Weit und hallend, wie unter Wasser. Mütterlich, traurig, unnachgiebig.
+URBORKE|Die Alteiche|Sehr langsam, knarzend, gütig. Spricht, als hätte sie Jahre Zeit.
+DER HOHLE KÖNIG|Einst Vael, König der Nacht|Flüsternd und leer, als käme die Stimme aus einem Brunnen.
+AUREL|Die Erzseraphin|Hell, ruhig, ohne Zweifel. Gerade das macht sie gefährlich.
+MERLE|Die Leuchtturmwärterin|Trocken, wettergegerbt, unerschütterlich.
+KLEINE ROLLEN|Hanne, Schlackenhauptmann, Lio, Mutter, Mann im Baum, Hohle Garde, Seelenhändlerin, Spiegelbild|Das Spiegelbild spricht mit der Stimme des Kartenbinders, nur älter und müder.
+#ENDROLES
+
+#K Prolog|Die Nacht ohne Sterne|seq/intro-2
+[Musik: Ein einzelner tiefer Ton. Darunter das leise Knistern von Glut.]
+Es gab eine Zeit, in der jede Nacht jemand am Herd der Welt kniete.
+Dieser Herd war weder Ofen noch Feuerstelle, sondern ein Tempel aus grauem Stein, so hoch auf dem höchsten Berg erbaut, dass die Wolken unter ihm hindurchzogen wie Schafe unter einer Brücke. In seiner Mitte lag auf einem Sockel aus schwarzem Glas ein Stein, kaum größer als ein Herz. Er glühte, aber weder hell noch heiß, sondern so, wie Kohle am Morgen glüht, wenn das Feuer längst erloschen ist und trotzdem noch etwas in ihr lebt.
+Man nannte ihn den Glutstein, und um ihn herum knieten fünf Gestalten.
+Da war Ormak, der Schmied, breit wie ein Amboss und mit Ruß in den Lachfalten. Neben ihm Ysra, die Gezeitenmutter, mit Salz im Haar und dem Rauschen der Brandung in jedem Atemzug. Urborke, die Alteiche, bestand mehr aus Rinde als aus Haut, und in ihren Ästen blühte es selbst im Winter. Vael, der König der Nacht, war still und trug einen Mantel voller Sterne. Und Aurel, die Erzseraphin, leuchtete so hell, dass man sie nur aus den Augenwinkeln ansehen konnte.
+Sie waren die fünf Wächter, einer für jedes Element.
+Jede Nacht sangen sie dasselbe Lied. Schön war es nicht, und das sollte es auch nicht sein. Es war dafür gemacht, etwas festzuhalten.
+~ORMAK: Glut, die wärmt und nicht verzehrt,
+~YSRA: Flut, die trägt und nicht ertränkt,
+~URBORKE: Wurzel, die hält und nicht erwürgt,
+~VAEL: Nacht, die birgt und nicht verschlingt,
+~AUREL: Licht, das leuchtet und nicht blendet.
+~ALLE FÜNF: Bleib, was du bist. Schlaf, wo du liegst. Der Stein hält.
+Der Stein hielt, Nacht für Nacht, länger, als irgendjemand zählen konnte.
+Bis zu jener Nacht, in der die Sterne ausgingen.
+[Geräusch: Wind über Fels. Dann, ganz leise, ein Ton wie von einem Glas, dessen Rand man mit nassem Finger reibt.]
+Vael bemerkte es als Erster. Über dem Tempel flackerte ein Stern wie eine Kerze im Luftzug und erlosch. Dann der nächste, und danach noch einer. Sie verschwanden nicht wie Sterne hinter Wolken, sondern eher wie die Lichter eines Hauses, in dem jemand von Zimmer zu Zimmer geht und eines nach dem anderen löscht.
+VAEL: Aurel.
+AUREL: Ich sehe es.
+YSRA: Das Meer ist still geworden. Dabei ist das Meer nie still.
+URBORKE: Singt weiter. Was immer es ist, singt weiter.
+Sie sangen weiter, und durch ihr Lied hindurch hörten sie Schritte. Langsame Schritte auf der Treppe, die niemand hinaufsteigen konnte, der nicht gerufen worden war.
+Eine Gestalt trat durch das Tor. Ihr Umhang war schwer vom Regen, obwohl es nicht regnete. Unter der Kapuze war kein Gesicht zu erkennen, nur Dunkelheit und darin ein schwacher, warmer Schein.
+ORMAK: Halt. Wer bist du?
+Die Gestalt antwortete nicht. Als Ormak sich ihr in den Weg stellte, breit wie ein Tor, hob sie nur den Kopf. Aus der Dunkelheit unter der Kapuze schlug ihm eine Hitze entgegen, vor der selbst ein Schmied zurückwich.
+AUREL: Fass den Stein nicht an! Wer immer du bist, fass ihn nicht an!
+Vor dem Sockel blieb die Gestalt stehen und hob eine Hand. Einen Herzschlag lang zögerte sie.
+Dann legte sie die Hand auf den Glutstein, und der Stein sang zurück.
+Es war nicht das Lied der Fünf, sondern ein anderes. Es klang wie ein Feuer, das sehr lange nichts mehr zu fressen bekommen hat.
+[Die Musik bricht ab. Ein einzelnes, helles Knacken.]
+Der Glutstein zerbrach.
+[Geräusch: Ein Donnerschlag, der nicht verhallt, sondern weiterrollt, immer weiter, über Berge, Meer und Wald.]
+Wie Funken aus einem eingestürzten Kamin flogen fünf Splitter hinaus in die Nacht. Der erste fiel im Osten in die Asche, der zweite im Westen ins Meer, der dritte im Süden in den Wald und der vierte im Norden in die Schatten. Der fünfte blieb dort, wo das Licht war.
+Jeder der fünf Wächter griff nach dem Splitter seines Elements und hielt ihn fest, so fest er nur konnte.
+Noch wussten sie nicht, dass das ein Fehler war.
+Es gab allerdings noch einen sechsten Splitter, den kleinsten und wärmsten von allen: das Herz des Steins. Er flog nirgendwohin, denn er lag in der Hand der Gestalt mit der Kapuze. Die Gestalt stürzte die Treppe hinab, in die Wolken, in die Tiefe und ins Vergessen.
+Dann begann es zu regnen.
+Und dort, wo die Gestalt liegen blieb, hörte es tausend Nächte lang nicht mehr auf.
+#K Erwachen|Regen|seq/intro-4
+[Geräusch: Regen, schwer und gleichmäßig. Wasser, das in eine Pfütze tropft. Ein Atemzug, als käme jemand aus großer Tiefe herauf.]
+Als Erstes spürst du die Kälte.
+Es ist nicht die Kälte einer Nacht unter freiem Himmel, sondern eine ältere. Die Kälte von etwas, das sehr lange gelegen hat, ohne sich zu rühren.
+Als Zweites spürst du Wärme, und zwar in deiner rechten Hand.
+Du öffnest die Augen. Über dir hängt ein schwarzer, tiefer Himmel, aus dem es regnet, als hätte er nie etwas anderes getan. Du liegst in einem Graben, bis zu den Schultern im Schlamm. Quer über deiner Brust liegen Wurzeln, als hätte die Erde begonnen, dich zuzudecken, und es sich dann anders überlegt. Dein Umhang ist schwer vom Regen.
+Du ziehst die Hand aus dem Schlamm.
+In deiner Faust liegt ein Splitter, rot wie ein Herz, das man gegen das Licht hält. Er glüht durch deine Finger hindurch, und wo ihn ein Tropfen trifft, zischt es leise.
+Er ist warm, und er scheint das einzig Warme auf der ganzen Welt zu sein.
+[Musik: Ein leiser, tiefer Streicherton, sehr nah.]
+DIE STIMME: Da bist du ja.
+Erschrocken fährst du hoch, aber da ist niemand. Nur der Regen, der Graben und weit hinten auf einem Hügel die Umrisse einer Burg, in der ein paar Fenster erleuchtet sind.
+DIE STIMME: Keine Angst. Ich bin nicht da draußen, sondern hier. In deiner Hand.
+DU: Wer … wer bist du?
+DIE STIMME: Die bessere Frage wäre doch: Wer bist du? Weißt du es?
+Du willst antworten und öffnest den Mund, doch da ist nichts. Kein Name, kein Ort, keine Mutter, kein Zuhause, kein Gestern. So weit deine Erinnerung reicht, gibt es nur Regen, und sie reicht genau bis zu dem Augenblick, in dem du die Augen aufgeschlagen hast.
+DIE STIMME: Schon gut, das kommt vor. Du hast lange geschlafen.
+DU: Wie lange?
+DIE STIMME: Ungefähr tausend Nächte.
+Die Stimme lacht leise. Es ist ein freundliches Lachen, wie von jemandem, der neben dir am Feuer sitzt.
+DIE STIMME: Greif in deine Tasche.
+Deine Finger ertasten etwas Flaches und Glattes: vier Karten, in ein Stück Leder gewickelt. Du ziehst sie heraus und hältst sie in den Schein des Splitters.
+Von der ersten blickt dich ein Tümpelgeist aus großen, nassen Augen an. Auf der zweiten liegt ein Moosling, zusammengerollt wie eine Katze. Die dritte zeigt ein Irrlicht, die vierte einen Nachtfalter.
+Die Karten sind alt. Ihre Ecken sind abgegriffen und ihre Farben verblasst, als hätte sie jemand tausendmal in der Hand gehabt. Auf jeder ist eine Gestalt gebannt, und jede dieser Gestalten bewegt sich ein wenig, sobald du nicht direkt hinsiehst.
+DU: Was ist das?
+DIE STIMME: Deine Karten. Du hast sie gebunden.
+DU: Daran erinnere ich mich nicht.
+DIE STIMME: Deine Hände erinnern sich, und das genügt. Du bist ein Kartenbinder. Was du besiegst, bannst du in Karten, und was du bannst, kämpft für dich. Es gibt nicht mehr viele wie dich.
+DU: Wie viele?
+DIE STIMME: (eine kleine Pause) Eigentlich nur noch dich.
+[Geräusch: Ein Kichern, hoch und knisternd. Dann ein Zischen wie von Wasser auf heißem Eisen.]
+Etwas springt auf den Rand des Grabens. Es ist klein, kaum größer als eine Katze, und es brennt. Es brennt mitten im Regen, und der Regen nimmt ihm das sichtlich übel: Jeder Tropfen, der es trifft, verdampft mit einem empörten Fauchen. Du siehst zwei glühende Augen und ein Grinsen voller Funken.
+Es ist ein Funkenwicht.
+Er kichert, kurz und hell. Woher auch immer, du weißt, dass Funkenwichte das jedes Mal tun, kurz bevor etwas Feuer fängt.
+DIE STIMME: Er riecht mich. Sie riechen mich alle. Steh auf.
+Du stehst auf, obwohl deine Beine zittern. Im selben Moment springt der Funkenwicht.
+Deine Hände wissen, was zu tun ist.
+[Musik: Das Kampfmotiv, kurz und hell.]
+Du ziehst den Tümpelgeist. Die Karte flackert zwischen deinen Fingern, und schon steht er vor dir, durchsichtig und triefend nass. Der Funkenwicht prallt gegen ihn wie eine Kerze gegen einen Eimer Wasser.
+[Geräusch: Ein lautes, zutiefst beleidigtes Zischen.]
+Lange dauert es nicht. Bald liegt der Funkenwicht als trauriges Häufchen Glut im Schlamm und qualmt.
+DIE STIMME: Jetzt. Bind ihn.
+Du streckst die Hand aus. Zwischen deinen Fingern entsteht eine leere Karte, wie aus dem Nichts, aus dem Regen, aus dir selbst. Als du sie über das Häufchen Glut hältst, wird der Funkenwicht hineingezogen wie Rauch in einen Kamin.
+Auf der Karte erscheint ein Bild: ein Funkenwicht mit verschränkten Armen, sichtlich verärgert.
+Einen Moment lang ist alles still. Dann ruckelt die Karte in deiner Hand, und der Funkenwicht springt wieder heraus. Er ist jetzt kleiner und gebunden, aber eindeutig nicht einverstanden.
+FUNKE: Hey! HEY! Was soll das denn? Ich wollte dich doch bloß ein bisschen anzünden!
+DU: Du … du redest ja.
+FUNKE: Natürlich rede ich! Alle reden! Ihr hört nur nie zu! (schnuppert) Uh. Was hast du da in der Hand?
+DIE STIMME: Sag ihm, er soll still sein.
+FUNKE: Der Stein redet. Der Stein REDET! Wieso redet dein Stein?
+DU: Du kannst ihn hören?
+FUNKE: Hören nicht, aber riechen. Er riecht warm. Er riecht gut. Er riecht … (zögert) irgendwie komisch.
+DIE STIMME: Hör mir zu, Kartenbinder. Ich erkläre dir nur einmal, warum du hier bist.
+[Musik: Leise und getragen.]
+DIE STIMME: Diese Welt hatte ein Herz, einen Stein, der Feuer, Wasser, Erde, Schatten und Licht im Gleichgewicht hielt. Vor tausend Nächten ist er zerbrochen, und seine Splitter sind in die fünf Länder gefallen. Die Wächter, die ihn schützen sollten, haben sich in ihnen verloren.
+DU: Verloren?
+DIE STIMME: Sieh nach Osten.
+Du drehst dich um. Hinter dem Hügel mit der Burg, dort, wo der Himmel sein sollte, glimmt ein roter Streifen. Es ist kein Sonnenaufgang, sondern Rauch. Ein ganzer Horizont aus Rauch, und darunter eine Glut, die nicht erlischt.
+DIE STIMME: Dort brennt die Erde, seit der Splitter gefallen ist. Im Westen ist das Meer gekommen und nicht wieder gegangen. Im Süden verschlingt ein Wald jede Nacht ein Dorf, und im Norden geht die Sonne nicht mehr auf. Oben auf dem Berg sitzt ein Orden, der die Welt lieber erfrieren lässt, als sie zu heilen. Das ist aus den Wächtern geworden.
+DU: Und was soll ich dabei tun?
+DIE STIMME: Hol die Splitter, alle fünf, und bring sie zu mir. Setz mich wieder zusammen.
+DU: Und dann?
+DIE STIMME: (sehr sanft) Dann wird diese Welt nie wieder frieren.
+FUNKE: (leise) Das klingt eigentlich ganz vernünftig. Warum klingt das so vernünftig?
+Du betrachtest den Splitter in deiner Hand. Er pulsiert langsam, wie ein schlafendes Herz.
+DU: Warum ausgerechnet ich?
+DIE STIMME: Weil nur die Hand eines Binders zusammenfügen kann, was einmal gebunden war. Und weil du schon unterwegs warst, bevor du eingeschlafen bist. Du weißt es nur nicht mehr.
+DU: Und was willst du am Ende?
+Eine lange Pause entsteht. Der Regen trommelt auf deine Schultern.
+DIE STIMME: Ich will nach Hause.
+Du machst dich auf den Weg nach Osten, dem Rauch entgegen. Hinter dir hüpft ein Funkenwicht durch die Pfützen und zischt bei jedem Sprung, und irgendwo vor dir, unter dem roten Himmel, ruft der erste Splitter.
+Hören kannst du ihn nicht. Aber deine Hand wird wärmer, je weiter du gehst.
+[Musik: Das Hauptthema, leise auslaufend.]
+
+#K Kapitel I|Der Aschenpfad|kapitel-1
+"> Glut, die wärmt und nicht verzehrt.
+## Der Ascheweg
+[Geräusch: Knirschen unter den Füßen. Knistern. Fernes Grollen, wie von einem Ofen, der atmet.]
+Am dritten Tag hört der Regen auf. Er zieht nicht etwa weiter, sondern verdampft, bevor er den Boden erreicht.
+Der Ascheweg beginnt dort, wo das Gras aufhört. Zuerst wird alles grau, dann schwarz, und schließlich ist der Boden unter deinen Sohlen so warm, dass du lieber nicht stehen bleibst. Die Bäume am Wegrand sehen aus wie abgebrannte Streichhölzer. Manche glimmen noch an den Spitzen, seit tausend Nächten schon, und doch ist keiner von ihnen je ganz verbrannt.
+FUNKE: (seufzt glücklich) Ahhh, endlich. Riechst du das? Das ist Zuhause.
+DU: Es riecht nach verbranntem Haar.
+FUNKE: Sag ich doch. Zuhause.
+Hier musst du kämpfen. Wie Hornissen schwärmen Funken aus den Felsspalten, und Wölfe mit Flanken aus Kohle jagen in Rudeln, ohne eine andere Spur zu hinterlassen als Asche. Am Pass verlangt eine Brandwache Zoll, und zwar eine Karte oder gleich alle. Du bezahlst mit Wasser.
+Mit jedem Gegner, den du besiegst, wächst dein Deck, und mit jeder neuen Karte wird die Hand, die sie hält, ein wenig sicherer.
+Was dir anfangs nicht auffällt: Die Tiere des Feuers jagen nicht, um zu fressen. Sie greifen alles an, was sich bewegt, und lassen es dann liegen, als hätte ihnen jemand befohlen, niemanden durchzulassen.
+## Rußdorf
+[Geräusch: Ein Windspiel aus Nägeln, das leise klirrt. Ein Hund bellt einmal, dann nicht mehr.]
+Rußdorf hat schon lange keinen Gast mehr gesehen. Das merkst du daran, wie sich die Türen öffnen, während du die Hauptstraße entlanggehst: nur einen Spalt breit, gerade so weit, dass ein Auge hindurchpasst.
+Nur eine einzige Tür geht ganz auf. Darin steht eine alte Frau, krumm wie ein Haken und mit Händen, die so schwarz sind wie ihr Ofen. Lange mustert sie dich, dann den Funkenwicht auf deiner Schulter und schließlich den roten Schein zwischen deinen Fingern.
+HANNE: Du willst zum Fürsten.
+DU: Woher weißt du das?
+HANNE: Weil jeder, der mit so einem Licht in der Faust hier durchkommt, zum Fürsten will. (dreht sich um) Komm rein. Es gibt Aschebrot. Schmeckt nach nichts, macht aber satt.
+Ihr Name ist Hanne. Früher war sie Köhlerin, damals, als Holz noch nicht von selbst zu Kohle wurde. Sie stellt dir einen Teller hin, setzt sich dir gegenüber und sieht dir beim Essen zu, wie man einem Tier zusieht, bei dem man nicht weiß, ob es beißt.
+HANNE: Weißt du, wer Ormak war, bevor er Fürst wurde?
+DU: Ein Wächter.
+HANNE: (schnaubt) Ein Schmied war er. Wächter war er nur nebenbei. Er hat unsere Pflüge gemacht, unsere Hufeisen und die Glocke da oben im Turm. Und wenn er gute Laune hatte, hat er den Kindern aus Hufnägeln kleine Pferde gebogen. Er hatte fast immer gute Laune.
+Sie greift in ihre Schürze und legt etwas auf den Tisch: ein kleines Pferd aus Eisen, nicht länger als dein Finger, mit krummen Beinen und einer Mähne aus gedrehtem Draht. Es ist schief geraten, aber man sieht, mit wie viel Liebe es gemacht wurde.
+HANNE: Das war meins. Da war ich sechs.
+DU: Was ist mit ihm passiert?
+HANNE: Der Splitter. (schweigt einen Moment) In der Nacht, als die Sterne ausgingen, ist er hier runtergekommen, mitten auf den Marktplatz. Er hat ein Loch in die Erde gebrannt, so tief, dass man keinen Grund mehr sah. Am nächsten Morgen kam Ormak vom Berg herunter und hat ihn mit bloßen Händen herausgeholt. Ich hab gesehen, wie seine Haut geraucht hat. Und er hat gesagt: Keine Angst. Ich schmiede ihm einen Käfig, dann hält er still.
+DU: Und dann?
+HANNE: Dann hat er geschmiedet, Tag und Nacht, einen Käfig nach dem anderen. Jeder einzelne ist geschmolzen. (leise) Irgendwann ist er nicht mehr ins Dorf gekommen. Irgendwann hat er uns nicht mehr erkannt. Und irgendwann haben seine Leute angefangen, Klingen zu gießen statt Pflüge. (sieht dich an) Er hat keinen Käfig für den Splitter gebaut, Kind. Der Splitter hat einen Käfig aus ihm gemacht.
+Sie schiebt dir das eiserne Pferdchen über den Tisch.
+HANNE: Nimm das mit. Wenn du ihn siehst … vielleicht erinnert er sich ja.
+DIE STIMME: (leise, nur für dich) Sie meint es gut. Aber da oben ist niemand mehr, der sich an irgendetwas erinnert. Das solltest du wissen.
+Du steckst das Pferdchen trotzdem ein.
+## Die Glutmine
+[Geräusch: Hall. Tropfen, die auf heißem Stein verdampfen. Irgendwo Spitzhacken, die niemals aufhören.]
+Die Glutmine gehört der Horde. In ihren Stollen wimmelt es von Aschekobolden mit Schaufeln, die größer sind als sie selbst, und von Lavahunden, die dort schlafen und knurrend erwachen, sobald jemand vorbeikommt.
+Ganz unten, in einem Stollen mit rot leuchtenden Wänden, findest du etwas, das nicht hierher gehört: ein Blütenblatt.
+Es ist rosa, weich und vollkommen unversehrt. Obwohl es auf glühender Asche liegt, verbrennt es nicht. Als du es aufhebst, duftet es nach Frühling und zugleich nach etwas anderem, nach einem Ort, den du nicht kennst. Nach Tee und nach Holz, das nicht brennt.
+FUNKE: Wo kommt das denn her? Hier wächst doch gar nix.
+DU: Ich weiß es nicht.
+Du drehst dich um. Hinter dir zieht sich ein feiner Strich durch die Felswand, ein Riss, kaum breiter als ein Haar. Einen Atemzug lang glaubst du, durch ihn hindurch einen Luftzug zu spüren, kühl und mit dem Duft von Blüten.
+Dann ist es vorbei, und vor dir liegt nur noch Stein.
+DIE STIMME: Das ist nichts, nur ein Haarriss. Seit ich zerbrochen bin, ist die Welt voller kleiner Sprünge. Komm weiter.
+Du steckst das Blütenblatt zu dem Pferdchen, ohne selbst zu wissen, warum.
+## Die Schmiede der Asche
+[Geräusch: Hämmer, viele, alle im selben Takt. Wie ein riesiges Herz aus Eisen.]
+In der Schmiede der Asche ist es so laut, dass dich niemand kommen hört. Hunderte Ambosse stehen hier, und an jedem schlägt ein Glutsoldat auf Klingen ein, die aus Lava gegossen werden und beim Abkühlen schreien. Die Rüstungen der Soldaten glühen, doch die Gesichter darunter sind leer.
+Über der Halle hängt ein Banner mit dem alten Zeichen des Schmieds, einem Amboss mit einer Flamme darüber. Jemand hat es mit Ruß übermalt.
+Der Schlackenhauptmann stellt sich dir in den Weg. Er ist der Einzige hier, der noch spricht.
+SCHLACKENHAUPTMANN: Ormak lässt hier Klingen aus Lava gießen. Du kommst zu spät.
+DU: Für die Klingen vielleicht. Aber nicht für den Schmied.
+SCHLACKENHAUPTMANN: (lacht freudlos) Den Schmied? Den gibt es nicht mehr, es gibt nur noch den Fürsten. (leiser) Und der Fürst hat Angst. Weißt du, wovor ein Wesen aus Feuer Angst hat?
+DU: Vor Wasser.
+SCHLACKENHAUPTMANN: Vor dir.
+## Der Glutturm
+[Geräusch: Wind, heiß und trocken. Eine Glocke, die einmal schlägt, viel zu langsam.]
+Der Glutturm ist die letzte Etappe. Von seiner Spitze aus, wo die Glocke von Rußdorf hängt, die längst niemand mehr läutet, siehst du ihn zum ersten Mal.
+Unter dir liegt ein Krater, darin ein See aus flüssigem Gestein. In der Mitte des Sees steht ein Thron, der eigentlich gar kein Thron ist, sondern ein riesiger schwarzer Amboss. Darauf sitzt etwas, das einmal ein Mann gewesen ist.
+Es ist Ormak, der Schlackenfürst.
+Seine Haut besteht aus rissiger, schwarzer Schlacke, und durch die Risse dringt ein Glühen, das in seiner Brust am hellsten ist. Wo bei anderen das Herz schlägt, sitzt bei ihm der Splitter, eingeschmolzen und festgeschmiedet. Ringsum liegen Käfige, Dutzende, ja Hunderte, geschmolzen, verbogen und übereinandergeworfen wie Spielzeug, das ein Kind leid geworden ist.
+Langsam hebt er den Kopf und sieht dich an. Über die ganze Entfernung hinweg blickt er dir direkt in die Augen.
+DIE STIMME: (sehr leise, fast zärtlich) Da ist er. Mein erstes Stück.
+FUNKE: Dein was?
+DIE STIMME: Der erste Splitter. Geh.
+## Schlackenfürst Ormak
+@img seq/a1-3
+[Musik: Das Endgegner-Thema. Tief und schwer, mit Ambossschlägen im Rhythmus.]
+Du steigst hinab und überquerst eine Brücke aus erstarrter Lava, die bei jedem Schritt knackt. Die Hitze ist so gewaltig, dass der Funkenwicht auf deiner Schulter vor Glück leise summt.
+Ormak erhebt sich. Er ist größer als jedes Haus in Rußdorf.
+ORMAK: (mit einer Stimme wie ein Ofen, den man aufreißt) Noch einer. Noch einer mit Licht in der Faust. (schnuppert, Funken stieben aus seinen Nüstern) Nein … nicht irgendeiner. Du. Dich kenne ich.
+DU: Du kennst mich?
+ORMAK: Deinen Geruch. Regen auf heißem Stein. Den hab ich schon einmal gerochen, damals, auf der Treppe. (brüllt) GEH ZURÜCK!
+DU: Ich will dir nicht wehtun. Ich bin nur wegen des Splitters hier.
+ORMAK: Sie sind ALLE wegen des Splitters hier!
+Du greifst in deine Tasche und hältst das Pferdchen hoch.
+[Die Musik setzt aus.]
+Ormak erstarrt. Das Glühen in seinen Augen flackert und wird für einen Herzschlag schwächer. Darunter, ganz tief, schimmert etwas anderes hervor, etwas Braunes, Müdes.
+ORMAK: (leise, rau) Hanne. Das gehört Hanne.
+DU: Sie sagt, du hast es gemacht. Und dass du fast immer gute Laune hattest.
+ORMAK: (ein Laut, der ein Lachen sein könnte oder ein Schluchzen) Gute Laune … (dann gequält) Er hört zu. Er hört alles, er ist in mir drin. Ich halte ihn fest. Zwölftausend Schläge am Tag, zwölftausend, damit er stillhält, damit er nicht …
+Das Glühen in seiner Brust flammt so grell auf, dass du die Augen zukneifen musst. Als du sie wieder öffnest, ist das Braune verschwunden.
+ORMAK: (brüllt) Mit Tümpelwasser gegen den Schlackenfürsten? LÄCHERLICH!
+DU: Wasser schlägt Feuer, Ormak. Das weiß jedes Kind.
+ORMAK: Dann zeig mir, was Kinder wissen!
+[Musik: Kampf.]
+* * *
+Als es vorbei ist, liegt der Schlackenfürst auf seinem Amboss. Die Lava im See ist dunkel geworden und an manchen Stellen schon grau, und aus den Rissen in seiner Haut steigt Dampf.
+Du trittst zu ihm. Der Splitter in seiner Brust pulsiert, und der in deiner Hand antwortet. Du spürst, wie die beiden einander rufen, so wie zwei Menschen, die sich in einer Menge wiedererkennen.
+ORMAK: (sehr leise, rau, aber ruhig) Nicht. Bitte.
+DU: Ich muss.
+ORMAK: Ich weiß. (atmet schwer) Ich hab ihn gehalten, tausend Nächte lang. Weißt du, was er die ganze Zeit gesagt hat? Lass los. Lass doch los, Ormak, es tut dir doch weh. Lass los. (hustet Funken) Es hat wehgetan.
+Er öffnet seine leere Faust, und du legst das eiserne Pferdchen hinein.
+Lange sieht er es an.
+ORMAK: Krumme Beine. (lacht ganz leise) Beine konnte ich nie.
+Dann greift er nach deinem Handgelenk. Seine Hand ist heiß, aber sie verbrennt dich nicht.
+ORMAK: Hör zu, und hör gut zu. Das Warme in deiner Hand … hör nicht darauf. Es sagt nie etwas Falsches. Das ist ja das Schlimme daran. Es sagt niemals etwas Falsches.
+Dann lässt er los.
+Du hältst eine leere Karte über ihn, und der Schlackenfürst wird langsam hineingezogen, so wie Glut in einen Ofen zurückkehrt. Auf der Karte erscheint sein Bild, mit geschlossenen Augen und dem Pferdchen in der Faust.
+Zurück bleibt nur der Splitter, der rot und rauchend auf dem Amboss liegt.
+Als du ihn aufhebst, schmilzt er in dem Moment, in dem er deine Haut berührt, und fließt in den anderen Splitter hinein wie Wachs in Wachs. Der Stein in deiner Hand ist jetzt größer und wärmer.
+DIE STIMME: (ein langer, tiefer Atemzug, fast ein Seufzen) Ahhh. Danke.
+FUNKE: (unbehaglich) Hat … hat der Stein gerade geseufzt?
+DIE STIMME: Der arme Schmied hat sehr gelitten. Jetzt leidet er nicht mehr. Du hast ihn erlöst.
+Gelogen ist das nicht. Und genau das ist das Seltsame daran.
+## Am Kraterrand
+[Geräusch: Ein Schrei, hoch und klar, von einem Raubvogel. Dann noch einer. Flügelschlag.]
+Als du aus dem Krater steigst, wartet oben bereits jemand auf dich.
+Über dem Kraterrand kreisen drei Falken aus Licht. Unter ihnen steht eine Frau in weißer Rüstung, die im Rauch des Aschenpfads wirkt wie ein Loch in der Welt. Sie ist jung, jünger, als ihre Stimme klingt.
+SEDA: Halt! Im Namen des Lichtordens.
+FUNKE: Oh nein, die Weißen. Ich hasse die Weißen.
+SEDA: Ich bin Seda, Inquisitorin der Sonnenwacht. Du trägst etwas bei dir, das dir nicht gehört, und du übst eine Kunst aus, die seit dreihundert Jahren verboten ist. Gib mir den Splitter und deine Karten, dann geschieht dir nichts.
+DU: Verboten? Das Binden?
+SEDA: Wer bindet, nimmt. Und was genommen wird, will zurück. So lehrt es der Orden. (streckt die Hand aus) Den Splitter.
+DU: Ormak hat tausend Nächte lang gelitten. Wo war euer Orden in all der Zeit?
+SEDA: (kurz unsicher, dann hart) Dort, wo er sein musste. Den Splitter. Ich frage kein zweites Mal.
+Der Stein in deiner Hand wird heiß, nicht mehr nur warm. Du willst die Faust öffnen, doch sie gehorcht dir nicht.
+DIE STIMME: (ruhig) Schließ die Augen.
+Du gehorchst und siehst durch die geschlossenen Lider, wie alles rot wird, rot wie ein Sonnenaufgang, rot wie das Innere eines Ofens.
+[Geräusch: Ein Fauchen, als würde ein Hochofen aufgerissen. Falkenschreie. Seda schreit auf.]
+Als du die Augen wieder öffnest, kniet Seda mit den Händen vor dem Gesicht im Staub. Ihre Falken sind verschwunden.
+DIE STIMME: Lauf.
+Du läufst.
+FUNKE: (keuchend, im Rennen) Okay. Okay, okay, okay. Dein Stein kann Leute blenden. Das ist gut. Das ist doch … gut, oder? Das ist doch gut?
+Du antwortest nicht, denn deine Hand schmerzt. In ein paar Stunden wird Seda wieder sehen können, aber sie wird nicht vergessen, wie sich dieses Licht angefühlt hat.
+Irgendwo in dir sagt ganz leise eine Stimme, die nicht aus dem Stein kommt: Das warst nicht du.
+#T Traum|Was Karten träumen
+[Musik: Ein tiefer Ton, wie von einem nachklingenden Amboss. Sehr langsam.]
+In dieser Nacht träumst du von einer Schmiede.
+Sie ist klein und besteht kaum aus mehr als einem Amboss, einem Feuer und einem offenen Tor, durch das man auf grüne Felder blickt. Am Amboss steht ein Mann mit Ruß im Bart und biegt einen Nagel zu einem Pferdebein.
+ORMAK: (ohne aufzusehen) Setz dich.
+Du setzt dich. Im Traum erscheint dir das ganz selbstverständlich.
+ORMAK: Weißt du, warum Feuer wärmt, Kartenbinder?
+DU: Weil es brennt.
+ORMAK: Nein. Es brennt, weil es Hunger hat. Wärmen tut es nur, weil jemand es im Zaum hält. (biegt den Draht) Ein Feuer im Herd wärmt ein Haus. Dasselbe Feuer ohne Herd frisst das Haus auf. Es ist dasselbe Feuer, nur der Herd macht den Unterschied.
+DU: Was willst du mir damit sagen?
+ORMAK: (sieht zum ersten Mal auf; seine Augen sind braun und müde) Dass du keinen Herd hast. (leiser) Und dass er das weiß.
+Die Schmiede beginnt zu glühen. Das Feuer wird größer und leckt am Tor, an den Balken und an Ormaks Ärmel.
+ORMAK: Gleich weckt er dich. Er mag es nicht, wenn wir miteinander reden. Merk dir …
+[Geräusch: Ein Knistern, das alles verschluckt.]
+Du wachst auf. Der Stein liegt neben dir und glüht sanft.
+DIE STIMME: Schlecht geträumt?
+DU: Ich weiß es nicht mehr.
+Das stimmt sogar. Beim Frühstück hast du den Traum bereits vergessen. Nur ein einziges Wort bleibt dir im Gedächtnis, ohne dass du wüsstest, woher es stammt.
+Herd.
+
+#K Kapitel II|Die versunkene Küste|kapitel-2
+"> Flut, die trägt und nicht ertränkt.
+## Strandgut
+[Geräusch: Brandung. Möwen, aber zu wenige. Ein Glockenton, sehr fern und sehr tief, als käme er aus dem Wasser.]
+Die Flut kam und ging nicht wieder.
+Wo früher Strand war, ist heute Meer, und wo einst Dörfer standen, ragen Kirchturmspitzen aus dem Wasser wie die Finger von Ertrinkenden. Die Straße, auf der du gehst, führt einfach in die Wellen hinein und kommt nicht wieder heraus.
+Funke hat sich in deiner Kapuze verkrochen und weigert sich hinzusehen.
+FUNKE: Sag Bescheid, wenn es vorbei ist.
+DU: Hier ist das ganze Land Wasser.
+FUNKE: Dann sag Bescheid, wenn das Land vorbei ist.
+Am Flutsaum liegt Strandgut, und es ist seltsames Strandgut.
+Du findest ein Zahnrad aus Messing, so groß wie ein Teller, dessen Zähne feiner gefeilt sind, als es irgendein Schmied in diesem Land könnte. Daneben liegt eine Flasche aus grünem Glas mit einem Zettel darin, dessen Buchstaben du nicht lesen kannst. Und eine Taschenuhr, die noch tickt. Als du sie aufklappst, siehst du, dass ihre Zeiger rückwärts laufen.
+DU: Woher kommt das alles?
+DIE STIMME: Das Meer bringt vieles. Komm.
+FUNKE: Das Meer bringt Uhren, die rückwärts gehen?
+DIE STIMME: (eine Spur zu schnell) Das Meer bringt vieles.
+## Der Leuchtturm
+[Geräusch: Wind, der um eine Turmspitze heult. Eine eiserne Tür, die knarrt. Oben das stetige Fauchen einer großen Flamme.]
+Auf einer Klippe, die einmal eine Landzunge war und heute eine Insel ist, steht ein Leuchtturm, und in ihm brennt ein Licht.
+Das ist das Erste, was dir in diesem ertrunkenen Land auffällt: Jede Nacht strahlt der Leuchtturm weit hinaus über das schwarze Wasser.
+Die Wärterin heißt Merle. Sie ist nicht alt, hat aber das Gesicht von jemandem, der schon sehr lange auf etwas wartet. Noch bevor du anklopfen kannst, öffnet sie die Tür.
+MERLE: Ich hab dein Licht von oben gesehen. Du kommst vom Aschenpfad.
+DU: Woher …
+MERLE: Du riechst nach Rauch, und dein Freund da qualmt. (zu Funke) Mach mir bloß nichts nass, Kleiner. Oder trocken. Was auch immer bei dir das Problem ist.
+FUNKE: (empört) Ich bin nicht klein! Ich bin kompakt!
+Sie kocht einen Tee aus Seetang, der furchtbar schmeckt, und beginnt zu erzählen.
+MERLE: Ysra war gut zu uns. Sie hat die Stürme von der Küste ferngehalten und die Fischschwärme in die Buchten geschickt. Zum Dank hat man ihr Muscheln auf die Felsen gelegt, und die Kinder haben ihr Lieder gesungen. (eine Pause) Dann fiel der Splitter, mitten in den Hafen von Aldermünde.
+DU: Aldermünde?
+MERLE: Die Stadt da unten. (nickt zum Fenster hinaus, auf das schwarze Wasser) Achttausend Menschen haben dort gelebt. Weißt du, sie ist nicht einfach ertrunken, jedenfalls nicht so, wie du denkst. Ysra hat sie versenkt.
+DU: Absichtlich?
+MERLE: Der Splitter hat gesungen. Am ersten Abend hat man es nur am Hafen gehört, am zweiten schon in der ganzen Stadt. Am dritten Abend sind die ersten Leute ins Wasser gegangen, um ihn zu holen, einfach so, mit offenen Augen. Da hat Ysra die Flut gerufen, damit niemand mehr an ihn herankommt. Sie hat das Meer über der ganzen Stadt geschlossen wie eine Hand über einer Kerzenflamme.
+DU: Und die Menschen?
+MERLE: Wer schwimmen konnte, ist geschwommen. (leise) Die anderen singen jetzt mit, draußen in der Gischt. Hast du sie gehört?
+Du hast sie gehört, schon den ganzen Tag: Stimmen im Rauschen, die keinem Menschen mehr gehören.
+MERLE: Sie singen gegen ihn an, damit sein Lied nicht bis ans Land dringt. Ysra hat es ihnen beigebracht. (trinkt) Jede Nacht singen sie, und jede Nacht wird er ein bisschen lauter.
+DU: Und dein Licht?
+MERLE: (eine lange Pause) Mein Mann Jarne war Kapitän. Sein Schiff hieß Morgenmöwe. In der Nacht, als die Sterne ausgingen, war er draußen auf See, und er ist nicht zurückgekommen. (stellt die Tasse ab) Seitdem lasse ich das Licht brennen. Für die, die noch kommen.
+DU: Es kommt doch niemand mehr.
+MERLE: Das weißt du nicht. Das weiß keiner.
+## Eine weiße Feder
+[Geräusch: Langsame Schritte auf einer eisernen Wendeltreppe. Draußen ein Falkenschrei.]
+In der Nacht kommt Seda.
+Als du aus dem Halbschlaf hochschreckst, steht sie mit gezogenem Schwert in der Tür. Ihre Augen sind noch immer rot gerändert von dem, was am Kraterrand geschehen ist. Funke faucht, und du greifst nach deinen Karten.
+MERLE: (scharf) Nicht in meinem Turm.
+Beide erstarren.
+MERLE: Wenn ihr euch umbringen wollt, macht das draußen, da ist Wasser genug für zwei. Hier drin brennt ein Licht, und das bleibt so.
+Seda senkt das Schwert, zumindest ein Stück weit.
+SEDA: Du hast mich geblendet.
+DU: Das war ich nicht.
+SEDA: (bitter) Ach nein? Wer dann?
+Du schweigst. In deiner Faust pulsiert es, ruhig und zufrieden.
+SEDA: Weißt du überhaupt, was du da sammelst?
+DU: Das Herz der Welt.
+SEDA: Der Orden lehrt etwas anderes. Er lehrt, dass der Glutstein kein Herz ist, sondern ein Schloss.
+DIE STIMME: (nur für dich, ganz ruhig) Dann frag sie doch, was dahinter eingeschlossen ist.
+DU: Und was ist dahinter eingeschlossen?
+Seda öffnet den Mund und schließt ihn wieder.
+SEDA: Das muss ich nicht wissen. Ich muss nur wissen, dass man es nicht öffnen darf.
+DIE STIMME: Hörst du? Sie weiß es nicht, keiner von ihnen weiß es. Sie haben nur Angst. Aus Angst lassen sie eine Stadt ertrinken und einen Schmied verbrennen, während sie selbst oben auf ihrem Berg im Licht sitzen und zusehen.
+DU: (leise, zu Seda) Ihr habt nur zugesehen.
+SEDA: (getroffen) Wir haben gewacht.
+DU: Merle lässt seit tausend Nächten ein Licht brennen, für Fremde. Was hat dein Orden in dieser Zeit getan?
+Seda antwortet nicht. Sie blickt zu Merle hinüber, die ihren Blick erwidert und Tee nachgießt.
+Am Morgen ist Seda verschwunden. Sie hätte dich im Schlaf festnehmen können, aber sie hat es nicht getan.
+Auf dem Tisch liegt eine weiße Feder, und daneben steht in sauberer Schrift ein einziger Satz.
+SEDA: (Stimme aus dem Off, wie gelesen) Ein Schloss hält nicht ewig, nur weil man es nicht anfasst. Aber es hält länger.
+## Aldermünde
+[Geräusch: Alles klingt gedämpft, wie durch eine Wand aus Wasser. Glocken, sehr langsam.]
+Den Weg zeigt dir der Tümpelgeist.
+Du hast ihn gar nicht gerufen, aber seine Karte wird in deiner Tasche kühl, angenehm kühl wie ein Bach im Sommer. Als du ihn ziehst, legt er sich um dich wie ein Mantel aus Wasser, und plötzlich kannst du atmen, wo eigentlich kein Mensch atmen kann.
+FUNKE: (dumpf, aus deiner Tasche) Ich bin gar nicht da. Ich bin eine Karte. Eine trockene, glückliche Karte.
+Der kleine Tümpelgeist bewegt sich so sicher durch die Strömung, als wäre er diesen Weg schon einmal gegangen. Mit dir.
+Stufe um Stufe steigst du die Hafentreppe hinab, bis sich Aldermünde unter dir öffnet.
+Das Furchtbare ist, dass die Stadt nicht zerstört ist. Die Häuser stehen noch, und in den Fenstern hängen sogar noch die Vorhänge. Auf einem Marktstand liegen Äpfel, die in tausend Nächten nicht verfault sind, weil hier unten nichts mehr verfault. Fische schwimmen durch offene Türen, und in den Gassen stehen Menschen.
+Sie stehen ganz still, mit offenen Augen, und ihr Haar treibt um ihre Gesichter wie Seegras. Sie singen.
+[Gesang: Viele Stimmen ohne Worte, sehr leise. Darunter ein anderer Ton, tiefer und wärmer, wie eine Melodie, die durch eine geschlossene Tür dringt.]
+Jetzt hörst auch du den Splitter. Er singt unter dem Gesang der Ertrunkenen, ganz tief unten aus der Mitte der Stadt. Laut ist er nicht, er muss auch nicht laut sein. Er singt wie jemand, der weiß, dass man ihm früher oder später zuhören wird.
+Du merkst, dass deine Schritte schneller werden.
+DIE STIMME: (sanft) Hörst du ihn? Er ruft dich.
+DU: Nicht mich. Er ruft dich.
+DIE STIMME: (eine kleine Pause) Ist das denn ein Unterschied?
+## Die Morgenmöwe
+[Geräusch: Holz, das unter Wasser ächzt. Eine Kette, die gegen einen Rumpf schlägt.]
+Am Rand des Perlengrunds liegt ein Schiff auf der Seite. Sein Mast ist gebrochen, und die Segel hängen herab wie Tücher über einem verhängten Spiegel. Unter einer Kruste aus Muscheln kannst du den Namen am Bug gerade noch entziffern.
+Morgenmöwe.
+Du gehst an Bord. Die Kapitänskajüte ist leer, kein Kapitän, kein Leichnam, gar nichts. Nur an einem Haken hängt eine Laterne aus Messing, deren Glas noch heil ist. Daneben steckt ein kleines gerahmtes Bild von einer lachenden Frau auf einer Klippe. Auf dem Bild ist sie jünger, aber du erkennst sie trotzdem.
+Du nimmst die Laterne mit.
+## Gezeitenmutter Ysra
+@img seq/a2-3
+[Musik: Das Endgegner-Thema, aber wie unter Wasser: gedämpft, weit, mit Chor.]
+In der Mitte der Stadt, wo früher der Hafen lag, dreht sich das Meer.
+Ein Strudel, so groß wie ein Marktplatz, kreist dort, und in seinem Auge schwebt reglos die Gezeitenmutter Ysra. Ihr Haar ist so lang geworden, dass es sich durch die halbe Stadt zieht. Darin hängen Perlen, Knochen und Muscheln, die man ihr einst zum Dank gebracht hat. Ihre Hände hält sie geschlossen vor der Brust, so wie man einen Vogel hält, der nicht davonfliegen soll.
+Zwischen ihren Fingern dringt rotes Licht hervor.
+YSRA: (mit einer Stimme wie die Flut selbst, weit und hallend) Du hast meine Wachen besiegt und meine Perlen gezählt. Was willst du?
+DU: Den Splitter.
+YSRA: Natürlich. (sie öffnet die Augen; sie sind schwarz wie die Tiefsee) Weißt du, wie viele vor dir gekommen sind? Und wie viele von ihnen jetzt hier unten singen?
+DU: Merle sagt, du hast sie ertränkt.
+YSRA: Ich habe sie gerettet. (das Wasser bebt) Sie wären zu ihm gegangen, einer nach dem anderen, mit offenen Augen und einem Lächeln. Sie hätten ihn festgehalten, so wie Ormak ihn festgehalten hat, und er hätte sie leer getrunken. Da habe ich sie lieber singen lassen. Hörst du? Sie singen gegen ihn an, achttausend Stimmen gegen eine einzige. Und selbst das reicht kaum.
+DU: Du hast eine ganze Stadt versenkt, um ein Lied zu übertönen.
+YSRA: Ich hätte die ganze Welt versenkt. (leise) Die Gezeitenmutter gibt nichts her, was das Meer genommen hat.
+Dann sieht sie dich zum ersten Mal wirklich an, und in ihrem Gesicht verändert sich etwas.
+YSRA: Oh. Oh, Kind. Du bist es.
+DU: Du kennst mich?
+YSRA: Das Meer vergisst nichts, und es hat dich schon einmal getragen. In jener Nacht bist du auf dem Weg zum Berg durch meine Wellen gegangen, und sie haben sich vor dir geteilt, weil du etwas Warmes in der Hand hattest. (ihre Stimme bricht) Ich habe dich ziehen lassen. Ich dachte, du wärst ein Pilger.
+DIE STIMME: (sehr ruhig) Sie ist verwirrt. Tausend Nächte unter Wasser, da verwechselt man schon einmal jemanden.
+YSRA: Geh. Bitte. Kehr um, dann lasse ich dich gehen. Noch einmal.
+DU: Das kann ich nicht.
+YSRA: (traurig) Nein. Das konntest du damals auch nicht.
+[Musik: Kampf.]
+* * *
+Der Strudel wird langsamer und kommt schließlich zum Stillstand.
+Ganz langsam, wie ein Blatt im Wasser, sinkt Ysra hinab, bis sie auf dem Grund des alten Hafenbeckens liegt. Ihre Hände öffnen sich, und der Splitter treibt heraus und schwebt auf dich zu, als hätte er nur darauf gewartet.
+YSRA: (kaum hörbar) Weißt du, dass er immer dasselbe sagt? Tausend Nächte lang. Mir ist kalt. Mir ist so kalt, Ysra. Lass mich zu dir. (sie lacht leise, ein paar Luftblasen steigen auf) Beinahe hätte ich ihn gewärmt.
+DU: Es tut mir leid.
+YSRA: Nein. Noch nicht. (ihre schwarzen Augen werden heller, fast grau wie das Meer am Morgen) Gib auf die Wärterin acht. Ihr Licht ist das Einzige hier, das er nicht mag.
+DU: Warum?
+YSRA: Weil es nicht für ihn brennt.
+Du bindest sie. In dem Moment, in dem die Gezeitenmutter in die Karte gleitet, verstummen die Ertrunkenen.
+Diese Stille ist lauter als jedes Lied.
+Ganz langsam legen sich die Menschen in den Gassen nieder, einer nach dem anderen, auf das Pflaster, in die Türen und auf die Stufen vor ihren Häusern. Sie schließen die Augen, und statt zu singen, schlafen sie.
+Weit über dir beginnt das Meer zurückzuweichen.
+Der Splitter berührt deine Hand und fließt in den Stein, der nun so groß ist wie ein Hühnerei. Er ist so warm, dass dir hier unten im kalten Wasser der Schweiß auf die Stirn tritt.
+DIE STIMME: Zwei.
+FUNKE: (aus der Tasche, sehr leise) Er zählt. Hast du das gehört? Er zählt mit.
+* * *
+Als du zum Leuchtturm zurückkehrst, ragen die Dächer von Aldermünde aus dem Wasser. Zum ersten Mal seit tausend Nächten sieht die Stadt wieder den Himmel.
+Merle steht am Ufer, und du reichst ihr die Laterne.
+Lange sagt sie nichts. Sie dreht die Laterne in den Händen und wischt mit dem Daumen über das Glas, einmal, zweimal. Dann steigt sie ganz nach oben, entzündet die Laterne an der großen Flamme und hängt sie daneben.
+Jetzt brennen dort zwei Lichter, ein großes und ein kleines.
+DU: Er kommt nicht mehr zurück, Merle.
+MERLE: Nein. (sie blickt hinaus auf das Wasser) Aber irgendwer kommt immer.
+#T Traum|Zwei Stimmen
+[Musik: Der Ambosston aus dem ersten Traum. Darunter jetzt Brandung.]
+Diesmal träumst du von einem Strand.
+Ormak sitzt auf einem Felsen und dreht das eiserne Pferdchen zwischen den Fingern. Ysra steht bis zu den Knien in der Brandung, und das Wasser um sie herum ist hell und grün, so wie es früher gewesen sein muss.
+YSRA: Kennst du das Lied, Kind?
+DU: Welches Lied?
+ORMAK: (summt, tief und brummend) Glut, die wärmt und nicht verzehrt …
+YSRA: (singt leise) Flut, die trägt und nicht ertränkt …
+Die Melodie kommt dir bekannt vor, allerdings nicht wie etwas, das man gelernt hat, sondern eher wie etwas, das man einmal gehört hat, als man nicht hätte zuhören sollen.
+DU: Ich kenne es.
+YSRA: Natürlich kennst du es. Du warst dabei, als es verstummt ist.
+ORMAK: Er kommt, wir haben nicht viel Zeit. Merk dir, was wir sind und was wir sein sollten. Glut, die nicht verzehrt. Flut, die nicht ertränkt. (bitter) Und jetzt schau uns an. Schau, was er aus uns gemacht hat.
+YSRA: Wir haben ihn festgehalten, und dabei ist jeder von uns zu dem geworden, wovor das Lied uns warnt.
+ORMAK: Achte auf die anderen. Du wirst es bei jedem von ihnen sehen.
+[Geräusch: Ein warmes, tiefes Summen, das alles überdeckt.]
+* * *
+Du wachst auf, weil Funke dir ins Ohr zischt.
+FUNKE: Wach auf! Wach auf, wach auf!
+DU: Was ist denn?
+FUNKE: Du hast im Schlaf gesungen, so ein komisches, altes Lied. Und dann … (er zögert) dann hat sich deine Hand gehoben. Deine eigene Hand! Sie hat sich dir auf den Mund gelegt, bis du still warst.
+Du blickst auf deine rechte Hand und auf den Stein darin, der ruhig und gleichmäßig glüht.
+DIE STIMME: Du hast laut geträumt, und du brauchst deinen Schlaf.
+Wieder ist nichts davon gelogen.
+
+#K Kapitel III|Der Wurzelwald|kapitel-4
+"> Wurzel, die hält und nicht erwürgt.
+## Waldrand
+[Geräusch: Grillen. Wind in Blättern. Dann, sehr leise, ein Knarzen, als würde sich irgendwo ein Ast strecken.]
+Der Wald wächst, jede Nacht ein Stück weiter.
+Das merkst du schon in der ersten Nacht. Du schlägst dein Lager auf einer Wiese auf, fünfzig Schritte vom Waldrand entfernt und mit freiem Blick in alle Richtungen. Als du aufwachst, liegst du unter Bäumen, Farne hängen dir ins Gesicht, und auf deinem Umhang wächst Moos. Die Wiese liegt fünfzig Schritte hinter dir.
+FUNKE: (flüsternd) Der Wald ist zu uns gekommen.
+DU: Wälder kommen nicht zu einem.
+FUNKE: Der hier schon.
+Noch etwas wird dir klar: Hier musst du genau darauf achten, wohin Funke springt. Ein einziger Funke an der falschen Stelle, und der ganze Wald steht in Flammen. Funke weiß das auch. So still wie jetzt hat er noch nie auf deiner Schulter gesessen, und er hält seine Flamme so klein, wie es nur geht.
+FUNKE: Ich bin vorsichtig. Ich bin ein vorsichtiges Feuer. Ich bin das vorsichtigste Feuer der Welt.
+## Das Baumhausdorf
+[Geräusch: Seile, die knarren. Stimmen hoch oben. Ein Kind, das lacht und sofort wieder still ist.]
+Die Menschen im Süden leben nicht mehr auf dem Boden.
+Sie haben ihre Häuser in die Baumkronen gebaut, auf Plattformen aus Brettern, die durch Hängebrücken aus Seil miteinander verbunden sind. Hinunter gehen sie nur, wenn es unbedingt sein muss, und dann so schnell wie möglich.
+Ein Mann zieht dich an einem Seil hinauf, ohne zu fragen, woher du kommst.
+MANN IM BAUM: Bleib da unten bloß nicht stehen. Niemals.
+DU: Warum nicht?
+Statt zu antworten, zeigt er es dir.
+Auf einer der Plattformen sitzt ein Junge von vielleicht acht Jahren. Er heißt Lio. Er lächelt dich ein wenig schief an und streckt dir sein rechtes Bein entgegen.
+Aus seiner Ferse wächst eine Wurzel. Sie ist dünn und weiß, läuft über die Bretter, verschwindet durch eine Ritze und zieht sich den Stamm hinab bis in den Boden.
+LIO: Ich hab unten am Bach einen Schmetterling angeschaut. Einen blauen. Ich hab zu lange hingeguckt. (zuckt mit den Schultern) Mama schneidet sie jeden Morgen ab, aber sie wächst immer wieder nach.
+DU: Tut es weh?
+LIO: Nur, wenn sie wächst. (leiser) Nachts.
+Seine Mutter erzählt dir von Urborke. Davon, dass die Alteiche früher kranke Bäume geheilt hat und kranke Kinder ebenso. Dass in ihren Ästen mitten im Winter Blüten wuchsen und dass man unter ihr traumlos schlafen konnte und am Morgen so ausgeruht war wie nie zuvor.
+MUTTER: Seit der Splitter gefallen ist, will sie, dass alles zu Wald wird. Wirklich alles: jede Wiese, jeder Weg, jedes Dorf und jeder Mensch, der zu lange stillsteht.
+DU: Aber warum?
+MUTTER: (blickt auf die Wurzel an Lios Fuß) Damit es endlich still ist. Das sagen jedenfalls die Moosgeister. Damit es endlich still ist.
+## Die Inquisitorin in den Wurzeln
+[Geräusch: Gepresster Atem. Holz, das knackt und sich festzieht.]
+Am Moorsteg findest du Seda.
+Zuerst hörst du sie nur fluchen, sehr leise und für eine Inquisitorin erstaunlich ungehobelt. Dann entdeckst du ihre weiße Rüstung im Grün.
+Sie steckt bis zur Hüfte in Wurzeln, die so dick sind wie Arme und ineinander verschlungen. Wie Finger haben sie sich durch die Ritzen ihrer Rüstung geschoben. Ihr Schwert liegt zwei Schritte entfernt im Moos, unerreichbar für sie, und ihre Falken sind fort.
+SEDA: (ohne aufzusehen) Lach ruhig.
+DU: Was ist passiert?
+SEDA: Der Orden betet bei Sonnenaufgang, und zwar kniend. (eine Pause) Ich habe gebetet.
+FUNKE: (kichert) Sie hat gebetet! Und der Wald hat sich gedacht: Oh, die bleibt ja schön stehen!
+SEDA: Halt den Mund, Funkending.
+FUNKE: (zu dir) Lass sie stecken. Bitte. Nur ein bisschen. Nur bis morgen.
+Du kniest dich neben die Wurzeln. Sie sind warm und pulsieren ganz langsam, wie ein schlafendes Herz. Mit bloßen Händen bekommst du sie nicht los.
+DU: Funke.
+FUNKE: (sofort ernst) Nein. Nein, nein, nein. Im Wald? Weißt du, was passiert, wenn ich hier …
+DU: Ich weiß. Genau deshalb frage ich dich und nicht irgendein anderes Feuer.
+Funke sieht dich an, dann die Wurzeln und schließlich Seda. Dann holt er tief Luft, sofern ein Funkenwicht so etwas überhaupt tut.
+FUNKE: (murmelnd, konzentriert) Klein. Klein, klein, klein. Ich bin eine Kerze. Ich bin eine Geburtstagskerze. Ich bin die kleinste Geburtstagskerze der Welt …
+[Geräusch: Ein winziges, sehr präzises Zischen. Einmal. Zweimal. Dreimal.]
+So genau wie ein Uhrmacher brennt er eine Wurzel nach der anderen durch, ohne dass auch nur ein einziges Blatt Feuer fängt. Als Seda frei ist, sitzt er auf ihrem Schwert und strahlt.
+FUNKE: Na? Na? Hat irgendwer gesehen, wie gut ich war?
+SEDA: (reibt sich widerwillig die Beine) Ja. Hab ich gesehen.
+Ihr macht ein Feuer, ein sehr kleines, das Funke bewacht wie ein Hund.
+SEDA: Ich stehe in deiner Schuld.
+DU: Dann erklär mir etwas. Warum ist das Binden verboten?
+Sie denkt lange nach. Dann zieht sie ein kleines, in weißes Leder gebundenes Buch aus ihrer Rüstung. Sie schlägt es nicht auf, sondern hält es nur fest, während sie spricht.
+SEDA: Der Orden lehrt, dass es am Anfang einen Binder gab, den allerersten. Er hat etwas gebunden, das sich nicht binden lassen wollte, etwas sehr Großes. Und weil eine Karte dafür zu klein war, hat er einen Stein genommen. (sieht auf deine Faust) Seitdem knien fünf Wächter um diesen Stein und singen jede Nacht, damit die Bindung hält.
+DU: Und deshalb verbietet ihr das Binden?
+SEDA: Genau deshalb. Der Orden sagt, jede Bindung ist eine Tür. Jede Karte, die du erschaffst, ist eine kleine Tür, und was hinter einer Tür steckt, drückt dagegen. Immer.
+Du betrachtest deine Karten: den Tümpelgeist, den Moosling und den Schlackenfürsten mit dem Pferdchen in der Faust.
+DU: Warum bist du noch hier, Seda? Du hättest mich in Merles Turm festnehmen können.
+SEDA: Die Erzseraphin hat mich zurückbeordert. (eine Pause) Ich bin nicht zurückgegangen.
+DU: Warum nicht?
+SEDA: Weil ich wissen will, was du bist. Ein Dieb oder ein Werkzeug.
+DU: Und wenn ich keins von beidem bin?
+SEDA: (sieht dich lange an) Dann bist du das Gefährlichste, was mir je begegnet ist.
+## Die Kristallquelle
+[Musik: Hell und gläsern. Ein einzelner Ton, der stehen bleibt.]
+Tief im Wald, wo die Bäume so dicht stehen, dass es selbst mittags dämmert, liegt eine Quelle. Ihr Wasser ist so klar, dass man es nur daran erkennt, wie sich das Licht darin bricht. Rings um die Quelle stehen Gestalten aus Holz. Sie alle haben einmal daraus getrunken, und nun wachsen ihnen Blätter aus den Schultern.
+SEDA: Nicht trinken.
+DU: Hatte ich nicht vor.
+Doch du blickst hinein, und die Quelle zeigt dir nicht dein eigenes Gesicht.
+Stattdessen siehst du eine Schneeebene, so weit, dass sie den Himmel berührt. Darüber tanzen grüne und violette Lichter, und unter ihnen ziehen riesige Tiere mit langem, zotteligem Fell und gebogenen Stoßzähnen durch den Schnee.
+Dann siehst du eine Schlucht, rot wie Rost. Über eine hölzerne Brücke donnert ein schwarzes, eisernes Ungeheuer mit rauchendem Schornstein und stößt einen gellenden Schrei aus, und hinter ihm rattern Wagen um Wagen.
+Du siehst eine Stadt aus gläsernen Türmen, so hoch, dass die Wolken an ihnen hängen bleiben. Es regnet, und der Regen schimmert in allen Farben, weil die ganze Stadt leuchtet, jede Wand, jedes Fenster und jedes Schild.
+Du siehst einen Gang aus Metall mit runden, vereisten Fenstern, in dem ein rotes Licht unablässig blinkt.
+Und zuletzt siehst du einen Fuchs mit vielen Schwänzen, der zwischen fallenden Blüten auf den Stufen eines kleinen Schreins sitzt und dich ansieht.
+Die Blüten sind rosa.
+Du greifst in deine Tasche und ziehst das Blütenblatt aus der Glutmine hervor. Es gleicht ihnen aufs Haar.
+DU: Was ist das? Wo ist das?
+DIE STIMME: Woanders.
+DU: Und wo ist woanders?
+DIE STIMME: (geduldig, fast liebevoll) Es gibt mehr als eine Welt, Kartenbinder. Es gab schon immer mehr als eine. Du durftest nur nie hinsehen.
+Seda ist neben dir ganz bleich geworden.
+SEDA: In der Sonnenwacht gibt es ganz unten einen Raum, die Kammer der Fremddinge. Dorthin bringen wir alles, was wir finden: Zahnräder, Uhren, Glasröhren, die von selbst leuchten. (ihre Stimme wird dünn) Mir hat nie jemand gesagt, woher diese Dinge kommen. Und ich habe nie gefragt.
+## Was Feuer weiß
+[Geräusch: Nacht. Ein kleines Feuer. In der Ferne das Knarzen wachsender Bäume.]
+In der Nacht, bevor ihr das Herz des Waldes erreicht, kann Funke nicht schlafen. Er sitzt neben dir auf einem Stein und starrt in die Glut eurer kleinen Feuerstelle.
+FUNKE: Kann ich dir was sagen? Aber du darfst nicht böse werden.
+DU: Sag schon.
+FUNKE: Ich bin aus Feuer, also weiß ich, wie Feuer klingt. Wenn es satt ist, summt es, und wenn es müde ist, knackt es. Und wenn es Hunger hat … (sehr leise) Wenn es Hunger hat, klingt es wie dein Stein. Die ganze Zeit schon, seit dem Regen.
+DIE STIMME: Er ist ein Funkenwicht. Er hat vor allem Angst, was größer ist als eine Kerze.
+FUNKE: (springt auf, zum Stein gewandt) Ich hab keine Angst vor Sachen, die größer sind als eine Kerze! Ich hab Angst vor DIR!
+Am Feuer wird es sehr still.
+Seda hat die Augen geöffnet. Sie hat alles mit angehört.
+Du blickst auf deine Hand. Der Stein glüht sanft und gleichmäßig wie immer, aber er schweigt. Zum ersten Mal schweigt er, obwohl er etwas sagen könnte.
+## Urborke, die Alteiche
+@img seq/a3-3
+[Geräusch: Ein Herzschlag. Langsam, hölzern, so tief, dass man ihn mehr spürt als hört.]
+[Musik: Das Endgegner-Thema, mit tiefen Holzbläsern und knarrenden Streichern.]
+Im Herzen des Waldes steht ein Baum, so gewaltig, dass man ihn für einen Hügel halten könnte.
+Seine Wurzeln heben den Boden an wie Wellen, und seine Krone verschluckt den Himmel. In seiner Rinde zeichnet sich ein Gesicht ab, alt, gütig und unendlich müde. Mitten im Stamm, ungefähr dort, wo ein Mensch sein Herz hätte, glüht es rot durch die Rinde. Tausend Wurzeln, feiner als Haar, haben sich immer und immer wieder um den Splitter gewickelt wie Garn um ein Knäuel.
+URBORKE: (langsam und knarzend, als hätte sie seit Jahren nicht gesprochen) Du stehst im Herzen des Waldes. Hörst du es schlagen?
+DU: Ich höre es. Es klingt müde.
+URBORKE: (ein Laut wie ein Ast im Wind; vielleicht ein Lachen) Es ist auch müde. Seit tausend Nächten wickle ich, jede Nacht eine Wurzel mehr, und jede Nacht wird er ein wenig leiser. (eine Pause) Du hörst ihn nicht, oder? Du hörst ihn gar nicht mehr, weil er dir schon zu nahe ist.
+DU: Die Menschen im Baumhausdorf sagen, du willst, dass alles zu Wald wird.
+URBORKE: Ja.
+DU: Warum?
+URBORKE: Weil Bäume keine Angst haben. Bäume warten. (die Blätter rauschen) Wenn alles Wald ist, ist alles still. Dann hört niemand mehr sein Lied, niemand sucht mehr nach den Splittern, und niemand wie du kommt mehr hierher. (sehr sanft) Ich will nicht, dass es wehtut. Ich will nur, dass es aufhört.
+DU: Lio hat eine Wurzel im Fuß. Er ist acht Jahre alt.
+URBORKE: (lange Stille) Ich weiß. Ich spüre jeden Einzelnen von ihnen.
+Unter deinen Füßen beginnen sich die Wurzeln zu bewegen, nicht drohend, sondern tastend, so wie jemand mit geschlossenen Augen über ein Gesicht streicht.
+URBORKE: Meine Wurzeln kennen deinen Schritt. Du bist diesen Weg schon einmal gegangen. (eine Pause) Nur andersherum, vom Berg herab, in der Nacht ohne Sterne. Du bist gestolpert und hast geblutet, und du hast etwas getragen, das gesungen hat.
+Hinter dir hält Seda den Atem an.
+DIE STIMME: (leise, ein wenig schneller als sonst) Sie redet wirres Zeug. Bäume träumen eben.
+URBORKE: Tausend Jahre bin ich gewachsen. Was sind dagegen schon deine paar Karten?
+DU: Genug, um dich einmal zu fällen, Urborke.
+URBORKE: Dann versuch es. Ich habe schon viele Äxte überlebt.
+[Musik: Kampf.]
+* * *
+Die Alteiche fällt nicht, sie neigt sich nur. Mit einem Ächzen, das durch den ganzen Wald läuft, beugt sie ganz langsam ihre Krone zu dir herab, bis ihr Gesicht direkt vor deinem ist.
+Eine nach der anderen lösen sich die Wurzeln um den Splitter, die Arbeit von tausend Nächten.
+URBORKE: Versprich mir etwas.
+DU: Was denn?
+URBORKE: Pflanz etwas, wenn das hier vorbei ist. Irgendwo, irgendetwas. (eine Pause) Versprich es mir.
+DU: Ich verspreche es.
+URBORKE: Gut. (die Blätter rascheln, fast zärtlich) Und noch eins, kleines Herz. Er hat dich schon einmal benutzt. Ich habe es damals gespürt, als du gestürzt bist. Gib acht, wem du deine Hand leihst.
+Der Splitter löst sich aus ihrem Stamm und fällt dir in die offene Hand. Er fließt in den Stein, der nun so schwer ist, dass du ihn mit beiden Händen halten musst.
+DIE STIMME: Drei.
+Du bindest die Alteiche. Ihre Karte ist schwer wie ein Stück Holz und duftet nach Regen und Harz.
+Wie du später erfahren wirst, fällt in derselben Nacht im Baumhausdorf eine dünne, weiße Wurzel von einem Kinderfuß ab, einfach so. Lio hebt sie auf und legt sie unter sein Kopfkissen.
+* * *
+Im ersten Morgenlicht verlasst ihr den Wald. Er wächst nicht mehr. Still, grün und ganz gewöhnlich steht er hinter dir, ein Wald wie jeder andere.
+Seda geht schweigend neben dir her. Funke sitzt auf deiner Schulter und sagt kein einziges Wort, was bei ihm schlimmer ist als jeder Satz.
+Auf halbem Weg zum Waldrand spricht der Stein in deinen Händen.
+DIE STIMME: (leise) Mir ist kalt.
+Mitten auf dem Weg bleibst du stehen.
+Wie eine Welle, die gegen einen Felsen schlägt, hörst du in deinem Kopf Ysras Stimme. Tausend Nächte lang hat er es zu ihr gesagt: Mir ist kalt. Mir ist so kalt. Lass mich zu dir.
+DU: Was hast du gerade gesagt?
+DIE STIMME: (eine Pause, die einen Herzschlag zu lang dauert) Nichts. Lass uns weitergehen.
+#T Traum|Kein Traum
+[Musik: Ein warmes, tiefes Summen. Sonst nichts.]
+In dieser Nacht träumst du nicht.
+Kein Ormak erscheint, keine Ysra und keine Alteiche, die dir etwas erzählen könnte. Es gibt nur Wärme, eine weiche, dunkle, vollkommene Wärme wie unter einer Decke im Winter. Irgendwo darin summt etwas, ganz leise, so wie jemand ein Kind in den Schlaf singt.
+Du wachst so ausgeruht auf wie seit dem Regen nicht mehr.
+Funke sitzt neben dir. Er hat nicht geschlafen, und seine Flamme ist winzig.
+FUNKE: Er hat dich nicht träumen lassen, die ganze Nacht nicht. Er hat gesummt, und ich hab gesehen, wie die drei auf deinen Karten die Augen öffnen wollten. Der Schmied, die Wasserfrau und der Baum. Sie wollten zu dir. (leise) Aber er hat sie nicht gelassen.
+DIE STIMME: Du brauchtest Ruhe. Das Hohle Reich ist kein Ort für Müde.
+Wieder ist es nicht gelogen. Langsam fragst du dich, ob man mit lauter wahren Sätzen lügen kann.
+
+#K Kapitel IV|Das Hohle Reich|kapitel-3
+"> Nacht, die birgt und nicht verschlingt.
+## Ohne Morgen
+[Geräusch: Fast nichts. Ein Wind ohne Richtung. Irgendwo Krähen, die nicht krächzen, sondern nur mit den Flügeln schlagen.]
+Hier geht die Sonne nicht mehr auf.
+Das erkennst du nicht an der Dunkelheit selbst, denn Dunkelheit kennst du. Du erkennst es daran, dass sie kein Ende nimmt. Am Horizont gibt es keine Dämmerung, keinen helleren Streifen, auf den man warten könnte. Der Himmel über dem Hohlen Reich ist kein Nachthimmel. Er ist einfach leer.
+Funke ist das einzige Licht weit und breit.
+Die Dunkelheit scheint das zu wissen. Sie drückt gegen seine Flamme, als wollte sie sie ersticken, und mit jedem Schritt wird er ein wenig kleiner. Auf dem Totenacker ist er nur noch so groß wie eine Walnuss.
+FUNKE: (dünn, aber trotzig) Ich bin klein, aber ich bin nicht aus.
+SEDA: (leise) Bleib dicht bei ihm. Hier verliert man sich.
+Sie meint das wörtlich. Auf dem Feld vor der Gruft stehen Vogelscheuchen, die euch langsam und mit einem Geräusch wie raschelndes Stroh die Köpfe nachdrehen. Als du genauer hinsiehst, erkennst du, dass manche von ihnen Gesichter tragen, die einmal Menschen gehört haben.
+Im Hohlen Reich bezahlt man mit dem, was man ist.
+## Der Seelenmarkt
+[Geräusch: Gemurmel vieler Stimmen, doch kein einziges Wort ist zu verstehen. Ein Glöckchen. Münzen, die klirren, obwohl es hier keine Münzen gibt.]
+Mitten in der Finsternis liegt ein Markt. Auf seinen vielen Ständen brennen Kerzen mit schwarzen Flammen, die kein Licht spenden, sondern nur Schatten.
+Hier wird mit allem gehandelt: mit Erinnerungen in kleinen Gläsern, mit Stimmen, die in Muscheln verschlossen sind, mit Namen auf schmalen Papierstreifen.
+Und mit Dingen, die nicht hierher gehören.
+An einem Stand liegt ein fünfzackiger Silberstern mit einer Anstecknadel. Daneben eine Glasröhre, in der buntes Licht flackert und Buchstaben bildet, die du nicht lesen kannst, und ein Stück Elfenbein, so lang wie ein Unterarm, in das jemand ein Tier mit Rüssel und zotteligem Fell geschnitzt hat.
+SEDA: (heiser) Genau wie in der Kammer.
+SEELENHÄNDLERIN: Die fallen durch die Ritzen, Schätzchen. Seit der Stein zerbrochen ist, werden es immer mehr. Ich sammle sie. Irgendwer will schließlich immer irgendwas.
+Die Seelenhändlerin ist auf eine Weise schön, die man sich nicht merken kann. Jedes Mal, wenn du wegsiehst, hast du ihr Gesicht schon vergessen. Sie lächelt dich an, als hätte sie auf dich gewartet.
+SEELENHÄNDLERIN: Eine Seele für eine Karte? Ein faires Geschäft, mein Herz.
+DU: Meine Seele ist unverkäuflich.
+SEELENHÄNDLERIN: Oh, die will ich gar nicht, die ist mir zu schwer und zu warm. (beugt sich vor) Aber du möchtest etwas wissen, das sehe ich dir an. Du möchtest wissen, wer du bist.
+DU: Kannst du mir das sagen?
+SEELENHÄNDLERIN: (zieht ein dickes schwarzes Buch hervor) In meinem Buch steht jeder Name, der jemals getragen wurde, jeder einzelne. Ich schlage deinen für dich nach. Im Tausch gegen eine Erinnerung, nur eine einzige: deine allererste.
+FUNKE: Nein! Nimm meine! Nimm mein Kichern!
+SEELENHÄNDLERIN: Ich nehme keine Kleinigkeiten, mein Funkchen.
+Du denkst an den Regen, an den Graben, an die Wurzeln auf deiner Brust und an die Stimme, die gesagt hat: Da bist du ja. Es ist nicht viel, aber es ist alles, was du hast.
+Du nickst.
+[Geräusch: Ein leises Ploppen, wie ein Korken, der aus einer Flasche gezogen wird.]
+Die Händlerin hält ein kleines Glas in die Höhe, in dem es leise regnet, und stellt es zu den anderen in ihr Regal.
+Du versuchst dich zu erinnern, wie und wo du aufgewacht bist und wie es sich angefühlt hat, aber da ist nichts mehr. Das Erste, woran du dich jetzt erinnerst, ist ein kichernder Funke im Schlamm, der dich anzünden wollte.
+Die Seelenhändlerin blättert und blättert, und ihr Lächeln wird dabei immer schmaler.
+SEELENHÄNDLERIN: Hm.
+DU: Was ist?
+SEELENHÄNDLERIN: Du stehst nicht drin. (sie klappt das Buch zu) Jeder, der je geboren wurde, steht in diesem Buch. Es fehlen nur die, die ihren Namen verschenkt haben, freiwillig, an jemanden, der ihnen dafür etwas versprochen hat.
+DU: Was versprochen?
+SEELENHÄNDLERIN: (zuckt mit den Schultern) Das steht nicht im Buch, Herzchen. Das musst du schon den fragen, dem du ihn gegeben hast.
+Ihr Blick wandert zu deinen Händen und zu dem Stein darin.
+Zum ersten Mal, seit du ihn kennst, wird der Stein kalt, wenn auch nur für einen Atemzug. Dann ist er wieder warm wie immer.
+* * *
+Später, auf dem Galgenweg, erzählt dir Funke vom Regen.
+FUNKE: Du lagst da wie ein Sack Kartoffeln, ganz voller Matsch. Und ich dachte: Oh, der sieht lecker aus, den zünd ich an. Und dann hast du mich mit einem Eimer Tümpel beworfen, mit einem ganzen EIMER. Das war gemein.
+DU: (leise lachend) Das war ein Tümpelgeist, kein Eimer.
+FUNKE: Für mich war es ein Eimer. (eine Pause) Ich erinnere mich für dich, okay? An alles, was du vergisst. Ich merk es mir.
+## Die Knochenbrücke
+[Geräusch: Etwas, das knirscht wie trockene Äste und klappert wie Würfel.]
+Über die Schlucht vor der Burg führt eine Brücke aus Knochen. Von hier aus, sagt der Wächter an ihrem Anfang, gibt es nur zwei Wege: hinüber oder hinab.
+Du wählst hinüber.
+Am Burgtor wartet die Hohle Garde, Ritter in Rüstungen, in denen niemand mehr steckt und die sich trotzdem bewegen.
+HOHLE GARDE: Wir dienen dem König seit tausend Nächten.
+DU: Heute ist die letzte.
+Seda kämpft an deiner Seite. Ihr Licht ist hier schwach, kaum mehr als ein Glimmen um ihre Klinge, doch sie kämpft gut. Als die letzte Rüstung scheppernd zu Boden geht, steht sie keuchend neben dir und blickt die Treppe zum Thronsaal hinauf.
+SEDA: Ich komme mit.
+DU: Ich weiß nicht, was uns da oben erwartet.
+SEDA: Eben deshalb.
+## Der Hohle König
+@img seq/a4-3
+[Musik: Kein Endgegner-Thema, nur ein tiefer, hohler Ton wie Wind über einer Flasche. Darunter, sehr langsam, ein Herzschlag, der nicht ganz im Takt ist.]
+Der Thronsaal ist so riesig, dass Funkes Licht die Wände nicht erreicht. Auf dem Boden brennen Hunderte von Kerzen, aber keine davon spendet Licht. Am Ende des Saals sitzt auf einem Thron aus Knochen der Hohle König.
+Er ist groß und hager und in Lumpen gehüllt, die einmal ein Mantel voller Sterne waren. Wenn du genau hinsiehst, erkennst du noch ein paar davon, winzig und blass wie Sterne kurz vor dem Morgengrauen. Unter seiner Kapuze ist kein Gesicht, und in seiner Brust, hinter den Rippen, wo nichts als Dunkelheit ist, glimmt ein roter Punkt.
+KÖNIG: (flüsternd, als käme die Stimme aus einem Brunnen) Du suchst den Glutstein? Er wärmt mein leeres Herz.
+DU: Er gehört dem Land, nicht dir.
+KÖNIG: (lacht wie Wind in einem leeren Brunnen) Dem Land? Hat er dir das erzählt? Er erzählt so vieles. Tausend Nächte lang hat er mir erzählt, wie kalt ihm ist, wie einsam und wie ungerecht es ist, gebunden zu sein. Er erzählt gut. (er beugt sich vor) Hat er dir auch erzählt, wer er ist?
+DU: Das Herz der Welt.
+KÖNIG: (nach einer langen Stille) Ich hatte einmal einen Namen.
+Er greift in seine Lumpen und zieht ein vergilbtes Stück Pergament mit ausgefransten Rändern hervor. Darauf steht ein einziges Wort.
+KÖNIG: Vael. (er streicht mit einem knochigen Finger darüber) Ich war der König der Nacht. Ich habe die Träume gehütet und die Sterne gezählt. Weißt du, warum ich den Splitter verschluckt habe?
+DU: Nein.
+KÖNIG: Weil nur die Nacht ihn verbergen kann. Ich dachte, wenn ich ihn in mir verstecke, ganz tief dort, wo es am dunkelsten ist, dann findet ihn niemand, niemals. (eine Pause) Ich habe ihn versteckt, und er hat mich von innen aufgefressen. Zuerst meine Träume, dann meine Sterne und schließlich meinen Namen. Ich musste ihn aufschreiben, bevor er ganz verschwunden war, und ich lese ihn jeden Morgen. (sehr leise) Dabei gibt es hier keinen Morgen.
+Neben dir hat Seda die Hand vor den Mund geschlagen.
+DU: Wer ist er? Sag es mir.
+KÖNIG: Wer will das wissen? Du? Oder er?
+DU: Ich.
+KÖNIG: Dann hör gut zu, denn ich sage es nur ein einziges Mal. Wir Fünf haben seinen Namen nie ausgesprochen, denn Namen sind Türen. Aber ich bin jetzt hohl, und durch mich geht nichts mehr hindurch. (flüsternd, jedes Wort kostet ihn sichtlich Kraft) Er ist der Ungebundene.
+[Geräusch: Alle Kerzen im Saal flackern zugleich. Ein Laut wie ein Atemzug durch zusammengebissene Zähne.]
+Der Stein in deinen Händen wird glühend heiß. Du schreist auf und willst ihn fallen lassen, aber du kannst es nicht.
+DIE STIMME: (zum ersten Mal scharf; nicht laut, aber schneidend wie eine Klinge) Schweig.
+Der Hohle König lacht.
+KÖNIG: Hörst du? Hörst du, wie er klingt, wenn er nicht nett ist? (er richtet sich auf, und die blassen Sterne auf seinem Mantel flackern) Er hat von dir gesprochen, Kartenbinder, tausend Nächte lang. So, wie man von einem Werkzeug spricht, das man im Regen liegen gelassen hat und am nächsten Tag wieder abholt.
+Im Saal wird es sehr still.
+KÖNIG: Und jetzt willst du meinen Splitter.
+DU: Ja.
+KÖNIG: (fast sanft) Dann nimm ihn mir. Wenn du kannst.
+[Musik: Kampf. Das Endgegner-Thema, aber verzerrt, als hallte es durch einen hohlen Raum.]
+* * *
+Als der Hohle König fällt, fällt er lautlos, wie ein Mantel, den jemand vom Haken nimmt.
+Vor seinem Thron bleibt er liegen. Aus seinen Lumpen rollt der Splitter, rot und warm, und kommt vor deinen Füßen zur Ruhe. Der König ist jetzt federleicht, fast wie Papier. Seine Kapuze ist zurückgerutscht, und noch immer ist darunter kein Gesicht. Aber da ist ein Lächeln. Du kannst es nicht sehen, und doch weißt du, dass es da ist.
+KÖNIG: (kaum hörbar) Er ist draußen. Endlich ist er draußen. (ein langer Atemzug) Weißt du, was das Seltsamste ist? Ich kann wieder träumen. Jetzt, ganz am Ende.
+Du kniest dich neben ihn.
+KÖNIG: Hör zu. Wenn du ihn zusammensetzt … und das wirst du, ich sehe es dir an … dann bind ihn. Wir können das nicht mehr. (seine Hand tastet nach deiner Tasche und nach den Karten darin) Aber ein Lied braucht Stimmen, fünf Stimmen. Vier davon trägst du dann schon bei dir, die fünfte wartet oben im Licht.
+DU: Werdet ihr singen? Aus den Karten heraus?
+KÖNIG: (ein winziges Lachen) Frag uns, wenn es so weit ist.
+Er drückt dir das Pergament mit seinem Namen in die Hand.
+KÖNIG: Lies ihn mir vor. Bitte, ein letztes Mal.
+DU: (leise) Vael.
+KÖNIG: (wie jemand, der nach langer Reise heimkehrt) Ja. Das bin ich.
+Du bindest ihn. Auf seiner Karte steht „Der Hohle König“. Mit einem Stück Kohle schreibst du ganz klein in die Ecke der Rückseite: Vael.
+Dann hebst du den Splitter auf.
+DIE STIMME: Vier.
+* * *
+Lange sagt niemand ein Wort, weder Seda noch Funke noch der Stein.
+Dann spricht er doch, und er klingt wieder so wie immer: warm, freundlich und nah, wie jemand, der neben dir am Feuer sitzt.
+DIE STIMME: Er lügt. Er ist leer, und leere Dinge erzählen leere Geschichten.
+DU: Ist der Ungebundene dein Name?
+DIE STIMME: (nach einer Pause) Es ist ein Name, den man mir gegeben hat. Gefangene bekommen ihre Namen immer von denen, die sie einsperren.
+DU: Warum hast du mich nicht gewarnt? Vor Ormak, vor Ysra, vor alldem?
+DIE STIMME: Ich habe dir nie etwas Falsches gesagt, Kartenbinder, kein einziges Mal. Denk nach und such. Du wirst nichts finden.
+Du denkst nach und suchst, und er hat recht. Du findest nichts.
+DIE STIMME: (sanft) Trotzdem glaubst du ihm, das höre ich. Dann lass mich dir etwas zeigen, bevor du dich entscheidest. Geh zur Sonnenwacht und sieh dir an, was die Erzseraphin mit dieser Welt vorhat. Danach kannst du mir sagen, wer von uns beiden das Ungeheuer ist.
+## Sedas Weg
+[Geräusch: Schritte auf Stein. In der Ferne ein einzelner, sehr heller Glockenschlag.]
+Am Rand des Hohlen Reichs, wo die Dunkelheit zum ersten Mal wieder in Grau übergeht, bleibt Seda stehen.
+SEDA: Gib mir die Splitter.
+Du siehst sie an.
+SEDA: Nicht so, nicht als Inquisitorin. (sie atmet tief durch) Komm mit mir zu Aurel und gib ihr den Stein. Sie weiß, was zu tun ist. Sie ist die Erzseraphin, sie war damals dabei. Sie weiß mehr als wir alle zusammen.
+DU: Und was wird sie damit tun?
+SEDA: (zögert) Ihn sicher verwahren.
+DU: So, wie Ormak ihn sicher verwahrt hat? Und Ysra? Und Vael?
+Seda antwortet nicht.
+SEDA: Ich gehe vor und sage ihr, dass du kommst. Dass du freiwillig kommst. (sie sieht dich an) Komm freiwillig. Bitte.
+Dann geht sie. Ihr weißer Umhang ist das Letzte, was du von ihr in der grauen Dämmerung siehst.
+FUNKE: (leise) Sie mag dich.
+DU: Sie will mich verhaften.
+FUNKE: Das eine schließt das andere nicht aus.
+
+#K Kapitel V|Die Sonnenwacht|kapitel-5
+"> Licht, das leuchtet und nicht blendet.
+## Der Mühlenweg
+[Geräusch: Ein hoher, reiner Ton, der nie aufhört. Darunter nichts. Kein Wind, keine Vögel, keine Schritte außer den eigenen.]
+Nach der Finsternis des Hohlen Reichs tut das Licht in den Augen weh.
+Am Fuß des Berges ist es zunächst einfach nur hell, und du denkst an einen klaren, schönen Tag. Dann wird es heller und immer heller, bis du irgendwann bemerkst, dass etwas fehlt. Es dauert eine Weile, bis du begreifst, was es ist.
+Es gibt keine Schatten.
+Weder unter den Bäumen noch unter den Brücken, nicht einmal unter dir selbst. Das Licht kommt von überall gleichzeitig und lässt keinen Winkel aus. Die Farben sind verblasst, als hätte man sie so lange gewaschen, bis nur noch ein Hauch von ihnen übrig ist. Das Gras ist beinahe weiß, und der Himmel ebenso.
+Am Mühlenweg steht ein Müller, der einen Sack Mehl halb auf die Schulter gehoben hat. Er bewegt sich nicht.
+Du sprichst ihn an, doch er antwortet nicht. Seine Augen sind offen, und er lächelt.
+Über ihm hängt ein Vogel mit ausgebreiteten Flügeln mitten in der Luft. Er fällt nicht, und er fliegt nicht. Er hängt dort, als wäre er in Glas gegossen.
+FUNKE: (ganz dünn) Mir wird kalt. Ich bin aus Feuer, und trotzdem wird mir kalt.
+Seine Flamme ist klein und weiß geworden.
+DIE STIMME: (leise) Sieh es dir gut an. Das ist ihre Vorstellung von Erlösung.
+## Die weiße Kuppel
+[Musik: Ein Choral, sehr schön und sehr langsam, der nicht vom Fleck kommt. Immer dieselben zwei Akkorde.]
+Auf halber Höhe des Berges steht eine Kuppel aus weißem Stein. Über ihrem Tor ist ein Satz in den Stein gemeißelt.
+Hier endet die Furcht.
+Vor dem Tor steht Seda.
+Sie hat ihr Schwert gezogen, und ihre Rüstung ist frisch poliert. Hinter ihr kreisen wieder drei Falken aus Licht, aber ihr Gesicht ist grau.
+SEDA: Kehr um, Kartenbinder. Du weißt nicht, was du tust.
+DU: Ich weiß genau, was ich suche.
+SEDA: (leise, sodass nur du es hörst) Die Erzseraphin hat mir befohlen, dich aufzuhalten. Ich habe ihr gesagt, dass du freiwillig kommst. Sie hat geantwortet: Niemand, der ihn trägt, kommt freiwillig.
+DU: Und was glaubst du?
+SEDA: (hebt das Schwert) Ich glaube, dass ich gehorchen muss.
+[Musik: Kampf.]
+* * *
+Sie kämpft gut, aber nicht mit dem Herzen. Als ihr Schwert vor dir auf den weißen Stein klirrt, hebt sie es nicht wieder auf.
+Stattdessen dreht sie sich um und öffnet das Tor der Kuppel.
+SEDA: Ich war noch nie drin, Novizen dürfen nicht hinein. (ihre Stimme wird brüchig) Aurel hat gesagt, es ist ein Ort der Ruhe. Für die Kranken und für alle, die Angst haben.
+Drinnen ist es so hell, dass du die Augen zusammenkneifen musst.
+Dann siehst du sie.
+Es sind Menschen, Hunderte von ihnen. Reihe um Reihe stehen sie aufrecht und reglos mit geschlossenen Augen in der weißen Halle: Alte und Junge, Bauern, Mönche und Kinder. Alle lächeln sie, so wie man im Schlaf lächelt, wenn man etwas Schönes träumt. Doch sie träumen nicht, und sie atmen nicht. Sie stehen nur im Licht wie Figuren aus Zucker.
+Langsam geht Seda die Reihen entlang. Vor einer Frau mit grauem Zopf bleibt sie stehen.
+SEDA: Mama.
+Sie berührt die Hand der Frau. Sie ist weder kalt noch warm, sie ist einfach nur da.
+SEDA: Sie hatte den Husten, den schlimmen. Aurel hat gesagt, hier wird sie gesund. (eine Pause) Sie hustet nicht mehr. (ein Laut, halb Lachen, halb etwas anderes) Sie hustet wirklich nicht mehr.
+DU: Seda …
+SEDA: Weißt du, wie der Orden das hier nennt? Das große Stillwerden. Ich habe es als Kind gelernt und dachte immer, es sei ein Gleichnis. (sie dreht sich zu dir um) Aber es ist keins. Sie will das hier über die ganze Welt legen, über jedes Dorf, jedes Meer und jeden Wald. Dann bewegt sich nichts mehr, nichts zerbricht mehr, und nichts tut mehr weh.
+DU: Und nichts lebt mehr.
+SEDA: (sehr leise) Ich habe geschworen, dem Licht zu dienen. Nicht dem hier.
+Sie hebt ihr Schwert auf, und zum ersten Mal, seit du sie kennst, steckt sie es in die Scheide.
+SEDA: Durch den Säulengang geht es zur Spiegelhalle und von dort zum Himmelstor. Dahinter liegen die Tempelstufen, und ganz oben wartet sie. (eine Pause) Ich komme mit dir.
+## Die Spiegelhalle
+[Geräusch: Glas, das ganz leise klingt, wenn man daran vorbeigeht. Deine Schritte, tausendfach wiederholt.]
+In der Spiegelhalle prüft der Orden seine Novizen. Wer hindurchgeht, sieht sich selbst, und wer seinen eigenen Anblick nicht ertragen kann, kehrt um.
+Seda geht voraus. Ihre Spiegelbilder zeigen eine junge Frau in weißer Rüstung mit geröteten Augen, sonst nichts.
+Dann bist du an der Reihe.
+In den Spiegeln ist niemand zu sehen, der aussieht wie du.
+In jedem einzelnen Spiegel, rechts wie links, so weit die Halle reicht, steht eine Gestalt in einem Umhang, der schwer vom Regen ist. Unter ihrer Kapuze ist kein Gesicht, nur Dunkelheit und darin ein warmer Schein.
+Du bleibst stehen, und die Gestalt im Spiegel bleibt ebenfalls stehen.
+Du hebst die Hand, und die Gestalt hebt die ihre. In ihrer Faust glüht etwas Rotes.
+DAS SPIEGELBILD: (mit deiner eigenen Stimme, nur älter und müder) Du hast es schon wieder vergessen.
+DU: Was denn?
+DAS SPIEGELBILD: Alles. (es legt den Kopf schief) Beim letzten Mal bist du nicht durch diese Halle gegangen und hast nicht in die Spiegel geschaut. Vielleicht wäre es sonst anders gekommen.
+DU: Wer bist du?
+DAS SPIEGELBILD: Das, was du warst, bevor du deinen Namen weggegeben hast.
+FUNKE: (schrill) Hör nicht hin! Das ist ein Spiegel! Spiegel lügen!
+DAS SPIEGELBILD: Spiegel lügen nie, kleines Feuer. Sie zeigen nur die falsche Seite.
+DU: Warum habe ich meinen Namen weggegeben?
+DAS SPIEGELBILD: (sehr leise) Frag ihn, was er dir dafür versprochen hat. Und dann frag dich, ob er sein Versprechen gehalten hat.
+Die Gestalt tritt aus dem Spiegel und zieht Karten. Es sind deine eigenen, nur älter und abgegriffener, als hätten sie den ganzen Weg schon einmal hinter sich.
+DAS SPIEGELBILD: Hier kämpfst du gegen dein eigenes Spiegelbild.
+DU: Dann kenne ich wenigstens alle deine Tricks.
+DAS SPIEGELBILD: (fast traurig) Und ich deine.
+[Musik: Kampf.]
+* * *
+Als es vorbei ist, zerspringen alle Spiegel zugleich. Es klingt wie Regen auf Glas.
+Seda steht neben dir in den Scherben und sieht dich lange an.
+SEDA: Du warst es. In jener Nacht.
+DU: Ich weiß es nicht.
+SEDA: Aber du glaubst es.
+Du antwortest nicht. Du hältst den Stein in den Händen, schwer und warm, und er schweigt. Er schweigt die ganze Zeit, und dieses Schweigen ist lauter als jede Antwort.
+## Das Himmelstor
+[Geräusch: Wind, sehr hoch oben. Zum ersten Mal seit dem Mühlenweg wieder Wind.]
+Hinter dem Himmelstor enden die Mauern der Sonnenwacht. Von hier aus führt nur noch eine Treppe weiter, hinauf in den Himmel, über die Wolken, die unter dir hindurchziehen wie Schafe unter einer Brücke.
+Diese Treppe kennst du.
+Woher, weißt du nicht, aber deine Füße kennen jede einzelne Stufe. Die dritte ist locker, die siebzehnte hat einen Sprung, und an der hundertsten musst du kurz innehalten, weil die Luft dünn wird.
+Oben, am Ende der Treppe, liegt ein halb eingestürzter Tempel aus grauem Stein. Seine Säulen sind geborsten, und durch die Risse im Boden dringt Licht. In der Mitte steht ein Sockel aus schwarzem Glas.
+Der Herd der Welt.
+## Erzseraphin Aurel
+@img seq/a5-3
+[Musik: Das Endgegner-Thema, aber in Dur. Hell, groß und majestätisch, und gerade deshalb beunruhigend.]
+Über dem Sockel schwebt der fünfte Splitter in einem Käfig aus Licht, und davor steht Aurel.
+Sie strahlt so hell, dass du sie nur aus den Augenwinkeln ansehen kannst. Hinter ihrem Kopf steht eine Sonne, schwarz in der Mitte und umgeben von einem Ring aus Feuer. Ihre Flügel sind weiß. Sie sieht nicht aus wie jemand, der tausend Nächte gelitten hat, sondern wie jemand, der in seinem ganzen Leben noch nie gezweifelt hat.
+AUREL: Ich habe dich erkannt, als du über den Mühlenweg gekommen bist.
+DU: Dann weißt du mehr als ich.
+AUREL: Ja. (sie blickt auf den Stein in deinen Händen) Tausend Nächte lang habe ich gebetet, dass ich mich irre. (eine Pause) Seda, komm zu mir.
+SEDA: (bleibt stehen) Ich war in der Kuppel, Erzseraphin.
+Für einen Augenblick wird etwas in Aurels Gesicht weich, doch der Moment vergeht.
+AUREL: Dann weißt du jetzt, was es kostet. Und du weißt auch, warum es sein muss.
+DU: Erklär es mir.
+Aurel sieht dich lange an. Dann tritt sie beiseite und gibt den Blick auf den Sockel aus schwarzem Glas frei.
+AUREL: Wir Fünf waren nie die Wächter des Steins, Kartenbinder. Wir waren die Wächter, die die Welt vor dem Stein beschützt haben. (sie legt die Hand auf den Sockel) Im Glutstein liegt etwas, das älter ist als diese Welt. Es wandert von Welt zu Welt und frisst die Wände zwischen ihnen auf, bis alle Welten zu einer geworden sind. Und dann frisst es diese eine. Der erste Binder hat es gefangen, hier, in der Mitte aller Welten, in einem Stein. Und wir haben gesungen, damit es schläft.
+DU: Der Ungebundene.
+AUREL: (nickt) Vael hat es dir verraten. Natürlich. Er war immer der Mutigste von uns.
+DU: Und seine Glut hat euch gewärmt.
+Aurel antwortet nicht sofort.
+DU: Die ganze Welt hat sich an ihm gewärmt. Das Feuer im Aschenpfad, die Strömungen im Meer, das Wachstum im Wald, einfach alles. Habt ihr euch die ganze Zeit an einem Gefangenen gewärmt?
+AUREL: (ruhig) Hat er dir diese Worte in den Mund gelegt?
+Du willst antworten und merkst, dass du dir nicht sicher bist.
+AUREL: Ja, wir haben uns an ihm gewärmt. Das war der Preis. Ein Herd ist schließlich auch ein Gefängnis für das Feuer. (sie hebt den Kopf) Aber ich bin es leid, diesen Preis zu bezahlen. Ich habe mit angesehen, wie die anderen daran zerbrochen sind, Ormak, Ysra, Urborke und Vael. Jeder von ihnen hat versucht, seinen Splitter zu halten, und jeder ist zu dem geworden, wovor das Lied ihn gewarnt hat. (sehr leise) Ich nicht. Ich habe einen anderen Weg gefunden.
+DU: Die Kuppel.
+AUREL: Licht ohne Schatten, Ordnung ohne Glut. So soll die Welt sein. Was sich nicht mehr bewegt, kann auch nicht mehr zerbrechen, und wo nichts mehr warm ist, findet er nichts mehr zu fressen. Ich lege das Licht über die Welt, und sie wird still. Und er schläft für immer ein, weil es nichts mehr gibt, wovon er träumen könnte.
+DU: Ohne Glut wird die Welt kalt, Aurel.
+AUREL: Kalt, aber heil.
+DU: Kalt und tot.
+AUREL: Nicht tot. Still. (sie breitet die Flügel aus, und das Licht wird so grell, dass die Risse im Boden aufleuchten) Und das ist mehr, als du ihr geben kannst.
+DIE STIMME: (ganz leise, fast belustigt) Siehst du? Ich habe dir doch gesagt, du sollst es dir ansehen.
+AUREL: Gib mir den Stein, und ich verspreche dir, dass es nicht wehtun wird. Niemandem und nie wieder.
+DU: Das hat Urborke auch gesagt.
+AUREL: (nach einer langen Pause) Dann beweise es, Kartenbinder. Beweise mir, dass es einen anderen Weg gibt.
+[Musik: Kampf. Das Licht flutet alles.]
+* * *
+Als Aurel fällt, zerbricht der Käfig aus Licht. Einen Moment lang schwebt der fünfte Splitter frei über dem Sockel, dann sinkt er herab und bleibt auf dem schwarzen Glas liegen.
+Aurel kniet auf den Stufen, ihre Flügel hängen schwer herab. Ihr Licht ist gedämpft, und zum ersten Mal kannst du ihr direkt ins Gesicht sehen.
+Sie ist nicht so alt, wie du gedacht hast. Sie wirkt nur sehr müde.
+AUREL: Was hast du vor?
+DU: Ich setze ihn zusammen.
+AUREL: Dann wacht er auf. Vollständig.
+DU: Und dann binde ich ihn neu.
+Aurel lacht leise und ohne Spott, so wie man über ein Kind lacht, das verkündet, es wolle den Mond pflücken.
+AUREL: Du allein? Mit deinen Karten?
+DU: Nicht allein.
+Du greifst in deine Tasche und ziehst vier Karten hervor: den Schlackenfürsten mit dem Pferdchen in der Faust, die Gezeitenmutter mit dem Salz im Haar, die Alteiche, die nach Regen duftet, und den Hohlen König mit dem Namen auf der Rückseite.
+Aurel betrachtet die Karten sehr lange.
+AUREL: Ein Lied braucht fünf Stimmen.
+DU: Ich weiß.
+AUREL: (begreift) Du willst uns singen lassen. Aus Karten heraus.
+DU: Ihr habt schon einmal gesungen.
+AUREL: Damals waren wir frei. (sie schließt die Augen) Eine Bindung ist eine Tür, Kartenbinder. Hat Seda dir das nicht erzählt? Jede Karte ist eine Tür, und du willst ein Schloss aus Türen bauen.
+DU: Hast du einen besseren Plan? Einen, bei dem niemand in einer Kuppel steht und lächelt?
+Lange antwortet Aurel nicht. Dann steht sie langsam auf und tritt vor dich hin.
+AUREL: Ich hatte gehofft, dass du es diesmal nicht tust. (sie neigt den Kopf) Dann bind mich. Wenn du schon singen willst, dann mit allen fünf Stimmen. Und dann sing es richtig.
+Du hältst die leere Karte hoch, und die Erzseraphin gleitet hinein wie Licht durch ein Fenster.
+
+#K Finale|Der Stein ist ganz|seq/ende-1
+## Am Herd der Welt
+[Geräusch: Wind über Fels, sonst nichts. Kein Knistern, kein Rauschen. Eine Welt, die den Atem anhält.]
+In deiner linken Hand hältst du fünf Karten, in deiner rechten den Stein. Vor dir steht der Sockel aus schwarzem Glas, und darauf liegt der letzte Splitter.
+Seda steht hinter dir. Funke sitzt so dicht an deinem Ohr, dass du ihn atmen hörst.
+Der Stein spricht jetzt nicht mehr leise und nicht mehr nur zu dir. An Sedas Gesicht erkennst du, dass auch sie ihn hört.
+DIE STIMME: Nun. Da wären wir.
+DU: Da wären wir.
+DIE STIMME: Du weißt jetzt fast alles, und trotzdem stehst du hier. (fast stolz) Genau das habe ich immer an dir gemocht.
+DU: Was hast du mir damals für meinen Namen versprochen?
+DIE STIMME: (nach einer langen Pause) Dass du nie wieder frieren musst.
+Du denkst an den Regen, an den du dich nicht mehr erinnerst, an den Aschenpfad, an das kalte Wasser von Aldermünde und an das Licht am Mühlenweg, in dem selbst Funke gefroren hat.
+DIE STIMME: Und? Hast du gefroren? Ein einziges Mal, seit du aufgewacht bist?
+Nein, du hast nicht gefroren, kein einziges Mal.
+DIE STIMME: Ich habe dich nie belogen, Kartenbinder. Weder damals noch heute.
+FUNKE: (zischt) Du hast nie gelogen, aber die Wahrheit hast du auch nie gesagt! Das ist nicht dasselbe!
+DIE STIMME: (beinahe zärtlich) Nein, kleines Feuer, das ist es nicht. Aber das begreifen die meisten erst, wenn es zu spät ist.
+Von hier oben überblickst du alle fünf Länder. Im Osten ist der Rauch über dem Aschenpfad dünner geworden, im Westen weicht das Meer langsam zurück, und im Süden steht der Wald still. Im Norden liegt das Hohle Reich, dunkel wie ein Loch in der Welt. Unter dir am Hang leuchtet die weiße Kuppel, in der Hunderte von Menschen stehen und lächeln.
+Wenn du den Stein jetzt nicht vollendest, wird der nächste Wächter kommen und versuchen, die Splitter zu halten, und er wird daran zerbrechen wie alle anderen vor ihm. Oder der Orden findet sie und lässt die Welt erstarren. Vollendest du ihn aber, dann wacht er auf.
+Es gibt keinen guten Weg. Es gibt nur deinen.
+DU: Ormak hat mir im Traum gesagt, dass ich keinen Herd habe.
+SEDA: Was?
+DU: Ein Feuer im Herd wärmt das Haus, ohne Herd frisst es das Haus. (du schließt die Hand fester um den Stein) Dann werde ich eben der Herd.
+SEDA: (leise) Du weißt nicht, ob du das überlebst.
+DU: Nein, das weiß ich nicht.
+FUNKE: (sehr klein) Ich bleib bei dir. Ich bin ein vorsichtiges Feuer, und ich pass auf, dass du nicht ausgehst.
+## Das Lied der Fünf
+[Musik: Ganz leise und wie aus großer Ferne beginnt das Motiv des Bindelieds.]
+Du legst den Stein neben den letzten Splitter auf das schwarze Glas und fächerst die fünf Karten auf.
+DU: Ormak. Ysra. Urborke. Vael. Aurel. (eine Pause) Ich brauche euch.
+Zunächst geschieht nichts.
+Dann wird die Karte des Schlackenfürsten warm und die der Gezeitenmutter kühl. Die Karte der Alteiche duftet nach Regen, auf der des Hohlen Königs flackern blasse Sterne, und die der Erzseraphin leuchtet so hell, dass du sie kaum ansehen kannst.
+Rings um den Sockel erscheinen sie, schimmernd wie Gestalten in flirrender Hitze.
+Fünf Wächter knien dort, genau wie damals.
+Ormak hält noch immer das Pferdchen in der Faust. Ysra hat Salz im Haar, und das Meer um ihre Knie ist hell und grün. In Urborkes Ästen blüht es, und Vaels Mantel ist voller Sterne, Tausende, mehr als je zuvor. Aurel blendet nicht mehr. Sie leuchtet nur noch.
+Sie sehen dich an, und Ormak nickt dir zu.
+ORMAK: Na dann, Kartenbinder. Sing mit, wenn du dich traust.
+Du nimmst den letzten Splitter und drückst ihn an den Stein.
+[Musik: Ein tiefer Schlag. Dann Stille.]
+Der letzte Splitter fügt sich ein. Der Glutstein ist wieder ganz.
+Er liegt in deinen Händen, nicht größer als ein Herz, und er glüht weder hell noch heiß. Er glüht, wie Kohle am Morgen glüht, wenn das Feuer längst erloschen ist und trotzdem noch etwas in ihr lebt.
+Dann beginnen die Wächter zu singen.
+~ORMAK: Glut, die wärmt und nicht verzehrt,
+~YSRA: Flut, die trägt und nicht ertränkt,
+~URBORKE: Wurzel, die hält und nicht erwürgt,
+~VAEL: Nacht, die birgt und nicht verschlingt,
+~AUREL: Licht, das leuchtet und nicht blendet.
+Die letzte Zeile singst du mit. Du kennst sie, du hast sie immer gekannt.
+~ALLE, MIT DIR: Bleib, was du bist. Schlaf, wo du liegst. Der Stein hält.
+Doch im Inneren des Steins öffnet sich ein Auge.
+## Das Auge
+@img seq/ende-2
+[Musik: Das Lied bricht nicht ab, aber darunter schiebt sich ein zweiter Ton, tief, warm und gewaltig, wie ein Atemzug, der eine ganze Welt füllt.]
+Das Auge ist violett, schmal wie das einer Katze und älter als alles, was du je gesehen hast. Es sieht dich an, aus dem Stein heraus und durch deine Hände hindurch, direkt in dich hinein.
+DER UNGEBUNDENE: (nicht mehr eine Stimme, sondern viele übereinander, wie ein Chor, der aus einem einzigen Mund spricht, und doch noch immer warm) Ihr singt schön. Ihr habt schon immer schön gesungen.
+Die Wächter singen weiter, lauter jetzt. Du spürst, wie die Bindung greift und sich etwas um das Auge legt, um den Stein und um das Gewaltige darin, und wie es festgehalten wird. Der Stein brennt in deinen Händen wie Ormaks Amboss, aber du hältst ihn fest. Du bist der Herd, und du hältst ihn.
+Das Auge wird schmaler und schläfriger und schließt sich beinahe.
+DER UNGEBUNDENE: Aber ihr singt aus Karten.
+Die fünf Karten in deiner linken Hand flammen auf.
+DER UNGEBUNDENE: Und jede Karte, Kartenbinder, ist eine Tür.
+[Geräusch: Ein leises Reißen, wie Stoff, der langsam nachgibt. Dann noch eines und noch eines.]
+Du spürst es, bevor du es siehst: Etwas schlüpft hindurch. Nicht durch den Stein, denn der Stein hält, die Bindung hält, und das Gewaltige darin bleibt, wo es ist. Aber etwas anderes, etwas Dünnes, Hungriges und Rastloses, schlüpft durch die fünf kleinen Türen in deiner Hand hinaus, an den Wächtern vorbei und an dir vorbei.
+Nicht in diese Welt hinein, sondern daneben.
+[Musik: Das Endgegner-Thema, groß und voll. Dann bricht es ab.]
+Über dem Meer zerreißt der Himmel.
+Weit im Westen, über der versunkenen Küste, öffnet sich ein Spalt in der Nacht, rot an den Rändern und violett in der Mitte. Er wird länger und verzweigt sich wie ein Sprung in einer Fensterscheibe, und neben ihm öffnet sich ein zweiter, dann ein dritter, über dem Aschenpfad, über dem Wald und über dem Hohlen Reich. Feine, leuchtende Linien ziehen sich über den ganzen Horizont.
+Durch jeden Riss siehst du etwas anderes.
+Eine Schneeebene, über der Lichter tanzen. Eine rote Schlucht, in der etwas Schwarzes, Eisernes schreit. Eine gläserne Stadt in buntem Regen. Einen Gang aus Metall mit einem blinkenden roten Licht. Ein Meer unter zwei Monden. Rosafarbene Blüten, die vor einem kleinen Schrein herabfallen.
+Und im größten Riss, dem über dem Meer, siehst du für einen einzigen Herzschlag etwas Riesiges. Arme wie Gezeiten aus Glut und Violett strecken sich aus, aber nicht nach dir und nicht nach dieser Welt, sondern nach allen anderen.
+DER UNGEBUNDENE: (leiser jetzt, als entfernte er sich, als stünde er bereits in einer Tür) Ich habe dir doch gesagt, dass ich nach Hause will. Weißt du noch? (ein warmes, fast liebevolles Lachen) Mein Zuhause ist überall dort, wo es eine Wand gibt, die man einreißen kann.
+DU: Du bist immer noch hier drin. Ich halte dich fest.
+DER UNGEBUNDENE: Ja, du hältst mich fest. Gut gemacht. (eine Pause) Halt mich nur gut fest, Kartenbinder. Ich gehe nirgendwohin und zugleich überallhin.
+Ein letztes Mal sieht dich das Auge an.
+DER UNGEBUNDENE: Danke, Kartenbinder.
+Es folgt eine Pause, lang genug, dass du den Wind hörst.
+DER UNGEBUNDENE: Zum zweiten Mal.
+Dann schließt sich das Auge.
+## Was bleibt
+[Musik: Stille. Dann, ganz leise, das Hauptthema, gebrochen und langsam, wie auf einem verstimmten Klavier.]
+Der Glutstein liegt in deinen Händen, vollständig, warm und still.
+Leer ist er nicht. Du spürst sein Gewicht und das Gewaltige darin, gebunden und schlafend. Aber es ist ein seltsamer Schlaf, wie in einem Haus, das gerade jemand verlassen hat, ohne die Tür hinter sich zu schließen.
+Die fünf Wächter sind verschwunden. In deiner linken Hand liegen fünf kalte Karten. Die Gesichter darauf haben die Augen geschlossen und lächeln. Auf der Rückseite einer von ihnen steht ganz klein in Kohle: Vael.
+Du blickst hinunter auf die fünf Länder.
+Über dem Aschenpfad verzieht sich der Rauch. Die Erde wird grau, dann dunkel und schließlich wieder ganz gewöhnliche Erde. In Rußdorf, so wirst du später erfahren, steht eine alte Köhlerin vor ihrer Tür und weint, weil zum ersten Mal seit tausend Nächten jemand die Glocke im Turm läutet.
+Das Meer weicht zurück, und die Dächer von Aldermünde glänzen nass im Sternenlicht. Es gibt wieder Sterne.
+Der Wald steht still, grün und ganz gewöhnlich.
+Über dem Hohlen Reich zeigt sich am Horizont ein dünner grauer Streifen, der heller und schließlich blassgelb wird. Zum ersten Mal seit tausend Nächten geht dort die Sonne auf.
+Unter dir am Hang flackert das Licht der weißen Kuppel, einmal, zweimal, dann erlischt es.
+Am Mühlenweg lässt ein Müller fluchend seinen Sack fallen, und ein Vogel fliegt weiter, als wäre nichts gewesen.
+In der Kuppel hustet jemand.
+Seda dreht sich um und rennt wortlos los, die Treppe hinunter. Ihr weißer Umhang flattert hinter ihr her, und du hörst sie den ganzen Weg nach unten weinen.
+* * *
+Lange sitzt du auf den Stufen des Tempels. Funke sitzt neben dir, und seine Flamme ist wieder orange.
+FUNKE: Weißt du, was du da gemacht hast?
+DU: Nein.
+FUNKE: Ich schon. (er kickt mit seinem kleinen, brennenden Fuß einen Kiesel die Treppe hinunter) Du hast es versucht. Die Welt friert nicht mehr, und die Leute in der Kuppel atmen wieder. Und der Himmel ist kaputt. (eine Pause) Alles gleichzeitig.
+Du greifst in deine Tasche. Ganz unten liegt noch etwas: ein rosa Blütenblatt, ein wenig zerknittert, aus einer Welt, die du nur durch einen Riss gesehen hast.
+Du drückst es zwischen zwei Steinen in die Erde. Es ist nur ein Blütenblatt, und es wird nicht wachsen.
+Aber du hast es versprochen.
+* * *
+Als Seda zurückkehrt, ist es Morgen, ein echter Morgen mit Wind, Wolken und Schatten. Sie setzt sich neben dich auf die Stufe und blickt mit dir hinaus auf die Risse am Himmel. Bei Tag sind sie blasser, aber jeder einzelne von ihnen ist noch da.
+SEDA: Meiner Mutter geht es gut. Sie hustet. (sie lacht kurz auf) Sie hustet und schimpft, weil ihr die Beine wehtun.
+DU: Gut.
+SEDA: (nach einer Weile) Und was jetzt?
+Du betrachtest den Stein in deinen Händen, dann die Karten und schließlich den größten Riss über dem Meer, der dort hängt wie eine Wunde, die noch nicht weiß, ob sie heilen soll.
+DU: Jetzt folgen wir ihm.
+FUNKE: (seufzt sehr tief) Natürlich folgen wir ihm. (eine Pause) Hoffentlich gibt es da drüben Feuer.
+#K Epilog|Für die, die noch kommen|seq/ende-3
+[Geräusch: Ruhige Brandung. Die große Flamme eines Leuchtturms, die stetig faucht. Eine eiserne Tür.]
+In derselben Nacht steht Merle auf der Galerie ihres Leuchtturms und sieht zu, wie der Himmel über dem Meer zerreißt.
+Angst hat sie keine. In tausend Nächten hat sie so viel gesehen, dass ihr die Angst irgendwann ausgegangen ist wie das Öl einer alten Lampe. Mit einer Tasse Seetangtee in der Hand lehnt sie am Geländer und blickt hinauf.
+Der Riss ist lang und leuchtet an den Rändern. Durch ihn hindurch sieht sie ein anderes Meer unter einem anderen Himmel, an dem zwei Monde stehen. Darin schwimmt etwas Großes, das singt, ein langes, tiefes Lied, das bis zu ihr herüberweht. Ein Wal, denkt sie. Ein Wal, der zwischen den Sternen schwimmt.
+Dann bemerkt sie noch etwas anderes.
+Im Riss schaukelt ein kleines Licht, das allmählich größer wird.
+Es ist ein Schiff.
+Allerdings kein Schiff, wie Jarne eines hatte. Es hat zwar Segel, aber über ihnen hängt ein riesiger Ballon aus geflicktem Stoff, unter dem Rumpf drehen sich Propeller, und an der Reling schwingen Laternen hin und her. Schräg und viel zu schnell sinkt es aus dem Riss herab, und aus einem der Propeller steigt Rauch. Es sucht etwas. In der Dunkelheit über einem fremden Meer, an einer fremden Küste sucht es nach etwas, an dem es sich festhalten kann.
+Merle stellt die Tasse ab.
+Sie geht hinein und steigt die Wendeltreppe bis ganz nach oben. Dort dreht sie die große Flamme so weit auf, dass das Glas zittert. Dann zündet sie auch die kleine Messinglaterne der Morgenmöwe an, die daneben hängt.
+Zwei Lichter strahlen weit hinaus über das schwarze Wasser.
+Draußen über dem Meer hält das fremde Schiff inne, und die Laternen an seiner Reling hören auf zu schaukeln. Dann dreht es ganz langsam bei und hält auf die Küste zu.
+Direkt auf den Leuchtturm.
+Merle lehnt sich in den Türrahmen und sieht ihm entgegen.
+MERLE: (leise, fast zufrieden) Für die, die noch kommen.
+[Musik: Das Hauptthema, voll und warm. Dann, ganz am Ende, ein einzelner tiefer Ton und ein Knistern wie von Glut.]
+#END
+
+#A Anhang|Fäden für die Kampagne
+Achtung, ab hier wird alles verraten. Diese Seiten sind für dich als Autor, nicht für Spieler.
+## Was der Prolog festlegt
+- Der Glutstein ist kein Herz, sondern ein Gefängnis. Darin liegt der Ungebundene, ein uraltes Wesen, das von Welt zu Welt wandert und die Wände dazwischen frisst.
+- Der erste Kartenbinder hat ihn gebunden. Darum ist das Binden selbst der Schlüssel: Jede Karte ist eine kleine Tür. Diese Regel ist der Grund für die Risse am Ende.
+- Die Welt hat sich an seiner Glut gewärmt. Die fünf Wächter waren zugleich Beschützer und Gefängniswärter. Das macht den Ungebundenen nicht gut, aber es macht die Sache weniger einfach.
+- Jeder Wächter wird im Prolog zum Gegenteil seiner Liedzeile: Ormaks Glut verzehrt, Ysras Flut ertränkt, Urborkes Wurzel erwürgt, Vaels Nacht verschlingt, Aurels Licht blendet.
+- Die Stimme lügt nie. Jeder ihrer Sätze ist wahr. Sie verschweigt nur, was zählt.
+- Am Ende ist der Stein ganz, der Körper des Ungebundenen gebunden, die Welt geheilt. Aber sein Hunger ist durch die Karten hinaus in die Lücken zwischen den Welten geschlüpft. Daraus entstehen die Risse.
+## Offene Fragen
+- Wer ist der Kartenbinder? Alles deutet darauf hin, dass er selbst in der Nacht ohne Sterne den Stein zerbrochen hat, als Gestalt mit Kapuze. Bewiesen ist es nicht. Was der Ungebundene damals versprochen hat, ist bekannt („Du wirst nie wieder frieren“). Warum der Kartenbinder darauf eingegangen ist, nicht.
+- Wem gehörte der Name des Kartenbinders, und kann man ihn zurückholen? Die Seelenhändlerin hat dazu noch mehr zu sagen. Sie hat außerdem die Erinnerung an den Regen in einem Glas.
+- Die vier alten Karten (Tümpelgeist, Moosling, Irrlicht, Nachtfalter): Wann und wo wurden sie gebunden? Der Tümpelgeist kennt den Weg durch Aldermünde.
+- Die fünf Wächter schlafen in ihren Karten und lächeln. Kann man sie wecken? Und was passiert mit dem Stein, wenn man es tut?
+- Ist der Ungebundene böse, oder ist er ein Gefangener, der Hunger hat? Diese Frage kann die ganze Kampagne tragen.
+## Was hinter den Rissen liegt
+Die Risse führen in die Welten, die es im Spiel schon gibt. So wird aus jedem Event-Set und jedem freien Set ein Ort, an den die Geschichte reisen kann.
+- Im Prolog schon angedeutet: Kirschblütental (Blütenblatt in der Glutmine, Fuchsschrein in der Quelle), Frostmark (Schneeebene mit Mammuts), Rote Schlucht (der eiserne Zug), Neonstadt (Glasstadt im bunten Regen), Station Null (Metallgang mit rotem Licht), Sternenkurs und Walgesang (Meer unter zwei Monden, singender Wal), Luftpiraten (das Luftschiff im Epilog), Räderwerk (Zahnrad am Strand).
+- Weitere Kandidaten: Dornenmärchen, Amazonenreich, Arena der Gladiatoren, Savannenglut, Im Riff.
+- Der Sheriffstern und die leuchtende Glasröhre vom Seelenmarkt passen zur Roten Schlucht und zur Neonstadt.
+## Figuren, die weitergehen
+- Funke: Begleiter, Gewissen und Gedächtnis. Hat versprochen, sich alles zu merken, was der Kartenbinder vergisst.
+- Seda: vom Jäger zur Verbündeten. Hat dem Orden den Rücken gekehrt. Kennt die Kammer der Fremddinge in der Sonnenwacht, in der seit Jahrhunderten Dinge aus den Haarrissen gesammelt werden.
+- Merle: Ihr Leuchtturm ist der erste Hafen für das, was durch die Risse kommt. Wer sitzt in dem Luftschiff?
+- Der Lichtorden ohne Aurel: Wer übernimmt? Wer glaubt noch an das große Stillwerden?
+## Kleine Fäden
+- Urborkes Versprechen: „Pflanz etwas.“ Das Blütenblatt liegt zwischen den Tempelsteinen. Vielleicht wächst es doch.
+- Lio hat seine Wurzel unter dem Kopfkissen.
+- Jarne und die Morgenmöwe: Die Kajüte war leer.
+- Vaels Name steht auf der Rückseite seiner Karte.
+- Die Taschenuhr vom Strand läuft rückwärts. Bis wohin?
+## Wo es im Spiel hinpasst
+- Intro-Sequenz: Prolog und Erwachen, gekürzt auf sechs Bilder.
+- Gebietssequenzen I bis V: je der Anfang eines Kapitels.
+- Bossauftritte: die Zeilen vor jedem Endgegnerkampf.
+- Dialoge vor den Gefechten: Hanne, Merle, Seda, Lio, die Seelenhändlerin und das Spiegelbild können einzelne Gefechte übernehmen.
+- Endsequenz: Finale und Epilog. Die drei vorhandenen Endbilder passen schon (Stein ganz, Auge, Riss über dem Meer mit Leuchtturm).
+
