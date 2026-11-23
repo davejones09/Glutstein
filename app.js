@@ -573,12 +573,12 @@ function txt(v,p){ return typeof v==='function'?v(p):v; }
 function chAllowed(w,id){ const R=RULE[w.rid], c=CARD[id], o=S.cards[id]; return !!o&&(!R.ok||R.ok(c,o,w.p)); }
 function chMax(w){ return RULE[w.rid].max||DECK_MAX; }
 function chDeck(w){ const k=w.rid+(w.p||''); return (S.chDecks[k]=(S.chDecks[k]||[]).filter(id=>chAllowed(w,id)).slice(0,chMax(w))); }
-function chValid(w){ const d=chDeck(w), R=RULE[w.rid]; return d.length>=DECK_MIN&&(!R.sets||new Set(d.map(id=>CARD[id].set)).size<=R.sets); }
+function chValid(w){ const d=chDeck(w), R=RULE[w.rid]; return d.length>=DECK_MIN&&rarOk(d)&&(!R.sets||new Set(d.map(id=>CARD[id].set)).size<=R.sets); }
 function chObjs(w){ return chDeck(w).map(id=>({id,lvl:S.cards[id].lvl,star:S.cards[id].star,skin:skinOn(id)})); }
 /* Gegner: Stärke nach Kartenbinder-Level, jeder der drei Kämpfe etwas härter. */
 function chEnemy(w,k,pd){
   const R=RULE[w.rid], q=Math.min(1,S.plvl/40+k*.07), seed=weekNo()*101+RULES.indexOf(R)*17+k, base=botDeck(seed,q), lvl=Math.round(base.reduce((x,c)=>x+c.lvl,0)/base.length);
-  const mk=ids=>ids.map(id=>({id,lvl,star:Math.min(MAXSTAR,Math.ceil(lvl/5))}));
+  const mk=ids=>capRar(ids,r=>{ const p=BASE.filter(c=>c.r===r&&!SETS[c.set].foe&&!ids.includes(c.id)); return p.length?p[0].id:null; }).map(id=>({id,lvl,star:Math.min(MAXSTAR,Math.ceil(lvl/5))}));
   if(R.enemy==='mirror') return pd.map(d=>Object.assign({},d,{skin:0}));
   if(R.enemy==='freeset') return mk(BASE.filter(c=>c.set===w.p).map(c=>c.id));
   if(R.enemy==='advantage'){ const cnt={}; pd.forEach(d=>{ const c=CARD[d.id].cat; cnt[c]=(cnt[c]||0)+1; }); const main=Object.keys(cnt).sort((a,b)=>cnt[b]-cnt[a])[0], beat=Object.keys(STRONG).filter(c=>STRONG[c]===main);
@@ -613,7 +613,7 @@ function kwLong(k){ return Object.entries(k).map(([x,v])=>`<b>${KW[x].n}${KWP[x]
 function skinOn(id){ const v=S.skinOn[id]|0; return ownSkins(id).includes(v)?v:0; }
 function cardHTML(c,cls){
   const d=CARD[c.id], lvl=c.lvl||1, star=c.star||1, st=stats(c.id,lvl,star), a=c.a??st.a, h=c.h??st.h, mh=c.mh??st.h, k=c.k||kwOf(c.id,star), kw=kwLine(k), sk=c.skin??skinOn(c.id), src=skinSrc(c.id,sk);
-  return `<span class="card r${d.r}${sk?' sp':''} ${cls||''}" style="--art:url(${src});--ec:${CCOL[d.cat][1]}"><span class="frm"></span><img class="elc" src="bilder/items/${d.cat}-1.png" alt="" title="${CATS[d.cat]}">${sk?'<span class="glint"></span>':''}<span class="setb" style="--fc:${SCOL(d.set)}" title="Set ${SETS[d.set].n}">${SETS[d.set].l}</span><span class="lvl">${lvl}</span><span class="plate"><span class="stc">${'★'.repeat(star)}</span><b class="nm">${d.n}</b>${kw?`<span class="kw">${kw}</span>`:''}</span><span class="atk${a>st.a?' up':''}">${a}</span><span class="rarl">${RAR[d.r]}</span><span class="hp${h<mh?' hurt':''}">${Math.max(0,h)}</span></span>`;
+  return `<span class="card r${d.r}${sk?' sp':''} ${cls||''}" style="--art:url(${src});--ec:${CCOL[d.cat][1]}"><span class="frm"></span><img class="elc" src="bilder/items/${d.cat}-1.png" alt="" title="${CATS[d.cat]}">${sk?'<span class="glint"></span>':''}${c.lend?'<span class="lendb">Leihkarte</span>':''}<span class="setb" style="--fc:${SCOL(d.set)}" title="Set ${SETS[d.set].n}">${SETS[d.set].l}</span><span class="lvl">${lvl}</span><span class="plate"><span class="stc">${'★'.repeat(star)}</span><b class="nm">${d.n}</b>${kw?`<span class="kw">${kw}</span>`:''}</span><span class="atk${a>st.a?' up':''}">${a}</span><span class="rarl">${RAR[d.r]}</span><span class="hp${h<mh?' hurt':''}">${Math.max(0,h)}</span></span>`;
 }
 function itemIcon(cat,q,size){ const z=Math.round((size||22)*1.25); return `<img class="itm" src="bilder/items/${cat}-${q}.png" width="${z}" height="${z}" alt="">`; }
 function skipIcon(z){ z=Math.round(z*1.25); return `<img class="itm" src="bilder/items/rolle.png" width="${z}" height="${z}" alt="">`; }
@@ -739,7 +739,7 @@ function power(id){ const o=S.cards[id], st=stats(id,o.lvl,o.star), k=kwOf(id,o.
 function viewDeck(){
   const dk=deck().slice().sort((a,b)=>power(b)-power(a));
   let h=`<section><div class="chips">${[0,1,2].map(i=>`<button class="chip" data-act="deckSlot" data-id="${i}" aria-pressed="${S.di===i}">Deck ${i+1}</button>`).join('')}</div>
-  <div class="sec-h"><h2>Deck ${S.di+1}</h2><span class="count">${dk.length}/${DECK_MAX} Karten</span></div>
+  <div class="sec-h"><h2>Deck ${S.di+1}</h2><span class="count">${dk.length}/${DECK_MAX} Karten</span></div>${(()=>{ const n=rarCounts(dk); return `<div class="rarbar">${RAR_CAP.map(([r,m],k)=>`<span class="${n[k]>m?'over':n[k]===m?'full':''}">${['Diamant','Gold &amp; Diamant','ab Silber'][k]} ${n[k]}/${m}</span>`).join('')}${rarOk(dk)?'':'<button class="btn" data-act="autoFitDeck">Anpassen</button>'}</div>`; })()}
   <p class="muted">${DECK_MIN} bis ${DECK_MAX} Karten, jede nur einmal. Drei starten auf dem Feld, der Rest liegt gemischt im Ziehstapel. Tippe eine Karte an, um sie zu leveln oder zu verbessern.</p><div class="grid g4">`;
   for(let i=0;i<DECK_MAX;i++) h+= dk[i] ? tile(dk[i],true) : `<div class="empty-slot">frei</div>`;
   h+=`</div>${dk.length?`<p class="flabel">Setbonus</p>${bonusHTML(dk)}`:''}</section>
@@ -849,6 +849,7 @@ function sheetStage(id){
   const st=STAGES.find(s=>s.id===id), open=isOpen(st), got=S.stars[id]||0, hg=S.hstars[id]||0, hero=areaDone(st.area), d=stageDeck(st), uniq={}; d.forEach(c=>uniq[c.id]=(uniq[c.id]||0)+1);
   openSheet(`<p class="eyebrow">${AREAS[st.area].n} · Gefecht ${st.i+1}</p><div class="sec-h"><h2>${st.n}</h2>${starsHTML(got)}</div>
   <ul class="kv"><li><span>Gegner</span><b>${st.size} Karten · Level ${st.lvl} · Held ${st.hp} Leben</b></li>${hero?`<li><span>Heroisch: +8 Level, doppeltes Heldenleben</span><b>${hg?'★'.repeat(hg):'offen'}</b></li>`:''}</ul>
+  ${stageCond(st).length?`<h3>Bedingungen</h3><ul class="conds">${stageCond(st).map(x=>`<li>${condText(x)}</li>`).join('')}</ul>${hero?`<p class="muted">Heroisch: ${stageCond(st,true).map(condText).join(' · ')}</p>`:''}<p class="muted">Fehlende Karten werden für den Kampf geliehen.</p>`:''}
   <h3>Belohnung</h3><ul class="rew"><li class="ok">Jeder Sieg: ${st.gold} Gold + 1 ${itemName(st.cat,stageItem(st).q)}</li><li class="${got>=2?'ok':''}">${got>=2?'✓ ':''}Erstmals ★★: +1 ${itemName(st.cat,stageItem(st).q)}</li><li class="${got>=3?'ok':''}">${got>=3?'✓ ':''}Erstmals ★★★: +50 % Gold</li>${hero?`<li class="${hg>=3?'ok':''}">Heroisch: 2 Gegenstände, 1,5-faches Gold${hg>=3?' ✓':''}</li><li class="${S.foeSets.includes(AREAS[st.area].foe)?'ok':''}">Alle 16 Gefechte heroisch mit ★★★: das Set „${SETS[AREAS[st.area].foe].n}“</li>`:''}</ul>
   <h3>Gegnerisches Deck</h3><div class="grid g4">${Object.keys(uniq).map(c=>`<div class="tile">${cardHTML({id:c,lvl:st.lvl,star:st.star})}${uniq[c]>1?`<span class="flag">×${uniq[c]}</span>`:''}</div>`).join('')}</div>
   <div class="row-btns"><button class="btn" data-act="close">Zurück</button><button class="btn primary" data-act="fight" data-id="${id}" ${open?'':'disabled'}>${open?'Kampf beginnen':'Noch gesperrt'}</button>${hero?`<button class="btn" data-act="fightHero" data-id="${id}">Heroisch</button>`:''}</div>
@@ -1031,10 +1032,62 @@ async function runBattle(id){
   if(aliveB(id)&&!B.over){ B.over='e'; }
   if(aliveB(id)) finish();
 }
+
+/* ====== Seltenheitsregel & Bedingungen ====== */
+function condText(c){ return c.t==='card'?`${CARD[c.id].n} muss mitkämpfen`:c.t==='cat'?`Mindestens ${c.n} ${CATS[c.c]}karten`:c.t==='set'?`Mindestens ${c.n} Karten aus ${SETS[c.s].n}`:c.t==='max'?`Höchstens ${c.n} Karten im Deck`:c.r>=3?'Kein Diamant':c.r===2?'Nur Bronze und Silber':'Nur Bronze'; }
+function condMatch(c,id){ const d=CARD[id]; return c.t==='cat'?d.cat===c.c:c.t==='set'?d.set===c.s:false; }
+function cardVal(id){ return CARD[id].r*1000+(S.cards[id]?S.cards[id].lvl*10+S.cards[id].star:0); }
+/* Prüft ein Deck gegen Bedingungen. Ergebnis: geliehene Karten und Hinweise, die erst behoben werden müssen. */
+function condCheck(cs,ids){
+  const lend=[], block=[], d=ids.slice();
+  cs.forEach(c=>{
+    if(c.t==='card'){ if(d.includes(c.id)) return; if(S.cards[c.id]) block.push(`Lege ${CARD[c.id].n} ins Deck.`); else if(!lend.includes(c.id)) lend.push(c.id); }
+    else if(c.t==='cat'||c.t==='set'){ const have=d.concat(lend).filter(id=>condMatch(c,id)).length; if(have>=c.n) return;
+      const own=Object.keys(S.cards).filter(id=>CARD[id]&&!d.includes(id)&&condMatch(c,id));
+      if(own.length) { block.push(`Lege noch ${Math.min(own.length,c.n-have)} ${c.t==='cat'?CATS[c.c]+'karte(n)':'Karte(n) aus '+SETS[c.s].n} ins Deck.`); return; }
+      const pool=BASE.filter(x=>condMatch(c,x.id)&&!d.includes(x.id)&&!lend.includes(x.id)&&!SETS[x.set].foe).sort((a,b)=>a.r-b.r);
+      for(let k=have;k<c.n&&pool.length;k++) lend.push(pool.shift().id); }
+  });
+  const all=d.concat(lend), mx=Math.min(DECK_MAX,...cs.filter(c=>c.t==='max').map(c=>c.n));
+  if(all.length>mx) block.push(lend.length?`Mach Platz: ${lend.length} Leihkarte(n) kommen dazu, erlaubt sind ${mx} Karten.`:`Höchstens ${mx} Karten erlaubt.`);
+  cs.filter(c=>c.t==='nor').forEach(c=>{ if(all.some(id=>CARD[id].r>=c.r)) block.push(condText(c)+'.'); });
+  if(!rarOk(all)) block.push('Zu viele seltene Karten: höchstens 1 Diamant, 3 Gold oder Diamant, 6 ab Silber.');
+  return {lend,block};
+}
+/* Baut das aktuelle Deck so um, dass Regel und Bedingungen passen. */
+function autoFit(cs){
+  let d=deck().slice(); const must=new Set();
+  cs.forEach(c=>{ if(c.t==='card'&&S.cards[c.id]){ if(!d.includes(c.id)) d.unshift(c.id); must.add(c.id); }
+    if(c.t==='cat'||c.t==='set'){ d.filter(id=>condMatch(c,id)).sort((a,b)=>cardVal(b)-cardVal(a)).slice(0,c.n).forEach(id=>must.add(id));
+      const own=Object.keys(S.cards).filter(id=>CARD[id]&&!d.includes(id)&&condMatch(c,id)).sort((a,b)=>cardVal(b)-cardVal(a));
+      while(d.filter(id=>condMatch(c,id)).length<c.n&&own.length){ const id=own.shift(); d.push(id); must.add(id); } }
+    if(c.t==='nor') d=d.filter(id=>CARD[id].r<c.r||must.has(id)); });
+  const weakest=list=>list.filter(id=>!must.has(id)).sort((a,b)=>cardVal(a)-cardVal(b))[0];
+  for(let g=0;g<40;g++){ const {lend}=condCheck(cs,d), all=d.concat(lend), mx=Math.min(DECK_MAX,...cs.filter(c=>c.t==='max').map(c=>c.n));
+    let drop=null; const n=rarCounts(all);
+    for(let k=0;k<RAR_CAP.length&&!drop;k++) if(n[k]>RAR_CAP[k][1]) drop=weakest(d.filter(id=>CARD[id].r>=RAR_CAP[k][0]));
+    if(!drop&&all.length>mx) drop=weakest(d);
+    if(!drop) break; d=d.filter(id=>id!==drop); }
+  /* Auffüllen mit den besten Karten, die noch passen. */
+  const mx=Math.min(DECK_MAX,...cs.filter(c=>c.t==='max').map(c=>c.n));
+  Object.keys(S.cards).filter(id=>CARD[id]&&!d.includes(id)).sort((a,b)=>cardVal(b)-cardVal(a)).forEach(id=>{ const {lend}=condCheck(cs,d.concat(id)); const all=d.concat(id,lend);
+    if(all.length<=mx&&rarOk(all)&&!cs.some(c=>c.t==='nor'&&CARD[id].r>=c.r)) d.push(id); });
+  S.decks[S.di]=d.slice(0,DECK_MAX); persist();
+}
+function lendObjs(ids){ const l=deckLim().l; return ids.map(id=>{ const lvl=l, star=Math.min(MAXSTAR,Math.ceil(lvl/5)); return {id,lvl,star,lend:1}; }); }
+let pendingFight=null;
+function sheetBlock(c,cs,res){ pendingFight=c;
+  openSheet(`<p class="eyebrow">${c.mode==='kampagne'?'Bedingungen für dieses Gefecht':'Deck passt nicht'}</p><h2>Dein Deck passt noch nicht</h2>
+  ${cs.length?`<ul class="conds">${cs.map(x=>`<li>${condText(x)}</li>`).join('')}</ul>`:''}
+  <ul class="rew">${res.block.map(t=>`<li>${t}</li>`).join('')}</ul>${res.lend.length?`<p class="muted">Geliehen für diesen Kampf: ${res.lend.map(id=>CARD[id].n).join(', ')}</p>`:''}
+  <div class="row-btns"><button class="btn" data-act="toDeck">Zum Deck</button><button class="btn primary" data-act="autoFit">Automatisch anpassen</button></div>`); }
 function startBattle(c){
   if(c.mode!=='heraus'&&deck().length<DECK_MIN){ toast(`Dein Deck braucht mindestens ${DECK_MIN} Karten.`); tab='deck'; render(); return; }
+  let lendD=[];
+  if(c.mode!=='heraus'){ const cs=c.mode==='kampagne'?stageCond(c.stage,c.hero):[], res=condCheck(cs,deck());
+    if(res.block.length){ sheetBlock(c,cs,res); return; } lendD=lendObjs(res.lend); }
   closeSheet(); ctx=c; result=null; infoCard=null; narr=''; narrLog=[]; skip=false; forfeit=false;
-  B= c.mode==='arena' ? newBattle(deckObjs(),rivalDeck(c.rival)) : c.mode==='heraus' ? newBattle(c.pDeck,c.eDeck) : c.mode==='event' ? newBattle(deckObjs(),evDeck(c.stage),c.stage.hp) : newBattle(deckObjs(),stageDeck(c.stage,c.hero),stageHp(c.stage,c.hero));
+  B= c.mode==='arena' ? newBattle(deckObjs(),rivalDeck(c.rival)) : c.mode==='heraus' ? newBattle(c.pDeck,c.eDeck) : c.mode==='event' ? newBattle(deckObjs(),evDeck(c.stage),c.stage.hp) : newBattle(deckObjs().concat(lendD),stageDeck(c.stage,c.hero),stageHp(c.stage,c.hero));
   if(c.mode==='heraus'){ const R=c.rule; if(R.noHero){ B.p.hp=B.p.maxHp=1; } if(R.eShield) B.e.pile.concat(B.e.lanes).forEach(x=>{ if(x) x.k.schild=(x.k.schild||0)+1; }); if(R.decay) B.decay=R.decay; }
   $('#battle').hidden=false; if(FXC.cv) fxSize(); battleShell(); renderBattle();
   { const mc=(c.mode==='kampagne'||c.mode==='event')&&c.stage.boss?'endgegner':'kampf'; music(mc,curCat!==mc); }
@@ -1153,7 +1206,10 @@ const ACT={
   rename(){ openSheet(`<h2>Dein Name</h2><label class="lbl" for="nameinput">Bis zu 16 Zeichen</label><input type="text" id="nameinput" maxlength="16" value="${esc(S.name)}" autocomplete="off"><div class="row-btns"><button class="btn" data-act="close">Abbrechen</button><button class="btn primary" data-act="renameYes">Speichern</button></div>`); },
   renameYes(){ const v=$('#nameinput').value.trim().slice(0,16); if(!v){ toast('Der Name darf nicht leer sein.'); return; } S.name=v; persist(); closeSheet(); render(); },
   deckSlot(id){ S.di=+id; persist(); render(); },
-  deckToggle(id){ const d=deck(), i=d.indexOf(id); if(i>=0){ if(d.length<=DECK_MIN){ toast(`Ein Deck braucht mindestens ${DECK_MIN} Karten.`); return; } d.splice(i,1); } else{ if(!S.cards[id]||d.length>=DECK_MAX) return; d.push(id); } persist(); render(); sheetCard(id); sfx('place'); },
+  deckToggle(id){ const d=deck(), i=d.indexOf(id); if(i>=0){ if(d.length<=DECK_MIN){ toast(`Ein Deck braucht mindestens ${DECK_MIN} Karten.`); return; } d.splice(i,1); } else{ if(!S.cards[id]||d.length>=DECK_MAX) return; if(!rarRoom(d,CARD[id].r)){ toast(`Kein Platz mehr für ${RAR[CARD[id].r]}karten: höchstens 1 Diamant, 3 Gold oder Diamant, 6 ab Silber.`); return; } d.push(id); } persist(); render(); sheetCard(id); sfx('place'); },
+  autoFit(){ const c=pendingFight, cs=c&&c.mode==='kampagne'?stageCond(c.stage,c.hero):[]; autoFit(cs); render(); const res=condCheck(cs,deck()); if(c&&!res.block.length){ pendingFight=null; startBattle(c); } else if(c) sheetBlock(c,cs,res); },
+  autoFitDeck(){ autoFit([]); render(); sfx('place'); },
+  toDeck(){ closeSheet(); tab='deck'; render(); },
   skinSel(x){ const [id,v]=x.split(':'), n=+v; if(n&&!ownSkins(id).includes(n)) return; S.skinOn[id]=n; persist(); render(); sheetCard(id); },
   saveNow(){ sheetSettings(); setTimeout(()=>{ const el=$('#savecode'); if(el) el.scrollIntoView({block:'center'}); ACT.export(); },60); },
   fxToggle(){ S.fxOff=!S.fxOff; persist(); ambApply(); sheetSettings(); },
@@ -1205,7 +1261,7 @@ const ACT={
   chDeck(id){ sheetChDeck(+id); }, chGo(id){ startChallenge(+id); },
   chPick(x){ const [i,id]=x.split(':'), w=weekRules()[+i], R=RULE[w.rid], d=chDeck(w), k=w.rid+(w.p||'');
     if(d.includes(id)) S.chDecks[k]=d.filter(y=>y!==id);
-    else{ if(d.length>=chMax(w)){ toast(`Höchstens ${chMax(w)} Karten.`); return; } if(R.sets&&new Set(d.concat(id).map(y=>CARD[y].set)).size>R.sets){ toast(`Nur Karten aus ${R.sets} Sets erlaubt.`); return; } S.chDecks[k]=d.concat(id); }
+    else{ if(d.length>=chMax(w)){ toast(`Höchstens ${chMax(w)} Karten.`); return; } if(R.sets&&new Set(d.concat(id).map(y=>CARD[y].set)).size>R.sets){ toast(`Nur Karten aus ${R.sets} Sets erlaubt.`); return; } if(!rarRoom(d,CARD[id].r)){ toast(`Kein Platz mehr für ${RAR[CARD[id].r]}karten: höchstens 1 Diamant, 3 Gold oder Diamant, 6 ab Silber.`); return; } S.chDecks[k]=d.concat(id); }
     persist(); sheetChDeck(+i); },
   leave(){ leaveBattle(); }
 };
@@ -1286,7 +1342,7 @@ function evDeck(st){
   if(st.boss) ids.push(of(EV_TOPR[R])[0].id);
   if(st.elite) ids.push(pk(of(EV_TOPR[R])));
   while(ids.length<st.size){ let v=r()*sum, x=0; while(v>=w[x]&&x<3){ v-=w[x]; x++; } ids.push(pk(of(x))); }
-  return ids.map(id=>({id,lvl:st.lvl,star:st.star}));
+  return capRar(ids,x=>pk(of(x))).map(id=>({id,lvl:st.lvl,star:st.star}));
 }
 function evOpen(E,k){ return k===0||(E.st[k-1]||0)>0; }
 function evDot(){ const E=S.ev&&S.ev.day===dayKey()?S.ev:null; return !!E&&EV_CHEST.some((C,t)=>E.pts[t]>=C.cost); }
