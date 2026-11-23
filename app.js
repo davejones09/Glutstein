@@ -87,7 +87,8 @@ const SKINS={}; ['funkenwicht','glutwolf','brandbogner','flammenhexe','schlacken
 SKINS.mitternachtsfuerstin=2; SKINS.lichtritter=2; SKINS.leuchtturmwaerterin=1;
 /* Station Null: Sondermotive aus Folge 1. Sie gibt es nur in der Geschichte (STORY_REW), nicht in Truhen. */
 ['wartungsdrohne','sporenbrut','infizierter','androidin','reaktording'].forEach(id=>SKINS[id]=1); SKINS.kryoschlaeferin=2;
-const STORY_ONLY={wartungsdrohne:[1],sporenbrut:[1],infizierter:[1],androidin:[1],reaktording:[1],kryoschlaeferin:[2]};
+SKINS.doktorlind=1; /* Gegner-Karte: Motiv kommt mit dem heroisch geschafften Gebiet (heroSkin in AREAS). */
+const STORY_ONLY={wartungsdrohne:[1],sporenbrut:[1],infizierter:[1],androidin:[1],reaktording:[1],kryoschlaeferin:[2],doktorlind:[1]};
 ['wahrsagerin','pilzhueterin','ghul','netzflickerin','fischerin','zirkusdirektor','fliegerass','totenherrin','dschinn','abgrundkoenigin','messingkoloss','runenschmiedin','messerwerferin','sphinx','geisterschiff','erwachter','schwanenritter','enterkapitaen','eklipsenwaechter','vampirjaegerin','himmelsschiff','mangrovenriese','tiefenkrake'].forEach(id=>SKINS[id]=1);
 const SKIN_NAMES={mitternachtsfuerstin:['Fürstin','Fürst'],lichtritter:['Ritter','Ritterin'],kryoschlaeferin:['Ansteckung','Der Sprung']};
 for(const id in SKINS) for(let v=1;v<=SKINS[id];v++) ART[id+'-s'+(v>1?v:'')]=`bilder/${id}-s${v>1?v:''}.jpg`;
@@ -918,6 +919,7 @@ function resultHTML(){
   if(r.items&&r.items.length) lines+=`<div class="ichips">${itemsLine(r.items)}</div>`;
   if(r.promo) lines+=`<p class="r-line">Aufstieg in die ${r.promo}</p>`;
   if(r.foeSet) lines+=`<p class="r-line">👑 Gebiet heroisch bezwungen: das Set „${r.foeSet}“ gehört jetzt dir!</p>`;
+  if(r.foeSkin) lines+=`<p class="r-line">✦ Dazu ein Sondermotiv für ${r.foeSkin}.</p>`;
   if(r.champ) lines+=`<p class="r-line">🏆 Kartenrücken „Champion“ freigeschaltet!</p>`;
   if(r.demo) lines+=`<p class="r-line">Abstieg in die ${r.demo}</p><p class="muted">Du startest in der Mitte der Liga.</p>`;
   if(r.xp) lines+=`<p class="r-line"><span class="xpi">EP</span>+${r.xp} Erfahrung${r.lvup?` <small>Level ${r.lvup} erreicht!</small>`:''}</p>`;
@@ -1045,7 +1047,8 @@ function finish(){
       if(r.stars>prev) store[st.id]=r.stars;
       /* Alle 16 Gefechte eines Gebiets heroisch mit 3 Sternen: das Gegner-Set gehört dir. */
       if(H){ const A=AREAS[st.area], all=STAGES.filter(x=>x.area===st.area).every(x=>S.hstars[x.id]===3);
-        if(all&&!S.foeSets.includes(A.foe)){ S.foeSets.push(A.foe); BASE.filter(c=>c.set===A.foe).forEach(c=>{ if(!S.cards[c.id]) S.cards[c.id]={lvl:1,star:1,dup:0}; }); r.foeSet=SETS[A.foe].n; } }
+        if(all&&!S.foeSets.includes(A.foe)){ S.foeSets.push(A.foe); BASE.filter(c=>c.set===A.foe).forEach(c=>{ if(!S.cards[c.id]) S.cards[c.id]={lvl:1,star:1,dup:0}; }); r.foeSet=SETS[A.foe].n;
+          (A.heroSkin||[]).forEach(([id,v])=>{ if(!ownSkins(id).includes(v)){ S.skins[id]=ownSkins(id).concat(v).sort(); S.skinOn[id]=v; (S.skinNew=S.skinNew||{})[id]=1; r.foeSkin=CARD[id].n; } }); } }
       if(!H&&!prev){
         if(st.unlock){ if(!S.unlocked.includes(st.unlock)) S.unlocked.push(st.unlock); if(!S.cards[st.unlock]) S.cards[st.unlock]={lvl:1,star:1,dup:0}; r.unlock=st.unlock; }
         if(st.boss){ if(!S.setsOpen.includes(st.set)) S.setsOpen.push(st.set); r.setOpen=st.set; r.chests.push('gold'); r.src='kampagne'; S.gems+=GEM_BOSS; r.gems=GEM_BOSS; }
@@ -1377,7 +1380,7 @@ function start(data){
 if('serviceWorker' in navigator&&window.top===window&&/^https?:$/.test(location.protocol)&&!/claude/.test(location.hostname)){
   const had=!!navigator.serviceWorker.controller;
   navigator.serviceWorker.register('sw.js').catch(()=>{});
-  navigator.serviceWorker.addEventListener('controllerchange',()=>{ if(!had||document.querySelector('.newver')) return; const b=document.createElement('button'); b.className='newver'; b.textContent='Neue Version da · Tippen zum Laden'; b.onclick=()=>location.reload(); document.body.appendChild(b); });
+  navigator.serviceWorker.addEventListener('controllerchange',()=>{ if(!had||document.querySelector('.newver')) return; const b=document.createElement('button'); b.className='newver'; b.textContent='Neue Version vorhanden · Tippen zum Laden'; b.onclick=()=>location.reload(); document.body.appendChild(b); });
 }
 window.claude?.hot?.snapshot?.(()=>({save:S,tab}));
 if(window.claude?.hot?.ready) window.claude.hot.ready(start); else start(window.claude?.hot?.data??{});
