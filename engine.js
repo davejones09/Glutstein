@@ -404,7 +404,7 @@ STAGE_NAMES.push('Die Schleuse','Ring A','Die Namenswand','Schicht sieben','Der 
 const UNLOCK_SLOTS=[3,8,13]; /* Gefecht 4, 9 und 14 eines Gebiets schalten je eine Karte frei. */
 /* Werte der alten 8 Gefechte; die neuen Zwischengefechte übernehmen die Werte des vorigen alten Gefechts (leichter). */
 const RMAX8=[[0,0,0,0,0,0,0,0],[0,0,0,1,1,1,1,1],[0,0,1,1,1,2,2,1],[0,0,0,1,1,1,1,1],[0,0,1,1,1,2,2,1],[0,0,1,1,1,1,1,1]];
-const AREA_LVL8=[[1,2,2,3,3,3,3,1],[5,5,5,5,4,4,4,4],[9,9,9,7,7,7,6,6],[11,10,9,10,10,9,9,10],[16,16,16,15,14,14,13,11],[19,20,20,20,19,19,20,17]];
+const AREA_LVL8=[[1,2,2,3,3,3,3,1],[5,5,5,5,4,4,4,4],[9,9,9,7,7,7,6,6],[11,10,9,10,10,9,9,10],[14,14,14,13,13,13,12,11],[18,18,18,18,16,15,16,16]];
 const AREA_SIZE8=[[3,3,4,4,4,5,5,5],[3,4,4,5,5,5,5,6],[5,6,6,7,7,7,7,6],[6,6,7,6,7,8,7,6],[4,5,5,6,6,6,6,7],[5,5,6,6,6,6,6,7]];
 const x16=(T,first)=>T.map((r,a)=>r.flatMap((v,k)=>[k?Math.min(r[k-1],v):first(v,a),v]));
 const RMAX=x16(RMAX8,v=>v), AREA_LVL=x16(AREA_LVL8,(v,a)=>a?AREA_LVL8[a-1][7]-1:v), AREA_SIZE=x16(AREA_SIZE8,v=>Math.max(3,v-1));
@@ -412,10 +412,31 @@ const STAGES=STAGE_NAMES.map((n,k)=>{
   const a=Math.floor(k/STAGES_PER), i=k%STAGES_PER, boss=i===STAGES_PER-1, A=AREAS[a], u=UNLOCK_SLOTS.indexOf(i), lvl=AREA_LVL[a][i];
   return {id:k+1,area:a,i,n,boss,set:A.foe,ex:A.ex||[],cat:SETS[A.foe].cat,unlock:u>=0&&A.unl[u]||'',weak:k<2,
     size:AREA_SIZE[a][i], rmax:RMAX[a][i], top:boss?3:-1,
-    lvl, star:Math.min(MAXSTAR,Math.ceil(lvl/5)), hp:Math.round((800+i*30+(boss?400:0))*mult(Math.min(MAXSTAR,Math.ceil(lvl/5)),lvl)/10)*10,
+    lvl, star:Math.min(MAXSTAR,Math.ceil(lvl/5)), hp:Math.round((800+i*30+(boss?400:0))*(boss&&!A.ep?.8:1)*mult(Math.min(MAXSTAR,Math.ceil(lvl/5)),lvl)/10)*10,
     gold:boss?150+a*75:40+a*20+Math.round(i*2.5)};
 });
+/* Bedingungen für einzelne Gefechte. card = Pflichtkarte, cat/set = mindestens n Karten, max = höchstens n Karten, nor = keine Karte ab Seltenheit r.
+   Fehlende Karten werden für den Kampf geliehen. Heroisch wird jede Bedingung strenger (condHard). */
+const STAGE_COND={
+  12:[{t:'cat',c:'feuer',n:2}],
+  28:[{t:'cat',c:'wasser',n:2}], 30:[{t:'card',id:'leuchtturmwaerterin'}], 32:[{t:'cat',c:'wasser',n:3}],
+  44:[{t:'cat',c:'erde',n:2}], 48:[{t:'nor',r:3}],
+  60:[{t:'cat',c:'schatten',n:2}], 64:[{t:'nor',r:3}],
+  72:[{t:'cat',c:'licht',n:3}], 76:[{t:'set',s:'sonne',n:2}], 80:[{t:'card',id:'funkenwicht'}],
+  84:[{t:'card',id:'wartungsdrohne'}], 88:[{t:'card',id:'androidin'},{t:'cat',c:'licht',n:3}], 92:[{t:'set',s:'stationnull',n:3}], 96:[{t:'card',id:'kryoschlaeferin'},{t:'card',id:'androidin'}]
+};
+function condHard(cs){ const out=cs.map(c=>c.t==='cat'||c.t==='set'?Object.assign({},c,{n:c.n+1}):c.t==='max'?Object.assign({},c,{n:c.n-1}):c.t==='nor'?Object.assign({},c,{r:Math.max(2,c.r-1)}):c);
+  if(!cs.some(c=>c.t==='max'||c.t==='nor')) out.push({t:'max',n:7}); return out; }
+function stageCond(st,hero){ const cs=STAGE_COND[st.id]||[]; return hero&&cs.length?condHard(cs):cs; }
 const BOSS_ID=a=>(a+1)*STAGES_PER, LAST_ID=AREAS.length*STAGES_PER;
+/* Seltenheitsregel für jedes Deck (Spieler und Gegner): höchstens 1 Diamant, Diamant+Gold höchstens 3,
+   Diamant+Gold+Silber höchstens 6. Damit sind immer mindestens 2 Bronzekarten dabei. */
+const RAR_CAP=[[3,1],[2,3],[1,6]];
+function rarCounts(ids){ return RAR_CAP.map(([r])=>ids.filter(id=>CARD[id].r>=r).length); }
+function rarOk(ids){ const n=rarCounts(ids); return RAR_CAP.every(([,m],k)=>n[k]<=m); }
+function rarRoom(ids,r){ const n=rarCounts(ids); return RAR_CAP.every(([rr,m],k)=>r<rr||n[k]<m); }
+/* Gegnerdecks: Karten, die die Regel sprengen würden, werden durch die nächstniedrigere Stufe ersetzt. alt(r) liefert eine Ersatzkarte. */
+function capRar(ids,alt){ const out=[]; ids.forEach(id=>{ let x=id, r=CARD[id].r; while(r>0&&!rarRoom(out,r)){ r--; x=alt(r)||x; } if(rarRoom(out,CARD[x].r)) out.push(x); else out.push(alt(0)||x); }); return out; }
 function rng(seed){ return ()=>{ seed=seed+0x6D2B79F5|0; let t=Math.imul(seed^seed>>>15,1|seed); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
 function hash(s){ let h=2166136261; for(let i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619); } return h>>>0; }
 /* Gegnerdeck eines Gefechts: nur Karten aus dem Set des Gebiets, Doppelte erlaubt (PvE). Heroisch: +8 Level. */
@@ -435,7 +456,7 @@ function stageDeck(st,hero){
   const gcap=st.boss?2:1; let gold=ids.filter(id=>CARD[id].r===2).length;
   while(ids.length<st.size){ let v=r()*sum, k=0; while(v>=w[k]&&k<2){ v-=w[k]; k++; } if(k===2&&gold>=gcap) k=1; if(k===2) gold++; ids.push(pick(of(k))); }
   const lvl=Math.min(MAXLVL,st.lvl+(hero?8:0)), star=Math.min(MAXSTAR,Math.ceil(lvl/5));
-  return ids.map(id=>({id,lvl,star,weak:st.weak&&!hero}));
+  return capRar(ids,x=>pick(of(x))).map(id=>({id,lvl,star,weak:st.weak&&!hero}));
 }
 function stageHp(st,hero){ return hero?Math.round(st.hp*2/10)*10:st.hp; }
 
@@ -459,7 +480,7 @@ function inst(d,bon){
   if(f.atk) a=Math.round(a*(1+f.atk)); if(f.hp) h=Math.round(h*(1+f.hp));
   if(f.kw) for(const y in f.kw) k[y]=(k[y]||0)+f.kw[y];
   ['atk1','elem','flyHero','dr1','grow','scare'].forEach(x=>{ if(f[x]) fx[x]=f[x]; });
-  return {uid:UID++,id:d.id,set:c.set,cat:c.cat,lvl:d.lvl||1,star:d.star||1,a,a0:a,h,mh:h,k,fx,fresh:true,skin:d.skin||0};
+  return {uid:UID++,id:d.id,set:c.set,cat:c.cat,lvl:d.lvl||1,star:d.star||1,a,a0:a,h,mh:h,k,fx,fresh:true,skin:d.skin||0,lend:d.lend?1:0};
 }
 function shuffle(a,rnd){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(rnd()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
 const other=s=>s==='p'?'e':'p';
@@ -557,7 +578,8 @@ function botDeck(seed,p,lim){
   const s1=sets[Math.floor(r()*sets.length)], s2=sets[Math.floor(r()*sets.length)];
   let pool=BASE.filter(c=>c.r<=maxR&&(c.set===s1||c.set===s2)); if(pool.length<size) pool=BASE.filter(c=>c.r<=maxR);
   pool=shuffle(pool.slice(),r).sort((a,b)=>b.r-a.r);
-  return pool.slice(0,size).map(c=>{ const l=Math.max(1,Math.min(MAXLVL,lvl+Math.round((r()-.5)*4))); return {id:c.id,lvl:l,star:Math.min(MAXSTAR,Math.ceil(l/5))}; });
+  const pickd=[]; for(const c of pool){ if(pickd.length>=size) break; if(rarRoom(pickd.map(x=>x.id),c.r)) pickd.push(c); }
+  return pickd.map(c=>{ const l=Math.max(1,Math.min(MAXLVL,lvl+Math.round((r()-.5)*4))); return {id:c.id,lvl:l,star:Math.min(MAXSTAR,Math.ceil(l/5))}; });
 }
 function trophyDelta(my,opp,win){ const d=Math.max(-10,Math.min(15,Math.round((opp-my)/5))); return win?26+d:-(14-Math.round(d/2)); }
 function simulate(B){ let g=0; while(!B.over&&g++<80){ roundStart(B); for(let l=0;l<LANES&&!B.over;l++) fightLane(B,l); } return B; }
