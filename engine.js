@@ -40,6 +40,7 @@ const SETS={
   hof:{n:'Der Hohle Hof',l:'IV',cat:'schatten',col:'#5a2a7a',foe:1},
   orden:{n:'Der Lichtorden',l:'V',cat:'licht',col:'#c8a040',foe:1},
   schlaefer:{n:'Die Schläfer',l:'VI',cat:'schatten',col:'#4a2a6a',foe:1},
+  teehof:{n:'Bergamotts Hof',l:'VII',cat:'feuer',col:'#8a3a2a',foe:1},
   /* Event-Sets: nie in normalen Truhen, nur aus Eventtruhen des Tages-Events. */
   walgesang:{n:'Walgesang',l:'WG',cat:'wasser',cats:['wasser','schatten'],col:'#1f5f9a',ev:1},
   stationnull:{n:'Station Null',l:'SN',cat:'schatten',cats:['schatten','licht'],col:'#6a3a8a',ev:1},
@@ -52,7 +53,8 @@ const SETS={
   riff:{n:'Im Riff',l:'IR',cat:'licht',cats:['licht','erde'],col:'#2ab0c0',ev:1},
   maerchen:{n:'Dornenmärchen',l:'DM',cat:'schatten',cats:['erde','schatten'],col:'#7a3a7a',ev:1},
   amazonen:{n:'Amazonenreich',l:'AR',cat:'erde',cats:['erde','feuer'],col:'#5a8a2a',ev:1},
-  gladiatoren:{n:'Arena der Gladiatoren',l:'AG',cat:'feuer',cats:['feuer','licht'],col:'#b8442a',ev:1}
+  gladiatoren:{n:'Arena der Gladiatoren',l:'AG',cat:'feuer',cats:['feuer','licht'],col:'#b8442a',ev:1},
+  abteilung:{n:'Die Abteilung',l:'DA',cat:'licht',cats:['licht','wasser'],col:'#3a6a5a',ev:1}
 };
 Object.values(SETS).forEach(x=>{ if(!x.cats) x.cats=[x.cat]; });
 /* Setbonus ab 3 verschiedenen Karten eines Sets im Deck, großer Bonus ab 6. */
@@ -93,7 +95,7 @@ const SET_FX={
   abyss:[{hp:.1,atk:.1},{kw:{heilung:5/8}}], schmiede:[{kw:{schild:1/3},atk:.05},{atk1:.25,atk:.05}], mangrove:[{atk:.1,hp:.1},{grow:.015}],
   daemmerung:[{atk:.2,hp:.2},{elem:1.75}], totenwald:[{curse:.03,atk:.1},{revive:.5}], kristall:[{dr1:.2,hp:.1,atk:.1},{mend:.06}],
   erwachen:[{fear:.15,atk:.1},{scare:.2}], luft:[{flyHero:.3,hp:.15,atk:.1},{hp:.1}], raeder:[{hp:.1,atk:.1},{kw:{heilung:.5}}],
-  bruecke:[{hp:.1},{atk:.1,hp:.1}], horde:[{atk:.1},{kw:{einschlag:1}}], gefolge:[{heroHp:.15},{kw:{schild:1}}], brut:[{hp:.1,atk:.1},{kw:{heilung:1}}], hof:[{kw:{rache:1}},{atk:.1,hp:.1}], orden:[{hp:.15,atk:.2},{heroRegen:.03,atk:.1,hp:.1}], schlaefer:[{hp:.15,atk:.1},{kw:{rache:1}}], perle:[{heroHp:.15,atk:.1,hp:.1},{nets:.05}], variete:[{atk:.05},{curse:.015}], wueste:[{hp:.1,atk:.15},{grow:.025,hp:.1}], orkan:[{atk:.1,hp:.05},{atk1:.15}]
+  bruecke:[{hp:.1},{atk:.1,hp:.1}], horde:[{atk:.1},{kw:{einschlag:1}}], gefolge:[{heroHp:.15},{kw:{schild:1}}], brut:[{hp:.1,atk:.1},{kw:{heilung:1}}], hof:[{kw:{rache:1}},{atk:.1,hp:.1}], orden:[{hp:.15,atk:.2},{heroRegen:.03,atk:.1,hp:.1}], schlaefer:[{hp:.15,atk:.1},{kw:{rache:1}}], teehof:[{hp:.1,atk:.1},{curse:.015}], abteilung:[{atk:.15,hp:.1},{atk1:.2,dr1:.1}], perle:[{heroHp:.15,atk:.1,hp:.1},{nets:.05}], variete:[{atk:.05},{curse:.015}], wueste:[{hp:.1,atk:.15},{grow:.025,hp:.1}], orkan:[{atk:.1,hp:.05},{atk1:.15}]
 };
 /* Setbonus-Texte werden aus den Werten erzeugt, damit Text und Wirkung immer übereinstimmen. */
 const KW_LABEL={schild:'Schild',einschlag:'Einschlag',heilung:'Heilung',segen:'Segen',rache:'Rache'};
@@ -358,7 +360,20 @@ const BASE=[
  ['loewenbaendiger','Löwenbändiger','gladiatoren',1,4,4,{wut:1}],
  ['schildbrecher','Schildbrecher','gladiatoren',1,5,5,{durchbruch:1},'licht'],
  ['lanista','Der Lanista','gladiatoren',2,3,6,{anfuehrer:1,segen:1},'licht'],
- ['champion','Der Champion','gladiatoren',3,5,8,{wut:1}]
+ ['champion','Der Champion','gladiatoren',3,5,8,{wut:1}],
+ /* Folge 2: Bergamotts Hof (Gegner) und die Abteilung (Verbündete, kommen aus der Geschichte und dem Event) */
+ ['handlanger','Handlanger mit Melone','teehof',0,4,3,{einschlag:1}],
+ ['teedrohne','Teetassen-Drohne','teehof',0,3,3,{flug:1}],
+ ['giftmischerin','Die Giftmischerin','teehof',1,3,5,{heilung:1}],
+ ['croupier','Der Croupier','teehof',1,5,3,{durchbruch:1}],
+ ['stahlkiefer','Der Stahlkiefer','teehof',2,5,6,{schild:1,wut:1}],
+ ['bergamott','Lord Bergamott','teehof',3,4,8,{anfuehrer:1,segen:1}],
+ ['funkerin','Funkerin Nell','abteilung',0,3,4,{segen:1}],
+ ['fahrer','Fahrer Fitch','abteilung',0,4,4,{durchbruch:1},'wasser'],
+ ['butler','Butler Pembroke','abteilung',1,3,6,{schild:1},'wasser'],
+ ['tueftler','Tüftler Oswin','abteilung',1,5,3,{einschlag:1}],
+ ['chefin','Die Chefin','abteilung',2,3,6,{anfuehrer:1,schild:1}],
+ ['laura','Agentin Laura','abteilung',3,6,6,{einschlag:1,durchbruch:1}]
 ].map(([id,n,set,r,a0,h0,k,cat])=>{
   /* Grundwerte je Seltenheit liegen eng beieinander. Jede Karte hat ihr eigenes Verhältnis von Angriff zu Leben (30–70 %). */
   const x=hashS(id), u=(x%1000)/1000, T=Math.round(RAR_BASE[r]*(1+((x>>10)%7-3)/100)/10)*10;
@@ -379,7 +394,9 @@ const AREAS=[
  {set:'sonne',foe:'orden',n:'V · Die Sonnenwacht',s:'Der Orden des Lichts und seine Erzseraphin.',img:'kapitel-5',unl:['sonneneinhorn','lichtritter','sonnenloewe'],fin:'Die Erzseraphin ist gefallen',end:'ende'},
  /* Folge 1 der Kampagne nach dem Prolog. Gegner sind „Die Schläfer“. Wer alles heroisch schafft, bekommt das Set und Linds Sondermotiv (heroSkin).
     Karten gibt es hier nicht über Freischalt-Gefechte, sondern zusammen mit den Sondermotiven aus der Geschichte (STORY_REW). */
- {set:'stationnull',foe:'schlaefer',ep:'Folge 1',heroSkin:[['doktorlind',1]],n:'Folge 1 · Station Null',s:'Kälte, Sporen und das Ding im Reaktor.',img:'kapitel-6',unl:[],fin:'Das Ding ist gebunden',end:'f1ende'}
+ {set:'stationnull',foe:'schlaefer',ep:'Folge 1',heroSkin:[['doktorlind',1]],n:'Folge 1 · Station Null',s:'Kälte, Sporen und das Ding im Reaktor.',img:'kapitel-6',unl:[],fin:'Das Ding ist gebunden',end:'f1ende'},
+ /* Folge 2: Nebelhafen. Die Karten der Abteilung kommen aus der Geschichte (STORY_REW). */
+ {set:'abteilung',foe:'teehof',ep:'Folge 2',n:'Folge 2 · Um Punkt Fünf',s:'Regen, Tee und ein Lord, der nie verliert.',img:'kapitel-7',unl:[],fin:'Bergamott ist verhaftet',end:'f2ende'}
 ];
 /* Kampagne: 16 Gefechte je Gebiet. Die alten 8 Gefechte liegen auf den geraden Plätzen, dazwischen je ein leichteres neues. */
 const STAGES_PER=16;
@@ -401,11 +418,14 @@ const STAGE_NAMES=[]; for(let a=0;a<5;a++) for(let k=0;k<8;k++){ STAGE_NAMES.pus
 /* Folge 1: Station Null, je vier Gefechte in Andockschleuse, Kälteschlafkammer, Laboren und Reaktorkern. */
 STAGE_NAMES.push('Die Schleuse','Ring A','Die Namenswand','Schicht sieben','Der Kapselsaal','Kapsel zwölf','Kältenebel','Die Treppenschächte',
  'Die Sammlung','Das Türprotokoll','Die Brutschränke','Der dritte Ring','Die warme Treppe','Laufsteg der Schläfer','Notkühlung','Der Reaktorchor');
+/* Folge 2: Um Punkt Fünf, je vier Gefechte in Teehaus, Casino, Verfolgung und Vulkan. */
+STAGE_NAMES.push('Die Teestube','Der Samowar','Gas im Salon','Der Hinterhof','Am Fluss bei Nacht','Die Garderobe','Der grüne Tisch','Der hohe Einsatz',
+ 'Über die Dächer','Die Gasse','Die Docks','Gleis neun','Die Teeterrassen','Das Gewächshaus','Die Lavabrücke','Lord Bergamott');
 const UNLOCK_SLOTS=[3,8,13]; /* Gefecht 4, 9 und 14 eines Gebiets schalten je eine Karte frei. */
 /* Werte der alten 8 Gefechte; die neuen Zwischengefechte übernehmen die Werte des vorigen alten Gefechts (leichter). */
-const RMAX8=[[0,0,0,0,0,0,0,0],[0,0,0,1,1,1,1,1],[0,0,1,1,1,2,2,1],[0,0,0,1,1,1,1,1],[0,0,1,1,1,2,2,1],[0,0,1,1,1,1,1,1]];
-const AREA_LVL8=[[1,2,2,3,3,3,3,1],[5,5,5,5,4,4,4,4],[9,9,9,7,7,7,6,6],[11,10,9,10,10,9,9,10],[14,14,14,13,13,13,12,11],[18,18,18,18,16,15,16,16]];
-const AREA_SIZE8=[[3,3,4,4,4,5,5,5],[3,4,4,5,5,5,5,6],[5,6,6,7,7,7,7,6],[6,6,7,6,7,8,7,6],[4,5,5,6,6,6,6,7],[5,5,6,6,6,6,6,7]];
+const RMAX8=[[0,0,0,0,0,0,0,0],[0,0,0,1,1,1,1,1],[0,0,1,1,1,2,2,1],[0,0,0,1,1,1,1,1],[0,0,1,1,1,2,2,1],[0,0,1,1,1,1,1,1],[0,1,1,1,1,2,2,1]];
+const AREA_LVL8=[[1,2,2,3,3,3,3,1],[5,5,5,5,4,4,4,4],[9,9,9,7,7,7,6,6],[11,10,9,10,10,9,9,10],[14,14,14,13,13,13,12,11],[18,18,18,18,16,15,16,16],[23,23,23,23,21,22,22,21]];
+const AREA_SIZE8=[[3,3,4,4,4,5,5,5],[3,4,4,5,5,5,5,6],[5,6,6,7,7,7,7,6],[6,6,7,6,7,8,7,6],[4,5,5,6,6,6,6,7],[5,5,6,6,6,6,6,7],[5,6,6,6,7,7,7,7]];
 const x16=(T,first)=>T.map((r,a)=>r.flatMap((v,k)=>[k?Math.min(r[k-1],v):first(v,a),v]));
 const RMAX=x16(RMAX8,v=>v), AREA_LVL=x16(AREA_LVL8,(v,a)=>a?AREA_LVL8[a-1][7]-1:v), AREA_SIZE=x16(AREA_SIZE8,v=>Math.max(3,v-1));
 const STAGES=STAGE_NAMES.map((n,k)=>{
@@ -423,7 +443,8 @@ const STAGE_COND={
   44:[{t:'cat',c:'erde',n:2}], 48:[{t:'nor',r:3}],
   60:[{t:'cat',c:'schatten',n:2}], 64:[{t:'nor',r:3}],
   72:[{t:'cat',c:'licht',n:3}], 76:[{t:'set',s:'sonne',n:2}], 80:[{t:'card',id:'funkenwicht'}],
-  84:[{t:'card',id:'wartungsdrohne'}], 88:[{t:'card',id:'androidin'},{t:'cat',c:'licht',n:3}], 92:[{t:'set',s:'stationnull',n:3}], 96:[{t:'card',id:'kryoschlaeferin'},{t:'card',id:'androidin'}]
+  84:[{t:'card',id:'wartungsdrohne'}], 88:[{t:'card',id:'androidin'},{t:'cat',c:'licht',n:3}], 92:[{t:'set',s:'stationnull',n:3}], 96:[{t:'card',id:'kryoschlaeferin'},{t:'card',id:'androidin'}],
+  100:[{t:'card',id:'tueftler'}], 104:[{t:'card',id:'laura'}], 108:[{t:'set',s:'abteilung',n:3}], 112:[{t:'card',id:'laura'},{t:'card',id:'kryoschlaeferin'}]
 };
 function condHard(cs){ const out=cs.map(c=>c.t==='cat'||c.t==='set'?Object.assign({},c,{n:c.n+1}):c.t==='max'?Object.assign({},c,{n:c.n-1}):c.t==='nor'?Object.assign({},c,{r:Math.max(2,c.r-1)}):c);
   if(!cs.some(c=>c.t==='max'||c.t==='nor')) out.push({t:'max',n:7}); return out; }

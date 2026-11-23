@@ -41,11 +41,19 @@ function lvChest(L){ return LV_MILE.includes(L)?'gold':(L<=20?L%5===0:L%10===0)?
 /* Kartenrücken: rein optisch, für Glutsteine. */
 const BACKS={standard:{n:'Glutstein',p:0},abyss:{n:'Tiefsee',p:40},schmiede:{n:'Zwergenschmiede',p:40},mangrove:{n:'Mangroven',p:40},daemmerung:{n:'Dämmerung',p:40},totenwald:{n:'Totenwald',p:40},erwachen:{n:'Das Erwachen',p:40},kristall:{n:'Kristallsee',p:40},raeder:{n:'Räderwerk',p:40},
   glut:{n:'Glut',p:40},flut:{n:'Flut',p:40},hain:{n:'Hain',p:40},nacht:{n:'Nacht',p:40},sonne:{n:'Sonne',p:40},luft:{n:'Wolkenhimmel',p:40},
-  bruecke:{n:'Brückenstadt',p:40},perle:{n:'Perlhafen',p:40},variete:{n:'Varieté',p:40},wueste:{n:'Wüstensand',p:40},orkan:{n:'Orkanflotte',p:40},
+  bruecke:{n:'Brückenstadt',p:40},perle:{n:'Perlhafen',p:40},variete:{n:'Varieté',p:40},wueste:{n:'Wüstensand',p:40},orkan:{n:'Orkanflotte',p:40},stationnull:{n:'Station Null',p:40},teestunde:{n:'Tee um Fünf',p:40},
   champion:{n:'Champion',p:0,earn:'Erreiche die Glutliga'}};
 /* Der Champion-Rücken ist nicht käuflich: er gehört dir, sobald du einmal die Glutliga erreicht hast. */
 function champCheck(){ if(S.league>=4&&!S.backs.includes('champion')) S.backs.push('champion'); }
 function backSrc(k){ return k==='standard'?'bilder/rueckseite.jpg':`bilder/ruecken-${k}.jpg`; }
+/* Kartenrücken der Gegner: in der Kampagne passend zum Gebiet, Arena-Rivalen haben je einen festen, sonst zufällig. Nie dein eigener. */
+const AREA_BACK=['glut','flut','hain','nacht','sonne','stationnull','teestunde'];
+function foeBack(c){
+  const pool=Object.keys(BACKS).filter(k=>k!==S.back&&k!=='champion');
+  if(c.mode==='kampagne'){ const k=AREA_BACK[c.stage.area]; if(k&&k!==S.back) return k; }
+  const r=c.mode==='arena'&&c.rival?rng(hash('rb'+c.rival.s))():Math.random();
+  return pool[Math.floor(r*pool.length)]||'standard';
+}
 const GEM_PROMO=20, GEM_BOSS=10, WIN_CHEST_EVERY=5, REPLAY_SHARE=.2, THREE_STAR_BONUS=50, HERO_GOLD=1.5, ALBUM_REWARD={gold:300,gems:15};
 const SEASON_START=Date.UTC(2026,10,2), SEASON_DAYS=14;
 /* Spieltische: Grundtisch gratis, weitere Farben günstig mit denselben Effekten, Thementische teurer mit eigenen Effekten und Geräuschen. */
@@ -103,7 +111,7 @@ const UNLOCK_AT={}; STAGES.forEach(st=>{ if(st.unlock) UNLOCK_AT[st.unlock]=st.i
 
 const H1=['Kralle','Luna','Moritz','Sturm','Nacht','Eisen','Fuchs','Rabe','Pixel','Brumm','Zwerg','Glut','Mira','Tobi','Hexe','Wolf','Kaktus','Nebel','Rost','Jule','Okan','Finn','Lea','Bjarne','Sina','Dachs','Keks','Wicht','Ritter','Motte'];
 const H2=['','_77','_92','07','_xD','3000','HD','_tv','2k','Lord','chen','_HH','_M','42','_gg','lein','XL','_01','23','Prime'];
-const ROM=['','I','II','III','IV','V','VI'], KEY='glutstein-save-v6';
+const ROM=['','I','II','III','IV','V','VI','VII'], KEY='glutstein-save-v6';
 const RM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -691,7 +699,8 @@ const MAP_PATH=[
  [[12,86],[17,84],[23,80],[28,74],[34,71],[42,70],[50,71],[56,68],[59,63],[60,58],[66,56],[73,54],[80,50],[84,46],[78,42],[70,39],[68,34],[75,31],[80,26],[83,20],[85,14]],
  [[12,80],[17,80],[23,75],[30,71],[38,67],[43,62],[41,56],[38,51],[40,46],[46,43],[50,37],[56,31],[64,30],[72,27],[78,21],[84,16],[87,12]],
  [[11,85],[17,82],[22,77],[28,71],[32,65],[31,58],[30,51],[33,45],[39,43],[46,41],[52,37],[58,34],[64,31],[70,27],[76,22],[81,17],[85,12]],
- [[40.5,85.8],[44,85],[52,84],[60,83],[67,81],[73,77],[79,74],[83,70],[84,65],[83,59],[78,56],[72,54],[64,53],[57,52],[49,51],[43,49],[40,45],[41,41],[44,39],[51,37],[60,37],[69,36],[77,35],[82,33],[84,30],[83,27.5],[79,26.5],[75,25],[71.5,23],[69,21],[68.5,19],[71,18.2],[75,17.6],[80,16.5],[86,15],[90,14.2]]];
+ [[40.5,85.8],[44,85],[52,84],[60,83],[67,81],[73,77],[79,74],[83,70],[84,65],[83,59],[78,56],[72,54],[64,53],[57,52],[49,51],[43,49],[40,45],[41,41],[44,39],[51,37],[60,37],[69,36],[77,35],[82,33],[84,30],[83,27.5],[79,26.5],[75,25],[71.5,23],[69,21],[68.5,19],[71,18.2],[75,17.6],[80,16.5],[86,15],[90,14.2]],
+ [[31,83],[35,77],[43,72],[50,67],[54,62],[52,56],[45,52],[35,51],[25,50],[16,48],[13,44],[17,40],[26,38],[36,37],[40,35],[33,32],[31,29],[38,28],[50,29],[62,30],[74,30],[84,28],[86,25],[79,22],[74,20],[77,17],[83,16],[84,12]]];
 const MAP_ST=[[0,3,6,10,14,17,19,23],[0,3,6,9,13,17,22,26],[0,3,6,9,12,15,17,20],[0,2,4,7,9,11,13,16],[0,3,5,7,9,11,13,16],[0,4,8,12,18,24,30,37]];
 /* 16 Stationen gleichmäßig entlang des Wegs verteilen (Karte ist 3:2, deshalb x-Abstände breiter gewichtet). */
 function walk(P){ const L=[0]; for(let i=1;i<P.length;i++) L.push(L[i-1]+Math.hypot((P[i][0]-P[i-1][0])*1.5,P[i][1]-P[i-1][1])); return L; }
@@ -936,7 +945,7 @@ function heroHTML(s){
 }
 function pileHTML(s){
   const P=B[s].pile, nx=P[0];
-  return `<div class="pile">${nx?`<span class="mini"><span class="pback"></span></span>`:`<span class="mini"><span class="empty-slot" style="font-size:10px">leer</span></span>`}<span>Ziehstapel<br><b>${P.length}</b> ${P.length===1?'Karte':'Karten'}</span></div>`;
+  return `<div class="pile">${nx?`<span class="mini"><span class="pback"${s==='e'&&ctx&&ctx.back?` style="background-image:url(${backSrc(ctx.back)})"`:''}></span></span>`:`<span class="mini"><span class="empty-slot" style="font-size:10px">leer</span></span>`}<span>Ziehstapel<br><b>${P.length}</b> ${P.length===1?'Karte':'Karten'}</span></div>`;
 }
 function resultHTML(){
   const r=result, arena=ctx.mode==='arena'; let lines='';
@@ -1095,7 +1104,7 @@ function startBattle(c){
     if(!c.okSmall&&deckRoom(cs,res.lend)>0){ pendingFight=c; const n=deck().length+res.lend.length, mx=deckCap(cs);
       openSheet(`<h2>Dein Deck ist nicht voll</h2><p class="muted">Im Deck sind ${n} von ${mx} möglichen Karten${res.lend.length?` (davon ${res.lend.length} geliehen)`:''}. Du hast noch passende Karten, die mitkämpfen könnten.</p>
       <div class="row-btns"><button class="btn" data-act="fightSmall">Trotzdem kämpfen</button><button class="btn" data-act="toDeck">Zum Deck</button><button class="btn primary" data-act="fillDeck">Auffüllen</button></div>`); return; } }
-  closeSheet(); ctx=c; result=null; infoCard=null; narr=''; narrLog=[]; skip=false; forfeit=false;
+  closeSheet(); c.back=foeBack(c); ctx=c; result=null; infoCard=null; narr=''; narrLog=[]; skip=false; forfeit=false;
   B= c.mode==='arena' ? newBattle(deckObjs(),rivalDeck(c.rival)) : c.mode==='heraus' ? newBattle(c.pDeck,c.eDeck) : c.mode==='event' ? newBattle(deckObjs(),evDeck(c.stage),c.stage.hp) : newBattle(deckObjs().concat(lendD),stageDeck(c.stage,c.hero),stageHp(c.stage,c.hero));
   if(c.mode==='heraus'){ const R=c.rule; if(R.noHero){ B.p.hp=B.p.maxHp=1; } if(R.eShield) B.e.pile.concat(B.e.lanes).forEach(x=>{ if(x) x.k.schild=(x.k.schild||0)+1; }); if(R.decay) B.decay=R.decay; }
   $('#battle').hidden=false; if(FXC.cv) fxSize(); battleShell(); renderBattle();
@@ -1281,10 +1290,11 @@ const ACT={
    Jeden Tag ein anderes Event-Set. 4 Abschnitte mit je 16 Gefechten: 12 normale (Bronzepunkte), 3 Elite (Silberpunkte), 1 Boss (Goldpunkte).
    Punkte gibt es pro neuem Stern. Eventtruhen kosten Punkte und enthalten immer eine Eventkarte. Um Mitternacht beginnt alles neu. */
 const EV_SETS=Object.keys(SETS).filter(x=>SETS[x].ev), EV_PER=16, EV_ELITE=[4,9,13], EV_TN=['Bronze','Silber','Gold'];
-const EV_MAPS={riff:[1,2,0,4],maerchen:[2,3,0,1],amazonen:[2,1,4,0],gladiatoren:[0,3,2,4],walgesang:[1,2,3,4],stationnull:[3,0,4,1],roteschlucht:[0,4,2,3],frostmark:[4,1,2,3],sternenkurs:[4,1,3,0],neonstadt:[3,0,1,4],savanne:[2,0,4,1],kirschbluete:[2,4,1,3]};
+const EV_MAPS={riff:[1,2,0,4],maerchen:[2,3,0,1],amazonen:[2,1,4,0],gladiatoren:[0,3,2,4],walgesang:[1,2,3,4],stationnull:[3,0,4,1],abteilung:[6,1,3,4],roteschlucht:[0,4,2,3],frostmark:[4,1,2,3],sternenkurs:[4,1,3,0],neonstadt:[3,0,1,4],savanne:[2,0,4,1],kirschbluete:[2,4,1,3]};
 const EV_AREAS={
  walgesang:['Die Brandung','Das offene Meer','Das Riff im Mondlicht','Die lichtlose Tiefe'],
  stationnull:['Die Andockschleuse','Die Kälteschlafkammer','Die Labore','Der Reaktorkern'],
+ abteilung:['Das Teehaus','Das Casino','Die Docks','Der Feuerberg'],
  roteschlucht:['Die Goldgräberstadt','Der Postkutschenweg','Die Felsschlucht','Die Höllenbrücke'],
  frostmark:['Die Schneefelder','Die Mammutsteppe','Das Polarlichttal','Der Gletscherberg'],
  sternenkurs:['Der Raumhafen','Der Gasnebel','Die Ozeanwelt','Der Sternenstrom'],

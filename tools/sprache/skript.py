@@ -15,7 +15,9 @@ EZ = {'a0':1,'s_bluete':1,'s_hanne':1,'b0':1,
       'a4':5,'s_kuppel':5,'s_spiegel':5,'ende':5,
       'a5':6,'f1_wal':6,'f1_brummer':6,'f1_namen':6,'f1_k7':6,
       'f1_juna':7,'f1_sammlung':7,'f1_aufzeichnung':7,'f1_brummer2':7,'f1_vision':7,
-      'f1_schlaefer':8,'f1ende':8}
+      'f1_schlaefer':8,'f1ende':8,
+      'a6':9,'f2_abteilung':9,'f2_anschlag':9,'f2_casino':9,'f2_einsatz':9,
+      'f2_daecher':10,'f2_nachtzug':10,'f2_vulkan':10,'f2_kessel':10,'f2ende':10}
 def N(seq, slide, text): L(seq, slide, f'erzaehler-{EZ[seq]}', text)
 
 # Prolog
@@ -146,6 +148,64 @@ N('f1ende',5,'In der Nacht liegt in deinem Stapel eine Karte, die du nie gebunde
 N('f1ende',6,'Jede Nacht kommt sie näher. Das rote Licht blinkt: drei kurz, drei lang, drei kurz.')
 L('f1ende',6,'funke','[whispers, scared] Guckt mal genau hin. [pause] Die hat eine Kapuze.')
 N('f1ende',6,'[long pause] Fortsetzung folgt …')
+
+# Folge 2 – Um Punkt Fünf (Laura wird „Lau-ra“ geschrieben, damit sie deutsch klingt)
+N('a6',1,'[calm] Eine Woche nach Station Null. Die Karte, die niemand gebunden hat, zeigt keinen Gang mehr. Sie zeigt eine Straße im Regen. Unter der letzten Laterne steht eine Gestalt mit Kapuze.')
+N('a6',2,'Neben der Karte dampft eine Tasse Tee, die keiner eingeschenkt hat.')
+L('a6',2,'juna-f2','[puzzled, quiet] Riecht nach Bergamotte. [pause] Woher weiß ich das?')
+N('a6',3,'Im Schlaf murmelt der Stein:')
+L('a6',3,'stimme-f2','[sleepy, murmuring] Fünf Uhr. [pause] Da trinkt man.')
+N('a6',3,'Beim fünften Schlag der Standuhr reißt mitten im Leuchtturm die Luft auf.')
+L('a6',4,'merle-f2','[dry, calm] Bringt mir die Tasse wieder mit. [pause] Sie ist hübsch.')
+N('a6',5,'Nebelhafen. Regen, Gaslaternen, ein roter Bus. Vor einem Café steht ein leerer Stuhl, noch warm. Daneben eine Tasse, ein Hut und ein Paar Handschuhe.')
+L('a6',6,'laura','[cool, precise] Mister Finch, Buchhalter. Earl Grey, zwei Stück Zucker. Er war der dreiundvierzigste. [pause] Und ihr seid genau um fünf aus der Luft gefallen.')
+N('a6',6,'Sie heißt Lau-ra. Und sie nimmt euch mit. [pause] Zum Tee.')
+N('f2_abteilung',1,'Hinter einem Samowar im Teehaus führt eine Treppe nach unten. Auf der Stadtkarte stecken dreiundvierzig kleine Tassen aus Messing. Alle roten Fäden laufen zum Feuerberg.')
+L('f2_abteilung',2,'chefin','[stern, dry, very British] Lord Bergamott. Ihm gehört jede zweite Teekanne dieser Stadt. [pause] Agent Ellis war der Letzte, der ihn gefragt hat.')
+N('f2_abteilung',3,'Dann spielt die Funkerin ein Band ab. Eine müde Stimme, die klingt wie deine eigene, nur älter:')
+L('f2_abteilung',3,'band','[tired, old, distant] Wenn einer kommt, mit einem warmen Stein … [pause] lasst ihn nicht trinken.')
+N('f2_anschlag',1,'Ein Kellner bringt eine neue Kanne.')
+L('f2_anschlag',1,'funke-f2','[sniffing, suspicious] Die riecht komisch. [pause] Nach nassem Gras.')
+N('f2_anschlag',2,'Der Deckel springt auf, und grünes Gas quillt über den Tisch. Der Tüftler Oswin saugt es mit einem Gerät aus Messing einfach weg.')
+L('f2_anschlag',2,'oswin','[nervous, excited, proud] Funktioniert! [pause] Das wusste ich vorher gar nicht.')
+N('f2_anschlag',3,'Im Hinterhof hält Pembroke den Kellner mit seinem Schirm am Boden.')
+L('f2_anschlag',3,'pembroke','[calm, dignified, never raising his voice] In diesem Haus vergiftet man niemanden, junger Mann. [pause] Man sagt Bescheid, wenn der Tee zu stark ist.')
+N('f2_anschlag',4,'Der Kellner lächelt nur. Bergamott hat ihm eine Tasse geschenkt, und seitdem hat er vor nichts mehr Angst. In seiner Tasche steckt eine Einladung ins Casino.')
+N('f2_casino',1,'Unter Kronleuchtern sitzt Lord Bergamott mit seiner weißen Katze. Vor ihm stehen keine Chips, sondern Tassen. In jeder dampft eine Erinnerung.')
+L('f2_casino',2,'bergamott','[polite, velvety, bored] Ich nehme nur, was man nicht braucht. [pause] Ich bin, wenn Sie so wollen, ein Wohltäter.')
+L('f2_casino',2,'seda-f2','[icy] Ein Dieb.')
+L('f2_casino',2,'bergamott','[amused] Ein Teehändler, meine Liebe. Das ist dasselbe, nur mit besserem Porzellan.')
+N('f2_casino',3,'Der Croupier mischt falsch. Unter deiner Hand zittert die Karte, und du spürst, dass sie lügt. Seine versteckten Karten fallen klirrend zu Boden.')
+N('f2_einsatz',1,'Bergamott schiebt eine Tasse über den Tisch. Im Dampf: ein Ring aus Stahl, ein Meer, zwei Monde.')
+L('f2_einsatz',1,'juna-f2','[breathless, shaken] Das ist meins.')
+L('f2_einsatz',2,'bergamott','[soft, hungry] Und Sie setzen dagegen den warmen Stein. [pause] Ich will ihn nur einmal kosten.')
+L('f2_einsatz',2,'stimme-f2','[sleepy, firm] Nein.')
+N('f2_einsatz',3,'Lau-ra schießt in den Kronleuchter. Im Dunkeln schnappt sich ein Mann mit Melone die Tasse und rennt.')
+L('f2_einsatz',3,'bergamott','[calm, from the dark] Um Punkt fünf. [pause] Ich warte mit dem Tee.')
+N('f2_daecher',1,'Über nasse Dächer jagt ihr den Mann mit der Melone. Lau-ra springt über die Gasse, ohne langsamer zu werden.')
+L('f2_daecher',1,'funke-f2','[panicked, high-pitched] Wir springen da nicht. Sag mir, dass wir da nicht springen!')
+N('f2_daecher',2,'Juna rammt den Mann. Die Tasse fliegt über die Dachkante, und unten in der Gasse fängt sie jemand auf. [pause] Eine kleine Gestalt mit Kapuze. Dann ist sie fort.')
+N('f2_nachtzug',1,'Im Güterwagen stehen achtundvierzig Teekisten. In jeder schläft ein Mensch, eingeschlossen in goldenem Dampf. Alle lächeln.')
+N('f2_nachtzug',2,'In der achten Kiste liegt Ellis.')
+L('f2_nachtzug',2,'laura','[quiet, controlled, hurt] Er hasst Earl Grey. [pause] Er hat ihn immer getrunken, weil ich ihn mag.')
+L('f2_nachtzug',3,'stimme-f2','[sleepy, murmuring] Er braucht Wärme. Für den Kessel. [pause] Er hat dem Riss eine Tasse angeboten. [long pause] Und der Riss hat ja gesagt.')
+N('f2_vulkan',1,'Am Feuerberg leuchten Teeterrassen im Morgengrauen. Drohnen aus Porzellan summen darüber. Oben im Krater steht ein Kessel, so groß wie eine Kirche, und der Himmel darüber trinkt.')
+L('f2_vulkan',1,'funke-f2','[disapproving] Das ist Geschirr. Das gehört in den Schrank.')
+N('f2_vulkan',2,'Die Giftmischerin reicht Juna eine Tasse. Danach tut nichts mehr weh, sagt sie.')
+L('f2_vulkan',2,'juna-f2','[hard, quiet] Dann soll es wehtun. [pause] Es ist meins.')
+L('f2_kessel',1,'bergamott','[tired, gentle] Meine Frau war seit einem Jahr tot. Ich habe ihr Gesicht in jeder Tasse gesehen. [pause] Der Riss hat es mir abgenommen. Es ist herrlich ruhig hier drin.')
+L('f2_kessel',2,'seda-f2','[quiet, hoarse] Der Orden nannte es Frieden.')
+N('f2_kessel',2,'Bergamott nennt es Tee. Heute um fünf soll die ganze Stadt trinken. Dafür braucht er den Stein.')
+L('f2_kessel',3,'laura','[calm, dry] Versuchen Sie, das nicht zu ruinieren.')
+L('f2_kessel',3,'juna-f2','[determined] Er hat mein Lied.')
+N('f2ende',1,'Funke klettert auf den Kessel und hört auf, sich klein zu machen. Das Kupfer glüht, die Nieten springen, und der Kessel bricht.')
+N('f2ende',2,'Hunderte goldene Fäden fliegen heim, über den Berg und über die Stadt. Bevor sich der Riss schließt, dreht sich dahinter etwas Großes um. [pause] [ominous] Zu dir.')
+L('f2ende',3,'juna-f2','[crying and laughing at once] Meine Mutter hat das gesungen. Wenn es gestürmt hat. [pause] Ein Name fehlt noch. Aber das ist da.')
+L('f2ende',4,'bergamott','[broken, very soft] Sie hieß Margaret.')
+L('f2ende',4,'laura','[cool, quiet] Ihr Tee ist kalt, Mylord.')
+N('f2ende',5,'Drei Tage später, fünf Uhr, in der Goldenen Kanne. Alle sind aufgewacht. Lau-ra legt ein altes Foto auf den Tisch: ein Dach im Regen, am Rand eine Gestalt mit Kapuze. Drei Wochen alt.')
+L('f2ende',6,'funke-f2','[whispers, wide-eyed] Den hab ich schon mal gesehen. [pause] Im Tempel. Als du aufgewacht bist.')
+N('f2ende',6,'Die Uhr schlägt fünf. In deiner Tasche blinkt die Karte wieder: drei kurz, drei lang, drei kurz. [long pause] Fortsetzung folgt …')
 
 # Kartenbinderin-Fassung der Stein-Sätze mit {KB}
 KBIN = [('intro',6,'[whispers, warm] Du bist Kartenbinderin. Was du besiegst, bannst du in Karten.')]

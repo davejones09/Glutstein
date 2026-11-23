@@ -91,6 +91,25 @@ Object.assign(DLG,{
 /* ====== Geschichte: Prolog „Der zerbrochene Stein“ ======
    intro = Prolog und Erwachen, a0–a4 = Anfang der Gebiete, Story-Momente nach bestimmten Gefechten (BEATS), ende = Finale und Epilog.
    {KB} wird zu Kartenbinder oder Kartenbinderin. Die ganze Lesefassung liegt in geschichte/prolog.txt. */
+/* Folge 2 · Um Punkt Fünf */
+Object.assign(DLG,{
+ 97:[['g','Tisch für einen? Wir haben nur noch Plätze um fünf.'],['p','Ich trinke heute keinen Tee.']],
+ 98:[['g','Hinter dem Samowar ist nichts. Gar nichts. Geh weiter.'],['p','Dann hast du ja nichts zu verlieren.']],
+ 99:[['g','Noch ein Tässchen? Es riecht ein bisschen nach Gras, aber das ist ganz normal.'],['p','Funke sagt was anderes.']],
+ 100:[['g','Im Hinterhof regnet es immer. Hier verschwindet man leise.'],['p','Ich bin aber gar nicht leise.']],
+ 101:[['g','Der Lord erwartet Gäste. Mit Einladung, versteht sich.'],['p','Ich habe eine Karte. Mehrere sogar.']],
+ 102:[['g','So können Sie nicht ins Casino. Wo ist Ihre Fliege?'],['p','Die Kapuze bleibt.']],
+ 103:[['g','Faites vos jeux. Die Karten mischt das Haus.'],['p','Und ich merke, wenn sie lügen.']],
+ 104:[['g','Der Lord setzt eine Erinnerung. Was setzen Sie?'],['p','Nichts, was dir gehört.']],
+ 105:[['g','Über die Dächer? Bei dem Regen? Sie sind ja verrückt.'],['p','Funke sagt das auch.']],
+ 106:[['g','In der Gasse sieht dich niemand. Nicht mal der Mond.'],['p','Mich sieht schon jemand. Mit Kapuze.']],
+ 107:[['g','Achtundvierzig Kisten, alle bezahlt. Du störst die Lieferung.'],['p','Die Lieferung fällt heute aus.']],
+ 108:[['g','Gleis neun. Abfahrt um drei. Fahrgäste schlafen.'],['p','Dann wecke ich sie.']],
+ 109:[['g','Die Terrassen ernten nur das Beste. Bald auch dich.'],['p','Ich schmecke bitter.']],
+ 110:[['g','Probier doch. Danach tut nichts mehr weh.'],['p','Juna sagt, es soll ruhig wehtun.']],
+ 111:[['g','Unter der Brücke kocht der Berg. Spring doch.'],['p','Funke fühlt sich hier richtig wohl.']],
+ 112:[['g','Wissen Sie, was das Schönste am Tee ist? Man kann alles hineintun.'],['p','Und manches muss man wieder herausholen.'],['g','Um Punkt fünf trinkt die ganze Stadt. Aus meinen Tassen.'],['p','Ihr Tee wird kalt, Mylord.']]
+});
 /* Folge 1 · Station Null */
 Object.assign(DLG,{
  81:[['g','Andockring Null. Minus einunddreißig Grad. Willkommen zurück, Besucher Null.'],['p','Ich war noch nie hier.']],
@@ -111,7 +130,7 @@ Object.assign(DLG,{
  96:[['g','Du riechst nach Zuhause. Gib mir den Rest von mir.'],['p','Den Stein bekommst du nicht.'],['g','Dann nehme ich dich. Du bist doch so schön warm.'],['p','Jede Karte ist eine Tür. Diese hier schließt sich hinter dir.']]
 });
 /* Folien mit Sprachaufnahme (Ordner ton/, Name: Sequenz-Folie, -w = Fassung für Kartenbinderin). */
-const VOX=new Set(["a0-1", "a0-2", "a0-3", "a1-1", "a1-2", "a1-3", "a1-4", "a2-1", "a2-2", "a2-3", "a3-1", "a3-2", "a3-3", "a4-1", "a4-2", "a4-3", "a5-1", "a5-2", "a5-3", "a5-4", "a5-5", "a5-6", "b0-1", "b0-2", "b0-3", "b1-1", "b1-2", "b1-3", "b2-1", "b2-2", "b3-1", "b3-2", "b3-3", "ende-1", "ende-2", "ende-3", "ende-4", "ende-4-w", "ende-5", "ende-6", "ende-6-w", "ende-7", "ende-8", "f1_aufzeichnung-1", "f1_aufzeichnung-2", "f1_brummer-1", "f1_brummer-2", "f1_brummer2-1", "f1_brummer2-2", "f1_juna-1", "f1_juna-2", "f1_k7-1", "f1_k7-2", "f1_namen-1", "f1_namen-2", "f1_sammlung-1", "f1_sammlung-2", "f1_schlaefer-1", "f1_schlaefer-2", "f1_schlaefer-3", "f1_vision-1", "f1_vision-2", "f1_wal-1", "f1_wal-2", "f1ende-1", "f1ende-2", "f1ende-3", "f1ende-4", "f1ende-5", "f1ende-6", "intro-1", "intro-2", "intro-3", "intro-4", "intro-5", "intro-6", "intro-6-w", "intro-7", "intro-8", "s_alder-1", "s_bluete-1", "s_bluete-2", "s_feuer-1", "s_hanne-1", "s_hanne-2", "s_kuppel-1", "s_kuppel-2", "s_lio-1", "s_markt-1", "s_markt-2", "s_moor-1", "s_moor-2", "s_quelle-1", "s_quelle-2", "s_quelle-2-w", "s_spiegel-1"]);
+const VOX=new Set(["a0-1", "a0-2", "a0-3", "a1-1", "a1-2", "a1-3", "a1-4", "a2-1", "a2-2", "a2-3", "a3-1", "a3-2", "a3-3", "a4-1", "a4-2", "a4-3", "a5-1", "a5-2", "a5-3", "a5-4", "a5-5", "a5-6", "a6-1", "a6-2", "a6-3", "a6-4", "a6-5", "a6-6", "b0-1", "b0-2", "b0-3", "b1-1", "b1-2", "b1-3", "b2-1", "b2-2", "b3-1", "b3-2", "b3-3", "ende-1", "ende-2", "ende-3", "ende-4", "ende-4-w", "ende-5", "ende-6", "ende-6-w", "ende-7", "ende-8", "f1_aufzeichnung-1", "f1_aufzeichnung-2", "f1_brummer-1", "f1_brummer-2", "f1_brummer2-1", "f1_brummer2-2", "f1_juna-1", "f1_juna-2", "f1_k7-1", "f1_k7-2", "f1_namen-1", "f1_namen-2", "f1_sammlung-1", "f1_sammlung-2", "f1_schlaefer-1", "f1_schlaefer-2", "f1_schlaefer-3", "f1_vision-1", "f1_vision-2", "f1_wal-1", "f1_wal-2", "f1ende-1", "f1ende-2", "f1ende-3", "f1ende-4", "f1ende-5", "f1ende-6", "f2_abteilung-1", "f2_abteilung-2", "f2_abteilung-3", "f2_anschlag-1", "f2_anschlag-2", "f2_anschlag-3", "f2_anschlag-4", "f2_casino-1", "f2_casino-2", "f2_casino-3", "f2_daecher-1", "f2_daecher-2", "f2_einsatz-1", "f2_einsatz-2", "f2_einsatz-3", "f2_kessel-1", "f2_kessel-2", "f2_kessel-3", "f2_nachtzug-1", "f2_nachtzug-2", "f2_nachtzug-3", "f2_vulkan-1", "f2_vulkan-2", "f2ende-1", "f2ende-2", "f2ende-3", "f2ende-4", "f2ende-5", "f2ende-6", "intro-1", "intro-2", "intro-3", "intro-4", "intro-5", "intro-6", "intro-6-w", "intro-7", "intro-8", "s_alder-1", "s_bluete-1", "s_bluete-2", "s_feuer-1", "s_hanne-1", "s_hanne-2", "s_kuppel-1", "s_kuppel-2", "s_lio-1", "s_markt-1", "s_markt-2", "s_moor-1", "s_moor-2", "s_quelle-1", "s_quelle-2", "s_quelle-2-w", "s_spiegel-1"]);
 const SEQ={
  intro:{t:'Prolog · Die Nacht ohne Sterne',music:'prolog',slides:[
   ['seq/intro-1','Einst knieten fünf Wächter am Herd der Welt. Jede Nacht sangen sie, damit der Glutstein hält.'],
@@ -238,14 +257,61 @@ const SEQ={
   ['seq/f1-boot','Juna springt mit euch durch den Riss, Merles Licht entgegen. „Ich will wissen, wer du bist.“ – „So hab ich auch mal angefangen“, sagt Seda.'],
   ['seq/f1-boot','„Ihr wart keine Stunde weg“, sagt Merle, als sie euch aus dem Wasser zieht.'],
   ['seq/f1-karte','In der Nacht liegt in deinem Stapel eine Karte, die du nie gebunden hast: ein Gang mit rotem Licht, ganz hinten eine Gestalt.'],
-  ['seq/f1-karte','Jede Nacht kommt sie näher. Das rote Licht blinkt: drei kurz, drei lang, drei kurz. „Guckt mal genau hin“, flüstert Funke. „Die hat eine Kapuze.“\nFortsetzung folgt …']]}
+  ['seq/f1-karte','Jede Nacht kommt sie näher. Das rote Licht blinkt: drei kurz, drei lang, drei kurz. „Guckt mal genau hin“, flüstert Funke. „Die hat eine Kapuze.“\nFortsetzung folgt …']]},
+ a6:{t:'Folge 2 · Um Punkt Fünf',music:'menue',slides:[
+  ['seq/f2-teetasse','Eine Woche nach Station Null. Die Karte, die niemand gebunden hat, zeigt keinen Gang mehr. Sie zeigt eine Straße im Regen. Unter der letzten Laterne steht eine Gestalt mit Kapuze.'],
+  ['seq/f2-teetasse','Neben der Karte dampft eine Tasse Tee, die keiner eingeschenkt hat. „Riecht nach Bergamotte“, sagt Juna. „Woher weiß ich das?“'],
+  ['seq/f2-teetasse','Im Schlaf murmelt der Stein: „Fünf Uhr. Da trinkt man.“ Beim fünften Schlag der Standuhr reißt mitten im Leuchtturm die Luft auf.'],
+  ['seq/f2-teetasse','„Bringt mir die Tasse wieder mit“, sagt Merle. „Sie ist hübsch.“'],
+  ['seq/f2-ankunft','Nebelhafen. Regen, Gaslaternen, ein roter Bus. Vor einem Café steht ein leerer Stuhl, noch warm. Daneben eine Tasse, ein Hut und ein Paar Handschuhe.'],
+  ['seq/f2-ankunft','„Mister Finch, Buchhalter. Earl Grey, zwei Stück Zucker. Er war der dreiundvierzigste. Und ihr seid genau um fünf aus der Luft gefallen.“ Sie heißt Laura. Und sie nimmt euch mit. Zum Tee.']]},
+ f2_abteilung:{t:'Die Abteilung',slides:[
+  ['seq/f2-abteilung','Hinter einem Samowar im Teehaus führt eine Treppe nach unten. Auf der Stadtkarte stecken dreiundvierzig kleine Tassen aus Messing. Alle roten Fäden laufen zum Feuerberg.'],
+  ['seq/f2-abteilung','„Lord Bergamott“, sagt die Chefin. „Ihm gehört jede zweite Teekanne dieser Stadt. Agent Ellis war der Letzte, der ihn gefragt hat.“'],
+  ['seq/f2-abteilung','Dann spielt die Funkerin ein Band ab. Eine müde Stimme, die klingt wie deine eigene, nur älter: „Wenn einer kommt, mit einem warmen Stein … lasst ihn nicht trinken.“']]},
+ f2_anschlag:{t:'Gas im Salon',slides:[
+  ['seq/f2-anschlag','Ein Kellner bringt eine neue Kanne. Funke schnuppert: „Die riecht komisch. Nach nassem Gras.“'],
+  ['seq/f2-anschlag','Der Deckel springt auf, und grünes Gas quillt über den Tisch. Der Tüftler Oswin saugt es mit einem Gerät aus Messing einfach weg. „Funktioniert! Das wusste ich vorher gar nicht.“'],
+  ['seq/f2-anschlag','Im Hinterhof hält Pembroke den Kellner mit seinem Schirm am Boden. „In diesem Haus vergiftet man niemanden, junger Mann. Man sagt Bescheid, wenn der Tee zu stark ist.“'],
+  ['seq/f2-anschlag','Der Kellner lächelt nur. Bergamott hat ihm eine Tasse geschenkt, und seitdem hat er vor nichts mehr Angst. In seiner Tasche steckt eine Einladung ins Casino.']]},
+ f2_casino:{t:'Casino Bergamott',slides:[
+  ['seq/f2-casino','Unter Kronleuchtern sitzt Lord Bergamott mit seiner weißen Katze. Vor ihm stehen keine Chips, sondern Tassen. In jeder dampft eine Erinnerung.'],
+  ['seq/f2-casino','„Ich nehme nur, was man nicht braucht. Ich bin, wenn Sie so wollen, ein Wohltäter.“ – „Ein Dieb“, sagt Seda. – „Ein Teehändler, meine Liebe. Das ist dasselbe, nur mit besserem Porzellan.“'],
+  ['seq/f2-casino','Der Croupier mischt falsch. Unter deiner Hand zittert die Karte, und du spürst, dass sie lügt. Seine versteckten Karten fallen klirrend zu Boden.']]},
+ f2_einsatz:{t:'Der hohe Einsatz',slides:[
+  ['seq/f2-einsatz','Bergamott schiebt eine Tasse über den Tisch. Im Dampf: ein Ring aus Stahl, ein Meer, zwei Monde. „Das ist meins“, flüstert Juna.'],
+  ['seq/f2-einsatz','„Und Sie setzen dagegen den warmen Stein. Ich will ihn nur einmal kosten.“ Der Stein sagt im Schlaf: „Nein.“'],
+  ['seq/f2-einsatz','Laura schießt in den Kronleuchter. Im Dunkeln schnappt sich ein Mann mit Melone die Tasse und rennt. „Um Punkt fünf“, sagt Bergamott ruhig. „Ich warte mit dem Tee.“']]},
+ f2_daecher:{t:'Über die Dächer',slides:[
+  ['seq/f2-daecher','Über nasse Dächer jagt ihr den Mann mit der Melone. Laura springt über die Gasse, ohne langsamer zu werden. „Wir springen da nicht“, ruft Funke. „Sag mir, dass wir da nicht springen!“'],
+  ['seq/f2-daecher','Juna rammt den Mann. Die Tasse fliegt über die Dachkante, und unten in der Gasse fängt sie jemand auf. Eine kleine Gestalt mit Kapuze. Dann ist sie fort.']]},
+ f2_nachtzug:{t:'Der Nachtzug',slides:[
+  ['seq/f2-nachtzug','Im Güterwagen stehen achtundvierzig Teekisten. In jeder schläft ein Mensch, eingeschlossen in goldenem Dampf. Alle lächeln.'],
+  ['seq/f2-nachtzug','In der achten Kiste liegt Ellis. „Er hasst Earl Grey“, sagt Laura leise. „Er hat ihn immer getrunken, weil ich ihn mag.“'],
+  ['seq/f2-nachtzug','Der Stein murmelt: „Er braucht Wärme. Für den Kessel. Er hat dem Riss eine Tasse angeboten. Und der Riss hat ja gesagt.“']]},
+ f2_vulkan:{t:'Der Feuerberg',slides:[
+  ['seq/f2-vulkan','Am Feuerberg leuchten Teeterrassen im Morgengrauen. Drohnen aus Porzellan summen darüber. Oben im Krater steht ein Kessel, so groß wie eine Kirche, und der Himmel darüber trinkt. „Das ist Geschirr“, sagt Funke. „Das gehört in den Schrank.“'],
+  ['seq/f2-vulkan','Die Giftmischerin reicht Juna eine Tasse. Danach tut nichts mehr weh, sagt sie. „Dann soll es wehtun“, sagt Juna. „Es ist meins.“']]},
+ f2_kessel:{t:'Der Kessel',slides:[
+  ['seq/f2-kessel','„Meine Frau war seit einem Jahr tot. Ich habe ihr Gesicht in jeder Tasse gesehen. Der Riss hat es mir abgenommen. Es ist herrlich ruhig hier drin.“'],
+  ['seq/f2-kessel','„Der Orden nannte es Frieden“, sagt Seda. Bergamott nennt es Tee. Heute um fünf soll die ganze Stadt trinken. Dafür braucht er den Stein.'],
+  ['seq/f2-kessel','„Versuchen Sie, das nicht zu ruinieren“, sagt Laura. Juna stellt sich neben dich. „Er hat mein Lied.“']]},
+ f2ende:{t:'Um Punkt Fünf',music:'endgegner',slides:[
+  ['seq/f2-finale','Funke klettert auf den Kessel und hört auf, sich klein zu machen. Das Kupfer glüht, die Nieten springen, und der Kessel bricht.'],
+  ['seq/f2-finale','Hunderte goldene Fäden fliegen heim, über den Berg und über die Stadt. Bevor sich der Riss schließt, dreht sich dahinter etwas Großes um. Zu dir.'],
+  ['seq/f2-finale','Juna lacht und weint zugleich. „Meine Mutter hat das gesungen. Wenn es gestürmt hat. Ein Name fehlt noch. Aber das ist da.“'],
+  ['seq/f2-finale','„Sie hieß Margaret“, sagt Bergamott leise. Laura legt ihm die Handschellen an. „Ihr Tee ist kalt, Mylord.“'],
+  ['seq/f2-epilog','Drei Tage später, fünf Uhr, in der Goldenen Kanne. Alle sind aufgewacht. Laura legt ein altes Foto auf den Tisch: ein Dach im Regen, am Rand eine Gestalt mit Kapuze. Drei Wochen alt.'],
+  ['seq/f2-epilog','„Den hab ich schon mal gesehen“, flüstert Funke. „Im Tempel. Als du aufgewacht bist.“ Die Uhr schlägt fünf. In deiner Tasche blinkt die Karte wieder: drei kurz, drei lang, drei kurz.\nFortsetzung folgt …']]}
 };
 /* Story-Momente: nach dem ersten Sieg im genannten Gefecht, in dieser Reihenfolge. */
 const BEATS=[[6,'s_bluete'],[8,'s_hanne'],[16,'b0'],[22,'s_alder'],[32,'b1'],[38,'s_lio'],[42,'s_moor'],[44,'s_quelle'],[45,'s_feuer'],[48,'b2'],[53,'s_markt'],[64,'b3'],[73,'s_kuppel'],[73,'s_spiegel'],
- [81,'f1_wal'],[82,'f1_brummer'],[84,'f1_namen'],[85,'f1_k7'],[86,'f1_juna'],[89,'f1_sammlung'],[90,'f1_aufzeichnung'],[91,'f1_brummer2'],[92,'f1_vision'],[94,'f1_schlaefer']];
+ [81,'f1_wal'],[82,'f1_brummer'],[84,'f1_namen'],[85,'f1_k7'],[86,'f1_juna'],[89,'f1_sammlung'],[90,'f1_aufzeichnung'],[91,'f1_brummer2'],[92,'f1_vision'],[94,'f1_schlaefer'],
+ [97,'f2_abteilung'],[99,'f2_anschlag'],[101,'f2_casino'],[103,'f2_einsatz'],[105,'f2_daecher'],[108,'f2_nachtzug'],[109,'f2_vulkan'],[111,'f2_kessel']];
 /* Belohnungen nach dem ersten Ansehen einer Sequenz: [Karte, Sondermotiv] (0 = nur die Karte). */
 const STORY_REW={f1_brummer:[['wartungsdrohne',1]],f1_k7:[['androidin',0]],f1_juna:[['kryoschlaeferin',1]],f1_sammlung:[['sporenbrut',1]],
- f1_schlaefer:[['androidin',1]],f1ende:[['reaktording',1],['infizierter',1],['kryoschlaeferin',2]]};
+ f1_schlaefer:[['androidin',1]],f1ende:[['reaktording',1],['infizierter',1],['kryoschlaeferin',2]],
+ f2_abteilung:[['butler',0]],f2_anschlag:[['tueftler',0]],f2_casino:[['funkerin',0]],f2_einsatz:[['laura',0]],f2_daecher:[['fahrer',0]],f2ende:[['chefin',0]]};
 
 const LORE={
  clownfische:'Ihre Anemone ist ihr Zuhause, ihre Festung und ihr Spielplatz.',
@@ -284,6 +350,18 @@ const LORE={
  infizierter:'Er hat die Wartungsschicht nie beendet.',
  androidin:'Ihr Lächeln ist echt. Glaubt sie zumindest.',
  reaktording:'Es wächst. Und es hört zu.',
+ handlanger:'Die Krempe seiner Melone ist schärfer als sein Verstand.',
+ teedrohne:'Sie bringt den Tee. Ob du willst oder nicht.',
+ giftmischerin:'Ein Schluck, und nichts tut mehr weh. Gar nichts mehr.',
+ croupier:'Das Haus gewinnt immer. Dafür sorgt er.',
+ stahlkiefer:'Er lächelt selten. Das ist auch besser so.',
+ bergamott:'Er hat noch nie verloren. Nicht beim Kartenspiel, nicht beim Tee.',
+ funkerin:'Sie hört, was die Stadt flüstert. Auch auf Frequenzen, die es nicht gibt.',
+ fahrer:'Kein Wagen ist schneller. Kein Fahrer schweigsamer.',
+ butler:'In diesem Haus vergiftet man niemanden.',
+ tueftler:'Es funktioniert. Das wusste er vorher auch nicht.',
+ chefin:'Sie trinkt Tee, als wäre es eine Waffe.',
+ laura:'Sie spricht wenig und meint jedes Wort.',
  goldgraeber:'Vierzig Jahre gegraben, und heute glänzt es endlich.',
  kutschenraeuberin:'Die Postkutsche fährt pünktlich. Sie auch.',
  sheriff:'In dieser Stadt gilt sein Wort. Meistens.',

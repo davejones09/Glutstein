@@ -1,6 +1,7 @@
 # Schneidet die Aufnahmen in einen Clip pro Folie.
 # Vorher einmal: python3 tools/sprache/skript.py (schreibt schnittliste.json)
-# Aufruf: python3 tools/sprache/clips.py ton <ordner mit den aufnahmen>
+# Aufruf: python3 tools/sprache/clips.py ton <ordner mit den aufnahmen> [f2]
+# Mit f2 werden nur die Clips von Folge 2 geschnitten (der Ordner braucht dann nur die Folge-2-Aufnahmen).
 # Die Liste der Clips landet in vox.json und gehört als VOX in content.js.
 import json, os, re, subprocess, sys, tempfile
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -14,9 +15,11 @@ TARGET = -17.0          # Lautheit aller Stimmen
 GAP = 0.45              # Pause zwischen zwei Sprechern auf einer Folie
 PROLOG = ['intro','a0','s_bluete','s_hanne','b0','a1','s_alder','b1','a2','s_lio','s_moor','s_quelle','s_feuer','b2',
           'a3','s_markt','b3','a4','s_kuppel','s_spiegel','ende']
-ECHO = {'stimme','stimme-in','intro-stimme'}
+ECHO = {'stimme','stimme-in','intro-stimme','stimme-f2'}
 FOLGE1 = ['a5','f1_wal','f1_brummer','f1_namen','f1_k7','f1_juna','f1_sammlung','f1_aufzeichnung','f1_brummer2','f1_vision','f1_schlaefer','f1ende']
-SEQS = PROLOG + FOLGE1
+FOLGE2 = ['a6','f2_abteilung','f2_anschlag','f2_casino','f2_einsatz','f2_daecher','f2_nachtzug','f2_vulkan','f2_kessel','f2ende']
+ONLY = sys.argv[3] if len(sys.argv)>3 else ''
+SEQS = FOLGE2 if ONLY=='f2' else PROLOG + FOLGE1 + FOLGE2
 LONG = 1.4             # Pause vor einem Satz, der mit [long pause] beginnt
 # Von Hand gesetzte Grenzen, wo die Pausen in der Aufnahme zu kurz sind
 OVERRIDE = {('juna','f1_juna',1,0):(0.0,1.29), ('juna','f1_juna',2,0):(1.29,6.62), ('juna','f1ende',3,0):(6.70,8.43)}
@@ -31,6 +34,7 @@ def prep(name, path):
     g = TARGET - lufs(path)
     af = f'aformat=sample_fmts=fltp:sample_rates=44100:channel_layouts=mono,volume={g:.2f}dB'
     if name in ECHO: af += ',aecho=0.85:0.7:45|95:0.16|0.09'
+    if name == 'band': af += ',highpass=f=300,lowpass=f=3400,acompressor=threshold=0.2:ratio=3,aecho=0.8:0.4:40:0.12,volume=2dB'
     if name == 'station': af += ',highpass=f=350,lowpass=f=3800,aecho=0.8:0.5:60|110:0.25|0.15,volume=3dB'
     w = f'{TMP}/{name}.wav'; run('ffmpeg','-y','-i',path,'-af',af,w); return w
 
@@ -51,12 +55,13 @@ for name in files:
         SPANS[(name,s,sl,k)] = OVERRIDE.get((name,s,sl,k),(a2,b2))
 
 # Intro aus den Testaufnahmen von heute Mittag (Abschnitte von Hand bestimmt)
-WAV['intro-erzaehler'] = prep('intro-erzaehler',f'{SRC}/intro-erzaehler.mp3')
-WAV['intro-stimme'] = prep('intro-stimme',f'{SRC}/intro-stimme.mp3')
-INTRO = {1:[('intro-erzaehler',0.0,6.55)], 2:[('intro-erzaehler',6.80,14.45)], 3:[('intro-erzaehler',14.95,16.75)],
-         4:[('intro-erzaehler',16.95,26.30)], 5:[('intro-erzaehler',26.45,34.55)],
-         6:[('intro-erzaehler',34.70,36.95),('intro-stimme',0.0,4.70)],
-         7:[('intro-erzaehler',37.10,43.40)], 8:[('intro-stimme',4.80,10.03),('intro-erzaehler',43.45,45.71)]}
+if 'intro' in SEQS:
+  WAV['intro-erzaehler'] = prep('intro-erzaehler',f'{SRC}/intro-erzaehler.mp3')
+  WAV['intro-stimme'] = prep('intro-stimme',f'{SRC}/intro-stimme.mp3')
+  INTRO = {1:[('intro-erzaehler',0.0,6.55)], 2:[('intro-erzaehler',6.80,14.45)], 3:[('intro-erzaehler',14.95,16.75)],
+           4:[('intro-erzaehler',16.95,26.30)], 5:[('intro-erzaehler',26.45,34.55)],
+           6:[('intro-erzaehler',34.70,36.95),('intro-stimme',0.0,4.70)],
+           7:[('intro-erzaehler',37.10,43.40)], 8:[('intro-stimme',4.80,10.03),('intro-erzaehler',43.45,45.71)]}
 
 # Das Ding: beide Aufnahmen übereinander, dazu zwei tiefere Kopien = ein Chor aus vielen Mündern
 def chor(k):
@@ -70,12 +75,12 @@ def chor(k):
     g = TARGET - lufs(w); w2 = w.replace('.wav','-n.wav'); run('ffmpeg','-y','-i',w,'-af',f'volume={g:.2f}dB',w2)
     WAV[f'ding#{k}'] = w2
     return float(subprocess.run(['ffprobe','-v','error','-show_entries','format=duration','-of','csv=p=0',w2],capture_output=True,text=True).stdout)
-DK = [(s,sl,0) for s,sl,f,t in E if f=='ding']
+DK = [(s,sl,0) for s,sl,f,t in E if f=='ding' and s in SEQS]
 DDUR = [chor(k) for k in range(len(DK))]
 
 # 3) Stücke pro Folie in Spielreihenfolge
 pieces = {}   # clipname -> [(wavname, von, bis)]
-for sl, lst in INTRO.items():
+for sl, lst in (INTRO.items() if 'intro' in SEQS else []):
     pieces[f'intro-{sl}'] = [x+(GAP,) for x in lst]
 cnt = {}; dn = 0
 for s,sl,f,t in E:
@@ -88,8 +93,9 @@ for s,sl,f,t in E:
     a,b = SPANS[(f,s,sl,k)]
     pieces.setdefault(f'{s}-{sl}',[]).append((f,a,b,gap))
 # Kartenbinderin: gleiche Folie, aber die Stein-Sätze aus stimme-in
-w_intro = SPANS[('stimme-in','intro',6,0)]
-pieces['intro-6-w'] = [pieces['intro-6'][0], ('stimme-in',)+w_intro+(GAP,)]
+if 'intro' in SEQS:
+    w_intro = SPANS[('stimme-in','intro',6,0)]
+    pieces['intro-6-w'] = [pieces['intro-6'][0], ('stimme-in',)+w_intro+(GAP,)]
 for s,sl,f,t in E:
     if f!='stimme-in' or s=='intro' or s not in SEQS: continue
     base = pieces[f'{s}-{sl}']; ab = SPANS[('stimme-in',s,sl,0)]
@@ -113,4 +119,6 @@ for clip, lst in pieces.items():
     filt.append(f'{chain}concat=n={n}:v=0:a=1,alimiter=limit=0.89:level=disabled[o]')
     run('ffmpeg','-y',*inputs,'-filter_complex',';'.join(filt),'-map','[o]','-ac','1','-ar','44100','-c:a','libmp3lame','-b:a','64k',f'{OUT}/{clip}.mp3')
 print(len(pieces),'Clips')
-json.dump(sorted(pieces), open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'vox.json'),'w'))
+VJ = os.path.join(os.path.dirname(os.path.abspath(__file__)),'vox.json')
+old = json.load(open(VJ)) if ONLY and os.path.exists(VJ) else []
+json.dump(sorted(set(old)|set(pieces)), open(VJ,'w'))
